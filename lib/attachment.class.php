@@ -134,21 +134,3 @@ class MimeMailParser_attachment {
 }
 
 ?>
-Hide details
-Change log
-r17 by bucabay on Aug 12, 2010   Diff
-Fix for  Issue 11 
-http://code.google.com/p/php-mime-mail-
-parser/issues/detail?id=11
-
-attachment.class.php: __get() cannot be
-private
-
-Go to: 	
-Project members, sign in to write a code review
-Older revisions
- r8 by bucabay on Aug 3, 2009   Diff 
-All revisions of this file
-File info
-Size: 2995 bytes, 136 lines
-View raw file
