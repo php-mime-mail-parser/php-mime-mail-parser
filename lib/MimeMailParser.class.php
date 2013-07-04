@@ -224,7 +224,6 @@ class MimeMailParser {
                 return $headers;
         }
 
-
         /**
          * Returns the attachments contents in order of appearance
          * @return Array
@@ -235,9 +234,16 @@ class MimeMailParser {
                 $dispositions = array("attachment","inline");
                 foreach($this->parts as $part) {
                         $disposition = $this->getPartContentDisposition($part);
-                        if (in_array($disposition, $dispositions) === TRUE
-                                && isset($part['disposition-filename']) === TRUE
-                        ) {
+                        if (isset($part['disposition-filename'])) $part['disposition-filename']=mb_decode_mimeheader($part['disposition-filename']);
+                        else if (isset($part['content-name'])) {
+                                // if we have no disposition but we have a content-name, it's a valid attachment.
+                                // we simulate the presence of an attachment disposition with a disposition filename
+                                $part['disposition-filename']=mb_decode_mimeheader($part['content-name']);
+                                $disposition='attachment';
+                        } else {
+                                $part['disposition-filename']=NULL;
+                        }
+                        if (in_array($disposition, $dispositions)) {
                                 $attachments[] = new MimeMailParser_attachment(
                                         $part['disposition-filename'],
                                         $this->getPartContentType($part),
