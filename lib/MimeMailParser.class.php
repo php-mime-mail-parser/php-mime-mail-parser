@@ -406,12 +406,10 @@ class MimeMailParser {
                                 $write = 2028;
                                 $body = '';
                                 while($written < $len) {
-                                        if (($written+$write < $len )) {
-                                                $write = $len - $written;
-                                        }
-                                        $part = fread($this->stream, $write);
-                                        fwrite($temp_fp, $this->decode($part, $encoding));
-                                        $written += $write;
+                                    $write = $len;
+                                    $part = fread($this->stream, $write);
+                                    fwrite($temp_fp, $this->decode($part, $encoding));
+                                    $written += $write;
                                 }
                         } else if ($this->data) {
                                 $attachment = $this->decode($this->getPartBodyFromText($part), $encoding);
