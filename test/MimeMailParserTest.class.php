@@ -15,12 +15,11 @@ include_once(__DIR__."/../lib/MimeMailParser.class.php");
 
 class MimeMailParserTest extends PHPUnit_Framework_TestCase {
 	
-	
 	/**
 	* @dataProvider provideMails
 	*/
-	function testgetAttachmentsWithText($mid, $nbAttachments, $size){
-		
+	function testGetAttachmentsWithText($mid, $nbAttachments, $size, $subject){
+				
 		$file = __DIR__."/mails/".$mid;
 		$fd = fopen($file, "r");
 		$contents = fread($fd, filesize($file));
@@ -28,6 +27,8 @@ class MimeMailParserTest extends PHPUnit_Framework_TestCase {
 
 		$Parser = new MimeMailParser();
 		$Parser->setText($contents);
+
+		$this->assertEquals($subject,$Parser->getHeader('subject'));
 
 		$attachments = $Parser->getAttachments();
 
@@ -52,12 +53,14 @@ class MimeMailParserTest extends PHPUnit_Framework_TestCase {
 	/**
 	* @dataProvider provideMails
 	*/
-	function testgetAttachmentsWithPath($mid, $nbAttachments, $size){
+	function testGetAttachmentsWithPath($mid, $nbAttachments, $size, $subject){
 
 		$file = __DIR__."/mails/".$mid;
 
 		$Parser = new MimeMailParser();
 		$Parser->setPath($file);
+
+		$this->assertEquals($subject,$Parser->getHeader('subject'));
 
 		$attachments = $Parser->getAttachments();
 
@@ -81,13 +84,13 @@ class MimeMailParserTest extends PHPUnit_Framework_TestCase {
 
 	function provideMails(){
 		$mails = array(
-			array('m0001',1,2),
-			array('m0002',1,2229),
-			array('m0003',1,13369),
-			array('m0004',1,817938),
-			array('m0005',1,1635877),
-			array('m0006',1,3271754),
-			array('m0007',1,2229)
+			array('m0001',1,2, 'Mail avec fichier attaché de 1ko'),
+			array('m0002',1,2229, 'Mail avec fichier attaché de 3ko'),
+			array('m0003',1,13369, 'Mail de 14 Ko'),
+			array('m0004',1,817938, 'Mail de 800ko'),
+			array('m0005',1,1635877, 'Mail de 1500 Ko'),
+			array('m0006',1,3271754, 'Mail de 3 196 Ko'),
+			array('m0007',1,2229, 'Mail avec fichier attaché de 3ko')
 		);
 		return $mails;
 	}

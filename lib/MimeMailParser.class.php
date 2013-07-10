@@ -167,7 +167,7 @@ class MimeMailParser {
                 if (isset($this->parts[1])) {
                         $headers = $this->getPartHeaders($this->parts[1]);
                         if (isset($headers[$name])) {
-                                return $headers[$name];
+                                return $this->_decodeHeader($headers[$name]);
                         }
                 } else {
                         throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
@@ -439,6 +439,21 @@ class MimeMailParser {
                 return $encodedString;
         }
     }
+
+   /**
+    * $input can be a string or an array
+    * @param string,array $input
+    * @return string,array
+    */
+   private function _decodeHeader($input)
+   {
+       if(is_array($input))
+       {
+           return  iconv_mime_decode_headers($input, 0, 'UTF-8');
+       }
+       else
+            return iconv_mime_decode($input, 0, 'UTF-8'); 
+   }
 
 }
 
