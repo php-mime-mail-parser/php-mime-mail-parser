@@ -26,18 +26,23 @@ class MimeMailParser_attachment {
          */
         public $content_disposition;
         /**
+         * @var $content_id Content-ID
+         */
+        public $content_id;
+        /**
          * @var $headers An Array of the attachment headers
          */
         public $headers;
         
         private  $stream;
 
-        public function __construct($filename, $content_type, $stream, $content_disposition = 'attachment', $headers = array()) {
+        public function __construct($filename, $content_type, $stream, $content_disposition = 'attachment', $content_id, $headers = array()) {
                 $this->filename = $filename;
                 $this->content_type = $content_type;
                 $this->stream = $stream;
                 $this->content = null;
                 $this->content_disposition = $content_disposition;
+                $this->content_id = $content_id;
                 $this->headers = $headers;
         }
         
@@ -63,6 +68,14 @@ class MimeMailParser_attachment {
          */
         public function getContentDisposition() {
                 return $this->content_disposition;
+        }
+
+        /**
+         * Retrieve the Attachment Content-ID
+         * @return String
+         */
+        public function getContentID() {
+                return $this->content_id;
         }
         
         /**

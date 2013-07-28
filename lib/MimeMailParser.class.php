@@ -32,11 +32,23 @@ class MimeMailParser {
         public $attachment_streams;
 
         /**
+         * Array of Content-Id
+         */
+        public $attachment_contentid;
+
+        /**
+         * Array of New attribut src for Content-Id
+         */
+        public $attachment_newsrc;
+
+        /**
          * Inialize some stuff
          * @return
          */
         public function __construct() {
                 $this->attachment_streams = array();
+                $this->attachment_contentid = array();
+                $this->attachment_newsrc = array();
         }
 
         /**
@@ -180,7 +192,7 @@ class MimeMailParser {
          * @return Mixed String Body or False if not found
          * @param $type Object[optional]
          */
-        public function getMessageBody($type = 'text') {
+        public function getMessageBody($type = 'text', $embeddedImg = FALSE) {
                 $body = false;
                 $mime_types = array(
                         'text'=> 'text/plain',
@@ -197,7 +209,11 @@ class MimeMailParser {
                 } else {
                         throw new Exception('Invalid type specified for MimeMailParser::getMessageBody. "type" can either be text or html.');
                 }
-                return $body;
+
+                if($embeddedImg == FALSE) return $body;
+                else {
+                    return str_replace($this->attachment_contentid, $this->attachment_newsrc, $body);
+                }
         }
 
         /**
@@ -234,26 +250,75 @@ class MimeMailParser {
                 $dispositions = array("attachment","inline");
                 foreach($this->parts as $part) {
                         $disposition = $this->getPartContentDisposition($part);
-                        if (isset($part['disposition-filename'])) $part['disposition-filename']=mb_decode_mimeheader($part['disposition-filename']);
-                        else if (isset($part['content-name'])) {
-                                // if we have no disposition but we have a content-name, it's a valid attachment.
-                                // we simulate the presence of an attachment disposition with a disposition filename
-                                $part['disposition-filename']=mb_decode_mimeheader($part['content-name']);
-                                $disposition='attachment';
+                        $contentid = $this->getPartContentID($part);
+
+                        if (isset($part['disposition-filename'])){
+                            $part['disposition-filename']=mb_decode_mimeheader($part['disposition-filename']);
+
+                        } else if (isset($part['content-name'])) {
+                            // if we have no disposition but we have a content-name, it's a valid attachment.
+                            // we simulate the presence of an attachment disposition with a disposition filename
+                            $part['disposition-filename']=mb_decode_mimeheader($part['content-name']);
+                            $disposition='attachment';
+                        
                         } else {
                                 $part['disposition-filename']=NULL;
                         }
-                        if (in_array($disposition, $dispositions)) {
+
+                        if (in_array($disposition, $dispositions) === TRUE && isset($part['disposition-filename']) === TRUE) {
                                 $attachments[] = new MimeMailParser_attachment(
                                         $part['disposition-filename'],
                                         $this->getPartContentType($part),
                                         $this->getAttachmentStream($part),
                                         $disposition,
+                                        $contentid,
                                         $this->getPartHeaders($part)
                                 );
                         }
                 }
                 return $attachments;
+        }
+
+        /**
+         * Save attachments in a folder
+         * @return boolean
+         * @param $save_dir String
+         */
+        public function saveAttachments($attach_dir, $url) {
+
+            if(!is_dir($attach_dir)) mkdir($attach_dir);
+
+            $attachments = $this->getAttachments();
+
+            if(!empty($attachments)){
+
+                foreach($attachments as $attachment) {
+
+                    if($attachment->getContentID() != "")
+                    {
+                        array_push($this->attachment_contentid, "cid:".$attachment->getContentID());
+                        array_push($this->attachment_newsrc, $url.DIRECTORY_SEPARATOR.$attachment->getFilename());
+                    }                   
+
+                    if($attachment->getFilename() != ""){
+                        if ($fp = fopen($attach_dir.$attachment->getFilename(), 'w')) {
+                            while($bytes = $attachment->read()) {
+                            fwrite($fp, $bytes);
+                            }
+                            fclose($fp);
+                        }
+                        else{
+                            return false;
+                        }
+                    }
+                    
+                    // write the file to the directory you want to save it in
+                    
+                }
+
+            } else{
+                return false;
+            }
         }
 
         /**
@@ -301,6 +366,18 @@ class MimeMailParser {
         private function getPartContentDisposition($part) {
                 if (isset($part['content-disposition'])) {
                         return $part['content-disposition'];
+                }
+                return false;
+        }
+
+        /**
+         * Return the Content ID
+         * @return String
+         * @param $part Array
+         */
+        private function getPartContentID($part) {
+                if (isset($part['content-id'])) {
+                        return $part['content-id'];
                 }
                 return false;
         }
@@ -392,35 +469,35 @@ class MimeMailParser {
          * @param $part Array
          */
         private function getAttachmentStream(&$part) {
-                $temp_fp = tmpfile();
+            $temp_fp = tmpfile();
 
-        array_key_exists('content-transfer-encoding', $part['headers']) ? $encoding = $part['headers']['content-transfer-encoding'] : $encoding = '';
+            array_key_exists('content-transfer-encoding', $part['headers']) ? $encoding = $part['headers']['content-transfer-encoding'] : $encoding = '';
 
-                if ($temp_fp) {
-                        if ($this->stream) {
-                                $start = $part['starting-pos-body'];
-                                $end = $part['ending-pos-body'];
-                                fseek($this->stream, $start, SEEK_SET);
-                                $len = $end-$start;
-                                $written = 0;
-                                $write = 2028;
-                                $body = '';
-                                while($written < $len) {
-                                    $write = $len;
-                                    $part = fread($this->stream, $write);
-                                    fwrite($temp_fp, $this->decode($part, $encoding));
-                                    $written += $write;
-                                }
-                        } else if ($this->data) {
-                                $attachment = $this->decode($this->getPartBodyFromText($part), $encoding);
-                                fwrite($temp_fp, $attachment, strlen($attachment));
-                        }
-                        fseek($temp_fp, 0, SEEK_SET);
-                } else {
-                        throw new Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
-                        return false;
-                }
-                return $temp_fp;
+            if ($temp_fp) {
+                    if ($this->stream) {
+                            $start = $part['starting-pos-body'];
+                            $end = $part['ending-pos-body'];
+                            fseek($this->stream, $start, SEEK_SET);
+                            $len = $end-$start;
+                            $written = 0;
+                            $write = 2028;
+                            $body = '';
+                            while($written < $len) {
+                                $write = $len;
+                                $part = fread($this->stream, $write);
+                                fwrite($temp_fp, $this->decode($part, $encoding));
+                                $written += $write;
+                            }
+                    } else if ($this->data) {
+                            $attachment = $this->decode($this->getPartBodyFromText($part), $encoding);
+                            fwrite($temp_fp, $attachment, strlen($attachment));
+                    }
+                    fseek($temp_fp, 0, SEEK_SET);
+            } else {
+                    throw new Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
+                    return false;
+            }
+            return $temp_fp;
         }
 
 
