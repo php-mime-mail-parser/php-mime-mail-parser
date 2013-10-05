@@ -368,6 +368,7 @@ class MimeMailParser {
 		} elseif ($encodingType == 'quoted-printable') {
 			return quoted_printable_decode($encodedString);
 		} else {
+			//8bit, 7bit, binary
 			return $encodedString;
 		}
 	}
@@ -379,7 +380,7 @@ class MimeMailParser {
 	 * @param $charset			The Charset header of the part.
 	 */
 	private function decodeCharset($encodedString, $charset) {		  
-		return iconv($charset, 'UTF-8//TRANSLIT', $encodedString);
+		return ($charset == 'us-ascii') ? $encodedString : iconv($charset, 'UTF-8//TRANSLIT', $encodedString);
 	}
 
 

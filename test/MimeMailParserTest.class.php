@@ -103,6 +103,16 @@ class MimeMailParserTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals(2,substr_count($html_embedded, $attach_url));
 	}
+	
+	function testWithoutCharset(){
+		// Issue 7
+		$mid = "m0009";
+		$file = __DIR__."/mails/".$mid;
+		$Parser = new MimeMailParser();
+		$Parser->setPath($file);
+		$Parser->getMessageBody('text');
+		$Parser->getMessageBody('html');
+	}
 }
 ?>
 
