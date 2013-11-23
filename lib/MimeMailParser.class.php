@@ -250,6 +250,8 @@ class MimeMailParser {
 	public function getAttachments() {
 		$attachments = array();
 		$dispositions = array('attachment','inline');
+		$nonameIter = 0;
+
 		foreach ($this->parts as $part) {
 			$disposition = $this->getPartContentDisposition($part);
 			$contentid = $this->getPartContentID($part);
@@ -264,7 +266,8 @@ class MimeMailParser {
 				$disposition='attachment';
 
 			} else {
-				$part['disposition-filename']=NULL;
+				$nonameIter++;
+				$part['disposition-filename']='noname'.$nonameIter;
 			}
 
 			if (in_array($disposition, $dispositions) === TRUE && isset($part['disposition-filename']) === TRUE) {
