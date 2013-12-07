@@ -1,5 +1,5 @@
 {
-    "name": "eXorus/php-mime-mail-parser",
+    "name": "exorus/php-mime-mail-parser",
     "type": "library",
     "description": "This project strives to create a fast and efficient PHP Mime Mail Parser Class using PHP's MailParse Extension",
     "keywords": ["mime", "mail", "mailparse"],
@@ -26,6 +26,6 @@
         "phpunit/phpunit": ">=3.7.0"
     },
     "autoload": {
-        "psr-0": { "eXorus\\php-mime-mail-parser": "src/" }
+        "psr-0": { "exorus\\php-mime-mail-parser": "src/" }
     }
 }
