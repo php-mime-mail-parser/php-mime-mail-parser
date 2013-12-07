@@ -14,7 +14,7 @@
 */
 include_once(__DIR__."/../lib/MimeMailParser.class.php");
 
-class MimeMailParserTest extends PHPUnit_Framework_TestCase {
+class ParserTest extends PHPUnit_Framework_TestCase {
 	
 	/**
 	* @dataProvider provideMails

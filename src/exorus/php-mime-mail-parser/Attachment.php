@@ -5,16 +5,17 @@ namespace exorus\php-mime-mail-parser;
 /**
 * Model of an Attachment
 */
-class Attachment {
+class Attachment
+{
 
     /**
     * @var $filename Filename
     */
     public  $filename;
     /**
-    * @var $content_type Mime Type
+    * @var $contentType Mime Type
     */
-    public  $content_type;
+    public  $contentType;
     /**
     * @var $content File Content
     */
@@ -24,13 +25,13 @@ class Attachment {
     */
     private $extension;
     /**
-    * @var $content_disposition Content-Disposition (attachment or inline)
+    * @var $contentDisposition Content-Disposition (attachment or inline)
     */
-    public $content_disposition;
+    public $contentDisposition;
     /**
-    * @var $content_id Content-ID
+    * @var $contentId Content-ID
     */
-    public $content_id;
+    public $contentId;
     /**
     * @var $headers An Array of the attachment headers
     */
@@ -38,13 +39,14 @@ class Attachment {
 
     private  $stream;
 
-    public function __construct($filename, $content_type, $stream, $content_disposition = 'attachment', $content_id, $headers = array()) {
+    public function __construct($filename, $contentType, $stream, $contentDisposition = 'attachment', $contentId, $headers = array())
+    {
         $this->filename = $filename;
-        $this->content_type = $content_type;
+        $this->contentType = $contentType;
         $this->stream = $stream;
         $this->content = null;
-        $this->content_disposition = $content_disposition;
-        $this->content_id = $content_id;
+        $this->contentDisposition = $contentDisposition;
+        $this->contentId = $contentId;
         $this->headers = $headers;
     }
 
@@ -52,7 +54,8 @@ class Attachment {
     * retrieve the attachment filename
     * @return String
     */
-    public function getFilename() {
+    public function getFilename()
+    {
         return $this->filename;
     }
 
@@ -60,31 +63,35 @@ class Attachment {
     * Retrieve the Attachment Content-Type
     * @return String
     */
-    public function getContentType() {
-        return $this->content_type;
+    public function getContentType()
+    {
+        return $this->contentType;
     }
 
     /**
     * Retrieve the Attachment Content-Disposition
     * @return String
     */
-    public function getContentDisposition() {
-        return $this->content_disposition;
+    public function getContentDisposition()
+    {
+        return $this->contentDisposition;
     }
 
     /**
     * Retrieve the Attachment Content-ID
     * @return String
     */
-    public function getContentID() {
-        return $this->content_id;
+    public function getContentID()
+    {
+        return $this->contentId;
     }
 
     /**
     * Retrieve the Attachment Headers
     * @return String
     */
-    public function getHeaders() {
+    public function getHeaders()
+    {
         return $this->headers;
     }
 
@@ -92,7 +99,8 @@ class Attachment {
     * Retrieve the file extension
     * @return String
     */
-    public function getFileExtension() {
+    public function getFileExtension()
+    {
         if (!$this->extension) {
             $ext = substr(strrchr($this->filename, '.'), 1);
         if ($ext == 'gz') {
@@ -111,7 +119,8 @@ class Attachment {
     * @return String
     * @param $bytes Int[optional]
     */
-    public function read($bytes = 2082) {
+    public function read($bytes = 2082)
+    {
         return feof($this->stream) ? false : fread($this->stream, $bytes);
     }
 
@@ -120,7 +129,8 @@ class Attachment {
     * Once you retreive the content you cannot use MimeMailParser_attachment::read()
     * @return String
     */
-    public function getContent() {
+    public function getContent()
+    {
         if ($this->content === null) {
             fseek($this->stream, 0);
             while(($buf = $this->read()) !== false) { 
@@ -137,7 +147,8 @@ class Attachment {
     * to be retrieved as public properties
     * @param $name Object
     */
-    public function __get($name) {
+    public function __get($name)
+    {
         if ($name == 'content') {
             return $this->getContent();
         } else if ($name == 'extension') {
