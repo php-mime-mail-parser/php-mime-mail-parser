@@ -2,8 +2,6 @@
 
 namespace exorus\php-mime-mail-parser;
 
-require_once('attachment.class.php');
-
 /**
  * Fast Mime Mail parser Class using PHP's MailParse Extension
  * @author gabe@fijiwebdesign.com
@@ -14,7 +12,7 @@ require_once('attachment.class.php');
  * This fork found on: https://github.com/eXorus/php-mime-mail-parser/
  * with contributions by eXorus 
  */
-class MimeMailParser {
+class Parser {
 
     /**
      * PHP MimeParser Resource ID
@@ -273,7 +271,7 @@ class MimeMailParser {
             }
 
             if (in_array($disposition, $dispositions) === TRUE && isset($part['disposition-filename']) === TRUE) {
-                $attachments[] = new MimeMailParser_attachment(
+                $attachments[] = new MimeMailParserAttachment(
                     $part['disposition-filename'],
                     $this->getPartContentType($part),
                     $this->getAttachmentStream($part),

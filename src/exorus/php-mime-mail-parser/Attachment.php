@@ -5,7 +5,7 @@ namespace exorus\php-mime-mail-parser;
 /**
 * Model of an Attachment
 */
-class MimeMailParser_attachment {
+class Attachment {
 
     /**
     * @var $filename Filename
@@ -146,4 +146,3 @@ class MimeMailParser_attachment {
         return null;
     }
 }
-?>
