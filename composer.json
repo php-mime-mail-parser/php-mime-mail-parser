@@ -15,6 +15,10 @@
             "homepage":"https://code.google.com/p/php-mime-mail-parser"
         }
     ],
+    "repository":{
+        "type":"git",
+        "url":"https://github.com/eXorus/php-mime-mail-parser.git"
+    },
     "require": {
         "php":           ">=5.3.0"
     },
