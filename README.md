@@ -10,17 +10,40 @@ All the issues are reproduced, fixed and tested.
 
 ## How to install ?
 
-I'm working on it
+### 0/ Create a folder
+	mkdir myproject
+
+### 1/ Install Composer in the folder
+Go in the folder myproject
+	curl -s http://getcomposer.org/installer | php
+You will have myproject/composer.phar
+
+### 2/ Install PhpMimeMailParser with Composer
+Create new file myproject/composer.json
+	vi composer.json
+
+And write in
+	{
+		{
+	    "require": {
+	        "exorus/php-mime-mail-parser": "dev-master"
+	    }
+	}
+Save it :)
+and launch the install
+	php composer.phar install
 
 ## How to use it ?
 
 ```php
 <?php
 //We need to add the library first !
-require_once(__DIR__."/lib/MimeMailParser.class.php");
+define('DS', DIRECTORY_SEPARATOR);
+
+require_once __DIR__.'/vendor/autoload.php';
 
 $path = 'path/to/mail.txt';
-$Parser = new MimeMailParser();
+$Parser = new eXorus\PhpMimeMailParser\Parser();
 
 //There are three input methods of the mime mail to be parsed
 //specify a file path to the mime mail :
