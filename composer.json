@@ -26,6 +26,6 @@
         "phpunit/phpunit": ">=3.7.0"
     },
     "autoload": {
-        "psr-0": { "exorus\\php-mime-mail-parser": "src/" }
+        "psr-0": { "eXorus\\PhpMimeMailParser\\": "src/" }
     }
 }
