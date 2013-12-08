@@ -70,7 +70,7 @@ $html = $Parser->getMessageBody('html');
 
 // and the attachments also
 $attach_dir = '/path/to/save/attachments/';
-$attach_url = 'http://www.company.com/attachments/'
+$attach_url = 'http://www.company.com/attachments/';
 $Parser->saveAttachments($attach_dir, $attach_url);
 
 // after saving attachments, you can echo the body with content-id
