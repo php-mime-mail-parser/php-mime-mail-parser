@@ -1,6 +1,7 @@
 <?php
 
-namespace exorus\php-mime-mail-parser;
+namespace eXorus\PhpMimeMailParser;
+use eXorus\PhpMimeMailParser\Attachment;
 
 /**
  * Fast Mime Mail parser Class using PHP's MailParse Extension
@@ -12,6 +13,14 @@ namespace exorus\php-mime-mail-parser;
  * This fork found on: https://github.com/eXorus/php-mime-mail-parser/
  * with contributions by eXorus 
  */
+
+/**
+ * Remove following require_once if you have PSR-0 class loader
+ * @see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
+ */
+//require_once __DIR__ . DS . 'Attachment.php';
+require_once '/home/vpmel/www/php-mime-mail-parser/src/eXorus/PhpMimeMailParser/Attachment.php';
+
 class Parser
 {
 
@@ -131,7 +140,7 @@ class Parser
      */
     public function setText($data)
     {
-        $this->resource = mailparse_msg_create();
+        $this->resource = \mailparse_msg_create();
         // does not parse incrementally, fast memory hog might explode
         mailparse_msg_parse($this->resource, $data);
         $this->data = $data;
@@ -283,7 +292,7 @@ class Parser
             }
 
             if (in_array($disposition, $dispositions) === TRUE && isset($part['disposition-filename']) === TRUE) {
-                $attachments[] = new MimeMailParserAttachment(
+                $attachments[] = new Attachment(
                     $part['disposition-filename'],
                     $this->getPartContentType($part),
                     $this->getAttachmentStream($part),

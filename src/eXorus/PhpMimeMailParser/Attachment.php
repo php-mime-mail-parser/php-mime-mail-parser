@@ -1,6 +1,6 @@
 <?php
 
-namespace exorus\php-mime-mail-parser;
+namespace eXorus\PhpMimeMailParser;
 
 /**
 * Model of an Attachment

@@ -1,4 +1,13 @@
 <?php
+
+namespace Test\eXorus\PhpMimeMailParser;
+
+use eXorus\PhpMimeMailParser\Parser;
+use eXorus\PhpMimeMailParser\Attachment;
+
+//require_once APP_SRC . 'Parser.php';
+require_once '/home/vpmel/www/php-mime-mail-parser/src/eXorus/PhpMimeMailParser/Parser.php';
+
 /*
 * Class Test : MimeMailParserTest
 *
@@ -12,9 +21,8 @@
 * m0007 : mail avec un fichier attaché sans content-disposition
 * m0008 : mail avec des fichiers attachés avec content-id
 */
-include_once(__DIR__."/../lib/MimeMailParser.class.php");
 
-class ParserTest extends PHPUnit_Framework_TestCase {
+class ParserTest extends \PHPUnit_Framework_TestCase {
 	
 	/**
 	* @dataProvider provideMails
@@ -26,7 +34,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 		$contents = fread($fd, filesize($file));
 		fclose($fd);
 
-		$Parser = new MimeMailParser();
+		$Parser = new Parser();
 		$Parser->setText($contents);
 
 		$this->assertEquals($subject,$Parser->getHeader('subject'));
@@ -53,7 +61,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 
 		$file = __DIR__."/mails/".$mid;
 
-		$Parser = new MimeMailParser();
+		$Parser = new Parser();
 		$Parser->setPath($file);
 
 		$this->assertEquals($subject,$Parser->getHeader('subject'));
@@ -93,7 +101,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 
 		$file = __DIR__."/mails/".$mid;
 
-		$Parser = new MimeMailParser();
+		$Parser = new Parser();
 		$Parser->setPath($file);
 
 		$attach_dir = __DIR__."/mails/attach_".$mid."/";
@@ -113,7 +121,7 @@ class ParserTest extends PHPUnit_Framework_TestCase {
 		// Issue 7
 		$mid = "m0009";
 		$file = __DIR__."/mails/".$mid;
-		$Parser = new MimeMailParser();
+		$Parser = new Parser();
 		$Parser->setPath($file);
 		$Parser->getMessageBody('text');
 		$Parser->getMessageBody('html');
