@@ -5,8 +5,7 @@ namespace Test\eXorus\PhpMimeMailParser;
 use eXorus\PhpMimeMailParser\Parser;
 use eXorus\PhpMimeMailParser\Attachment;
 
-//require_once APP_SRC . 'Parser.php';
-require_once '/home/vpmel/www/php-mime-mail-parser/src/eXorus/PhpMimeMailParser/Parser.php';
+require_once APP_SRC . 'Parser.php';
 
 /*
 * Class Test : MimeMailParserTest
