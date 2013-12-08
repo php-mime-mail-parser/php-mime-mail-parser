@@ -15,14 +15,17 @@ All the issues are reproduced, fixed and tested.
 
 ### 1/ Install Composer in the folder
 Go in the folder myproject
+
 	curl -s http://getcomposer.org/installer | php
 You will have myproject/composer.phar
 
 ### 2/ Install PhpMimeMailParser with Composer
 Create new file myproject/composer.json
+
 	vi composer.json
 
 And write in
+
 	{
 		{
 	    "require": {
@@ -30,7 +33,9 @@ And write in
 	    }
 	}
 Save it :)
+
 and launch the install
+
 	php composer.phar install
 
 ## How to use it ?
