@@ -55,10 +55,10 @@ $Parser = new eXorus\PhpMimeMailParser\Parser();
 $Parser->setPath($path); 
 
 // Or specify a php file resource (stream) to the mime mail :
-$Parser->setStream(fopen($path));
+$Parser->setStream(fopen($path, "r"));
 
 // Or specify the raw mime mail text :
-$Parser->setText(file_read_contents($path));
+$Parser->setText(file_get_contents($path));
 
 // We can get all the necessary data
 $to = $Parser->getHeader('to');
