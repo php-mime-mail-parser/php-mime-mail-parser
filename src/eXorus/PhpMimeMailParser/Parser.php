@@ -18,7 +18,7 @@ use eXorus\PhpMimeMailParser\Attachment;
  * Remove following require_once if you have PSR-0 class loader
  * @see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
  */
-require_once __DIR__ . DS . 'Attachment.php';
+require_once __DIR__ . '/Attachment.php';
 
 class Parser
 {
