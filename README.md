@@ -43,8 +43,6 @@ and launch the install
 ```php
 <?php
 //We need to add the library first !
-define('DS', DIRECTORY_SEPARATOR);
-
 require_once __DIR__.'/vendor/autoload.php';
 
 $path = 'path/to/mail.txt';
