@@ -418,7 +418,10 @@ class Parser
     private function _decodeHeader($input)
     {
         if (is_array($input)) {
-            return  iconv_mime_decode_headers($input, 0, 'UTF-8');
+            foreach ($input as &$element) {
+                $element = iconv_mime_decode($element, 0, 'UTF-8');
+            }
+            return $input;
         } else {
             return iconv_mime_decode($input, 0, 'UTF-8');
         }
