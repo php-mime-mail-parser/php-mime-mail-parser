@@ -169,7 +169,11 @@ class Parser
     public function getHeaders()
     {
         if (isset($this->parts[1])) {
-            return $this->getPartHeaders($this->parts[1]);
+            $headers = $this->getPartHeaders($this->parts[1]);
+            foreach ($headers as &$header) {
+                $header = $this->_decodeHeader($header);
+            }
+            return $headers;
         } else {
             throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
             return false;
