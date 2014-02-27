@@ -169,7 +169,11 @@ class Parser
     public function getHeaders()
     {
         if (isset($this->parts[1])) {
-            return $this->getPartHeaders($this->parts[1]);
+            $headers = $this->getPartHeaders($this->parts[1]);
+            foreach ($headers as &$header) {
+                $header = $this->_decodeHeader($header);
+            }
+            return $headers;
         } else {
             throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
             return false;
@@ -221,7 +225,7 @@ class Parser
         );
         if (in_array($type, array_keys($mime_types))) {
             foreach ($this->parts as $part) {
-                if ($this->getPartContentType($part) == $mime_types[$type]) {
+                if ($this->getPartContentType($part) == $mime_types[$type] && !$this->getPartContentDisposition($part)) {
                     $headers = $this->getPartHeaders($part);
                     $encodingType = array_key_exists('content-transfer-encoding', $headers) ? $headers['content-transfer-encoding'] : '';
 
@@ -418,7 +422,10 @@ class Parser
     private function _decodeHeader($input)
     {
         if (is_array($input)) {
-            return  iconv_mime_decode_headers($input, 0, 'UTF-8');
+            foreach ($input as &$element) {
+                $element = iconv_mime_decode($element, 0, 'UTF-8');
+            }
+            return $input;
         } else {
             return iconv_mime_decode($input, 0, 'UTF-8');
         }
