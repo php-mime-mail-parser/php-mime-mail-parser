@@ -27,7 +27,6 @@ Create new file myproject/composer.json
 And write in
 
 	{
-		{
 	    "require": {
 	        "exorus/php-mime-mail-parser": "dev-master"
 	    }
