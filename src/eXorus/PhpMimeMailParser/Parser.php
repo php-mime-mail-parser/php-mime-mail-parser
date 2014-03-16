@@ -277,12 +277,12 @@ class Parser
             $contentid = $this->getPartContentID($part);
 
             if (isset($part['disposition-filename'])){
-                $part['disposition-filename']=mb_decode_mimeheader($part['disposition-filename']);
+                $part['disposition-filename']=$this->_decodeHeader($part['disposition-filename']);
 
             } else if (isset($part['content-name'])) {
                 // if we have no disposition but we have a content-name, it's a valid attachment.
                 // we simulate the presence of an attachment disposition with a disposition filename
-                $part['disposition-filename']=mb_decode_mimeheader($part['content-name']);
+                $part['disposition-filename']=$this->_decodeHeader($part['content-name']);
                 $disposition='attachment';
 
             } else {

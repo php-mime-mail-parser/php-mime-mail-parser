@@ -19,10 +19,11 @@ require_once APP_SRC . 'Parser.php';
 * m0006 : mail avec un fichier attaché de 3 196 ko
 * m0007 : mail avec un fichier attaché sans content-disposition
 * m0008 : mail avec des fichiers attachés avec content-id
-* m0009 : testWithoutCharset
+* m0009 : testWithoutCharset [Issue 7]
 * m0010 : mail de 800ko without filename
-* m0011 : mail contains text body and after an attached text (text/plain)
-* m0012 : mail contains text body and before an attached text (text/plain)
+* m0011 : mail contains text body and after an attached text (text/plain) [Issue 11]
+* m0012 : mail contains text body and before an attached text (text/plain) [Issue 11]
+* m0013 : attachment name not correctly decoded [Issue 13]
 */
 
 class ParserTest extends \PHPUnit_Framework_TestCase {
@@ -30,7 +31,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	/**
 	* @dataProvider provideMails
 	*/
-	function testGetAttachmentsWithText($mid, $nbAttachments, $size, $subject){
+	function testGetAttachmentsWithText($mid, $nbAttachments, $size, $subject, $filename){
 				
 		$file = __DIR__."/mails/".$mid;
 		$fd = fopen($file, "r");
@@ -53,6 +54,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals($size,filesize($attach_dir.$attachments[0]->getFilename()));
 			unlink($attach_dir.$attachments[0]->getFilename());
 
+			$this->assertEquals($filename,$attachments[0]->getFilename());
+
 			rmdir($attach_dir);
 		}
 	}
@@ -60,7 +63,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 	/**
 	* @dataProvider provideMails
 	*/
-	function testGetAttachmentsWithPath($mid, $nbAttachments, $size, $subject){
+	function testGetAttachmentsWithPath($mid, $nbAttachments, $size, $subject, $filename){
 
 		$file = __DIR__."/mails/".$mid;
 
@@ -80,21 +83,25 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 			$this->assertEquals($size,filesize($attach_dir.$attachments[0]->getFilename()));
 			unlink($attach_dir.$attachments[0]->getFilename());
 
+			$this->assertEquals($filename,$attachments[0]->getFilename());
+
 			rmdir($attach_dir);
 		}
 	}
 
 	function provideMails(){
+		// mid, nbAttachments, size, subject, filename
 		$mails = array(
-			array('m0001',1,2, 'Mail avec fichier attaché de 1ko'),
-			array('m0002',1,2229, 'Mail avec fichier attaché de 3ko'),
-			array('m0003',1,13369, 'Mail de 14 Ko'),
-			array('m0004',1,817938, 'Mail de 800ko'),
-			array('m0005',1,1635877, 'Mail de 1500 Ko'),
-			array('m0006',1,3271754, 'Mail de 3 196 Ko'),
-			array('m0007',1,2229, 'Mail avec fichier attaché de 3ko'),
-			array('m0008',3,NULL, 'Testing MIME E-mail composing with cid'),
-			array('m0010',1,817938, 'Mail de 800ko without filename')
+			array('m0001',1,2, 'Mail avec fichier attaché de 1ko', 'attach01'),
+			array('m0002',1,2229, 'Mail avec fichier attaché de 3ko', 'attach02'),
+			array('m0003',1,13369, 'Mail de 14 Ko', 'attach03'),
+			array('m0004',1,817938, 'Mail de 800ko', 'attach04'),
+			array('m0005',1,1635877, 'Mail de 1500 Ko', 'attach05'),
+			array('m0006',1,3271754, 'Mail de 3 196 Ko', 'attach06'),
+			array('m0007',1,2229, 'Mail avec fichier attaché de 3ko', 'attach02'),
+			array('m0008',3,NULL, 'Testing MIME E-mail composing with cid', ''),
+			array('m0010',1,817938, 'Mail de 800ko without filename', 'noname5'),
+			array('m0013',1,10, '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829. pdf', '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829.pdf')
 		);
 		return $mails;
 	}
@@ -162,6 +169,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		rmdir($attach_dir);
 
 	}
+
 }
 ?>
 
