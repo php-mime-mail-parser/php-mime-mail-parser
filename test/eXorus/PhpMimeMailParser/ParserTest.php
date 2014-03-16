@@ -100,7 +100,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 			array('m0006',1,3271754, 'Mail de 3 196 Ko', 'attach06'),
 			array('m0007',1,2229, 'Mail avec fichier attaché de 3ko', 'attach02'),
 			array('m0008',3,NULL, 'Testing MIME E-mail composing with cid', ''),
-			array('m0010',1,817938, 'Mail de 800ko without filename', 'noname5'),
+			array('m0010',1,817938, 'Mail de 800ko without filename', 'noname1'),
 			array('m0013',1,10, '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829. pdf', '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829.pdf')
 		);
 		return $mails;

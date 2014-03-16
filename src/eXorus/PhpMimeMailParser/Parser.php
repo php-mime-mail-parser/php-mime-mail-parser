@@ -275,24 +275,28 @@ class Parser
         foreach ($this->parts as $part) {
             $disposition = $this->getPartContentDisposition($part);
             $contentid = $this->getPartContentID($part);
+            $filename = 'noname';
 
             if (isset($part['disposition-filename'])){
-                $part['disposition-filename']=$this->_decodeHeader($part['disposition-filename']);
+                $filename=$this->_decodeHeader($part['disposition-filename']);
 
             } else if (isset($part['content-name'])) {
                 // if we have no disposition but we have a content-name, it's a valid attachment.
                 // we simulate the presence of an attachment disposition with a disposition filename
-                $part['disposition-filename']=$this->_decodeHeader($part['content-name']);
+                $filename=$this->_decodeHeader($part['content-name']);
                 $disposition='attachment';
 
-            } else {
-                $nonameIter++;
-                $part['disposition-filename']='noname'.$nonameIter;
             }
 
-            if (in_array($disposition, $dispositions) === TRUE && isset($part['disposition-filename']) === TRUE) {
+            if (in_array($disposition, $dispositions) === TRUE && isset($filename) === TRUE) {
+
+                if($filename == 'noname'){
+                    $nonameIter++;
+                    $filename = 'noname'.$nonameIter;
+                }
+                
                 $attachments[] = new Attachment(
-                    $part['disposition-filename'],
+                    $filename,
                     $this->getPartContentType($part),
                     $this->getAttachmentStream($part),
                     $disposition,
