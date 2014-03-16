@@ -173,6 +173,7 @@ class Parser
             foreach ($headers as &$header) {
                 $header = $this->_decodeHeader($header);
             }
+            return $headers;
         } else {
             throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
             return false;
