@@ -19,6 +19,10 @@ require_once APP_SRC . 'Parser.php';
 * m0006 : mail avec un fichier attaché de 3 196 ko
 * m0007 : mail avec un fichier attaché sans content-disposition
 * m0008 : mail avec des fichiers attachés avec content-id
+* m0009 : testWithoutCharset
+* m0010 : mail de 800ko without filename
+* m0011 : mail contains text body and after an attached text (text/plain)
+* m0012 : mail contains text body and before an attached text (text/plain)
 */
 
 class ParserTest extends \PHPUnit_Framework_TestCase {
@@ -124,6 +128,39 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		$Parser->setPath($file);
 		$Parser->getMessageBody('text');
 		$Parser->getMessageBody('html');
+	}
+
+	function provideMailsForIssue11(){
+		$mails = array(
+			array('m0011'),
+			array('m0012')
+		);
+		return $mails;
+	}
+
+
+	/**
+	* @dataProvider provideMailsForIssue11
+	*/
+	function testGetMessageBody($mid){
+		// Issue 11
+		$file = __DIR__."/mails/".$mid;
+		$Parser = new Parser();
+		$Parser->setPath($file);
+
+		$textBody = $Parser->getMessageBody('text');
+		$this->assertEquals(1,substr_count($textBody, "This is a text body"));
+
+		$htmlBody = $Parser->getMessageBody('html');
+		$this->assertEquals("",$htmlBody);
+
+		$attach_dir = __DIR__."/mails/attach_".$mid."/";
+		$Parser->saveAttachments($attach_dir, "");
+		$fileBody = file_get_contents($attach_dir.'file.txt', FILE_USE_INCLUDE_PATH);
+		$this->assertEquals(1,substr_count($fileBody, "This is a file"));
+		unlink($attach_dir.'file.txt');
+		rmdir($attach_dir);
+
 	}
 }
 ?>
