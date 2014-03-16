@@ -163,20 +163,23 @@ class Parser
     }
 
     /**
-     * Retrieve the Email Headers
+     * Retrieve the Email Decoded Headers
      * @return Array
      */
     public function getHeaders()
     {
         if (isset($this->parts[1])) {
-            return $this->getPartHeaders($this->parts[1]);
+            $headers = $this->getPartHeaders($this->parts[1]);
+            foreach ($headers as &$header) {
+                $header = $this->_decodeHeader($header);
+            }
         } else {
             throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
             return false;
         }
     }
     /**
-     * Retrieve the raw Email Headers
+     * Retrieve the Email Raw Headers
      * @return string
      */
     public function getHeadersRaw()
@@ -294,7 +297,7 @@ class Parser
                     $nonameIter++;
                     $filename = 'noname'.$nonameIter;
                 }
-                
+
                 $attachments[] = new Attachment(
                     $filename,
                     $this->getPartContentType($part),
@@ -422,7 +425,12 @@ class Parser
     private function _decodeHeader($input)
     {
         if (is_array($input)) {
-            return  iconv_mime_decode_headers($input, 0, 'UTF-8');
+
+            foreach ($input as &$element) {
+                $element = iconv_mime_decode($element, 0, 'UTF-8');
+            }
+            return $input;
+
         } else {
             return iconv_mime_decode($input, 0, 'UTF-8');
         }
