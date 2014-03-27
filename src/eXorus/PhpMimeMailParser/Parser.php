@@ -428,12 +428,12 @@ class Parser
         if (is_array($input)) {
 
             foreach ($input as &$element) {
-                $element = iconv_mime_decode($element, 0, 'UTF-8');
+                $element = iconv_mime_decode($element, 2, 'UTF-8');
             }
             return $input;
 
         } else {
-            return iconv_mime_decode($input, 0, 'UTF-8');
+            return iconv_mime_decode($input, 2, 'UTF-8');
         }
     }
 
