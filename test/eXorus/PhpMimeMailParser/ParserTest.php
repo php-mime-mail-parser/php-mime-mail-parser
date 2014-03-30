@@ -170,6 +170,20 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
+	function testGetMessageBodyForIssue16(){
+		// Issue 16
+		$file = __DIR__."/mails/m0014";
+		$Parser = new Parser();
+		$Parser->setPath($file);
+
+		$textBody = $Parser->getMessageBody('text');
+		$this->assertEquals(1,substr_count($textBody, "Die Hasen und die"));
+
+		$htmlBody = $Parser->getMessageBody('html');
+		$this->assertEquals("",$htmlBody);
+
+	}
+
 }
 ?>
 
