@@ -170,17 +170,39 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
 	}
 
-	function testGetMessageBodyForIssue16(){
+
+	function provideMailsForIssue16(){
+		$mails = array(
+			array('m0014','Die Hasen und die',''),
+			array('m0015','Hi,','<strong>*How The Sale Works</strong>')
+		);
+		return $mails;
+	}
+
+	/**
+	* @dataProvider provideMailsForIssue16
+	*/
+	function testGetMessageBodyForIssue16($mid,$textBodyExpected,$htmlBodyExpected){
 		// Issue 16
-		$file = __DIR__."/mails/m0014";
+		$file = __DIR__."/mails/".$mid;
 		$Parser = new Parser();
 		$Parser->setPath($file);
 
 		$textBody = $Parser->getMessageBody('text');
-		$this->assertEquals(1,substr_count($textBody, "Die Hasen und die"));
+		if($textBodyExpected == ''){
+			$this->assertEquals("",$textBody);
+		}
+		else{
+			$this->assertEquals(1,substr_count($textBody, $textBodyExpected));
+		}
 
 		$htmlBody = $Parser->getMessageBody('html');
-		$this->assertEquals("",$htmlBody);
+		if($htmlBodyExpected == ''){
+			$this->assertEquals("",$htmlBody);
+		}
+		else{
+			$this->assertEquals(1,substr_count($htmlBody, $htmlBodyExpected));
+		}
 
 	}
 
