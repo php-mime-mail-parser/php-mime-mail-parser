@@ -1,7 +1,7 @@
 {
     "name": "exorus/php-mime-mail-parser",
     "type": "library",
-    "description": "This project strives to create a fast and efficient PHP Mime Mail Parser Class using PHP's MailParse Extension",
+    "description": "Fully Tested Mailparse Extension Wrapper for PHP 5.3+",
     "keywords": ["mime", "mail", "mailparse"],
     "homepage": "https://github.com/eXorus/php-mime-mail-parser",
     "license": "MIT",
