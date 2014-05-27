@@ -1,7 +1,7 @@
 php-mime-mail-parser
 ====================
 
-This project strives to create a fast and efficient PHP Mime Mail Parser Class using PHP's MailParse Extension.
+Fully Tested Mailparse Extension Wrapper for PHP 5.3+
 
 ## Is it reliable ?
 
