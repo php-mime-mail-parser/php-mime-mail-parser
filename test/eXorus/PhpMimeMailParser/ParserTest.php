@@ -27,7 +27,195 @@ require_once APP_SRC . 'Parser.php';
 */
 
 class ParserTest extends \PHPUnit_Framework_TestCase {
-	
+
+
+	function provideData(){
+
+		$data = array(
+			array(
+				'm0001',
+				'Mail avec fichier attaché de 1ko',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0002',
+				'Mail avec fichier attaché de 3ko',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0003',
+				'Mail de 14 Ko',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0004',
+				'Mail de 800ko',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0005',
+				'Mail de 1500 Ko',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0006',
+				'Mail de 3 196 Ko',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0007',
+				'Mail avec fichier attaché de 3ko',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0008',
+				'Testing MIME E-mail composing with cid',
+				'Name <name@company.com>',
+				'Name <name@company2.com>',
+				array('COUNT',1,'Please use an HTML capable mail program to read'),
+				array('COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>')),
+			array(
+				'm0009',
+				'Ogone NIEUWE order Maurits PAYID: 951597484 / orderID: 456123 / status: 5',
+				'"Ogone" <noreply@ogone.com>',
+				'info@testsite.com',
+				array('COUNT',1,'951597484'),
+				array('MATCH','')),
+			array(
+				'm0010',
+				'Mail de 800ko without filename',
+				'Name <name@company.com>',
+				'name@company2.com',
+				array('MATCH',"\n"),
+				array('COUNT',1,'<div dir="ltr"><br></div>')),
+			array(
+				'm0011',
+				'Hello World !',
+				'Name <name@company.com>',
+				'Name <name@company.com>',
+				array('COUNT',1,'This is a text body'),
+				array('MATCH','')),
+			array(
+				'm0012',
+				'Hello World !',
+				'Name <name@company.com>',
+				'Name <name@company.com>',
+				array('COUNT',1,'This is a text body'),
+				array('MATCH','')),
+			array(
+				'm0013',
+				'50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829. pdf',
+				'NAME Firstname <firstname.name@groupe-company.com>',
+				'"paul.dupont@company.com" <paul.dupont@company.com>',
+				array('COUNT',1,'Superviseur de voitures'),
+				array('MATCH','')),
+			array(
+				'm0014',
+				'Test message from Netscape Communicator 4.7',
+				'Doug Sauder <dwsauder@example.com>',
+				'Joe Blow <blow@example.com>',
+				array('COUNT',1,'Die Hasen und die'),
+				array('MATCH','')),
+			array(
+				'm0015',
+				'Up to $30 Off Multivitamins!',
+				'"Vitamart.ca" <service@vitamart.ca>',
+				'me@somewhere.com',
+				array('COUNT',1,'Hi,'),
+				array('COUNT',1,'<strong>*How The Sale Works</strong>'))
+		);
+		return $data;
+	}
+
+    /**
+     * @dataProvider provideData
+     */
+    public function testFromPath($mid,$subjectExpected,$fromExpected,$toExpected,$textExpected,$htmlExpected)
+    {
+    	//Load From Path
+    	$file = __DIR__."/mails/".$mid;
+		$Parser = new Parser();
+		$Parser->setPath($file);
+
+		//Test Header : subject
+		$this->assertEquals($subjectExpected,$Parser->getHeader('subject'));
+
+		//Test Header : from
+		$this->assertEquals($fromExpected,$Parser->getHeader('from'));
+
+		//Test Header : to
+		$this->assertEquals($toExpected,$Parser->getHeader('to'));
+
+		//Test  Body : text
+		if($textExpected[0] == 'COUNT'){
+			$this->assertEquals($textExpected[1],substr_count($Parser->getMessageBody('text'),$textExpected[2]));
+		}
+		elseif($textExpected[0] == 'MATCH'){
+			$this->assertEquals($textExpected[1],$Parser->getMessageBody('text'));
+		}
+
+		//Test Body : html
+		if($htmlExpected[0] == 'COUNT'){
+			$this->assertEquals($htmlExpected[1],substr_count($Parser->getMessageBody('html'),$htmlExpected[2]));
+		}
+		elseif($htmlExpected[0] == 'MATCH'){
+			$this->assertEquals($htmlExpected[1],$Parser->getMessageBody('html'));
+		}
+    }
+
+    /**
+     * @dataProvider provideData
+     */
+    public function testFromText($mid,$subjectExpected,$fromExpected,$toExpected,$textExpected,$htmlExpected)
+    {
+    	//Load From Text
+		$file = __DIR__."/mails/".$mid;
+		$fd = fopen($file, "r");
+		$contents = fread($fd, filesize($file));
+		fclose($fd);
+		$Parser = new Parser();
+		$Parser->setText($contents);
+
+		//Test Header : subject
+		$this->assertEquals($subjectExpected,$Parser->getHeader('subject'));
+
+		//Test Header : from
+		$this->assertEquals($fromExpected,$Parser->getHeader('from'));
+
+		//Test Header : to
+		$this->assertEquals($toExpected,$Parser->getHeader('to'));
+
+		//Test  Body : text
+		if($textExpected[0] == 'COUNT'){
+			$this->assertEquals($textExpected[1],substr_count($Parser->getMessageBody('text'),$textExpected[2]));
+		}
+		elseif($textExpected[0] == 'MATCH'){
+			$this->assertEquals($textExpected[1],$Parser->getMessageBody('text'));	
+		}
+
+		//Test Body : html
+		if($htmlExpected[0] == 'COUNT'){
+			$this->assertEquals($htmlExpected[1],substr_count($Parser->getMessageBody('html'),$htmlExpected[2]));
+		}
+		elseif($htmlExpected[0] == 'MATCH'){
+			$this->assertEquals($htmlExpected[1],$Parser->getMessageBody('html'));	
+		}
+    }
+    
 	/**
 	* @dataProvider provideMails
 	*/
