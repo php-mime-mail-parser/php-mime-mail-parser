@@ -2,7 +2,7 @@
     "name": "exorus/php-mime-mail-parser",
     "type": "library",
     "description": "Fully Tested Mailparse Extension Wrapper for PHP 5.3+",
-    "keywords": ["mime", "mail", "mailparse"],
+    "keywords": ["mime", "mail", "mailparse", "MimeMailParser"],
     "homepage": "https://github.com/eXorus/php-mime-mail-parser",
     "license": "MIT",
     "authors": [      
