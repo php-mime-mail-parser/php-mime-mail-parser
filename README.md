@@ -28,7 +28,7 @@ And write in
 
 	{
 	    "require": {
-	        "exorus/php-mime-mail-parser": "1.0.*"
+	        "exorus/php-mime-mail-parser": "1.*"
 	    }
 	}
 Save it :)
