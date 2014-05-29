@@ -1,7 +1,9 @@
 <?php
 
 namespace eXorus\PhpMimeMailParser;
+
 use eXorus\PhpMimeMailParser\Attachment;
+use eXorus\PhpMimeMailParser\Exception;
 
 /**
  * Fast Mime Mail parser Class using PHP's MailParse Extension
@@ -163,37 +165,6 @@ class Parser
     }
 
     /**
-     * Retrieve the Email Decoded Headers
-     * @return Array
-     */
-    public function getHeaders()
-    {
-        if (isset($this->parts[1])) {
-            $headers = $this->getPartHeaders($this->parts[1]);
-            foreach ($headers as &$header) {
-                $header = $this->_decodeHeader($header);
-            }
-            return $headers;
-        } else {
-            throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
-            return false;
-        }
-    }
-    /**
-     * Retrieve the Email Raw Headers
-     * @return string
-     */
-    public function getHeadersRaw()
-    {
-        if (isset($this->parts[1])) {
-            return $this->getPartHeaderRaw($this->parts[1]);
-        } else {
-            throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
-            return false;
-        }
-    }
-
-    /**
      * Retrieve a specific Email Header
      * @return String
      * @param $name String Header name
@@ -206,7 +177,7 @@ class Parser
                 return $this->_decodeHeader($headers[$name]);
             }
         } else {
-            throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
+            throw new \Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
         }
         return false;
     }
@@ -235,34 +206,9 @@ class Parser
                 }
             }
         } else {
-            throw new Exception('Invalid type specified for MimeMailParser::getMessageBody. "type" can either be text or html.');
+            throw new \Exception('Invalid type specified for MimeMailParser::getMessageBody. "type" can either be text or html.');
         }
         return ($embeddedImg === FALSE) ? $body : str_replace($this->attachmentContentId, $this->attachmentNewSrc, $body);
-    }
-
-    /**
-     * get the headers for the message body part.
-     * @return Array
-     * @param $type Object[optional]
-     */
-    public function getMessageBodyHeaders($type = 'text')
-    {
-        $headers = false;
-        $mime_types = array(
-            'text'=> 'text/plain',
-            'html'=> 'text/html'
-        );
-        if (in_array($type, array_keys($mime_types))) {
-            foreach ($this->parts as $part) {
-                if ($this->getPartContentType($part) == $mime_types[$type]) {
-                    $headers = $this->getPartHeaders($part);
-                    break;
-                }
-            }
-        } else {
-            throw new Exception('Invalid type specified for MimeMailParser::getMessageBody. "type" can either be text or html.');
-        }
-        return $headers;
     }
 
     /**
@@ -419,22 +365,13 @@ class Parser
 
 
     /**
-    * $input can be a string or an array
-    * @param string,array $input
+    * $input can be a string
+    * @param string $input
     * @return string,array
     */
     private function _decodeHeader($input)
     {
-        if (is_array($input)) {
-
-            foreach ($input as &$element) {
-                $element = iconv_mime_decode($element, 2, 'UTF-8');
-            }
-            return $input;
-
-        } else {
-            return iconv_mime_decode($input, 2, 'UTF-8');
-        }
+        return iconv_mime_decode($input, 2, 'UTF-8');
     }
 
 
@@ -446,17 +383,6 @@ class Parser
     private function getPartHeaders($part)
     {
         return (isset($part['headers'])) ? $part['headers'] : false;
-    }
-
-    /**
-     * Return a Specific Header for a MIME part
-     * @return Array
-     * @param $part Array
-     * @param $header String Header Name
-     */
-    private function getPartHeader($part, $header)
-    {
-        return (isset($part['headers'][$header])) ? $part['headers'][$header] : false;
     }
 
     /**
@@ -500,23 +426,6 @@ class Parser
     }
 
     /**
-     * Retrieve the raw Header of a MIME part
-     * @return String
-     * @param $part Object
-     */
-    private function getPartHeaderRaw(&$part)
-    {
-        $header = '';
-        if ($this->stream) {
-            $header = $this->getPartHeaderFromFile($part);
-        } else if ($this->data) {
-            $header = $this->getPartHeaderFromText($part);
-        } else {
-            throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email parts.');
-        }
-        return $header;
-    }
-    /**
      * Retrieve the Body of a MIME part
      * @return String
      * @param $part Object
@@ -529,23 +438,11 @@ class Parser
         } else if ($this->data) {
             $body = $this->getPartBodyFromText($part);
         } else {
-            throw new Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email parts.');
+            throw new \Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email parts.');
         }
         return $body;
     }
 
-    /**
-     * Retrieve the Header from a MIME part from file
-     * @return String Mime Header Part
-     * @param $part Array
-     */
-    private function getPartHeaderFromFile(&$part)
-    {
-        $start = $part['starting-pos'];
-        $end = $part['starting-pos-body'];
-        fseek($this->stream, $start, SEEK_SET);
-        return fread($this->stream, $end-$start);
-    }
     /**
      * Retrieve the Body from a MIME part from file
      * @return String Mime Body Part
@@ -559,17 +456,6 @@ class Parser
         return fread($this->stream, $end-$start);
     }
 
-    /**
-     * Retrieve the Header from a MIME part from text
-     * @return String Mime Header Part
-     * @param $part Array
-     */
-    private function getPartHeaderFromText(&$part)
-    {
-        $start = $part['starting-pos'];
-        $end = $part['starting-pos-body'];
-        return substr($this->data, $start, $end-$start);
-    }
     /**
      * Retrieve the Body from a MIME part from text
      * @return String Mime Body Part

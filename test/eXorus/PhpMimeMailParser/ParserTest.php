@@ -4,6 +4,7 @@ namespace Test\eXorus\PhpMimeMailParser;
 
 use eXorus\PhpMimeMailParser\Parser;
 use eXorus\PhpMimeMailParser\Attachment;
+use eXorus\PhpMimeMailParser\Exception;
 
 require_once APP_SRC . 'Parser.php';
 
@@ -177,6 +178,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		//Test Header : to
 		$this->assertEquals($toExpected,$Parser->getHeader('to'));
 
+		//Test Invalid Header
+		$this->assertFalse($Parser->getHeader('azerty'));
+
 		//Test  Body : text
 		if($textExpected[0] == 'COUNT'){
 			$this->assertEquals($textExpected[1],substr_count($Parser->getMessageBody('text'),$textExpected[2]));
@@ -238,7 +242,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 			//Remove Attachment Directory
 			rmdir($attach_dir);
 		}
-
     }
 
     /**
@@ -263,6 +266,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 
 		//Test Header : to
 		$this->assertEquals($toExpected,$Parser->getHeader('to'));
+
+		//Test Invalid Header
+		$this->assertFalse($Parser->getHeader('azerty'));
 
 		//Test  Body : text
 		if($textExpected[0] == 'COUNT'){
@@ -351,6 +357,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 		//Test Header : to
 		$this->assertEquals($toExpected,$Parser->getHeader('to'));
 
+		//Test Invalid Header
+		$this->assertFalse($Parser->getHeader('azerty'));
+		
 		//Test  Body : text
 		if($textExpected[0] == 'COUNT'){
 			$this->assertEquals($textExpected[1],substr_count($Parser->getMessageBody('text'),$textExpected[2]));
@@ -412,7 +421,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 			//Remove Attachment Directory
 			rmdir($attach_dir);
 		}
-
     }
 }
 ?>
