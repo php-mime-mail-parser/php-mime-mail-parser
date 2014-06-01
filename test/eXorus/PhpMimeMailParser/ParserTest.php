@@ -422,6 +422,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase {
 			rmdir($attach_dir);
 		}
     }
+
 }
 ?>
 

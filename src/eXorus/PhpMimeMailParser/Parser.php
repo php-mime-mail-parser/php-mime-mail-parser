@@ -41,11 +41,6 @@ class Parser
     public $data;
 
     /**
-     * Stream Resources for Attachments
-     */
-    public $attachmentStreams;
-
-    /**
      * Array of Content-Id
      */
     public $attachmentContentId;
@@ -61,7 +56,6 @@ class Parser
      */
     public function __construct()
     {
-        $this->attachmentStreams = array();
         $this->attachmentContentId = array();
         $this->attachmentNewSrc = array();
     }
@@ -79,10 +73,6 @@ class Parser
         // clear the MailParse resource
         if (is_resource($this->resource)) {
             mailparse_msg_free($this->resource);
-        }
-        // remove attachment resources
-        foreach ($this->attachmentStreams as $stream) {
-            fclose($stream);
         }
     }
 
@@ -108,21 +98,30 @@ class Parser
     public function setStream($stream)
     {
         // streams have to be cached to file first
-        if (get_resource_type($stream) == 'stream') {
-            $tmp_fp = tmpfile();
-            if ($tmp_fp) {
-                while (!feof($stream)) {
-                    fwrite($tmp_fp, fread($stream, 2028));
+        if (is_resource($stream) == true) {
+
+            if(get_resource_type($stream) == 'stream'){
+
+                $tmp_fp = tmpfile();
+                if ($tmp_fp) {
+                    while (!feof($stream)) {
+                        fwrite($tmp_fp, fread($stream, 2028));
+                    }
+                    fseek($tmp_fp, 0);
+                    $this->stream =& $tmp_fp;
+                } else {
+                    throw new \Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
+                    return false;
                 }
-                fseek($tmp_fp, 0);
-                $this->stream =& $tmp_fp;
-            } else {
-                throw new Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
+                fclose($stream);                
+            } 
+            else {
+                throw new \Exception('setStream() expects parameter stream to be stream resource.');
                 return false;
             }
-            fclose($stream);
         } else {
-            $this->stream = $stream;
+            throw new \Exception('setStream() expects parameter stream to be resource.');
+            return false;
         }
 
         $this->resource = mailparse_msg_create();
@@ -177,7 +176,7 @@ class Parser
                 return $this->_decodeHeader($headers[$name]);
             }
         } else {
-            throw new \Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email headers.');
+            throw new \Exception('setPath() or setText() or setStream() must be called before retrieving email headers.');
         }
         return false;
     }
@@ -206,7 +205,7 @@ class Parser
                 }
             }
         } else {
-            throw new \Exception('Invalid type specified for MimeMailParser::getMessageBody. "type" can either be text or html.');
+            throw new \Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
         }
         return ($embeddedImg === FALSE) ? $body : str_replace($this->attachmentContentId, $this->attachmentNewSrc, $body);
     }
@@ -287,8 +286,6 @@ class Parser
                     return false;
                 }
             }
-
-            // write the file to the directory you want to save it in
         }
     }
 
@@ -326,7 +323,7 @@ class Parser
             }
             fseek($temp_fp, 0, SEEK_SET);
         } else {
-            throw new Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
+            throw new \Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
             return false;
         }
         return $temp_fp;
@@ -437,9 +434,7 @@ class Parser
             $body = $this->getPartBodyFromFile($part);
         } else if ($this->data) {
             $body = $this->getPartBodyFromText($part);
-        } else {
-            throw new \Exception('MimeMailParser::setPath() or MimeMailParser::setText() must be called before retrieving email parts.');
-        }
+        } 
         return $body;
     }
 
