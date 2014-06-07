@@ -3,39 +3,30 @@ php-mime-mail-parser
 
 Fully Tested Mailparse Extension Wrapper for PHP 5.3+
 
+> **Maintainer:** Visit my blog [Vincent Dauce](http://vincent.dauce.fr).
+
 ## Is it reliable ?
 
-Yes, it is. 
+Yes, it is.  
 All the issues are reproduced, fixed and tested.
+
+More than 49 tests and 527 assertions  
+Over 90% line coverage
 
 ## How to install ?
 
-### 0/ Create a folder
-	mkdir myproject
+Easy way with [Composer](https://getcomposer.org/) ;)
 
-### 1/ Install Composer in the folder
-Go in the folder myproject
-
-	curl -s http://getcomposer.org/installer | php
-You will have myproject/composer.phar
-
-### 2/ Install PhpMimeMailParser with Composer
-Create new file myproject/composer.json
-
-	vi composer.json
-
-And write in
-
+	$ mkdir myproject
+	$ cd myproject
+	$ curl -s http://getcomposer.org/installer | php
+	$ vi composer.json
 	{
 	    "require": {
 	        "exorus/php-mime-mail-parser": "1.*"
 	    }
 	}
-Save it :)
-
-and launch the install
-
-	php composer.phar install
+	$ php composer.phar install
 
 ## How to use it ?
 
@@ -75,4 +66,13 @@ $html_embedded = $Parser->getMessageBody('html', TRUE);
 
 ?>
 ```
+
+## Contributing ?
+
+Feel free to contribute.  
+To add issue, please provide the raw email with it.
+
+### License
+
+The exorus/php-mime-mail-parser is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
 
