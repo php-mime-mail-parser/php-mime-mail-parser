@@ -10,8 +10,8 @@ Fully Tested Mailparse Extension Wrapper for PHP 5.3+
 Yes, it is.  
 All the issues are reproduced, fixed and tested.
 
-More than 49 tests and 527 assertions  
-Over 90% line coverage
+More than 52 tests and 764 assertions  
+Code Coverage : 100% lines, 100% Functions and Methods, 100% Classes and Traits
 
 ## How to install ?
 

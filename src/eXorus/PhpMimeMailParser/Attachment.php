@@ -3,8 +3,12 @@
 namespace eXorus\PhpMimeMailParser;
 
 /**
-* Model of an Attachment
-*/
+ * Attachment of php-mime-mail-parser
+ *
+ * Fully Tested Mailparse Extension Wrapper for PHP 5.3+
+ *
+ */
+
 class Attachment
 {
 
@@ -96,24 +100,6 @@ class Attachment
     }
 
     /**
-    * Retrieve the file extension
-    * @return String
-    */
-    public function getFileExtension()
-    {
-        if (!$this->extension) {
-            $ext = substr(strrchr($this->filename, '.'), 1);
-        if ($ext == 'gz') {
-            // special case, tar.gz
-            // todo: other special cases?
-            $ext = preg_match("/\.tar\.gz$/i", $ext) ? 'tar.gz' : 'gz';
-        }
-            $this->extension = $ext;
-        }
-        return $this->extension;
-    }
-
-    /**
     * Read the contents a few bytes at a time until completed
     * Once read to completion, it always returns false
     * @return String
@@ -138,22 +124,5 @@ class Attachment
             }
         }
         return $this->content;
-    }
-
-    /**
-    * Allow the properties 
-    *      MimeMailParser_attachment::$name,
-    *      MimeMailParser_attachment::$extension 
-    * to be retrieved as public properties
-    * @param $name Object
-    */
-    public function __get($name)
-    {
-        if ($name == 'content') {
-            return $this->getContent();
-        } else if ($name == 'extension') {
-            return $this->getFileExtension();
-        }
-        return null;
     }
 }

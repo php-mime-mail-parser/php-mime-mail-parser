@@ -6,21 +6,11 @@ use eXorus\PhpMimeMailParser\Attachment;
 use eXorus\PhpMimeMailParser\Exception;
 
 /**
- * Fast Mime Mail parser Class using PHP's MailParse Extension
- * @author gabe@fijiwebdesign.com
- * @url http://www.fijiwebdesign.com/
- * @license http://creativecommons.org/licenses/by-sa/3.0/us/
- * @version r27
+ * Parser of php-mime-mail-parser
  *
- * This fork found on: https://github.com/eXorus/php-mime-mail-parser/
- * with contributions by eXorus 
+ * Fully Tested Mailparse Extension Wrapper for PHP 5.3+
+ *
  */
-
-/**
- * Remove following require_once if you have PSR-0 class loader
- * @see https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-0.md
- */
-require_once __DIR__ . '/Attachment.php';
 
 class Parser
 {
@@ -111,17 +101,14 @@ class Parser
                     $this->stream =& $tmp_fp;
                 } else {
                     throw new \Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
-                    return false;
                 }
                 fclose($stream);                
             } 
             else {
                 throw new \Exception('setStream() expects parameter stream to be stream resource.');
-                return false;
             }
         } else {
             throw new \Exception('setStream() expects parameter stream to be resource.');
-            return false;
         }
 
         $this->resource = mailparse_msg_create();
@@ -175,10 +162,11 @@ class Parser
             if (isset($headers[$name])) {
                 return $this->_decodeHeader($headers[$name]);
             }
+            return false;
+
         } else {
             throw new \Exception('setPath() or setText() or setStream() must be called before retrieving email headers.');
         }
-        return false;
     }
 
     /**
@@ -244,13 +232,15 @@ class Parser
                     $filename = 'noname'.$nonameIter;
                 }
 
+                $headersAttachments = $this->getPartHeaders($part);
+
                 $attachments[] = new Attachment(
                     $filename,
                     $this->getPartContentType($part),
                     $this->getAttachmentStream($part),
                     $disposition,
                     $contentid,
-                    $this->getPartHeaders($part)
+                    $headersAttachments
                     );
             }
         }
@@ -276,15 +266,13 @@ class Parser
                 array_push($this->attachmentNewSrc, $url.DIRECTORY_SEPARATOR.$attachment->getFilename());
             }
 
-            if ($attachment->getFilename() != ''){
-                if ($fp = fopen($attach_dir.$attachment->getFilename(), 'w')) {
-                    while ($bytes = $attachment->read()) {
-                        fwrite($fp, $bytes);
-                    }
-                    fclose($fp);
-                } else {
-                    return false;
+            if ($fp = fopen($attach_dir.$attachment->getFilename(), 'w')) {
+                while ($bytes = $attachment->read()) {
+                    fwrite($fp, $bytes);
                 }
+                fclose($fp);
+            } else {
+                throw new \Exception('Could not write attachments. Your directory may be unwritable by PHP.');
             }
         }
     }
@@ -324,7 +312,6 @@ class Parser
             fseek($temp_fp, 0, SEEK_SET);
         } else {
             throw new \Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
-            return false;
         }
         return $temp_fp;
     }
