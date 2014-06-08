@@ -8,11 +8,33 @@
     "authors": [      
         {
             "name":"eXorus",
-            "homepage":"https://github.com/eXorus/"
+            "email":"exorus.spam@gmail.com",
+            "homepage":"https://github.com/eXorus/",
+            "role":"Developer"
         },
         {
-            "name":"google",
-            "homepage":"https://code.google.com/p/php-mime-mail-parser"
+            "name":"M.Valinskis",
+            "email":"M.Valins...@gmail.com",
+            "homepage":"https://code.google.com/p/php-mime-mail-parser",
+            "role":"Developer"
+        },
+        {
+            "name":"eugene.emmett.wood",
+            "email":"gene_w...@cementhorizon.com",
+            "homepage":"https://code.google.com/p/php-mime-mail-parser",
+            "role":"Developer"
+        },
+        {
+            "name":"alknetso",
+            "email":"alkne...@gmail.com",
+            "homepage":"https://code.google.com/p/php-mime-mail-parser",
+            "role":"Developer"
+        },
+        {
+            "name":"bucabay",
+            "email":"gabe@fijiwebdesign.com",
+            "homepage":"http://www.fijiwebdesign.com",
+            "role":"Developer"
         }
     ],
     "repository":{
