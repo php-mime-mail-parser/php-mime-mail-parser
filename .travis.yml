@@ -3,10 +3,8 @@ language: php
 php:
     - 5.3
     - 5.4
-    - 5.5
-    - hhvm
 
 before_script:
-    - echo "extension = mailparse.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    - pecl install mailparse
     - composer self-update
     - composer install
