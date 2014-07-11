@@ -7,8 +7,6 @@ php:
     - hhvm
 
 before_script:
-    - pyrus install pear/mailparse
-    - phpenv rehash
     - pecl install mailparse
     - composer self-update
     - composer install
