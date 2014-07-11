@@ -3,6 +3,8 @@ php-mime-mail-parser
 
 Fully Tested Mailparse Extension Wrapper for PHP 5.3+
 
+[![Coverage Status](https://coveralls.io/repos/eXorus/php-mime-mail-parser/badge.png)](https://coveralls.io/r/eXorus/php-mime-mail-parser)
+
 > **Maintainer:** Visit my blog [Vincent Dauce](http://vincent.dauce.fr).
 
 ## Is it reliable ?
