@@ -7,6 +7,5 @@ php:
     - hhvm
 
 before_script:
-    - pecl install mailparse
     - composer self-update
     - composer install
