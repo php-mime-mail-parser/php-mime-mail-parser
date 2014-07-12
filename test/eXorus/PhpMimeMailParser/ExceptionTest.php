@@ -117,7 +117,7 @@ class ExceptionTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetStreamResource()
     {
-        $c = mysql_connect();
+        $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
         $Parser = new Parser();
         $Parser->setStream($c);
     }
