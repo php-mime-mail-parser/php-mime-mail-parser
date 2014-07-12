@@ -7,3 +7,12 @@ php:
 
 before_script:
     - pecl install mailparse
+    - composer self-update
+    - composer install
+    - mkdir -p build/logs
+
+script:
+    - phpunit -c ./ --coverage-text --coverage-clover build/logs/clover.xml
+    
+after_script:
+    - php vendor/bin/coveralls -v
