@@ -451,6 +451,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             }
             //Remove Attachment Directory
             rmdir($attach_dir);
+        } else {
+             $this->assertFalse($Parser->saveAttachments($attach_dir, $attach_url));
         }
 
         //Test embedded Attachments
@@ -565,6 +567,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             }
             //Remove Attachment Directory
             rmdir($attach_dir);
+        } else {
+             $this->assertFalse($Parser->saveAttachments($attach_dir, $attach_url));
         }
 
         //Test embedded Attachments
@@ -680,6 +684,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             }
             //Remove Attachment Directory
             rmdir($attach_dir);
+        } else {
+             $this->assertFalse($Parser->saveAttachments($attach_dir, $attach_url));
         }
 
         //Test embedded Attachments
