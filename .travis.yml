@@ -10,10 +10,12 @@ before_script:
     - pecl install mailparse
     - composer self-update
     - composer install
-    - mkdir -p build/logs
 
 script:
-    - phpunit -c ./ --coverage-text --coverage-clover build/logs/clover.xml
+    - mkdir -p build/logs
+    - ./vendor/bin/phpunit -c ./ --coverage-text --coverage-clover build/logs/clover.xml
+    - ./vendor/bin/phpcs src --standard=psr2
+    - ./vendor/bin/phpcs test --standard=psr2
     
 after_script:
-    - php vendor/bin/coveralls -v
+    - ./vendor/bin/coveralls -v
