@@ -15,15 +15,15 @@ class Attachment
     /**
     * @var $filename Filename
     */
-    public  $filename;
+    public $filename;
     /**
     * @var $contentType Mime Type
     */
-    public  $contentType;
+    public $contentType;
     /**
     * @var $content File Content
     */
-    private  $content;
+    private $content;
     /**
     * @var $extension Filename extension
     */
@@ -41,10 +41,16 @@ class Attachment
     */
     public $headers;
 
-    private  $stream;
+    private $stream;
 
-    public function __construct($filename, $contentType, $stream, $contentDisposition = 'attachment', $contentId, $headers = array())
-    {
+    public function __construct(
+        $filename,
+        $contentType,
+        $stream,
+        $contentDisposition = 'attachment',
+        $contentId = '',
+        $headers = array()
+    ) {
         $this->filename = $filename;
         $this->contentType = $contentType;
         $this->stream = $stream;
@@ -119,8 +125,8 @@ class Attachment
     {
         if ($this->content === null) {
             fseek($this->stream, 0);
-            while(($buf = $this->read()) !== false) { 
-                $this->content .= $buf; 
+            while (($buf = $this->read()) !== false) {
+                $this->content .= $buf;
             }
         }
         return $this->content;

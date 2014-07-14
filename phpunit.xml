@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="./test/eXorus/PhpMimeMailParser/bootstrap.php">
+<phpunit colors="true">
     <testsuites>
         <testsuite name="eXorus PhpMimeMailParser Test Suite">
             <directory>./test/eXorus/PhpMimeMailParser</directory>

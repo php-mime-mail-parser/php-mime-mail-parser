@@ -90,7 +90,7 @@ class Parser
         // streams have to be cached to file first
         if (is_resource($stream) == true) {
 
-            if(get_resource_type($stream) == 'stream'){
+            if (get_resource_type($stream) == 'stream') {
 
                 $tmp_fp = tmpfile();
                 if ($tmp_fp) {
@@ -100,12 +100,15 @@ class Parser
                     fseek($tmp_fp, 0);
                     $this->stream =& $tmp_fp;
                 } else {
-                    throw new \Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
+                    throw new \Exception(
+                        'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
+                    );
                 }
-                fclose($stream);                
-            } 
-            else {
-                throw new \Exception('setStream() expects parameter stream to be stream resource.');
+                fclose($stream);
+            } else {
+                throw new \Exception(
+                    'setStream() expects parameter stream to be stream resource.'
+                );
             }
         } else {
             throw new \Exception('setStream() expects parameter stream to be resource.');
@@ -160,12 +163,14 @@ class Parser
         if (isset($this->parts[1])) {
             $headers = $this->getPartHeaders($this->parts[1]);
             if (isset($headers[$name])) {
-                return $this->_decodeHeader($headers[$name]);
+                return $this->decodeHeader($headers[$name]);
             }
             return false;
 
         } else {
-            throw new \Exception('setPath() or setText() or setStream() must be called before retrieving email headers.');
+            throw new \Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
         }
     }
 
@@ -174,7 +179,7 @@ class Parser
      * @return Mixed String Body or False if not found
      * @param $type Object[optional]
      */
-    public function getMessageBody($type = 'text', $embeddedImg = FALSE)
+    public function getMessageBody($type = 'text', $embeddedImg = false)
     {
         $body = false;
         $mime_types = array(
@@ -183,9 +188,13 @@ class Parser
         );
         if (in_array($type, array_keys($mime_types))) {
             foreach ($this->parts as $part) {
-                if ($this->getPartContentType($part) == $mime_types[$type] && $this->getPartContentDisposition($part) != 'attachment') {
+                if (
+                    $this->getPartContentType($part) == $mime_types[$type]
+                    && $this->getPartContentDisposition($part) != 'attachment'
+                    ) {
                     $headers = $this->getPartHeaders($part);
-                    $encodingType = array_key_exists('content-transfer-encoding', $headers) ? $headers['content-transfer-encoding'] : '';
+                    $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
+                        $headers['content-transfer-encoding'] : '';
 
                     $body = $this->decodeContentTransfer($this->getPartBody($part), $encodingType);
                     $body = $this->decodeCharset($body, $this->getPartCharset($part));
@@ -195,7 +204,8 @@ class Parser
         } else {
             throw new \Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
         }
-        return ($embeddedImg === FALSE) ? $body : str_replace($this->attachmentContentId, $this->attachmentNewSrc, $body);
+        return ($embeddedImg === false) ?
+            $body : str_replace($this->attachmentContentId, $this->attachmentNewSrc, $body);
     }
 
     /**
@@ -214,20 +224,20 @@ class Parser
             $contentid = $this->getPartContentID($part);
             $filename = 'noname';
 
-            if (isset($part['disposition-filename'])){
-                $filename=$this->_decodeHeader($part['disposition-filename']);
+            if (isset($part['disposition-filename'])) {
+                $filename=$this->decodeHeader($part['disposition-filename']);
 
-            } else if (isset($part['content-name'])) {
+            } elseif (isset($part['content-name'])) {
                 // if we have no disposition but we have a content-name, it's a valid attachment.
                 // we simulate the presence of an attachment disposition with a disposition filename
-                $filename=$this->_decodeHeader($part['content-name']);
+                $filename=$this->decodeHeader($part['content-name']);
                 $disposition='attachment';
 
             }
 
-            if (in_array($disposition, $dispositions) === TRUE && isset($filename) === TRUE) {
+            if (in_array($disposition, $dispositions) === true && isset($filename) === true) {
 
-                if($filename == 'noname'){
+                if ($filename == 'noname') {
                     $nonameIter++;
                     $filename = 'noname'.$nonameIter;
                 }
@@ -241,7 +251,7 @@ class Parser
                     $disposition,
                     $contentid,
                     $headersAttachments
-                    );
+                );
             }
         }
         return $attachments;
@@ -254,14 +264,18 @@ class Parser
      */
     public function saveAttachments($attach_dir, $url)
     {
-        if (!is_dir($attach_dir)) mkdir($attach_dir);
+        if (!is_dir($attach_dir)) {
+            mkdir($attach_dir);
+        }
 
         $attachments = $this->getAttachments();
-        if (empty($attachments)) return false;
+        if (empty($attachments)) {
+            return false;
+        }
 
         foreach ($attachments as $attachment) {
 
-            if ($attachment->getContentID() != ''){
+            if ($attachment->getContentID() != '') {
                 array_push($this->attachmentContentId, 'cid:'.$attachment->getContentID());
                 array_push($this->attachmentNewSrc, $url.DIRECTORY_SEPARATOR.$attachment->getFilename());
             }
@@ -288,7 +302,8 @@ class Parser
         $temp_fp = tmpfile();
 
         $headers = $this->getPartHeaders($part);
-        $encodingType = array_key_exists('content-transfer-encoding', $headers) ? $headers['content-transfer-encoding'] : '';
+        $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
+            $headers['content-transfer-encoding'] : '';
 
         if ($temp_fp) {
             if ($this->stream) {
@@ -305,13 +320,15 @@ class Parser
                     fwrite($temp_fp, $this->decodeContentTransfer($part, $encodingType));
                     $written += $write;
                 }
-            } else if ($this->data) {
+            } elseif ($this->data) {
                 $attachment = $this->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
                 fwrite($temp_fp, $attachment, strlen($attachment));
             }
             fseek($temp_fp, 0, SEEK_SET);
         } else {
-            throw new \Exception('Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.');
+            throw new \Exception(
+                'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
+            );
         }
         return $temp_fp;
     }
@@ -326,7 +343,7 @@ class Parser
     {
         $encodingType = strtolower($encodingType);
 
-        if ($encodingType == 'base64'){
+        if ($encodingType == 'base64') {
             return base64_decode($encodedString);
         } elseif ($encodingType == 'quoted-printable') {
             return quoted_printable_decode($encodedString);
@@ -343,7 +360,7 @@ class Parser
      * @param $charset          The Charset header of the part.
      */
     private function decodeCharset($encodedString, $charset)
-    {        
+    {
         return ($charset == 'us-ascii') ? $encodedString : iconv($charset, 'UTF-8//TRANSLIT', $encodedString);
     }
 
@@ -353,7 +370,7 @@ class Parser
     * @param string $input
     * @return string,array
     */
-    private function _decodeHeader($input)
+    private function decodeHeader($input)
     {
         return iconv_mime_decode($input, 2, 'UTF-8');
     }
@@ -419,9 +436,9 @@ class Parser
         $body = '';
         if ($this->stream) {
             $body = $this->getPartBodyFromFile($part);
-        } else if ($this->data) {
+        } elseif ($this->data) {
             $body = $this->getPartBodyFromText($part);
-        } 
+        }
         return $body;
     }
 
