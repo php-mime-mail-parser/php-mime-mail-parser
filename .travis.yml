@@ -15,6 +15,7 @@ before_script:
 script:
     - phpunit -c ./ --coverage-text --coverage-clover build/logs/clover.xml
     - ./vendor/bin/phpcs src --standard=psr2
+    - ./vendor/bin/phpcs test --standard=psr2
     
 after_script:
     - php vendor/bin/coveralls -v
