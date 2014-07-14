@@ -20,8 +20,6 @@ All the issues are reproduced, fixed and tested.
 
 Easy way with [Composer](https://getcomposer.org/) ;)
 
-	$ mkdir myproject
-	$ cd myproject
 	$ curl -s http://getcomposer.org/installer | php
 	$ vi composer.json
 	{
