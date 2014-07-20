@@ -1,5 +1,4 @@
-php-mime-mail-parser
-====================
+# php-mime-mail-parser
 
 Fully Tested Mailparse Extension Wrapper for PHP 5.3+
 
@@ -28,6 +27,17 @@ Easy way with [Composer](https://getcomposer.org/) ;)
 	    }
 	}
 	$ php composer.phar install
+
+## Requirements
+
+The following versions of PHP are supported by this version.
+
+* PHP 5.3
+* PHP 5.4
+* PHP 5.5
+* PHP 5.6
+
+Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed : pecl install mailparse
 
 ## How to use it ?
 
