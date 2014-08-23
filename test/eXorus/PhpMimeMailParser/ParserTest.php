@@ -339,7 +339,26 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         'b70ff760112a71009d8295c34fd67d9b'
                     )
                 ),
-                0)
+                0),
+            array(
+                'm0016',
+                'Test message with multiple From headers',
+                'Doug Sauder <dwsauder@example.com>',
+                'Joe Blow <blow@example.com>',
+                array('COUNT',1,'Die Hasen und die'),
+                array('MATCH',''),
+                array(
+                    array(
+                        'HasenundFrösche.txt',
+                        747,
+                        'noch',
+                        2,
+                        'text/plain',
+                        'inline',
+                        '865238356eec20b67ce8c33c68d8a95a'
+                    )
+                ),
+                0),
         );
         return $data;
     }

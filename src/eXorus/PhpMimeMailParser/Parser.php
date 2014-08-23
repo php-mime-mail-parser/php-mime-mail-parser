@@ -366,15 +366,21 @@ class Parser
 
 
     /**
-    * $input can be a string
-    * @param string $input
+    * $input can be a string or array
+    * @param string,array $input
     * @return string,array
     */
     private function decodeHeader($input)
     {
-        return iconv_mime_decode($input, 2, 'UTF-8');
+        if (is_array($input)) {
+            foreach ($input as &$headerLine) {
+                $headerLine = iconv_mime_decode($headerLine, 2, 'UTF-8');
+            }
+            return $headerLine;
+        } else {
+            return iconv_mime_decode($input, 2, 'UTF-8');
+        }
     }
-
 
     /**
      * Return the Headers for a MIME part
