@@ -368,7 +368,7 @@ class Parser
     /**
     * $input can be a string or array
     * @param string,array $input
-    * @return string,array
+    * @return string
     */
     private function decodeHeader($input)
     {
