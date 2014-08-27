@@ -48,7 +48,8 @@
     "require-dev": {
         "phpunit/phpunit":              ">=3.7.0",
         "satooshi/php-coveralls":       "dev-master",
-        "squizlabs/PHP_CodeSniffer":    "1.5.*"
+        "squizlabs/PHP_CodeSniffer":    "1.5.*",
+        "halleck45/mutatesting": "dev-master"
     },
     "autoload": {
         "psr-0": { "eXorus\\PhpMimeMailParser\\": "src/" }
