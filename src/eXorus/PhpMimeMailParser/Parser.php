@@ -204,8 +204,17 @@ class Parser
         } else {
             throw new \Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
         }
-        return ($embeddedImg === false) ?
-            $body : str_replace($this->attachmentContentId, $this->attachmentNewSrc, $body);
+        if ($embeddedImg) {
+            $body = str_replace($this->attachmentContentId, $this->attachmentNewSrc, $body);
+            if (preg_match_all("/src=[\'\"]cid:([^\s]+)[\'\"]/", $body, $matchesArray)) {
+                foreach ($matchesArray as $matches) {
+                    foreach ($matches as $match) {
+                        $body = str_replace("cid:" . $match, "data:image/png;base64," . base64_encode ( $this->getDecodedPartBodyByContentId($match) ), $body);
+                    }
+                }
+            }
+        }
+        return $body;
     }
 
     /**
@@ -468,5 +477,25 @@ class Parser
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
         return substr($this->data, $start, $end-$start);
+    }
+    
+    /**
+     * Returns the decoded part body in the specified format given its content-id
+     * @return Mixed String Body or False if not found
+     * @param $contentId string The part content-id
+     */
+    private function getDecodedPartBodyByContentId($contentId) {
+        $body = false;
+        foreach ($this->parts as $part) {
+            if ($this->getPartContentId($part) == $contentId) {
+                $headers = $this->getPartHeaders($part);
+                $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
+                $headers['content-transfer-encoding'] : '';
+    
+                $body = $this->decodeContentTransfer($this->getPartBody($part), $encodingType);
+                $body = $this->decodeCharset($body, $this->getPartCharset($part));;
+            }
+        }
+        return $body;
     }
 }
