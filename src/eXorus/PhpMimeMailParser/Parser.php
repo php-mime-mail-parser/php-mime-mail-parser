@@ -264,13 +264,13 @@ class Parser
      */
     public function saveAttachments($attach_dir, $url)
     {
-        if (!is_dir($attach_dir)) {
-            mkdir($attach_dir);
-        }
-
         $attachments = $this->getAttachments();
         if (empty($attachments)) {
             return false;
+        }
+
+        if (!is_dir($attach_dir)) {
+            mkdir($attach_dir);
         }
 
         foreach ($attachments as $attachment) {
