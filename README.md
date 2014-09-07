@@ -66,7 +66,7 @@ $subject = $Parser->getHeader('subject');
 
 $text = $Parser->getMessageBody('text');
 $html = $Parser->getMessageBody('html');
-$htmlEmbedded = $Parser->getMessageBody('htmlEmbedded'); //HTML Body include data
+$htmlEmbedded = $Parser->getMessageBody('htmlEmbedded'); //HTML Body included data
 
 // and the attachments also
 $attach_dir = '/path/to/save/attachments/';
