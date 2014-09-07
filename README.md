@@ -66,14 +66,11 @@ $subject = $Parser->getHeader('subject');
 
 $text = $Parser->getMessageBody('text');
 $html = $Parser->getMessageBody('html');
+$htmlEmbedded = $Parser->getMessageBody('htmlEmbedded'); //HTML Body include data
 
 // and the attachments also
 $attach_dir = '/path/to/save/attachments/';
-$attach_url = 'http://www.company.com/attachments/';
-$Parser->saveAttachments($attach_dir, $attach_url);
-
-// after saving attachments, you can echo the body with content-id
-$html_embedded = $Parser->getMessageBody('html', TRUE);
+$Parser->saveAttachments($attach_dir);
 
 ?>
 ```

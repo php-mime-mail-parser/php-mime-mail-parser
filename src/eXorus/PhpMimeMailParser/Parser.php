@@ -31,26 +31,6 @@ class Parser
     public $data;
 
     /**
-     * Array of Content-Id
-     */
-    public $attachmentContentId;
-
-    /**
-     * Array of New attribut src for Content-Id
-     */
-    public $attachmentNewSrc;
-
-    /**
-     * Inialize some stuff
-     * @return
-     */
-    public function __construct()
-    {
-        $this->attachmentContentId = array();
-        $this->attachmentNewSrc = array();
-    }
-
-    /**
      * Free the held resouces
      * @return void
      */
@@ -177,14 +157,15 @@ class Parser
     /**
      * Returns the email message body in the specified format
      * @return Mixed String Body or False if not found
-     * @param $type Object[optional]
+     * @param $type String text or html or htmlEmbedded
      */
-    public function getMessageBody($type = 'text', $embeddedImg = false)
+    public function getMessageBody($type = 'text')
     {
         $body = false;
         $mime_types = array(
             'text'=> 'text/plain',
-            'html'=> 'text/html'
+            'html'=> 'text/html',
+            'htmlEmbedded'=> 'text/html'
         );
         if (in_array($type, array_keys($mime_types))) {
             foreach ($this->parts as $part) {
@@ -204,14 +185,47 @@ class Parser
         } else {
             throw new \Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
         }
-        return ($embeddedImg === false) ?
-            $body : str_replace($this->attachmentContentId, $this->attachmentNewSrc, $body);
+
+        if ($type == 'htmlEmbedded') {
+            $attachments = $this->getAttachments();
+
+            foreach ($attachments as $attachment) {
+                if ($attachment->getContentID() != '') {
+                    $body = str_replace(
+                        "cid:".$attachment->getContentID(),
+                        $this->getEmbeddedData($attachment->getContentID()),
+                        $body
+                    );
+                }
+            }
+        }
+        return $body;
+    }
+
+
+    /**
+     * Returns the embedded data structure
+     * @return String
+     * @param $contentId String of Content-Id
+     */
+    private function getEmbeddedData($contentId)
+    {
+        $embeddedData = "data:";
+
+        foreach ($this->parts as $part) {
+            if ($this->getPartContentId($part) == $contentId) {
+
+                $embeddedData .= $this->getPartContentType($part);
+                $embeddedData .= ";".$this->getPartContentTransferEncoding($part);
+                $embeddedData .= ",".$this->getPartBody($part);
+            }
+        }
+        return $embeddedData;
     }
 
     /**
      * Returns the attachments contents in order of appearance
-     * @return Array
-     * @param $type Object[optional]
+     * @return Array of attachments
      */
     public function getAttachments()
     {
@@ -260,9 +274,9 @@ class Parser
     /**
      * Save attachments in a folder
      * @return boolean
-     * @param $save_dir String
+     * @param $attach_dir String of the directory
      */
-    public function saveAttachments($attach_dir, $url)
+    public function saveAttachments($attach_dir)
     {
         $attachments = $this->getAttachments();
         if (empty($attachments)) {
@@ -274,11 +288,6 @@ class Parser
         }
 
         foreach ($attachments as $attachment) {
-
-            if ($attachment->getContentID() != '') {
-                array_push($this->attachmentContentId, 'cid:'.$attachment->getContentID());
-                array_push($this->attachmentNewSrc, $url.DIRECTORY_SEPARATOR.$attachment->getFilename());
-            }
 
             if ($fp = fopen($attach_dir.$attachment->getFilename(), 'w')) {
                 while ($bytes = $attachment->read()) {
@@ -407,6 +416,16 @@ class Parser
     private function getPartCharset($part)
     {
         return (isset($part['charset'])) ? $part['charset'] : false;
+    }
+
+    /**
+     * Return the Content Transfer Encoding
+     * @return String
+     * @param $part Array
+     */
+    private function getPartContentTransferEncoding($part)
+    {
+        return (isset($part['transfer-encoding'])) ? $part['transfer-encoding'] : false;
     }
 
     /**

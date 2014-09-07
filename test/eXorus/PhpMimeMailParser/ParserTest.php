@@ -379,7 +379,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Init
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
-        $attach_url = 'http://www.company.com/attachments/'.$mid.'/';
 
         //Load From Path
         $Parser = new Parser();
@@ -420,7 +419,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         if (count($attachmentsExpected) > 0) {
 
             //Save attachments
-            $Parser->saveAttachments($attach_dir, $attach_url);
+            $Parser->saveAttachments($attach_dir);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
 
@@ -471,12 +470,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             //Remove Attachment Directory
             rmdir($attach_dir);
         } else {
-             $this->assertFalse($Parser->saveAttachments($attach_dir, $attach_url));
+             $this->assertFalse($Parser->saveAttachments($attach_dir));
         }
 
         //Test embedded Attachments
-        $htmlEmbedded = $Parser->getMessageBody('html', true);
-        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, $attach_url));
+        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
     }
 
     /**
@@ -495,7 +494,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Init
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
-        $attach_url = 'http://www.company.com/attachments/'.$mid.'/';
 
         //Load From Text
         $Parser = new Parser();
@@ -536,7 +534,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         if (count($attachmentsExpected) > 0) {
 
             //Save attachments
-            $Parser->saveAttachments($attach_dir, $attach_url);
+            $Parser->saveAttachments($attach_dir);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
 
@@ -587,12 +585,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             //Remove Attachment Directory
             rmdir($attach_dir);
         } else {
-             $this->assertFalse($Parser->saveAttachments($attach_dir, $attach_url));
+             $this->assertFalse($Parser->saveAttachments($attach_dir));
         }
 
         //Test embedded Attachments
-        $htmlEmbedded = $Parser->getMessageBody('html', true);
-        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, $attach_url));
+        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
     }
 
 
@@ -612,7 +610,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Init
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
-        $attach_url = 'http://www.company.com/attachments/'.$mid.'/';
 
         //Load From Path
         $Parser = new Parser();
@@ -653,7 +650,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         if (count($attachmentsExpected) > 0) {
 
             //Save attachments
-            $Parser->saveAttachments($attach_dir, $attach_url);
+            $Parser->saveAttachments($attach_dir);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
 
@@ -704,11 +701,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             //Remove Attachment Directory
             rmdir($attach_dir);
         } else {
-             $this->assertFalse($Parser->saveAttachments($attach_dir, $attach_url));
+             $this->assertFalse($Parser->saveAttachments($attach_dir));
         }
 
         //Test embedded Attachments
-        $htmlEmbedded = $Parser->getMessageBody('html', true);
-        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, $attach_url));
+        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
     }
 }
