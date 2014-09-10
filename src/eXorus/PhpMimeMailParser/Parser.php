@@ -290,7 +290,7 @@ class Parser
         }
 
         foreach ($attachments as $attachment) {
-            $attachment_path = realpath($attach_dir.$attachment->getFilename());
+            $attachment_path = $attach_dir.$attachment->getFilename();
 
             if ($fp = fopen($attachment_path, 'w')) {
                 while ($bytes = $attachment->read()) {
@@ -298,7 +298,7 @@ class Parser
                 }
                 fclose($fp);
                 
-                $attachments_paths[] = $attachment_path;
+                $attachments_paths[] = realpath($attachment_path);
             } else {
                 throw new \Exception('Could not write attachments. Your directory may be unwritable by PHP.');
             }
