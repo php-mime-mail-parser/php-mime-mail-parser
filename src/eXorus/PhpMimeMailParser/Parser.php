@@ -279,7 +279,7 @@ class Parser
     public function saveAttachments($attach_dir)
     {
         $attachments = $this->getAttachments();
-        $attachments_paths = [];
+        $attachments_paths = array();
         
         if (empty($attachments)) {
             return false;
