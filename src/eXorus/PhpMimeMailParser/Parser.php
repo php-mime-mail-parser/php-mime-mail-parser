@@ -273,12 +273,14 @@ class Parser
 
     /**
      * Save attachments in a folder
-     * @return boolean
+     * @return array Saved attachments paths
      * @param $attach_dir String of the directory
      */
     public function saveAttachments($attach_dir)
     {
         $attachments = $this->getAttachments();
+        $attachments_paths = [];
+        
         if (empty($attachments)) {
             return false;
         }
@@ -288,16 +290,21 @@ class Parser
         }
 
         foreach ($attachments as $attachment) {
+            $attachment_path = realpath($attach_dir.$attachment->getFilename());
 
-            if ($fp = fopen($attach_dir.$attachment->getFilename(), 'w')) {
+            if ($fp = fopen($attachment_path, 'w')) {
                 while ($bytes = $attachment->read()) {
                     fwrite($fp, $bytes);
                 }
                 fclose($fp);
+                
+                $attachments_paths[] = $attachment_path;
             } else {
                 throw new \Exception('Could not write attachments. Your directory may be unwritable by PHP.');
             }
         }
+        
+        return $attachments_paths;
     }
 
 
