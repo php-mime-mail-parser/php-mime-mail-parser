@@ -2,7 +2,7 @@
 <phpunit colors="true">
     <testsuites>
         <testsuite name="eXorus PhpMimeMailParser Test Suite">
-            <directory>./test/eXorus/PhpMimeMailParser</directory>
+            <directory>./test</directory>
         </testsuite>
     </testsuites>
 </phpunit>

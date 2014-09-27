@@ -51,6 +51,6 @@
         "squizlabs/PHP_CodeSniffer":    "1.5.*"
     },
     "autoload": {
-        "psr-0": { "eXorus\\PhpMimeMailParser\\": "src/" }
+        "psr-4": { "eXorus\\PhpMimeMailParser\\": "src/" }
     }
 }
