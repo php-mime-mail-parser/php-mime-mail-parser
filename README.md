@@ -19,14 +19,9 @@ All the issues are reproduced, fixed and tested.
 
 Easy way with [Composer](https://getcomposer.org/) ;)
 
-	$ curl -s http://getcomposer.org/installer | php
-	$ vi composer.json
-	{
-	    "require": {
-	        "exorus/php-mime-mail-parser": "1.*"
-	    }
-	}
-	$ php composer.phar install
+To install this library, run the command below and you will get the latest version
+
+	composer require exorus/php-mime-mail-parser
 
 ## Requirements
 
