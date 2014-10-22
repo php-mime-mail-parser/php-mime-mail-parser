@@ -5,6 +5,7 @@ php:
     - 5.4
     - 5.5
     - 5.6
+    - hhvm
 
 before_script:
     - pecl install mailparse
@@ -16,6 +17,6 @@ script:
     - ./vendor/bin/phpunit -c ./ --coverage-text --coverage-clover build/logs/clover.xml
     - ./vendor/bin/phpcs src --standard=psr2
     - ./vendor/bin/phpcs test --standard=psr2
-    
+
 after_script:
     - ./vendor/bin/coveralls -v
