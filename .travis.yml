@@ -8,7 +8,7 @@ php:
     - hhvm
 
 before_script:
-    - pecl install mailparse
+    - sh -c 'if [ $(php -r "echo (int) defined(\"HHVM_VERSION\");") -eq 0 ]; then pecl install mailparse; fi'
     - composer self-update
     - composer install
 
