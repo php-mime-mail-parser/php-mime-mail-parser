@@ -684,7 +684,11 @@ class Parser
      */
     private function decodeCharset($encodedString, $charset)
     {
-        return ($charset == 'us-ascii') ? $encodedString : iconv($charset, 'UTF-8//TRANSLIT', $encodedString);
+        if (strtolower($charset) == 'utf-8' || strtolower($charset) == 'us-ascii') {
+            return $encodedString;
+        } else {
+            return iconv($charset, 'UTF-8//TRANSLIT', $encodedString);
+        }
     }
 
 
