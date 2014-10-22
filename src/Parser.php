@@ -68,31 +68,26 @@ class Parser
     public function setStream($stream)
     {
         // streams have to be cached to file first
-        if (is_resource($stream) == true) {
-
-            if (get_resource_type($stream) == 'stream') {
-
-                $tmp_fp = tmpfile();
-                if ($tmp_fp) {
-                    while (!feof($stream)) {
-                        fwrite($tmp_fp, fread($stream, 2028));
-                    }
-                    fseek($tmp_fp, 0);
-                    $this->stream =& $tmp_fp;
-                } else {
-                    throw new \Exception(
-                        'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
-                    );
-                }
-                fclose($stream);
-            } else {
-                throw new \Exception(
-                    'setStream() expects parameter stream to be stream resource.'
-                );
-            }
-        } else {
-            throw new \Exception('setStream() expects parameter stream to be resource.');
+        $meta = @stream_get_meta_data($stream);
+        if (!$meta || !$meta['mode'] || $meta['mode'][0] != 'r' || $meta['eof']) {
+            throw new \Exception(
+                'setStream() expects parameter stream to be readable stream resource.'
+            );
         }
+
+        $tmp_fp = tmpfile();
+        if ($tmp_fp) {
+            while (!feof($stream)) {
+                fwrite($tmp_fp, fread($stream, 2028));
+            }
+            fseek($tmp_fp, 0);
+            $this->stream =& $tmp_fp;
+        } else {
+            throw new \Exception(
+                'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
+            );
+        }
+        fclose($stream);
 
         $this->resource = mailparse_msg_create();
         // parses the message incrementally (low memory usage but slower)

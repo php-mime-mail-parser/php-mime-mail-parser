@@ -73,7 +73,7 @@ namespace eXorus\PhpMimeMailParser {
 
         /**
          * @expectedException        Exception
-         * @expectedExceptionMessage setStream() expects parameter stream to be resource.
+         * @expectedExceptionMessage setStream() expects parameter stream to be readable stream resource.
          */
         public function testSetStream()
         {
@@ -116,7 +116,7 @@ namespace eXorus\PhpMimeMailParser {
 
         /**
          * @expectedException        Exception
-         * @expectedExceptionMessage setStream() expects parameter stream to be stream resource.
+         * @expectedExceptionMessage setStream() expects parameter stream to be readable stream resource.
          */
         public function testSetStreamResource()
         {
