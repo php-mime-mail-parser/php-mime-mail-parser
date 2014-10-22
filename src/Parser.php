@@ -34,7 +34,7 @@ class Parser
     /**
      * Charset Aliases
      */
-    public $charsetalias = array (
+    private $charsetalias = array (
         'ascii' => 'us-ascii',
         'us-ascii' => 'us-ascii',
         'ansi_x3.4-1968' => 'us-ascii',
