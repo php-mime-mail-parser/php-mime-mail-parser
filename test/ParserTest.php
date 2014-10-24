@@ -386,6 +386,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         '095f96b9d5a25d051ad425356745334f'
                     )
                 ),
+                0),            
+            array(
+                'm0019',
+                'Re: Maya Ethnobotanicals - Emails',
+                'sendeär <sender@test.com>',
+                '"test" <test@asdasd.com>',
+                array('COUNT',1,'captured'),
+                array('MATCH',''),
+                array(),
                 0),
         );
         return $data;
