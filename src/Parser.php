@@ -547,8 +547,6 @@ class Parser
                 $headersAttachments = $this->getPart('headers', $part);
                 $contentidAttachments = $this->getPart('content-id', $part);
 
-                var_dump($contentidAttachments);
-
                 $attachments[] = new Attachment(
                     $filename,
                     $this->getPart('content-type', $part),
@@ -570,9 +568,13 @@ class Parser
     public function saveAttachments($attach_dir)
     {
         $attachments = $this->getAttachments();
-        if (empty($attachments)) return false;
+        if (empty($attachments)) {
+            return false;
+        }
 
-        if (!is_dir($attach_dir)) mkdir($attach_dir);
+        if (!is_dir($attach_dir)) {
+            mkdir($attach_dir);
+        }
 
         $attachments_paths = array();
         foreach ($attachments as $attachment) {
