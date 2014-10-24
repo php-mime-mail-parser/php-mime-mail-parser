@@ -144,5 +144,19 @@ namespace eXorus\PhpMimeMailParser {
 
             $Parser->saveAttachments($attach_dir, $attach_url);
         }
+
+        /**
+         * @expectedException        PHPUnit_Framework_Error_Notice
+         */
+        public function testWrongCharset()
+        {
+            $mid = 'm0017';
+            $file = __DIR__.'/mails/'.$mid;
+
+            $Parser = new Parser();
+            $Parser->setStream(fopen($file, 'r'));
+
+            $text = $Parser->getMessageBody('text');
+        }
     }
 }

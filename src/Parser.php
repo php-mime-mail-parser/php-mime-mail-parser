@@ -684,12 +684,8 @@ class Parser
      */
     private function getPartCharset($part)
     {
-        if (isset($part['charset'])) {
-            return (isset($this->charsetalias[strtolower($part['charset'])])) ?
-                $this->charsetalias[strtolower($part['charset'])] : $part['charset'];
-        } else {
-            return false;
-        }
+        return (isset($part['charset'])) ? (isset($this->charsetalias[strtolower($part['charset'])])) ?
+            $this->charsetalias[strtolower($part['charset'])] : $part['charset'] : false;
     }
 
     /**
