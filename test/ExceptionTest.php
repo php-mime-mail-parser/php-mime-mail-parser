@@ -146,7 +146,7 @@ namespace eXorus\PhpMimeMailParser {
         }
 
         /**
-         * @expectedException        PHPUnit_Framework_Error_Notice
+         * @expectedException        PHPUnit_Framework_Error
          */
         public function testWrongCharset()
         {
