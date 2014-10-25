@@ -359,6 +359,43 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
+            array(
+                'm0018',
+                '[Korea] Name',
+                '<name@company.com>',
+                '"name@company2.com" <name@company2.com>',
+                array('COUNT',1,'My traveling companions!'),
+                array('MATCH',''),
+                array(
+                    array(
+                        '=?ks_c_5601-1987?B?u+fB+C5KUEc=?=',
+                        174,
+                        '',
+                        0,
+                        'image/jpeg',
+                        'attachment',
+                        '567f29989506f21cea8ac992d81ce4c1'
+                    ),
+                    array(
+                        'ATT00001.txt',
+                        25,
+                        'iPhone',
+                        1,
+                        'text/plain',
+                        'attachment',
+                        '095f96b9d5a25d051ad425356745334f'
+                    )
+                ),
+                0),
+            array(
+                'm0019',
+                'Re: Maya Ethnobotanicals - Emails',
+                'sendeär <sender@test.com>',
+                '"test" <test@asdasd.com>',
+                array('COUNT',1,'captured'),
+                array('MATCH',''),
+                array(),
+                0),
         );
         return $data;
     }
@@ -395,7 +432,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         //Test Invalid Header
         $this->assertFalse($Parser->getHeader('azerty'));
-        
+
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
             $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));
