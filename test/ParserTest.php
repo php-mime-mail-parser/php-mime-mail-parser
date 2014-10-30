@@ -368,7 +368,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array('MATCH',''),
                 array(
                     array(
-                        '=?ks_c_5601-1987?B?u+fB+C5KUEc=?=',
+                        '사진.JPG',
                         174,
                         '',
                         0,
