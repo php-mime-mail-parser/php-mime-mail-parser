@@ -464,6 +464,17 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 if($mid == 'm0018'){
                     var_dump('attach_dir : '.$attach_dir.' |');
                     var_dump('attachmentExpected[0] : '.$attachmentExpected[0].' |');
+                    
+                    $dir = opendir($attach_dir); 
+
+                    while($file = readdir($dir)) {
+                        if($file != '.' && $file != '..' && !is_dir($attach_dir.$file))
+                        {
+                            var_dump('file : '.$attach_dir.$file.' |');
+                        }
+                    }
+
+                    closedir($dir);
                 }
                 $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
 
