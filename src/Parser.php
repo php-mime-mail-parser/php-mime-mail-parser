@@ -675,6 +675,9 @@ class Parser
     private function decodeHeader($input)
     {
         //return (is_array($input)) ? iconv_mime_decode($input[0], 2, 'UTF-8') : iconv_mime_decode($input, 2, 'UTF-8');
+        if(is_array($input))
+            $input = $input[0];
+        
         $resp = imap_utf8(trim($input));
 
         if(preg_match("/=\?/", $resp))
