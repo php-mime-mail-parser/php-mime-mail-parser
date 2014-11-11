@@ -40,7 +40,7 @@ Make sure you have the mailparse extension (http://php.net/manual/en/book.mailpa
 ```php
 <?php
 //We need to add the library first !
-require_once __DIR__.'/vendor/composer/autoload_psr4.php';
+require_once __DIR__.'/vendor/autoload.php';
 
 $path = 'path/to/mail.txt';
 $Parser = new eXorus\PhpMimeMailParser\Parser();
