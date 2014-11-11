@@ -33,7 +33,10 @@ The following versions of PHP are supported by this version.
 * PHP 5.6
 * HHVM
 
-Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed : pecl install mailparse
+Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed : 
+	pecl install mailparse
+And imap functions with :
+	apt-get install php5-imap
 
 ## How to use it ?
 
