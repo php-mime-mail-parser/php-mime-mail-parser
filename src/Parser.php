@@ -674,7 +674,21 @@ class Parser
     */
     private function decodeHeader($input)
     {
-        return (is_array($input)) ? iconv_mime_decode($input[0], 2, 'UTF-8') : iconv_mime_decode($input, 2, 'UTF-8');
+        if (is_array($input)) {
+            $input = $input[0];
+        }
+        
+        $output = imap_utf8(trim($input));
+        /*
+        if (preg_match("/=\?/", $output)) {
+            $output = iconv_mime_decode($input, ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8");
+        }
+
+        if (json_encode($output) == 'null') {
+            $output = utf8_encode($output);
+        }
+        */
+        return $output;
     }
 
     /**
