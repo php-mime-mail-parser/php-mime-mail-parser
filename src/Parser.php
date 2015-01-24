@@ -545,7 +545,7 @@ class Parser
                 echo "content-type:";
                 var_dump($part['content-type']); 
                 echo "substr content-type:";
-                var_dump($part['content-type'], 0, 10);
+                var_dump(substr($part['content-type'], 0, 10));
             }
 
             if (in_array($disposition, $dispositions) === true && isset($filename) === true) {
