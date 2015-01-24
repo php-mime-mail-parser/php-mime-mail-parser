@@ -433,6 +433,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $countEmbeddedExpected
     ) {
         //Init
+        var_dump($mid);
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
 
@@ -548,6 +549,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $countEmbeddedExpected
     ) {
         //Init
+        var_dump($mid);
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
 
@@ -664,6 +666,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $countEmbeddedExpected
     ) {
         //Init
+        var_dump($mid);
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
 
