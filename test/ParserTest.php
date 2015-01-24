@@ -396,6 +396,25 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array('MATCH',''),
                 array(),
                 0),
+            array(
+                'm0020',
+                '1',
+                'Finntack Newsletter <newsletter@finntack.com>',
+                'Clement Wong <clement.wong@finntack.com>',
+                array('MATCH',"1\r\n\r\n"),
+                array('COUNT',1,'<html>'),
+                array(
+                    array(
+                        'noname1',
+                        1432,
+                        '',
+                        0,
+                        'text/calendar',
+                        'attachment',
+                        'bf7bfb9b8dd11ff0c830b2388560d434'
+                    )
+                ),
+                0),
         );
         return $data;
     }
