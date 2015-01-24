@@ -541,6 +541,11 @@ class Parser
                 && substr($part['content-type'], 0, 10) !== 'multipart/') {
                 // if we cannot get it by getMessageBody(), we assume it is an attachment
                 $disposition = 'attachment';
+                
+                echo "content-type:";
+                var_dump($part['content-type']); 
+                echo "substr content-type:";
+                var_dump($part['content-type'], 0, 10);
             }
 
             if (in_array($disposition, $dispositions) === true && isset($filename) === true) {
