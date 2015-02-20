@@ -71,6 +71,16 @@ $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded'); //HTML Body included da
 $attach_dir = '/path/to/save/attachments/';
 $Parser->saveAttachments($attach_dir);
 
+// loop the attachments
+$attachments = $Parser->getAttachments();
+if (count($attachments) > 0) {
+	foreach ($attachments as $attachment) {
+		echo 'Filename : '.$attachment->getFilename().'<br />'; // logo.jpg
+		echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />'; // 1000
+		echo 'Filetype : '.$attachment->getContentType().'<br />'; // image/jpeg
+	}
+}
+
 ?>
 ```
 
