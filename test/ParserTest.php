@@ -40,7 +40,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             */
             array(
                 'm0001',
-                'Mail avec fichier attaché de 1ko',
+                'Mail avec fichier attaché de 1ko',
                 'Name <name@company.com>',
                 'name@company2.com',
                 array('MATCH',"\n"),
@@ -57,9 +57,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0002',
-                'Mail avec fichier attaché de 3ko',
+                'Mail avec fichier attaché de 3ko',
                 'Name <name@company.com>',
                 'name@company2.com',
                 array('MATCH',"\n"),
@@ -76,7 +76,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0003',
                 'Mail de 14 Ko',
                 'Name <name@company.com>',
@@ -95,7 +95,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0004',
                 'Mail de 800ko',
                 'Name <name@company.com>',
@@ -114,7 +114,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0005',
                 'Mail de 1500 Ko',
                 'Name <name@company.com>',
@@ -133,7 +133,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0006',
                 'Mail de 3 196 Ko',
                 'Name <name@company.com>',
@@ -152,9 +152,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0007',
-                'Mail avec fichier attaché de 3ko',
+                'Mail avec fichier attaché de 3ko',
                 'Name <name@company.com>',
                 'name@company2.com',
                 array('MATCH',"\n"),
@@ -171,7 +171,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0008',
                 'Testing MIME E-mail composing with cid',
                 'Name <name@company.com>',
@@ -208,7 +208,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 2),
-            array(
+                array(
                 'm0009',
                 'Ogone NIEUWE order Maurits PAYID: 951597484 / orderID: 456123 / status: 5',
                 '"Ogone" <noreply@ogone.com>',
@@ -217,7 +217,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array('MATCH',''),
                 array(),
                 0),
-            array(
+                array(
                 'm0010',
                 'Mail de 800ko without filename',
                 'Name <name@company.com>',
@@ -236,7 +236,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0011',
                 'Hello World !',
                 'Name <name@company.com>',
@@ -255,7 +255,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0012',
                 'Hello World !',
                 'Name <name@company.com>',
@@ -274,7 +274,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0013',
                 '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829. pdf',
                 'NAME Firstname <firstname.name@groupe-company.com>',
@@ -293,7 +293,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0014',
                 'Test message from Netscape Communicator 4.7',
                 'Doug Sauder <dwsauder@example.com>',
@@ -302,7 +302,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array('MATCH',''),
                 array(
                     array(
-                        'HasenundFrösche.txt',
+                        'HasenundFrösche.txt',
                         747,
                         'noch',
                         2,
@@ -312,7 +312,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0015',
                 'Up to $30 Off Multivitamins!',
                 '"Vitamart.ca" <service@vitamart.ca>',
@@ -340,7 +340,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0016',
                 'Test message with multiple From headers',
                 'Doug Sauder <dwsauder@example.com>',
@@ -349,7 +349,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array('MATCH',''),
                 array(
                     array(
-                        'HasenundFrösche.txt',
+                        'HasenundFrösche.txt',
                         747,
                         'noch',
                         2,
@@ -359,7 +359,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0018',
                 '[Korea] Name',
                 '<name@company.com>',
@@ -387,16 +387,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     )
                 ),
                 0),
-            array(
+                array(
                 'm0019',
                 'Re: Maya Ethnobotanicals - Emails',
-                'sendeär <sender@test.com>',
+                'sendeär <sender@test.com>',
                 '"test" <test@asdasd.com>',
                 array('COUNT',1,'captured'),
                 array('MATCH',''),
                 array(),
                 0),
-            array(
+                array(
                 'm0020',
                 '1',
                 'Finntack Newsletter <newsletter@finntack.com>',
@@ -414,6 +414,34 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         'bf7bfb9b8dd11ff0c830b2388560d434'
                     )
                 ),
+                0),
+                array(
+                'm0021',
+                'problem occurs when divided into an array, and the last e of the array! Пут ін хуйло!!!!!!',
+                'mail@exemple.com',
+                'mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com',
+                array('COUNT',1,'mini plain body'),
+                array('MATCH',''),
+                array(),
+                0),
+                array(
+                'm0022',
+                '[PRJ-OTH] asdf  árvíztűrő tükörfúrógép',
+                'sendeär <sender@test.com>',
+                '"test" <test@asdasd.com>',
+                array('COUNT',1,'captured'),
+                array('MATCH',''),
+                array(),
+                0),
+                array(
+                'm0023',
+                'If you can read this you understand the example.',
+                'Keith Moore <moore@cs.utk.edu>',
+                'Keld Jørn Simonsen <keld@dkuug.dk>',
+                //CC = André Pirard <PIRARD@vm1.ulg.ac.be>
+                array('COUNT',1,'captured'),
+                array('MATCH',''),
+                array(),
                 0),
         );
         return $data;
@@ -473,12 +501,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         //Test Attachments
         if (count($attachmentsExpected) > 0) {
-
             //Save attachments
             $Parser->saveAttachments($attach_dir);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
-
                 //Test Exist Attachment
                 $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
 
@@ -493,7 +519,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
-                
                     $fileContent = file_get_contents(
                         $attach_dir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
@@ -588,12 +613,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         //Test Attachments
         if (count($attachmentsExpected) > 0) {
-
             //Save attachments
             $Parser->saveAttachments($attach_dir);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
-
                 //Test Exist Attachment
                 $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
 
@@ -608,7 +631,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
-                
                     $fileContent = file_get_contents(
                         $attach_dir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
@@ -704,12 +726,10 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         //Test Attachments
         if (count($attachmentsExpected) > 0) {
-
             //Save attachments
             $Parser->saveAttachments($attach_dir);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
-
                 //Test Exist Attachment
                 $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
 
@@ -724,7 +744,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
-                
                     $fileContent = file_get_contents(
                         $attach_dir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH

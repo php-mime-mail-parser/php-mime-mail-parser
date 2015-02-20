@@ -679,21 +679,41 @@ class Parser
     */
     private function decodeHeader($input)
     {
+        //Sometimes we have 2 label From so we take only the first
         if (is_array($input)) {
             $input = $input[0];
         }
-        
-        $output = imap_utf8(trim($input));
-        /*
-        if (preg_match("/=\?/", $output)) {
-            $output = iconv_mime_decode($input, ICONV_MIME_DECODE_CONTINUE_ON_ERROR, "UTF-8");
+
+        // Remove white space between encoded-words
+        $input = preg_replace('/(=\?[^?]+\?(q|b)\?[^?]*\?=)(\s)+=\?/i', '\1=?', $input);
+
+        // For each encoded-word...
+        while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)/i', $input, $matches)) {
+            $encoded = $matches[1];
+            $charset = $matches[2];
+            $encoding = $matches[3];
+            $text = $matches[4];
+
+
+            switch (strtolower($encoding)) {
+                case 'b':
+                    $text = $this->decodeContentTransfer($text, 'base64');
+                    break;
+
+                case 'q':
+                    $text = str_replace('_', ' ', $text);
+                    preg_match_all('/=([a-f0-9]{2})/i', $text, $matches);
+                    foreach ($matches[1] as $value) {
+                        $text = str_replace('='.$value, chr(hexdec($value)), $text);
+                    }
+                    break;
+            }
+
+            $text = $this->decodeCharset($text, $this->charsetalias[strtolower($charset)]);
+            $input = str_replace($encoded, $text, $input);
         }
 
-        if (json_encode($output) == 'null') {
-            $output = utf8_encode($output);
-        }
-        */
-        return $output;
+        return $input;
     }
 
     /**
