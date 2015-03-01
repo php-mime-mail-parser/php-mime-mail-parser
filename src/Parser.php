@@ -38,8 +38,9 @@ class Parser
 
     public function __construct(CharsetManager $charset = null)
     {
-        if ($charset == null)
+        if ($charset == null) {
             $charset = new Charset();
+        }
 
         $this->charset = $charset;
     }
@@ -416,17 +417,15 @@ class Parser
     private function getPartCharset($part)
     {
         if (isset($part['charset'])) {
-
             return $part['charset'];
-        }
-        else {
+        } else {
+            $charset = $this->charset->getCharsetAlias($part['charset']);
 
-            $charset = $this->charset->getCharsetAlias($part['charset']); 
-
-            if ($charset != null)
+            if ($charset != null) {
                 return $charset;
-            else
+            } else {
                 return false;
+            }
         }
     }
 

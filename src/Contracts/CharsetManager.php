@@ -1,6 +1,7 @@
 <?php namespace eXorus\PhpMimeMailParser\Contracts;
 
-interface CharsetManager {
+interface CharsetManager
+{
 
     /**
      * Decode the string from Charset

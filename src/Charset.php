@@ -2,7 +2,8 @@
 
 use eXorus\PhpMimeMailParser\Contracts\CharsetManager;
 
-class Charset implements CharsetManager {
+class Charset implements CharsetManager
+{
 
 
     /**
@@ -335,9 +336,10 @@ class Charset implements CharsetManager {
     {
         $charset = strtolower($charset);
 
-        if (array_key_exists($charset, $this->charsetAlias))
+        if (array_key_exists($charset, $this->charsetAlias)) {
             return $this->charsetAlias[$charset];
-        else
+        } else {
             return null;
+        }
     }
 }
