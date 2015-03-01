@@ -4,6 +4,7 @@ namespace eXorus\PhpMimeMailParser;
 
 use eXorus\PhpMimeMailParser\Attachment;
 use eXorus\PhpMimeMailParser\Exception;
+use eXorus\PhpMimeMailParser\Contracts\CharsetManager;
 
 /**
  * Parser of php-mime-mail-parser
@@ -31,13 +32,16 @@ class Parser
     public $data;
 
     /**
-     * Charset management object
+     * Charset managemer object
      */
     public $charset;
 
-    public function __construct()
+    public function __construct(CharsetManager $charset = null)
     {
-        $this->charset = new Charset();
+        if ($charset == null)
+            $charset = new Charset();
+
+        $this->charset = $charset;
     }
 
     /**

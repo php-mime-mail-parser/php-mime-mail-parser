@@ -1,6 +1,8 @@
 <?php namespace eXorus\PhpMimeMailParser;
 
-class Charset {
+use eXorus\PhpMimeMailParser\Contracts\CharsetManager;
+
+class Charset implements CharsetManager {
 
 
     /**
