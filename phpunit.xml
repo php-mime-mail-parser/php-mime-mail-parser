@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true">
-    <testsuites>
-        <testsuite name="eXorus PhpMimeMailParser Test Suite">
-            <directory>./test</directory>
-        </testsuite>
-    </testsuites>
-</phpunit>

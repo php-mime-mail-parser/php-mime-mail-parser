@@ -5,18 +5,30 @@ php:
     - 5.4
     - 5.5
     - 5.6
+    - 7.0
     - hhvm
+
+matrix:
+    allow_failures:
+        - php: 7.0
+    fast_finish: true
+
+sudo: false
+
+env:
+    - COMPOSER_OPTS=""
+    - COMPOSER_OPTS="--prefer-lowest"
 
 before_script:
     - sh -c 'if [ $(php -r "echo (int) defined(\"HHVM_VERSION\");") -eq 0 ]; then pecl install mailparse; fi'
     - composer self-update
-    - composer install
+    - composer update $COMPOSER_OPTS
 
 script:
     - mkdir -p build/logs
-    - ./vendor/bin/phpunit -c ./ --coverage-text --coverage-clover build/logs/clover.xml
+    - ./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
     - ./vendor/bin/phpcs src --standard=psr2
-    - ./vendor/bin/phpcs test --standard=psr2
+    - ./vendor/bin/phpcs tests --standard=psr2
 
 after_script:
     - ./vendor/bin/coveralls -v
