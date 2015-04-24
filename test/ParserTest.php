@@ -1,9 +1,9 @@
 <?php
-namespace eXorus\PhpMimeMailParser;
+namespace PhpMimeMailParser;
 
-use eXorus\PhpMimeMailParser\Parser;
-use eXorus\PhpMimeMailParser\Attachment;
-use eXorus\PhpMimeMailParser\Exception;
+use PhpMimeMailParser\Parser;
+use PhpMimeMailParser\Attachment;
+use PhpMimeMailParser\Exception;
 
 /**
  * Test Parser of php-mime-mail-parser

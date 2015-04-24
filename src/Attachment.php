@@ -1,6 +1,6 @@
 <?php
 
-namespace eXorus\PhpMimeMailParser;
+namespace PhpMimeMailParser;
 
 /**
  * Attachment of php-mime-mail-parser

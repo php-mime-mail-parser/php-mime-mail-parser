@@ -1,10 +1,10 @@
 <?php
 
-namespace eXorus\PhpMimeMailParser;
+namespace PhpMimeMailParser;
 
-use eXorus\PhpMimeMailParser\Attachment;
-use eXorus\PhpMimeMailParser\Exception;
-use eXorus\PhpMimeMailParser\Contracts\CharsetManager;
+use PhpMimeMailParser\Attachment;
+use PhpMimeMailParser\Exception;
+use PhpMimeMailParser\Contracts\CharsetManager;
 
 /**
  * Parser of php-mime-mail-parser

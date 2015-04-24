@@ -1,5 +1,5 @@
 {
-    "name": "exorus/php-mime-mail-parser",
+    "name": "php-mime-mail-parser/php-mime-mail-parser",
     "type": "library",
     "description": "Fully Tested Mailparse Extension Wrapper for PHP 5.3+",
     "keywords": ["mime", "mail", "mailparse", "MimeMailParser"],
@@ -50,7 +50,11 @@
         "satooshi/php-coveralls":       "0.*",
         "squizlabs/PHP_CodeSniffer":    "2.*"
     },
+    "replace": {
+        "exorus/php-mime-mail-parser":   "*",
+        "messaged/php-mime-mail-parser": "*"
+    },
     "autoload": {
-        "psr-4": { "eXorus\\PhpMimeMailParser\\": "src/" }
+        "psr-4": { "PhpMimeMailParser\\": "src/" }
     }
 }
