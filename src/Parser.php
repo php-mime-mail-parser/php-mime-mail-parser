@@ -9,7 +9,7 @@ use eXorus\PhpMimeMailParser\Contracts\CharsetManager;
 /**
  * Parser of php-mime-mail-parser
  *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.3+
+ * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
 
