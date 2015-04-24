@@ -13,6 +13,8 @@ matrix:
         - php: 7.0
     fast_finish: true
 
+sudo: false
+
 env:
     - COMPOSER_OPTS=""
     - COMPOSER_OPTS="--prefer-lowest"
