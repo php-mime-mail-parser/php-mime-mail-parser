@@ -3,7 +3,7 @@
 Fully Tested Mailparse Extension Wrapper for PHP 5.4+
 
 
-[![Latest Stable Version](https://poser.pugx.org/exorus/php-mime-mail-parser/v/stable.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser) [![Total Downloads](https://poser.pugx.org/exorus/php-mime-mail-parser/downloads.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser) [![Latest Unstable Version](https://poser.pugx.org/exorus/php-mime-mail-parser/v/unstable.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser) [![License](https://poser.pugx.org/exorus/php-mime-mail-parser/license.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser)
+[![Latest Stable Version](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/v/stable.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![Total Downloads](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/downloads.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![Latest Unstable Version](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/v/unstable.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![License](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/license.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
 
 > **Maintainer:** Visit my blog [Vincent Dauce](http://vincent.dauce.fr).
 
@@ -21,7 +21,7 @@ Easy way with [Composer](https://getcomposer.org/) ;)
 
 To install this library, run the command below and you will get the latest version
 
-	composer require exorus/php-mime-mail-parser
+	composer require php-mime-mail-parser/php-mime-mail-parser
 
 ## Requirements
 
@@ -45,7 +45,7 @@ And imap functions with :
 require_once __DIR__.'/vendor/autoload.php';
 
 $path = 'path/to/mail.txt';
-$Parser = new eXorus\PhpMimeMailParser\Parser();
+$Parser = new PhpMimeMailParser\Parser();
 
 //There are three input methods of the mime mail to be parsed
 //specify a file path to the mime mail :
@@ -90,5 +90,4 @@ To add issue, please provide the raw email with it.
 
 ### License
 
-The exorus/php-mime-mail-parser is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
-
+The php-mime-mail-parser/php-mime-mail-parser is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

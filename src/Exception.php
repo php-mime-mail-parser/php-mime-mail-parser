@@ -1,6 +1,6 @@
 <?php
 
-namespace eXorus\PhpMimeMailParser;
+namespace PhpMimeMailParser;
 
 class Exception extends \RuntimeException
 {

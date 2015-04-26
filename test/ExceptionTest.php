@@ -2,16 +2,16 @@
 
 namespace {
 
-    use eXorus\PhpMimeMailParser\Parser;
-    use eXorus\PhpMimeMailParser\Attachment;
-    use eXorus\PhpMimeMailParser\Exception;
+    use PhpMimeMailParser\Parser;
+    use PhpMimeMailParser\Attachment;
+    use PhpMimeMailParser\Exception;
 
     // This allow us to configure the behavior of the "global mock"
     $mockTmpFile = false;
     $mockFopen = false;
 }
 
-namespace eXorus\PhpMimeMailParser {
+namespace PhpMimeMailParser {
 
     function tmpfile()
     {

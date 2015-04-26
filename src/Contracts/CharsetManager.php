@@ -1,4 +1,4 @@
-<?php namespace eXorus\PhpMimeMailParser\Contracts;
+<?php namespace PhpMimeMailParser\Contracts;
 
 interface CharsetManager
 {
