@@ -1,6 +1,6 @@
 # php-mime-mail-parser
 
-Fully Tested Mailparse Extension Wrapper for PHP 5.3+
+Fully Tested Mailparse Extension Wrapper for PHP 5.4+
 
 
 [![Latest Stable Version](https://poser.pugx.org/exorus/php-mime-mail-parser/v/stable.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser) [![Total Downloads](https://poser.pugx.org/exorus/php-mime-mail-parser/downloads.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser) [![Latest Unstable Version](https://poser.pugx.org/exorus/php-mime-mail-parser/v/unstable.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser) [![License](https://poser.pugx.org/exorus/php-mime-mail-parser/license.svg)](https://packagist.org/packages/exorus/php-mime-mail-parser)
@@ -27,7 +27,6 @@ To install this library, run the command below and you will get the latest versi
 
 The following versions of PHP are supported by this version.
 
-* PHP 5.3
 * PHP 5.4
 * PHP 5.5
 * PHP 5.6
