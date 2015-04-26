@@ -5,8 +5,6 @@ Fully Tested Mailparse Extension Wrapper for PHP 5.4+
 
 [![Latest Stable Version](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/v/stable.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![Total Downloads](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/downloads.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![Latest Unstable Version](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/v/unstable.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![License](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/license.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
 
-> **Maintainer:** Visit my blog [Vincent Dauce](http://vincent.dauce.fr).
-
 ## Is it reliable ?
 
 Yes, it is.  
