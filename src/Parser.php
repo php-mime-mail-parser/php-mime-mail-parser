@@ -121,10 +121,6 @@ class Parser
     public function setText($data)
     {
         $this->resource = \mailparse_msg_create();
-
-        if(substr($data,-1)!="\n"){
-            $data .= "\n";
-        }
         // does not parse incrementally, fast memory hog might explode
         mailparse_msg_parse($this->resource, $data);
         $this->data = $data;
