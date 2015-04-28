@@ -2,16 +2,18 @@
 
 Fully Tested Mailparse Extension Wrapper for PHP 5.4+
 
-
-[![Latest Stable Version](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/v/stable.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![Total Downloads](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/downloads.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![Latest Unstable Version](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/v/unstable.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser) [![License](https://poser.pugx.org/php-mime-mail-parser/php-mime-mail-parser/license.svg)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
+[![Latest Version](https://img.shields.io/github/release/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases)
+[![Total Downloads](https://img.shields.io/packagist/dt/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 ## Is it reliable ?
 
 Yes, it is.  
 All the issues are reproduced, fixed and tested.
 
-[![Build Status](https://travis-ci.org/eXorus/php-mime-mail-parser.svg?branch=master)](https://travis-ci.org/eXorus/php-mime-mail-parser)
-[![Coverage Status](https://coveralls.io/repos/eXorus/php-mime-mail-parser/badge.png?branch=master)](https://coveralls.io/r/eXorus/php-mime-mail-parser?branch=master)
+[![Build Status](https://img.shields.io/travis/php-mime-mail-parser/php-mime-mail-parser/master.svg?style=flat-square)](https://travis-ci.org/php-mime-mail-parser/php-mime-mail-parser)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://scrutinizer-ci.com/g/php-mime-mail-parser/php-mime-mail-parser/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://scrutinizer-ci.com/g/php-mime-mail-parser/php-mime-mail-parser)
 
 ## How to install ?
 
