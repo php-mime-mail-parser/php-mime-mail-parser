@@ -322,8 +322,10 @@ class Charset implements CharsetManager
     {
         if (strtolower($charset) == 'utf-8' || strtolower($charset) == 'us-ascii') {
             return $encodedString;
-        } else {
+        } elseif (function_exists("mb_convert_encoding")) {
             return mb_convert_encoding($encodedString, 'UTF-8',$this->getCharsetAlias($charset));
+        } else {
+            return iconv($this->getCharsetAlias($charset), 'UTF-8//TRANSLIT', $encodedString);     
         }
     }
 
