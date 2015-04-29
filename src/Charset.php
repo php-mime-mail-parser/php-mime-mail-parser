@@ -322,7 +322,8 @@ class Charset implements CharsetManager
     {
         if (strtolower($charset) == 'utf-8' || strtolower($charset) == 'us-ascii') {
             return $encodedString;
-        } elseif (function_exists('mb_convert_encoding') && in_array($this->getCharsetAlias($charset), array('ISO-2022-JP', 'Shift_JIS', 'EUC-JP')) {
+        } elseif (function_exists('mb_convert_encoding')
+            && in_array($this->getCharsetAlias($charset), array('ISO-2022-JP', 'Shift_JIS', 'EUC-JP')) {
             return mb_convert_encoding($encodedString, 'UTF-8', $this->getCharsetAlias($charset));
         } else {
             return iconv($this->getCharsetAlias($charset), 'UTF-8//TRANSLIT', $encodedString);
