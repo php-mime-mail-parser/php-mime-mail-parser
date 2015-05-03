@@ -12,7 +12,8 @@ Yes, it is.
 All the issues are reproduced, fixed and tested.
 
 [![Build Status](https://img.shields.io/travis/php-mime-mail-parser/php-mime-mail-parser/master.svg?style=flat-square)](https://travis-ci.org/php-mime-mail-parser/php-mime-mail-parser)
-[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://scrutinizer-ci.com/g/php-mime-mail-parser/php-mime-mail-parser/code-structure)
+[![Coverage Status](https://coveralls.io/repos/php-mime-mail-parser/php-mime-mail-parser/badge.svg)](https://coveralls.io/r/php-mime-mail-parser/php-mime-mail-parser)
+[![Coverage](https://img.shields.io/coveralls/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://coveralls.io/r/php-mime-mail-parser/php-mime-mail-parser)
 [![Quality Score](https://img.shields.io/scrutinizer/g/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://scrutinizer-ci.com/g/php-mime-mail-parser/php-mime-mail-parser)
 
 ## How to install ?
