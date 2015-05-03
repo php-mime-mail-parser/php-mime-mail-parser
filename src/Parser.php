@@ -32,6 +32,11 @@ class Parser
     public $data;
 
     /**
+     * Parts of an email
+     */
+    public $parts;
+
+    /**
      * Charset managemer object
      */
     public $charset;
@@ -326,8 +331,6 @@ class Parser
                 fseek($this->stream, $start, SEEK_SET);
                 $len = $end-$start;
                 $written = 0;
-                $write = 2028;
-                $body = '';
                 while ($written < $len) {
                     $write = $len;
                     $part = fread($this->stream, $write);
@@ -367,7 +370,7 @@ class Parser
 
     /**
     * $input can be a string or array
-    * @param string,array $input
+    * @param string|array $input
     * @return string
     */
     private function decodeHeader($input)
@@ -411,7 +414,7 @@ class Parser
 
     /**
      * Return the charset of the MIME part
-     * @return String
+     * @return String|false
      * @param $part Array
      */
     private function getPartCharset($part)
@@ -431,7 +434,7 @@ class Parser
 
     /**
      * Retrieve a specified MIME part
-     * @return String or Array
+     * @return String|Array
      * @param $type String, $parts Array
      */
     private function getPart($type, $parts)
