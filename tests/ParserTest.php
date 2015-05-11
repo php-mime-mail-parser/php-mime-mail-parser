@@ -470,15 +470,19 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         //Test Header : subject
         $this->assertEquals($subjectExpected, $Parser->getHeader('subject'));
+        $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
         $this->assertEquals($fromExpected, $Parser->getHeader('from'));
+        $this->assertArrayHasKey('from', $Parser->getHeaders());
 
         //Test Header : to
         $this->assertEquals($toExpected, $Parser->getHeader('to'));
+        $this->assertArrayHasKey('to', $Parser->getHeaders());
 
         //Test Invalid Header
         $this->assertFalse($Parser->getHeader('azerty'));
+        $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
@@ -582,16 +586,20 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         //Test Header : subject
         $this->assertEquals($subjectExpected, $Parser->getHeader('subject'));
+        $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
         $this->assertEquals($fromExpected, $Parser->getHeader('from'));
+        $this->assertArrayHasKey('from', $Parser->getHeaders());
 
         //Test Header : to
         $this->assertEquals($toExpected, $Parser->getHeader('to'));
+        $this->assertArrayHasKey('to', $Parser->getHeaders());
 
         //Test Invalid Header
         $this->assertFalse($Parser->getHeader('azerty'));
-        
+        $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
+
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
             $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));
@@ -695,16 +703,20 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         //Test Header : subject
         $this->assertEquals($subjectExpected, $Parser->getHeader('subject'));
+        $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
         $this->assertEquals($fromExpected, $Parser->getHeader('from'));
+        $this->assertArrayHasKey('from', $Parser->getHeaders());
 
         //Test Header : to
         $this->assertEquals($toExpected, $Parser->getHeader('to'));
+        $this->assertArrayHasKey('to', $Parser->getHeaders());
 
         //Test Invalid Header
         $this->assertFalse($Parser->getHeader('azerty'));
-        
+        $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
+
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
             $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));

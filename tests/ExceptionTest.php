@@ -63,6 +63,16 @@ namespace PhpMimeMailParser {
 
         /**
          * @expectedException        Exception
+         * @expectedExceptionMessage setPath() or setText() or setStream() must be called before
+         */
+        public function testGetHeaders()
+        {
+            $Parser = new Parser();
+            $Parser->getHeaders();
+        }
+
+        /**
+         * @expectedException        Exception
          * @expectedExceptionMessage Invalid type specified for getMessageBody(). "type" can either be text or html.
          */
         public function testgetMessageBody()
