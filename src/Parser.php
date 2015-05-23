@@ -166,6 +166,31 @@ class Parser
     }
 
     /**
+     * Retrieve all mail headers
+     * @return Array
+     */
+    public function getHeaders()
+    {
+        if (isset($this->parts[1])) {
+            $headers = $this->getPart('headers', $this->parts[1]);
+            foreach ($headers as $name => &$value) {
+                if (is_array($value)) {
+                    foreach ($value as &$v) {
+                        $v = $this->decodeSingleHeader($v);
+                    }
+                } else {
+                    $value = $this->decodeSingleHeader($value);
+                }
+            }
+            return $headers;
+        } else {
+            throw new \Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
+        }
+    }
+
+    /**
      * Returns the email message body in the specified format
      * @return Mixed String Body or False if not found
      * @param $type String text or html or htmlEmbedded
@@ -377,9 +402,19 @@ class Parser
     {
         //Sometimes we have 2 label From so we take only the first
         if (is_array($input)) {
-            $input = $input[0];
+            return $this->decodeSingleHeader($input[0]);
         }
 
+        return $this->decodeSingleHeader($input);
+    }
+
+    /**
+     * Decodes a single header (= string)
+     * @param string
+     * @return string
+     */
+    private function decodeSingleHeader($input)
+    {
         // Remove white space between encoded-words
         $input = preg_replace('/(=\?[^?]+\?(q|b)\?[^?]*\?=)(\s)+=\?/i', '\1=?', $input);
 
