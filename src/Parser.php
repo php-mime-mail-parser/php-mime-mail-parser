@@ -457,13 +457,7 @@ class Parser
         if (isset($part['charset'])) {
             return $part['charset'];
         } else {
-            $charset = $this->charset->getCharsetAlias($part['charset']);
-
-            if ($charset != null) {
-                return $charset;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
 
