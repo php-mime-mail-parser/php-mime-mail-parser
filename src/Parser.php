@@ -455,7 +455,7 @@ class Parser
     private function getPartCharset($part)
     {
         if (isset($part['charset'])) {
-            return $part['charset'];
+            return $charset = $this->charset->getCharsetAlias($part['charset']);
         } else {
             return false;
         }
