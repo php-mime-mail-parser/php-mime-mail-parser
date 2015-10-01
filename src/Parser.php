@@ -292,6 +292,7 @@ class Parser
 
                 $attachments[] = new Attachment(
                     $filename,
+                    uniqid(),
                     $this->getPart('content-type', $part),
                     $this->getAttachmentStream($part),
                     $disposition,
@@ -308,7 +309,7 @@ class Parser
      * @return array Saved attachments paths
      * @param $attach_dir String of the directory
      */
-    public function saveAttachments($attach_dir)
+    public function saveAttachments($attach_dir, $use_uniqueFilename = false)
     {
         $attachments = $this->getAttachments();
         if (empty($attachments)) {
@@ -321,7 +322,9 @@ class Parser
 
         $attachments_paths = array();
         foreach ($attachments as $attachment) {
-            $attachment_path = $attach_dir.$attachment->getFilename();
+
+            $attachment_path = $use_uniqueFilename ? $attach_dir . $attachment->getUniqueFilename() : $attach_dir . $attachment->getFilename();
+
             if ($fp = fopen($attachment_path, 'w')) {
                 while ($bytes = $attachment->read()) {
                     fwrite($fp, $bytes);
