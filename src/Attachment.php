@@ -59,7 +59,7 @@ class Attachment
         $this->filename = $filename;
 
         // Explode filename to get extension
-        $this->uniqueFilename = implode(".", [$uniqueFilename, array_pop(explode(".", $filename))]);
+        $this->uniqueFilename = $uniqueFilename . "." . array_pop(explode(".", $filename));
 
         $this->contentType = $contentType;
         $this->stream = $stream;
