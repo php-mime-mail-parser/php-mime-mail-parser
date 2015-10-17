@@ -69,7 +69,7 @@ class Parser
     /**
      * Set the file path we use to get the email text
      * @return Object MimeMailParser Instance
-     * @param $path File path to the MIME mail
+     * @param string $path File path to the MIME mail
      */
     public function setPath($path)
     {
