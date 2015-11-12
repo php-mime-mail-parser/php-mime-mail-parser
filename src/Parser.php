@@ -149,20 +149,34 @@ class Parser
     }
 
     /**
+     * Retrieve a specific Email Header, without charset conversion.
+     * @return String
+     * @param $name String Header name
+     */
+    public function getRawHeader($name)
+    {
+        if (isset($this->parts[1])) {
+            $headers = $this->getPart('headers', $this->parts[1]);
+            return (isset($headers[$name])) ? $headers[$name] : false;
+        } else {
+            throw new \Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
+        }
+    }
+
+    /**
      * Retrieve a specific Email Header
      * @return String
      * @param $name String Header name
      */
     public function getHeader($name)
     {
-        if (isset($this->parts[1])) {
-            $headers = $this->getPart('headers', $this->parts[1]);
-            return (isset($headers[$name])) ? $this->decodeHeader($headers[$name]) : false;
-        } else {
-            throw new \Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
+        $rawHeader = $this->getRawHeader($name);
+        if ($rawHeader === false) {
+            return false;
         }
+        return $this->decodeHeader($rawHeader);
     }
 
     /**
