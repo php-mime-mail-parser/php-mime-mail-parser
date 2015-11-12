@@ -173,7 +173,7 @@ class Parser
     public function getHeader($name)
     {
         $rawHeader = $this->getRawHeader($name);
-        if($rawHeader === false) {
+        if ($rawHeader === false) {
             return false;
         }
         return $this->decodeHeader($rawHeader);
