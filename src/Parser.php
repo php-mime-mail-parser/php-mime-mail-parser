@@ -125,7 +125,7 @@ class Parser
      */
     public function setText($data)
     {
-        $this->resource = \mailparse_msg_create();
+        $this->resource = mailparse_msg_create();
         // does not parse incrementally, fast memory hog might explode
         mailparse_msg_parse($this->resource, $data);
         $this->data = $data;
