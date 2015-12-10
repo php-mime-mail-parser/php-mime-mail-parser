@@ -510,7 +510,9 @@ class Parser
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
-        if ($end-$start <= 0) return '';
+        if ($end-$start <= 0) {
+			return '';
+		}
         fseek($this->stream, $start, SEEK_SET);
         return fread($this->stream, $end-$start);
     }
