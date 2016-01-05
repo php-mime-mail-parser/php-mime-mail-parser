@@ -15,6 +15,9 @@ sudo: false
 env:
     - COMPOSER_OPTS=""
     - COMPOSER_OPTS="--prefer-lowest"
+    
+before_install:
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.0" ]]; then composer require --dev --no-update phpunit/phpunit ~5 ; fi
 
 before_script:
     - if [[ "$TRAVIS_PHP_VERSION" = "5.4" ]]; then pecl install mailparse-2.1.6 ; fi
