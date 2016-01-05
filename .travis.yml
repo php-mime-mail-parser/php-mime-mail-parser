@@ -18,8 +18,8 @@ env:
 
 before_script:
     - echo "$TRAVIS_PHP_VERSION"
-    - if [[ "$TRAVIS_PHP_VERSION" = "5*" ]]; then echo "$TRAVIS_PHP_VERSION" ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "7*" ]]; then echo "$TRAVIS_PHP_VERSION" ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "5.6" ]]; then echo "$TRAVIS_PHP_VERSION" ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.0*" ]]; then echo "$TRAVIS_PHP_VERSION" ; fi
     - composer self-update
     - composer update $COMPOSER_OPTS
 
