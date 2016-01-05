@@ -17,8 +17,9 @@ env:
     - COMPOSER_OPTS="--prefer-lowest"
 
 before_script:
-    - if [[ "$TRAVIS_PHP_VERSION" = "php5*" ]]; then pecl install mailparse-2.1.6 ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "php7*" ]]; then pecl install mailparse ; fi
+    - echo "$TRAVIS_PHP_VERSION"
+    - if [[ "$TRAVIS_PHP_VERSION" = "php5*" ]]; then echo "$TRAVIS_PHP_VERSION" ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "php7*" ]]; then echo "$TRAVIS_PHP_VERSION" ; fi
     - composer self-update
     - composer update $COMPOSER_OPTS
 
