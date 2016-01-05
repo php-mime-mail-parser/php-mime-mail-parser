@@ -8,8 +8,6 @@ php:
     - hhvm
 
 matrix:
-    allow_failures:
-        - php: 7.0
     fast_finish: true
 
 sudo: false
