@@ -47,7 +47,7 @@
         "ext-imap": "*"
     },
     "require-dev": {
-        "phpunit/phpunit":              "*",
+        "phpunit/phpunit":              "~4.0",
         "phpunit/php-token-stream":     ">=1.3.0",
         "satooshi/php-coveralls":       "0.*",
         "squizlabs/PHP_CodeSniffer":    "2.*"
