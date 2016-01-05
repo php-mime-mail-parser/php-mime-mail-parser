@@ -17,7 +17,8 @@ env:
     - COMPOSER_OPTS="--prefer-lowest"
 
 before_script:
-    - sh -c 'if [ $(php -r "echo (int) defined(\"HHVM_VERSION\");") -eq 0 ]; then pecl install mailparse; fi'
+    - if [[ "$TRAVIS_PHP_VERSION" = "php5*" ]]; then pecl install mailparse-2.1.6 ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "php7*" ]]; then pecl install mailparse ; fi
     - composer self-update
     - composer update $COMPOSER_OPTS
 
