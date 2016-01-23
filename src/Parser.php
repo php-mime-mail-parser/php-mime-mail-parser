@@ -239,8 +239,8 @@ class Parser
             foreach ($attachments as $attachment) {
                 if ($attachment->getContentID() != '') {
                     $body = str_replace(
-                        'cid:'.$attachment->getContentID(),
-                        $this->getEmbeddedData($attachment->getContentID()),
+                        '"cid:'.$attachment->getContentID().'"',
+                        '"'.$this->getEmbeddedData($attachment->getContentID()).'"',
                         $body
                     );
                 }
