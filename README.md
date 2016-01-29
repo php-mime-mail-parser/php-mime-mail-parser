@@ -30,11 +30,13 @@ The following versions of PHP are supported by this version.
 * PHP 5.4
 * PHP 5.5
 * PHP 5.6
+* PHP 7
 * HHVM
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed : 
 
-	pecl install mailparse
+	pecl install mailparse			#PHP Version = 7
+	pecl install mailparse-2.1.6		#PHP Version < 7
 	
 	
 And imap functions with :
