@@ -17,6 +17,10 @@ class Attachment
     */
     public $filename;
     /**
+     * @var $uniqueFilename Unique filename using uniqid()
+     */
+    public $uniqueFilename;
+    /**
     * @var $contentType Mime Type
     */
     public $contentType;
@@ -45,6 +49,7 @@ class Attachment
 
     public function __construct(
         $filename,
+        $uniqueFilename,
         $contentType,
         $stream,
         $contentDisposition = 'attachment',
@@ -52,6 +57,10 @@ class Attachment
         $headers = array()
     ) {
         $this->filename = $filename;
+
+        // Explode filename to get extension
+        $this->uniqueFilename = $uniqueFilename . "." . array_pop(explode(".", $filename));
+
         $this->contentType = $contentType;
         $this->stream = $stream;
         $this->content = null;
@@ -68,6 +77,16 @@ class Attachment
     {
         return $this->filename;
     }
+
+    /**
+     * retrieve the attachment unique filename
+     * @return String
+     */
+    public function getUniqueFilename()
+    {
+        return $this->uniqueFilename;
+    }
+
 
     /**
     * Retrieve the Attachment Content-Type

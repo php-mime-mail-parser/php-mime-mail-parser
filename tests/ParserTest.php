@@ -53,7 +53,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'application/octet-stream',
                         'attachment',
-                        '04c1d5793efa97c956d011a8b3309f05'
+                        '04c1d5793efa97c956d011a8b3309f05',
+                        '560f9bedcae6c'
                     )
                 ),
                 0),
@@ -72,7 +73,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         8,
                         'application/octet-stream',
                         'attachment',
-                        '18f541cc6bf49209d2bf327ecb887355'
+                        '18f541cc6bf49209d2bf327ecb887355',
+                        '560f9c0471c22'
                     )
                 ),
                 0),
@@ -91,7 +93,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         48,
                         'application/octet-stream',
                         'attachment',
-                        '8734417734fabfa783df6fed0ccf7a4a'
+                        '8734417734fabfa783df6fed0ccf7a4a',
+                        '560f9c171afa3'
                     )
                 ),
                 0),
@@ -110,7 +113,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         242,
                         'application/octet-stream',
                         'attachment',
-                        'c0b5348ef825bf62ba2d07d70d4b9560'
+                        'c0b5348ef825bf62ba2d07d70d4b9560',
+                        '560f9c28265fa'
                     )
                 ),
                 0),
@@ -129,7 +133,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         484,
                         'application/octet-stream',
                         'attachment',
-                        '1ced323befc39ebbc147e7588d11ab08'
+                        '1ced323befc39ebbc147e7588d11ab08',
+                        '560f9c39c00ad'
                     )
                 ),
                 0),
@@ -148,7 +153,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         968,
                         'application/octet-stream',
                         'attachment',
-                        '5dc6470ab63e86e8f68d88afb11556fe'
+                        '5dc6470ab63e86e8f68d88afb11556fe',
+                        '560f9c49ceccb'
                     )
                 ),
                 0),
@@ -167,7 +173,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         4,
                         'application/octet-stream',
                         'attachment',
-                        '0e6d510323b009da939070faf72e521c'
+                        '0e6d510323b009da939070faf72e521c',
+                        '560f9c595bd14'
                     )
                 ),
                 0),
@@ -186,7 +193,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'image/gif',
                         'inline',
-                        '102aa12e16635bf2b0b39ef6a91aa95c'
+                        '102aa12e16635bf2b0b39ef6a91aa95c',
+                        '560f9c7a98585.jpg'
                     ),
                     array(
                         'background.jpg',
@@ -195,7 +203,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'image/gif',
                         'inline',
-                        '798f976a5834019d3f2dd087be5d5796'
+                        '798f976a5834019d3f2dd087be5d5796',
+                        '560f9c8b2be67.jpg'
                     ),
                     array(
                         'attachment.txt',
@@ -204,7 +213,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         4,
                         'text/plain',
                         'attachment',
-                        '71fff85a7960460bdd3c4b8f1ee9279b'
+                        '71fff85a7960460bdd3c4b8f1ee9279b',
+                        '560f9c9f1fdb2.txt'
                     )
                 ),
                 2),
@@ -232,7 +242,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         726,
                         'application/octet-stream',
                         'attachment',
-                        '8da4b0177297b1d7f061e44d64cc766f'
+                        '8da4b0177297b1d7f061e44d64cc766f',
+                        '560f9cbd025ac'
                     )
                 ),
                 0),
@@ -251,7 +262,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'attachment',
-                        '839d0486dd1b91e520d456bb17c33148'
+                        '839d0486dd1b91e520d456bb17c33148',
+                        '560f9cae72fc6'
                     )
                 ),
                 0),
@@ -270,7 +282,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'attachment',
-                        '839d0486dd1b91e520d456bb17c33148'
+                        '839d0486dd1b91e520d456bb17c33148',
+                        '560f9cdb2a354.txt'
                     )
                 ),
                 0),
@@ -289,7 +302,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'application/pdf',
                         'attachment',
-                        'ffe2cb0f5df4e2cfffd3931b6566f3cb'
+                        'ffe2cb0f5df4e2cfffd3931b6566f3cb',
+                        '560f9ceede393.pdf'
                     )
                 ),
                 0),
@@ -308,7 +322,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         2,
                         'text/plain',
                         'inline',
-                        '865238356eec20b67ce8c33c68d8a95a'
+                        '865238356eec20b67ce8c33c68d8a95a',
+                        '560f9cfe7e355.txt'
                     )
                 ),
                 0),
@@ -327,7 +342,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'inline',
-                        '87caaaf9bf1d7ebc2769254710c38a0d'
+                        '87caaaf9bf1d7ebc2769254710c38a0d',
+                        '560f9d109a994'
                     ),
                     array(
                         'noname2',
@@ -336,7 +352,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         82,
                         'text/html',
                         'inline',
-                        'b70ff760112a71009d8295c34fd67d9b'
+                        'b70ff760112a71009d8295c34fd67d9b',
+                        '560f9d1f6bf04'
                     )
                 ),
                 0),
@@ -355,7 +372,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         2,
                         'text/plain',
                         'inline',
-                        '865238356eec20b67ce8c33c68d8a95a'
+                        '865238356eec20b67ce8c33c68d8a95a',
+                        '560fa14f12ab4.txt'
                     )
                 ),
                 0),
@@ -374,7 +392,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'image/jpeg',
                         'attachment',
-                        '567f29989506f21cea8ac992d81ce4c1'
+                        '567f29989506f21cea8ac992d81ce4c1',
+                        '560fa17f7a303.JPG'
                     ),
                     array(
                         'ATT00001.txt',
@@ -383,7 +402,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'attachment',
-                        '095f96b9d5a25d051ad425356745334f'
+                        '095f96b9d5a25d051ad425356745334f',
+                        '560fa18c7d911.txt'
                     )
                 ),
                 0),
@@ -411,7 +431,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'text/calendar',
                         'attachment',
-                        'bf7bfb9b8dd11ff0c830b2388560d434'
+                        'bf7bfb9b8dd11ff0c830b2388560d434',
+                        '560fa19f52c89'
                     )
                 ),
                 0),
@@ -527,12 +548,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             //Save attachments
             $Parser->saveAttachments($attach_dir);
 
+            //Save attachments with unique filename
+            $Parser->saveAttachments($attach_dir, true);
+
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
                 $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
+
+                //Test Exist Attachment (unique filename)
+                $this->assertTrue(file_exists($attach_dir.$attachmentExpected[7]));
+
+                //Test Filename Attachment (unique filename)
+                $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getUniqueFilename());
 
                 //Test Size Attachment
                 $this->assertEquals(
@@ -567,6 +597,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
                 //Remove Attachment
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
+
+                //Remove Attachment (unique filename)
+                unlink($attach_dir.$attachments[$iterAttachments]->getUniqueFilename());
 
                 $iterAttachments++;
 
@@ -643,12 +676,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             //Save attachments
             $Parser->saveAttachments($attach_dir);
 
+            //Save attachments with unique filename
+            $Parser->saveAttachments($attach_dir, true);
+
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
                 $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
+
+                //Test Exist Attachment (unique filename)
+                $this->assertTrue(file_exists($attach_dir.$attachmentExpected[7]));
+
+                //Test Filename Attachment (unique filename)
+                $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getUniqueFilename());
 
                 //Test Size Attachment
                 $this->assertEquals(
@@ -683,6 +725,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
                 //Remove Attachment
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
+
+                //Remove Attachment (unique filename)
+                unlink($attach_dir.$attachments[$iterAttachments]->getUniqueFilename());
 
                 $iterAttachments++;
 
@@ -760,12 +805,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             //Save attachments
             $Parser->saveAttachments($attach_dir);
 
+            //Save attachments with unique filename
+            $Parser->saveAttachments($attach_dir, true);
+
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
                 $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
+
+                //Test Exist Attachment (unique filename)
+                $this->assertTrue(file_exists($attach_dir.$attachmentExpected[7]));
+
+                //Test Filename Attachment (unique filename)
+                $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getUniqueFilename());
 
                 //Test Size Attachment
                 $this->assertEquals(
@@ -800,6 +854,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
                 //Remove Attachment
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
+
+                //Remove Attachment (unique filename)
+                unlink($attach_dir.$attachments[$iterAttachments]->getUniqueFilename());
 
                 $iterAttachments++;
 
