@@ -32,7 +32,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array('MATCH',"\n"),
                 // Html Expected (MATCH = exact match, COUNT = Count the number of substring occurrences )
                 array('COUNT',1,'<div dir="ltr"><br></div>'),
-                // Array of attachments (FileName, File Size, String inside the fil, 
+                // Array of attachments (FileName, File Size, String inside the file, 
                 //      Count of this string, ContentType, MD5 of Serialize Headers)
                 array(array('attach01',2,'a',1,'image/gif','attachment', '4c1d5793')),
                 // Count of Embedded Attachments
@@ -442,6 +442,25 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array('COUNT',1,'captured'),
                 array('MATCH',''),
                 array(),
+                0),
+                array(
+                'm0024',
+                'Persil, abeilles ...',
+                'John DOE <blablafakeemail@provider.fr>',
+                'list-name <list-name@list-domain.org>',
+                array('MATCH',''),
+                array('MATCH',''),
+                array(
+                    array(
+                        'Biodiversité de semaine en semaine.doc',
+                        27648,
+                        '',
+                        0,
+                        'application/msword',
+                        'attachment',
+                        '57e8a3cf9cc29d5cde7599299a853560'
+                    )
+                ),
                 0),
         );
         return $data;
