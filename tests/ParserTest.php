@@ -33,8 +33,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 // Html Expected (MATCH = exact match, COUNT = Count the number of substring occurrences )
                 array('COUNT',1,'<div dir="ltr"><br></div>'),
                 // Array of attachments (FileName, File Size, String inside the file, 
-                //      Count of this string, ContentType, MD5 of Serialize Headers)
-                array(array('attach01',2,'a',1,'image/gif','attachment', '4c1d5793')),
+                //      Count of this string, ContentType, MD5 of Serialize Headers, String inside the HTML Embedded)
+                array(array('attach01',2,'a',1,'image/gif','attachment', '4c1d5793', 'b3309f')),
                 // Count of Embedded Attachments
                 0)
             */
@@ -53,7 +53,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'application/octet-stream',
                         'attachment',
-                        '04c1d5793efa97c956d011a8b3309f05'
+                        '04c1d5793efa97c956d011a8b3309f05',
+                        '',
                     )
                 ),
                 0),
@@ -72,7 +73,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         8,
                         'application/octet-stream',
                         'attachment',
-                        '18f541cc6bf49209d2bf327ecb887355'
+                        '18f541cc6bf49209d2bf327ecb887355',
+                        '',
                     )
                 ),
                 0),
@@ -91,7 +93,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         48,
                         'application/octet-stream',
                         'attachment',
-                        '8734417734fabfa783df6fed0ccf7a4a'
+                        '8734417734fabfa783df6fed0ccf7a4a',
+                        '',
                     )
                 ),
                 0),
@@ -110,7 +113,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         242,
                         'application/octet-stream',
                         'attachment',
-                        'c0b5348ef825bf62ba2d07d70d4b9560'
+                        'c0b5348ef825bf62ba2d07d70d4b9560',
+                        '',
                     )
                 ),
                 0),
@@ -129,7 +133,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         484,
                         'application/octet-stream',
                         'attachment',
-                        '1ced323befc39ebbc147e7588d11ab08'
+                        '1ced323befc39ebbc147e7588d11ab08',
+                        '',
                     )
                 ),
                 0),
@@ -148,7 +153,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         968,
                         'application/octet-stream',
                         'attachment',
-                        '5dc6470ab63e86e8f68d88afb11556fe'
+                        '5dc6470ab63e86e8f68d88afb11556fe',
+                        '',
                     )
                 ),
                 0),
@@ -167,7 +173,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         4,
                         'application/octet-stream',
                         'attachment',
-                        '0e6d510323b009da939070faf72e521c'
+                        '0e6d510323b009da939070faf72e521c',
+                        '',
                     )
                 ),
                 0),
@@ -186,7 +193,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'image/gif',
                         'inline',
-                        '102aa12e16635bf2b0b39ef6a91aa95c'
+                        '102aa12e16635bf2b0b39ef6a91aa95c',
+                        '',
                     ),
                     array(
                         'background.jpg',
@@ -195,7 +203,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'image/gif',
                         'inline',
-                        '798f976a5834019d3f2dd087be5d5796'
+                        '798f976a5834019d3f2dd087be5d5796',
+                        '',
                     ),
                     array(
                         'attachment.txt',
@@ -204,7 +213,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         4,
                         'text/plain',
                         'attachment',
-                        '71fff85a7960460bdd3c4b8f1ee9279b'
+                        '71fff85a7960460bdd3c4b8f1ee9279b',
+                        '',
                     )
                 ),
                 2),
@@ -232,7 +242,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         726,
                         'application/octet-stream',
                         'attachment',
-                        '8da4b0177297b1d7f061e44d64cc766f'
+                        '8da4b0177297b1d7f061e44d64cc766f',
+                        '',
                     )
                 ),
                 0),
@@ -251,7 +262,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'attachment',
-                        '839d0486dd1b91e520d456bb17c33148'
+                        '839d0486dd1b91e520d456bb17c33148',
+                        '',
                     )
                 ),
                 0),
@@ -270,7 +282,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'attachment',
-                        '839d0486dd1b91e520d456bb17c33148'
+                        '839d0486dd1b91e520d456bb17c33148',
+                        '',
                     )
                 ),
                 0),
@@ -289,7 +302,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'application/pdf',
                         'attachment',
-                        'ffe2cb0f5df4e2cfffd3931b6566f3cb'
+                        'ffe2cb0f5df4e2cfffd3931b6566f3cb',
+                        '',
                     )
                 ),
                 0),
@@ -308,7 +322,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         2,
                         'text/plain',
                         'inline',
-                        '865238356eec20b67ce8c33c68d8a95a'
+                        '865238356eec20b67ce8c33c68d8a95a',
+                        '',
                     )
                 ),
                 0),
@@ -327,7 +342,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'inline',
-                        '87caaaf9bf1d7ebc2769254710c38a0d'
+                        '87caaaf9bf1d7ebc2769254710c38a0d',
+                        '',
                     ),
                     array(
                         'noname2',
@@ -336,7 +352,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         82,
                         'text/html',
                         'inline',
-                        'b70ff760112a71009d8295c34fd67d9b'
+                        'b70ff760112a71009d8295c34fd67d9b',
+                        '',
                     )
                 ),
                 0),
@@ -355,7 +372,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         2,
                         'text/plain',
                         'inline',
-                        '865238356eec20b67ce8c33c68d8a95a'
+                        '865238356eec20b67ce8c33c68d8a95a',
+                        '',
                     )
                 ),
                 0),
@@ -374,7 +392,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'image/jpeg',
                         'attachment',
-                        '567f29989506f21cea8ac992d81ce4c1'
+                        '567f29989506f21cea8ac992d81ce4c1',
+                        '',
                     ),
                     array(
                         'ATT00001.txt',
@@ -383,7 +402,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         1,
                         'text/plain',
                         'attachment',
-                        '095f96b9d5a25d051ad425356745334f'
+                        '095f96b9d5a25d051ad425356745334f',
+                        '',
                     )
                 ),
                 0),
@@ -411,7 +431,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'text/calendar',
                         'attachment',
-                        'bf7bfb9b8dd11ff0c830b2388560d434'
+                        'bf7bfb9b8dd11ff0c830b2388560d434',
+                        '',
                     )
                 ),
                 0),
@@ -458,10 +479,51 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         0,
                         'application/msword',
                         'attachment',
-                        '57e8a3cf9cc29d5cde7599299a853560'
+                        '57e8a3cf9cc29d5cde7599299a853560',
+                        '',
                     )
                 ),
                 0),
+                array(
+                'm0025',
+                'Testing MIME E-mail composing with cid',
+                'Name <name@company.com>',
+                'Name <name@company2.com>',
+                array('COUNT',1,'Please use an HTML capable mail program to read'),
+                array('COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>'),
+                array(
+                    array(
+                        'logo.jpg',
+                        2695,
+                        '',
+                        0,
+                        'image/gif',
+                        'inline',
+                        '0f65fd0831e68da313a2dcc58286d009',
+                        'IZqShSiOcB213NOfRLezbJyBjy08zKMaNHpGo9nxc49ywafxGZ',
+                    ),
+                    array(
+                        'background.jpg',
+                        18255,
+                        '',
+                        0,
+                        'image/gif',
+                        'inline',
+                        '840bdde001a8c8f6fb49ee641a89cdd8',
+                        'QISn7+8fXB0RCQB2cyf8AcIQq2SMSQnzL',
+                    ),
+                    array(
+                        'attachment.txt',
+                        2229,
+                        'Sed pulvinar',
+                        4,
+                        'text/plain',
+                        'attachment',
+                        '71fff85a7960460bdd3c4b8f1ee9279b',
+                        '',
+                    )
+                ),
+                2),
         );
         return $data;
     }
@@ -523,6 +585,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $iterAttachments = 0;
 
         //Test Attachments
+        $attachmentsEmbeddedToCheck = array();
         if (count($attachmentsExpected) > 0) {
             //Save attachments
             $Parser->saveAttachments($attach_dir);
@@ -565,6 +628,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
                 );
 
+                //Save embedded Attachments to check
+                if ($attachmentExpected[7] != '') {
+                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                }
+
                 //Remove Attachment
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
 
@@ -580,6 +648,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+
+        if (!empty($attachmentsEmbeddedToCheck)) {
+            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+            }
+        }
     }
 
     /**
@@ -639,6 +713,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $iterAttachments = 0;
 
         //Test Attachments
+        $attachmentsEmbeddedToCheck = array();
         if (count($attachmentsExpected) > 0) {
             //Save attachments
             $Parser->saveAttachments($attach_dir);
@@ -681,6 +756,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
                 );
 
+                //Save embedded Attachments to check
+                if ($attachmentExpected[7] != '') {
+                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                }
+
                 //Remove Attachment
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
 
@@ -696,6 +776,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+
+        if (!empty($attachmentsEmbeddedToCheck)) {
+            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+            }
+        }
     }
 
 
@@ -756,6 +842,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $iterAttachments = 0;
 
         //Test Attachments
+        $attachmentsEmbeddedToCheck = array();
         if (count($attachmentsExpected) > 0) {
             //Save attachments
             $Parser->saveAttachments($attach_dir);
@@ -798,6 +885,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
                 );
 
+                //Save embedded Attachments to check
+                if ($attachmentExpected[7] != '') {
+                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                }
+
                 //Remove Attachment
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
 
@@ -813,5 +905,11 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+
+        if (!empty($attachmentsEmbeddedToCheck)) {
+            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+            }
+        }
     }
 }
