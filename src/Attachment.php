@@ -25,10 +25,6 @@ class Attachment
     */
     private $content;
     /**
-    * @var $extension Filename extension
-    */
-    private $extension;
-    /**
     * @var $contentDisposition Content-Disposition (attachment or inline)
     */
     public $contentDisposition;
