@@ -9,7 +9,7 @@ class Charset implements CharsetManager
     /**
      * Charset Aliases
      */
-    private $charsetAlias = array (
+    private $charsetAlias = array(
         'ascii' => 'us-ascii',
         'us-ascii' => 'us-ascii',
         'ansi_x3.4-1968' => 'us-ascii',
