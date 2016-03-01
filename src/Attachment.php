@@ -13,28 +13,28 @@ class Attachment
 {
 
     /**
-    * @var $filename Filename
-    */
+     * @var $filename Filename
+     */
     public $filename;
     /**
-    * @var $contentType Mime Type
-    */
+     * @var $contentType Mime Type
+     */
     public $contentType;
     /**
-    * @var $content File Content
-    */
+     * @var $content File Content
+     */
     private $content;
     /**
-    * @var $contentDisposition Content-Disposition (attachment or inline)
-    */
+     * @var $contentDisposition Content-Disposition (attachment or inline)
+     */
     public $contentDisposition;
     /**
-    * @var $contentId Content-ID
-    */
+     * @var $contentId Content-ID
+     */
     public $contentId;
     /**
-    * @var $headers An Array of the attachment headers
-    */
+     * @var $headers An Array of the attachment headers
+     */
     public $headers;
 
     private $stream;
@@ -57,66 +57,66 @@ class Attachment
     }
 
     /**
-    * retrieve the attachment filename
-    * @return String
-    */
+     * retrieve the attachment filename
+     * @return String
+     */
     public function getFilename()
     {
         return $this->filename;
     }
 
     /**
-    * Retrieve the Attachment Content-Type
-    * @return String
-    */
+     * Retrieve the Attachment Content-Type
+     * @return String
+     */
     public function getContentType()
     {
         return $this->contentType;
     }
 
     /**
-    * Retrieve the Attachment Content-Disposition
-    * @return String
-    */
+     * Retrieve the Attachment Content-Disposition
+     * @return String
+     */
     public function getContentDisposition()
     {
         return $this->contentDisposition;
     }
 
     /**
-    * Retrieve the Attachment Content-ID
-    * @return String
-    */
+     * Retrieve the Attachment Content-ID
+     * @return String
+     */
     public function getContentID()
     {
         return $this->contentId;
     }
 
     /**
-    * Retrieve the Attachment Headers
-    * @return String
-    */
+     * Retrieve the Attachment Headers
+     * @return String
+     */
     public function getHeaders()
     {
         return $this->headers;
     }
 
     /**
-    * Read the contents a few bytes at a time until completed
-    * Once read to completion, it always returns false
-    * @return String
-    * @param $bytes Int[optional]
-    */
+     * Read the contents a few bytes at a time until completed
+     * Once read to completion, it always returns false
+     * @return String
+     * @param $bytes Int[optional]
+     */
     public function read($bytes = 2082)
     {
         return feof($this->stream) ? false : fread($this->stream, $bytes);
     }
 
     /**
-    * Retrieve the file content in one go
-    * Once you retreive the content you cannot use MimeMailParser_attachment::read()
-    * @return String
-    */
+     * Retrieve the file content in one go
+     * Once you retreive the content you cannot use MimeMailParser_attachment::read()
+     * @return String
+     */
     public function getContent()
     {
         if ($this->content === null) {
