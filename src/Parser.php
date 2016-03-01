@@ -68,7 +68,7 @@ class Parser
 
     /**
      * Set the file path we use to get the email text
-     * @return Object MimeMailParser Instance
+     * @return Parser MimeMailParser Instance
      * @param string $path File path to the MIME mail
      */
     public function setPath($path)
@@ -82,7 +82,7 @@ class Parser
 
     /**
      * Set the Stream resource we use to get the email text
-     * @return Object MimeMailParser Instance
+     * @return Parser MimeMailParser Instance
      * @param $stream Resource
      */
     public function setStream($stream)
@@ -101,7 +101,7 @@ class Parser
                 fwrite($tmp_fp, fread($stream, 2028));
             }
             fseek($tmp_fp, 0);
-            $this->stream =& $tmp_fp;
+            $this->stream = & $tmp_fp;
         } else {
             throw new \Exception(
                 'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
@@ -120,7 +120,7 @@ class Parser
 
     /**
      * Set the email text
-     * @return Object MimeMailParser Instance
+     * @return Parser MimeMailParser Instance
      * @param $data String
      */
     public function setText($data)
@@ -206,7 +206,7 @@ class Parser
 
     /**
      * Returns the email message body in the specified format
-     * @return Mixed String Body or False if not found
+     * @return string|false String Body or False if not found
      * @param $type String text or html or htmlEmbedded
      */
     public function getMessageBody($type = 'text')
@@ -239,7 +239,7 @@ class Parser
             foreach ($attachments as $attachment) {
                 if ($attachment->getContentID() != '') {
                     $body = str_replace(
-                        '"cid:'.$attachment->getContentID().'"',
+                        '"cid:' . $attachment->getContentID().'"',
                         '"'.$this->getEmbeddedData($attachment->getContentID()).'"',
                         $body
                     );
@@ -260,8 +260,8 @@ class Parser
         foreach ($this->parts as $part) {
             if ($this->getPart('content-id', $part) == $contentId) {
                 $embeddedData .= $this->getPart('content-type', $part);
-                $embeddedData .= ';'.$this->getPart('transfer-encoding', $part);
-                $embeddedData .= ','.$this->getPartBody($part);
+                $embeddedData .= ';' . $this->getPart('transfer-encoding', $part);
+                $embeddedData .= ',' . $this->getPartBody($part);
             }
         }
         return $embeddedData;
@@ -274,7 +274,7 @@ class Parser
     public function getAttachments()
     {
         $attachments = array();
-        $dispositions = array('attachment','inline');
+        $dispositions = array('attachment', 'inline');
         $non_attachment_types = array('text/plain', 'text/html');
         $nonameIter = 0;
 
@@ -298,7 +298,7 @@ class Parser
             if (in_array($disposition, $dispositions) === true && isset($filename) === true) {
                 if ($filename == 'noname') {
                     $nonameIter++;
-                    $filename = 'noname'.$nonameIter;
+                    $filename = 'noname' . $nonameIter;
                 }
 
                 $headersAttachments = $this->getPart('headers', $part);
@@ -335,7 +335,7 @@ class Parser
 
         $attachments_paths = array();
         foreach ($attachments as $attachment) {
-            $attachment_path = $attach_dir.$attachment->getFilename();
+            $attachment_path = $attach_dir . $attachment->getFilename();
             if ($fp = fopen($attachment_path, 'w')) {
                 while ($bytes = $attachment->read()) {
                     fwrite($fp, $bytes);
@@ -368,7 +368,7 @@ class Parser
                 $start = $part['starting-pos-body'];
                 $end = $part['ending-pos-body'];
                 fseek($this->stream, $start, SEEK_SET);
-                $len = $end-$start;
+                $len = $end - $start;
                 $written = 0;
                 while ($written < $len) {
                     $write = $len;
@@ -392,7 +392,7 @@ class Parser
     /**
      * Decode the string from Content-Transfer-Encoding
      * @return String the decoded string
-     * @param $encodedString    The string in its original encoded state
+     * @param string $encodedString    The string in its original encoded state
      * @param $encodingType     The encoding type from the Content-Transfer-Encoding header of the part.
      */
     private function decodeContentTransfer($encodedString, $encodingType)
@@ -408,10 +408,10 @@ class Parser
     }
 
     /**
-    * $input can be a string or array
-    * @param string|array $input
-    * @return string
-    */
+     * $input can be a string or array
+     * @param string|array $input
+     * @return string
+     */
     private function decodeHeader($input)
     {
         //Sometimes we have 2 label From so we take only the first
@@ -449,7 +449,7 @@ class Parser
                     $text = str_replace('_', ' ', $text);
                     preg_match_all('/=([a-f0-9]{2})/i', $text, $matches);
                     foreach ($matches[1] as $value) {
-                        $text = str_replace('='.$value, chr(hexdec($value)), $text);
+                        $text = str_replace('=' . $value, chr(hexdec($value)), $text);
                     }
                     break;
             }
@@ -478,7 +478,7 @@ class Parser
     /**
      * Retrieve a specified MIME part
      * @return String|Array
-     * @param $type String, $parts Array
+     * @param string $type String, $parts Array
      */
     private function getPart($type, $parts)
     {
@@ -511,9 +511,9 @@ class Parser
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
         $body = '';
-        if ($end-$start > 0) {
+        if ($end - $start > 0) {
             fseek($this->stream, $start, SEEK_SET);
-            $body = fread($this->stream, $end-$start);
+            $body = fread($this->stream, $end - $start);
         }
         return $body;
     }
@@ -527,6 +527,6 @@ class Parser
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
-        return substr($this->data, $start, $end-$start);
+        return substr($this->data, $start, $end - $start);
     }
 }
