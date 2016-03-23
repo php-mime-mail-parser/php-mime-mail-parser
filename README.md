@@ -39,10 +39,6 @@ Make sure you have the mailparse extension (http://php.net/manual/en/book.mailpa
 	pecl install mailparse-2.1.6		#PHP Version < 7
 	
 	
-And imap functions with :
-
-	apt-get install php5-imap
-
 Take a look at [this tutorial](http://wiki.cerbweb.com/Installing_PHP_Mailparse_Ubuntu) if you find it's difficult to install mailparse on Ubuntu. 
 
 Also note that you may need to create the 'mailparse.ini' file with 'extension=mailparse.so' inside under '/etc/php5/mods-available/' and then 'sudo php5enmod mailparse' to enable it.
