@@ -14,16 +14,6 @@ use PhpMimeMailParser\Exception;
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testCreatingMoreThanOneInstanceOfParser()
-    {
-        //Init
-        $file = __DIR__.'/mails/issue84';
-
-        //Load From Path
-        (new Parser())->setPath($file)->getMessageBody();
-        (new Parser())->setPath($file)->getMessageBody();
-    }
-
     public function provideData()
     {
 
@@ -448,7 +438,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     0),
                 array(
                     'm0021',
-                    'problem occurs when divided into an array, and the last e of the array! Пут ін хуйло!!!!!!',
+                    'occurs when divided into an array, and the last e of the array! Пут ін хуйло!!!!!!',
                     'mail@exemple.com',
                     'mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com',
                     array('COUNT',1,'mini plain body'),
@@ -535,8 +525,8 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                         ),
                     2),
                 );
-return $data;
-}
+        return $data;
+    }
 
     /**
      * @dataProvider provideData
@@ -550,7 +540,7 @@ return $data;
         $htmlExpected,
         $attachmentsExpected,
         $countEmbeddedExpected
-        ) {
+    ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
@@ -611,19 +601,19 @@ return $data;
                 $this->assertEquals(
                     $attachmentExpected[1],
                     filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
-                    );
+                );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attach_dir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
-                        );
+                    );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
                         $attachmentExpected[3],
                         substr_count($attachments[$iterAttachments]->getContent(), $attachmentExpected[2])
-                        );
+                    );
                 }
 
                 //Test ContentType Attachment
@@ -636,7 +626,7 @@ return $data;
                 $this->assertEquals(
                     $attachmentExpected[6],
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
-                    );
+                );
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
@@ -652,19 +642,19 @@ return $data;
             //Remove Attachment Directory
             rmdir($attach_dir);
         } else {
-         $this->assertFalse($Parser->saveAttachments($attach_dir));
-     }
+            $this->assertFalse($Parser->saveAttachments($attach_dir));
+        }
 
         //Test embedded Attachments
-     $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
-     $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-     if (!empty($attachmentsEmbeddedToCheck)) {
-        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+        if (!empty($attachmentsEmbeddedToCheck)) {
+            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+            }
         }
     }
-}
 
     /**
      * @dataProvider provideData
@@ -678,7 +668,7 @@ return $data;
         $htmlExpected,
         $attachmentsExpected,
         $countEmbeddedExpected
-        ) {
+    ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
@@ -739,19 +729,19 @@ return $data;
                 $this->assertEquals(
                     $attachmentExpected[1],
                     filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
-                    );
+                );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attach_dir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
-                        );
+                    );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
                         $attachmentExpected[3],
                         substr_count($attachments[$iterAttachments]->getContent(), $attachmentExpected[2])
-                        );
+                    );
                 }
 
                 //Test ContentType Attachment
@@ -764,7 +754,7 @@ return $data;
                 $this->assertEquals(
                     $attachmentExpected[6],
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
-                    );
+                );
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
@@ -780,19 +770,19 @@ return $data;
             //Remove Attachment Directory
             rmdir($attach_dir);
         } else {
-         $this->assertFalse($Parser->saveAttachments($attach_dir));
-     }
+            $this->assertFalse($Parser->saveAttachments($attach_dir));
+        }
 
         //Test embedded Attachments
-     $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
-     $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-     if (!empty($attachmentsEmbeddedToCheck)) {
-        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+        if (!empty($attachmentsEmbeddedToCheck)) {
+            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+            }
         }
     }
-}
 
 
     /**
@@ -807,7 +797,7 @@ return $data;
         $htmlExpected,
         $attachmentsExpected,
         $countEmbeddedExpected
-        ) {
+    ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
@@ -868,19 +858,19 @@ return $data;
                 $this->assertEquals(
                     $attachmentExpected[1],
                     filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
-                    );
+                );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attach_dir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
-                        );
+                    );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
                         $attachmentExpected[3],
                         substr_count($attachments[$iterAttachments]->getContent(), $attachmentExpected[2])
-                        );
+                    );
                 }
 
                 //Test ContentType Attachment
@@ -893,7 +883,7 @@ return $data;
                 $this->assertEquals(
                     $attachmentExpected[6],
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
-                    );
+                );
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
@@ -909,17 +899,17 @@ return $data;
             //Remove Attachment Directory
             rmdir($attach_dir);
         } else {
-         $this->assertFalse($Parser->saveAttachments($attach_dir));
-     }
+            $this->assertFalse($Parser->saveAttachments($attach_dir));
+        }
 
         //Test embedded Attachments
-     $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
-     $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-     if (!empty($attachmentsEmbeddedToCheck)) {
-        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+        if (!empty($attachmentsEmbeddedToCheck)) {
+            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+            }
         }
     }
-}
 }
