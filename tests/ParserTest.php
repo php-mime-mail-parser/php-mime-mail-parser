@@ -13,7 +13,13 @@ use PhpMimeMailParser\Exception;
  */
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
-
+    public function testCreatingMoreThanOneInstanceOfParser()
+    {
+        $file = __DIR__.'/mails/issue84';
+        (new Parser())->setPath($file)->getMessageBody();
+        (new Parser())->setPath($file)->getMessageBody();
+    }
+    
     public function provideData()
     {
 
