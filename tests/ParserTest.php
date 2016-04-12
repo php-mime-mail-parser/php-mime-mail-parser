@@ -637,7 +637,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
 
                 $iterAttachments++;
-
             }
             //Remove Attachment Directory
             rmdir($attach_dir);
@@ -765,7 +764,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
 
                 $iterAttachments++;
-
             }
             //Remove Attachment Directory
             rmdir($attach_dir);
@@ -894,7 +892,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
 
                 $iterAttachments++;
-
             }
             //Remove Attachment Directory
             rmdir($attach_dir);
