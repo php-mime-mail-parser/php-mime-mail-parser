@@ -1,0 +1,85 @@
+Newsgroups: php.internals
+Path: news.php.net
+Xref: news.php.net php.internals:78984
+Return-Path: <tyra3l@gmail.com>
+Mailing-List: contact internals-help@lists.php.net; run by ezmlm
+Delivered-To: mailing list internals@lists.php.net
+Received: (qmail 5683 invoked from network); 19 Nov 2014 08:46:08 -0000
+Received: from unknown (HELO lists.php.net) (127.0.0.1)
+by localhost with SMTP; 19 Nov 2014 08:46:08 -0000
+Authentication-Results: pb1.pair.com header.from=tyra3l@gmail.com; sender-id=pass
+Authentication-Results: pb1.pair.com smtp.mail=tyra3l@gmail.com; spf=pass; sender-id=pass
+Received-SPF: pass (pb1.pair.com: domain gmail.com designates 209.85.214.170 as permitted sender)
+X-PHP-List-Original-Sender: tyra3l@gmail.com
+X-Host-Fingerprint: 209.85.214.170 mail-ob0-f170.google.com
+Received: from [209.85.214.170] ([209.85.214.170:50473] helo=mail-ob0-f170.google.com)
+by pb1.pair.com (ecelerity 2.1.1.9-wez r(12769M)) with ESMTP
+id 7B/03-15277-CC85C645 for <internals@lists.php.net>; Wed, 19 Nov 2014 03:46:05 -0500
+Received: by mail-ob0-f170.google.com with SMTP id wp18so85267obc.29
+for <internals@lists.php.net>; Wed, 19 Nov 2014 00:46:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+d=gmail.com; s 120113;
+h=mime-version:in-reply-to:references:date:message-id:subject:from:to
+:cc:content-type;
+bh=SHTwGXVyRiFBp5eDUjF1KB2BJg+oR63Ux0JBjjsLwms=;
+b=gm7U//CXLdrS6yvml0MHSjb1LAQPeHlaxnJcS313T7U0iuf5VDT8VsE7VUtKhhtqD4
+08LQBMtH5cJ/5Qd5RekZa03j6x6am5CE3z+f3t+8W/fsHfoHeIa3GzBgtX3/ec0RLgz1
+GRq6OaIHa9AW3DlOpgR1RnAfv13Fb8tRfgGtPdwvEX2QgD42DuPiLmCKW+eMnGv7VqP+
+Yx41a5H4536zrAI7opYAediptvK2eKCF669WAnBMgqQ1ureK+FuVVPlFq36g4fCpj6QF
+EPrH0LrDNDFKG08H3M8udzea3orHmGDPfI3h4sf2ch3zxNt2Rwma0rtLpr5bbG5vLTyq
+bDeg==
+MIME-Version: 1.0
+X-Received: by 10.60.115.227 with SMTP id jr3mr13541195oeb.33.1416386761676;
+Wed, 19 Nov 2014 00:46:01 -0800 (PST)
+Received: by 10.60.79.131 with HTTP; Wed, 19 Nov 2014 00:46:01 -0800 (PST)
+In-Reply-To: <CAFMT4NpJxuuqc-wTr1aE4K+wZBT8+04j+9-SsY+nhUMU83fDUg@mail.gmail.com>
+References: <CAFMT4NpJxuuqc-wTr1aE4K+wZBT8+04j+9-SsY+nhUMU83fDUg@mail.gmail.com>
+Date: Wed, 19 Nov 2014 09:46:01 +0100
+Message-ID: <CAH-PCH47Mx9AiP9yWLK+_nv8hpWHyXDjnn-h0sk66gPFOpRPxA@mail.gmail.com>
+To: Levi Morrison <levim@php.net>
+Cc: internals <internals@lists.php.net>
+Content-Type: multipart/alternative; boundary=089e01184242cb60600508323dec
+Subject: Re: [PHP-DEV] [RFC] Remove PHP 4 Constructors
+From: tyra3l@gmail.com (Ferenc Kovacs)
+
+--089e01184242cb60600508323dec
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Nov 19, 2014 at 12:11 AM, Levi Morrison <levim@php.net> wrote:
+
+> Dear Internals,
+>
+> I am proposing an RFC[1] to remove PHP 4 constructors in PHP 7. If
+> accepted, methods with the same name as their defining class will no
+> longer be recognized as constructors. As noted in the RFC, there are
+> already many situations where we do not recognize these methods as
+> constructors, such as in namespaces and traits and when `function
+> __construct` is also present.
+>
+> Andrea Faulds has kindly written a utility that identifies when a PHP
+> 4 constructor is defined[2]. It does not automatically change the code
+> for liability reasons. The utility PHPMD[3] can also detect this but
+> has a false positive when `__construct` is also defined.
+>
+> Cheers,
+> Levi Morrison
+>
+>
+>   [1]: https://wiki.php.net/rfc/remove_php4_constructors
+>   [2]: https://github.com/TazeTSchnitzel/PHP4_Constructor_Finder
+>   [3]:
+> http://phpmd.org/rules/naming.html#constructorwithnameasenclosingclass
+>
+> --
+> PHP Internals - PHP Runtime Development Mailing List
+> To unsubscribe, visit: http://www.php.net/unsub.php
+>
+>
++1 from me.
+
+--
+Ferenc Kov=C3=A1cs
+@Tyr43l - http://tyrael.hu
+
+--089e01184242cb60600508323dec--
