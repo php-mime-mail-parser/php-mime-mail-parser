@@ -64,8 +64,10 @@ $Parser->setStream(fopen($path, "r"));
 $Parser->setText(file_get_contents($path));
 
 // We can get all the necessary data
-$to = $Parser->getHeader('to');
-$from = $Parser->getHeader('from');
+$to = $Parser->getHeader('to'); // "test" <test@example.com>, "test2" <test2@example.com>
+$addressesTo = $Parser->getAddresses('to'); //Return an array : [[test, test@example.com, false],[test2, test2@example.com, false]]
+$from = $Parser->getHeader('from'); // "test" <test@example.com>
+$addressesFrom = $Parser->getAddresses('from'); //Return an array : test, test@example.com, false
 $subject = $Parser->getHeader('subject');
 
 $text = $Parser->getMessageBody('text');

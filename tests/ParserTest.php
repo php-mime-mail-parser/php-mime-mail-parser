@@ -30,8 +30,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 'm0001',
                 // Subject Expected
                 'Mail avec fichier attaché de 1ko',
+                // From Expected (array)
+                array(array('display' => 'Name','address' => 'name@company.com','is_group' => false)),
                 // From Expected
                 'Name <name@company.com>',
+                // To Expected (array)
+                array(array('display' => 'Name','address' => 'name@company.com','is_group' => false)),
                 // To Expected
                 'name@company2.com',
                 // Text Expected (MATCH = exact match, COUNT = Count the number of substring occurrences )
@@ -47,7 +51,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0001',
                     'Mail avec fichier attaché de 1ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -67,7 +85,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0002',
                     'Mail avec fichier attaché de 3ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -87,7 +119,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0003',
                     'Mail de 14 Ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -107,7 +153,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0004',
                     'Mail de 800ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -127,7 +187,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0005',
                     'Mail de 1500 Ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -147,7 +221,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0006',
                     'Mail de 3 196 Ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -167,7 +255,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0007',
                     'Mail avec fichier attaché de 3ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -187,7 +289,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0008',
                     'Testing MIME E-mail composing with cid',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company2.com>',
                     array('COUNT',1,'Please use an HTML capable mail program to read'),
                     array('COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>'),
@@ -227,7 +343,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0009',
                     'Ogone NIEUWE order Maurits PAYID: 951597484 / orderID: 456123 / status: 5',
+                    array(
+                        array(
+                            'display' => 'Ogone',
+                            'address' => 'noreply@ogone.com',
+                            'is_group' => false
+                            )
+                    ),
                     '"Ogone" <noreply@ogone.com>',
+                    array(
+                        array(
+                            'display' => 'info@testsite.com',
+                            'address' => 'info@testsite.com',
+                            'is_group' => false
+                            )
+                    ),
                     'info@testsite.com',
                     array('COUNT',1,'951597484'),
                     array('MATCH',''),
@@ -236,7 +366,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0010',
                     'Mail de 800ko without filename',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     'name@company2.com',
                     array('MATCH',"\n"),
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
@@ -256,7 +400,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0011',
                     'Hello World !',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
                     array('COUNT',1,'This is a text body'),
                     array('MATCH',''),
@@ -276,7 +434,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0012',
                     'Hello World !',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Name <name@company.com>',
                     array('COUNT',1,'This is a text body'),
                     array('MATCH',''),
@@ -296,7 +468,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0013',
                     '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829. pdf',
+                    array(
+                        array(
+                            'display' => 'NAME Firstname',
+                            'address' => 'firstname.name@groupe-company.com',
+                            'is_group' => false
+                            )
+                    ),
                     'NAME Firstname <firstname.name@groupe-company.com>',
+                    array(
+                        array(
+                            'display' => 'paul.dupont@company.com',
+                            'address' => 'paul.dupont@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     '"paul.dupont@company.com" <paul.dupont@company.com>',
                     array('COUNT',1,'Superviseur de voitures'),
                     array('MATCH',''),
@@ -316,7 +502,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0014',
                     'Test message from Netscape Communicator 4.7',
+                    array(
+                        array(
+                            'display' => 'Doug Sauder',
+                            'address' => 'dwsauder@example.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Doug Sauder <dwsauder@example.com>',
+                    array(
+                        array(
+                            'display' => 'Joe Blow',
+                            'address' => 'blow@example.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Joe Blow <blow@example.com>',
                     array('COUNT',1,'Die Hasen und die'),
                     array('MATCH',''),
@@ -336,7 +536,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0015',
                     'Up to $30 Off Multivitamins!',
+                    array(
+                        array(
+                            'display' => 'Vitamart.ca',
+                            'address' => 'service@vitamart.ca',
+                            'is_group' => false
+                            )
+                    ),
                     '"Vitamart.ca" <service@vitamart.ca>',
+                    array(
+                        array(
+                            'display' => 'me@somewhere.com',
+                            'address' => 'me@somewhere.com',
+                            'is_group' => false
+                            )
+                    ),
                     'me@somewhere.com',
                     array('COUNT',1,'Hi,'),
                     array('COUNT',1,'<strong>*How The Sale Works</strong>'),
@@ -366,7 +580,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0016',
                     'Test message with multiple From headers',
+                    array(
+                        array(
+                            'display' => 'Doug Sauder',
+                            'address' => 'dwsauder@example.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Doug Sauder <dwsauder@example.com>',
+                    array(
+                        array(
+                            'display' => 'Joe Blow',
+                            'address' => 'blow@example.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Joe Blow <blow@example.com>',
                     array('COUNT',1,'Die Hasen und die'),
                     array('MATCH',''),
@@ -386,7 +614,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0018',
                     '[Korea] Name',
+                    array(
+                        array(
+                            'display' => 'name@company.com',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
                     '<name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
                     '"name@company2.com" <name@company2.com>',
                     array('COUNT',1,'My traveling companions!'),
                     array('MATCH',''),
@@ -416,7 +658,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0019',
                     'Re: Maya Ethnobotanicals - Emails',
+                    array(
+                        array(
+                            'display' => 'sendeär',
+                            'address' => 'sender@test.com',
+                            'is_group' => false
+                            )
+                    ),
                     'sendeär <sender@test.com>',
+                    array(
+                        array(
+                            'display' => 'test',
+                            'address' => 'test@asdasd.com',
+                            'is_group' => false
+                            )
+                    ),
                     '"test" <test@asdasd.com>',
                     array('COUNT',1,'captured'),
                     array('MATCH',''),
@@ -425,7 +681,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0020',
                     '1',
+                    array(
+                        array(
+                            'display' => 'Finntack Newsletter',
+                            'address' => 'newsletter@finntack.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Finntack Newsletter <newsletter@finntack.com>',
+                    array(
+                        array(
+                            'display' => 'Clement Wong',
+                            'address' => 'clement.wong@finntack.com',
+                            'is_group' => false
+                            )
+                    ),
                     'Clement Wong <clement.wong@finntack.com>',
                     array('MATCH',"1\r\n\r\n"),
                     array('COUNT',1,'<html>'),
@@ -445,7 +715,31 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0021',
                     'occurs when divided into an array, and the last e of the array! Пут ін хуйло!!!!!!',
+                    array(
+                        array(
+                            'display' => 'mail@exemple.com',
+                            'address' => 'mail@exemple.com',
+                            'is_group' => false
+                            )
+                    ),
                     'mail@exemple.com',
+                    array(
+                        array(
+                            'display' => 'mail@exemple.com',
+                            'address' => 'mail@exemple.com',
+                            'is_group' => false
+                            ),
+                        array(
+                            'display' => 'mail2@exemple3.com',
+                            'address' => 'mail2@exemple3.com',
+                            'is_group' => false
+                            ),
+                        array(
+                            'display' => 'mail3@exemple2.com',
+                            'address' => 'mail3@exemple2.com',
+                            'is_group' => false
+                            ),
+                    ),
                     'mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com',
                     array('COUNT',1,'mini plain body'),
                     array('MATCH',''),
@@ -454,7 +748,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0022',
                     '[PRJ-OTH] asdf  árvíztűrő tükörfúrógép',
+                    array(
+                        array(
+                            'display' => 'sendeär',
+                            'address' => 'sender@test.com',
+                            'is_group' => false
+                            ),
+                    ),
                     'sendeär <sender@test.com>',
+                    array(
+                        array(
+                            'display' => 'test',
+                            'address' => 'test@asdasd.com',
+                            'is_group' => false
+                            ),
+                    ),
                     '"test" <test@asdasd.com>',
                     array('COUNT',1,'captured'),
                     array('MATCH',''),
@@ -463,7 +771,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0023',
                     'If you can read this you understand the example.',
+                    array(
+                        array(
+                            'display' => 'Keith Moore',
+                            'address' => 'moore@cs.utk.edu',
+                            'is_group' => false
+                            ),
+                    ),
                     'Keith Moore <moore@cs.utk.edu>',
+                    array(
+                        array(
+                            'display' => 'Keld Jørn Simonsen',
+                            'address' => 'keld@dkuug.dk',
+                            'is_group' => false
+                            ),
+                    ),
                     'Keld Jørn Simonsen <keld@dkuug.dk>',
                 //CC = André Pirard <PIRARD@vm1.ulg.ac.be>
                     array('COUNT',1,'captured'),
@@ -473,7 +795,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0024',
                     'Persil, abeilles ...',
+                    array(
+                        array(
+                            'display' => 'John DOE',
+                            'address' => 'blablafakeemail@provider.fr',
+                            'is_group' => false
+                            ),
+                    ),
                     'John DOE <blablafakeemail@provider.fr>',
+                    array(
+                        array(
+                            'display' => 'list-name',
+                            'address' => 'list-name@list-domain.org',
+                            'is_group' => false
+                            ),
+                    ),
                     'list-name <list-name@list-domain.org>',
                     array('MATCH',''),
                     array('MATCH',''),
@@ -493,7 +829,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                 array(
                     'm0025',
                     'Testing MIME E-mail composing with cid',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            ),
+                    ),
                     'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            ),
+                    ),
                     'Name <name@company2.com>',
                     array('COUNT',1,'Please use an HTML capable mail program to read'),
                     array('COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>'),
@@ -540,7 +890,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testFromPath(
         $mid,
         $subjectExpected,
+        $fromAddressesExpected,
         $fromExpected,
+        $toAddressesExpected,
         $toExpected,
         $textExpected,
         $htmlExpected,
@@ -560,10 +912,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
+        $this->assertEquals($fromAddressesExpected, $Parser->getAddresses('from'));
         $this->assertEquals($fromExpected, $Parser->getHeader('from'));
         $this->assertArrayHasKey('from', $Parser->getHeaders());
 
         //Test Header : to
+        $this->assertEquals($toAddressesExpected, $Parser->getAddresses('to'));
         $this->assertEquals($toExpected, $Parser->getHeader('to'));
         $this->assertArrayHasKey('to', $Parser->getHeaders());
 
@@ -667,7 +1021,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testFromText(
         $mid,
         $subjectExpected,
+        $fromAddressesExpected,
         $fromExpected,
+        $toAddressesExpected,
         $toExpected,
         $textExpected,
         $htmlExpected,
@@ -687,10 +1043,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
+        $this->assertEquals($fromAddressesExpected, $Parser->getAddresses('from'));
         $this->assertEquals($fromExpected, $Parser->getHeader('from'));
         $this->assertArrayHasKey('from', $Parser->getHeaders());
 
         //Test Header : to
+        $this->assertEquals($toAddressesExpected, $Parser->getAddresses('to'));
         $this->assertEquals($toExpected, $Parser->getHeader('to'));
         $this->assertArrayHasKey('to', $Parser->getHeaders());
 
@@ -795,7 +1153,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
     public function testFromStream(
         $mid,
         $subjectExpected,
+        $fromAddressesExpected,
         $fromExpected,
+        $toAddressesExpected,
         $toExpected,
         $textExpected,
         $htmlExpected,
@@ -815,10 +1175,12 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
+        $this->assertEquals($fromAddressesExpected, $Parser->getAddresses('from'));
         $this->assertEquals($fromExpected, $Parser->getHeader('from'));
         $this->assertArrayHasKey('from', $Parser->getHeaders());
 
         //Test Header : to
+        $this->assertEquals($toAddressesExpected, $Parser->getAddresses('to'));
         $this->assertEquals($toExpected, $Parser->getHeader('to'));
         $this->assertArrayHasKey('to', $Parser->getHeaders());
 

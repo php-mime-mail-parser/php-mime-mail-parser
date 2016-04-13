@@ -268,6 +268,17 @@ class Parser
     }
 
     /**
+     * Return an array with the following keys display, address, is_group
+     * @return Array
+     * @param $name String Header name
+     */
+    public function getAddresses($name)
+    {
+        $value = $this->getHeader($name);
+        return mailparse_rfc822_parse_addresses($value);
+    }
+
+    /**
      * Returns the attachments contents in order of appearance
      * @return Array of attachments
      */
