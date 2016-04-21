@@ -280,7 +280,7 @@ class Parser
 
     /**
      * Returns the attachments contents in order of appearance
-     * @return Array of attachments
+     * @return Attachment[]
      */
     public function getAttachments()
     {
