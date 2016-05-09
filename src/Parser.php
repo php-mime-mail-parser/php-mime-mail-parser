@@ -2,8 +2,6 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\Exception;
 use PhpMimeMailParser\Contracts\CharsetManager;
 
 /**
@@ -12,27 +10,33 @@ use PhpMimeMailParser\Contracts\CharsetManager;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-
 class Parser
 {
-
     /**
      * PHP MimeParser Resource ID
+     *
+     * @var resource $resource
      */
     public $resource;
 
     /**
      * A file pointer to email
+     *
+     * @var resource $stream
      */
     public $stream;
 
     /**
      * A text of an email
+     *
+     * @var string $data
      */
     public $data;
 
     /**
      * Parts of an email
+     *
+     * @var array $parts
      */
     public $parts;
 
@@ -41,6 +45,11 @@ class Parser
      */
     public $charset;
 
+    /**
+     * Parser constructor.
+     *
+     * @param CharsetManager|null $charset
+     */
     public function __construct(CharsetManager $charset = null)
     {
         if ($charset == null) {
@@ -51,7 +60,8 @@ class Parser
     }
 
     /**
-     * Free the held resouces
+     * Free the held resources
+     *
      * @return void
      */
     public function __destruct()
@@ -68,8 +78,10 @@ class Parser
 
     /**
      * Set the file path we use to get the email text
-     * @return Parser MimeMailParser Instance
+     *
      * @param string $path File path to the MIME mail
+     *
+     * @return Parser MimeMailParser Instance
      */
     public function setPath($path)
     {
@@ -77,33 +89,38 @@ class Parser
         $this->resource = mailparse_msg_parse_file($path);
         $this->stream = fopen($path, 'r');
         $this->parse();
+
         return $this;
     }
 
     /**
      * Set the Stream resource we use to get the email text
+     *
+     * @param resource $stream
+     *
      * @return Parser MimeMailParser Instance
-     * @param $stream Resource
+     * @throws Exception
      */
     public function setStream($stream)
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
         if (!$meta || !$meta['mode'] || $meta['mode'][0] != 'r' || $meta['eof']) {
-            throw new \Exception(
+            throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
         }
 
+        /** @var resource $tmp_fp */
         $tmp_fp = tmpfile();
         if ($tmp_fp) {
             while (!feof($stream)) {
                 fwrite($tmp_fp, fread($stream, 2028));
             }
             fseek($tmp_fp, 0);
-            $this->stream = & $tmp_fp;
+            $this->stream = &$tmp_fp;
         } else {
-            throw new \Exception(
+            throw new Exception(
                 'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
             );
         }
@@ -115,33 +132,37 @@ class Parser
             mailparse_msg_parse($this->resource, fread($this->stream, 2082));
         }
         $this->parse();
+
         return $this;
     }
 
     /**
      * Set the email text
+     *
+     * @param string $data
+     *
      * @return Parser MimeMailParser Instance
-     * @param $data String
      */
     public function setText($data)
     {
-        $this->resource = \mailparse_msg_create();
+        $this->resource = mailparse_msg_create();
         // does not parse incrementally, fast memory hog might explode
         mailparse_msg_parse($this->resource, $data);
         $this->data = $data;
         $this->parse();
+
         return $this;
     }
 
     /**
      * Parse the Message into parts
+     *
      * @return void
-     * @private
      */
     private function parse()
     {
         $structure = mailparse_msg_get_structure($this->resource);
-        $this->parts = array();
+        $this->parts = [];
         foreach ($structure as $part_id) {
             $part = mailparse_msg_get_part($this->resource, $part_id);
             $this->parts[$part_id] = mailparse_msg_get_part_data($part);
@@ -150,16 +171,20 @@ class Parser
 
     /**
      * Retrieve a specific Email Header, without charset conversion.
-     * @return String
-     * @param $name String Header name
+     *
+     * @param string $name Header name
+     *
+     * @return string
+     * @throws Exception
      */
     public function getRawHeader($name)
     {
         if (isset($this->parts[1])) {
             $headers = $this->getPart('headers', $this->parts[1]);
+
             return (isset($headers[$name])) ? $headers[$name] : false;
         } else {
-            throw new \Exception(
+            throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
@@ -167,8 +192,10 @@ class Parser
 
     /**
      * Retrieve a specific Email Header
-     * @return String
-     * @param $name String Header name
+     *
+     * @param string $name Header name
+     *
+     * @return string
      */
     public function getHeader($name)
     {
@@ -176,12 +203,15 @@ class Parser
         if ($rawHeader === false) {
             return false;
         }
+
         return $this->decodeHeader($rawHeader);
     }
 
     /**
      * Retrieve all mail headers
-     * @return Array
+     *
+     * @return array
+     * @throws Exception
      */
     public function getHeaders()
     {
@@ -196,9 +226,10 @@ class Parser
                     $value = $this->decodeSingleHeader($value);
                 }
             }
+
             return $headers;
         } else {
-            throw new \Exception(
+            throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
@@ -206,22 +237,25 @@ class Parser
 
     /**
      * Returns the email message body in the specified format
-     * @return string|false String Body or False if not found
-     * @param $type String text or html or htmlEmbedded
+     *
+     * @param string $type text, html or htmlEmbedded
+     *
+     * @return false|string Body or False if not found
+     * @throws Exception
      */
     public function getMessageBody($type = 'text')
     {
         $body = false;
-        $mime_types = array(
-            'text'=> 'text/plain',
-            'html'=> 'text/html',
-            'htmlEmbedded'=> 'text/html'
-        );
+        $mime_types = [
+            'text'         => 'text/plain',
+            'html'         => 'text/html',
+            'htmlEmbedded' => 'text/html',
+        ];
         if (in_array($type, array_keys($mime_types))) {
             foreach ($this->parts as $part) {
                 if ($this->getPart('content-type', $part) == $mime_types[$type]
                     && $this->getPart('content-disposition', $part) != 'attachment'
-                    ) {
+                ) {
                     $headers = $this->getPart('headers', $part);
                     $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
                         $headers['content-transfer-encoding'] : '';
@@ -231,7 +265,7 @@ class Parser
                 }
             }
         } else {
-            throw new \Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
+            throw new Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
         }
 
         if ($type == 'htmlEmbedded') {
@@ -239,20 +273,23 @@ class Parser
             foreach ($attachments as $attachment) {
                 if ($attachment->getContentID() != '') {
                     $body = str_replace(
-                        '"cid:' . $attachment->getContentID().'"',
+                        '"cid:'.$attachment->getContentID().'"',
                         '"'.$this->getEmbeddedData($attachment->getContentID()).'"',
                         $body
                     );
                 }
             }
         }
+
         return $body;
     }
 
     /**
      * Returns the embedded data structure
-     * @return String
-     * @param $contentId String of Content-Id
+     *
+     * @param string $contentId Content-Id
+     *
+     * @return string
      */
     private function getEmbeddedData($contentId)
     {
@@ -260,33 +297,38 @@ class Parser
         foreach ($this->parts as $part) {
             if ($this->getPart('content-id', $part) == $contentId) {
                 $embeddedData .= $this->getPart('content-type', $part);
-                $embeddedData .= ';' . $this->getPart('transfer-encoding', $part);
-                $embeddedData .= ',' . $this->getPartBody($part);
+                $embeddedData .= ';'.$this->getPart('transfer-encoding', $part);
+                $embeddedData .= ','.$this->getPartBody($part);
             }
         }
+
         return $embeddedData;
     }
 
     /**
      * Return an array with the following keys display, address, is_group
-     * @return Array
-     * @param $name String Header name
+     *
+     * @param string $name Header name
+     *
+     * @return array
      */
     public function getAddresses($name)
     {
         $value = $this->getHeader($name);
+
         return mailparse_rfc822_parse_addresses($value);
     }
 
     /**
      * Returns the attachments contents in order of appearance
+     *
      * @return Attachment[]
      */
     public function getAttachments()
     {
-        $attachments = array();
-        $dispositions = array('attachment', 'inline');
-        $non_attachment_types = array('text/plain', 'text/html');
+        $attachments = [];
+        $dispositions = ['attachment', 'inline'];
+        $non_attachment_types = ['text/plain', 'text/html'];
         $nonameIter = 0;
 
         foreach ($this->parts as $part) {
@@ -301,7 +343,8 @@ class Parser
                 $filename = $this->decodeHeader($part['content-name']);
                 $disposition = 'attachment';
             } elseif (!in_array($part['content-type'], $non_attachment_types, true)
-                && substr($part['content-type'], 0, 10) !== 'multipart/') {
+                && substr($part['content-type'], 0, 10) !== 'multipart/'
+            ) {
                 // if we cannot get it by getMessageBody(), we assume it is an attachment
                 $disposition = 'attachment';
             }
@@ -309,7 +352,7 @@ class Parser
             if (in_array($disposition, $dispositions) === true && isset($filename) === true) {
                 if ($filename == 'noname') {
                     $nonameIter++;
-                    $filename = 'noname' . $nonameIter;
+                    $filename = 'noname'.$nonameIter;
                 }
 
                 $headersAttachments = $this->getPart('headers', $part);
@@ -325,13 +368,17 @@ class Parser
                 );
             }
         }
+
         return $attachments;
     }
 
     /**
      * Save attachments in a folder
+     *
+     * @param string $attach_dir directory
+     *
      * @return array Saved attachments paths
-     * @param $attach_dir String of the directory
+     * @throws Exception
      */
     public function saveAttachments($attach_dir)
     {
@@ -344,9 +391,10 @@ class Parser
             mkdir($attach_dir);
         }
 
-        $attachments_paths = array();
+        $attachments_paths = [];
         foreach ($attachments as $attachment) {
-            $attachment_path = $attach_dir . $attachment->getFilename();
+            $attachment_path = $attach_dir.$attachment->getFilename();
+            /** @var resource $fp */
             if ($fp = fopen($attachment_path, 'w')) {
                 while ($bytes = $attachment->read()) {
                     fwrite($fp, $bytes);
@@ -354,7 +402,7 @@ class Parser
                 fclose($fp);
                 $attachments_paths[] = realpath($attachment_path);
             } else {
-                throw new \Exception('Could not write attachments. Your directory may be unwritable by PHP.');
+                throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
             }
         }
 
@@ -363,11 +411,15 @@ class Parser
 
     /**
      * Read the attachment Body and save temporary file resource
-     * @return String Mime Body Part
-     * @param $part Array
+     *
+     * @param array $part
+     *
+     * @return resource Mime Body Part
+     * @throws Exception
      */
     private function getAttachmentStream(&$part)
     {
+        /** @var resource $temp_fp */
         $temp_fp = tmpfile();
 
         $headers = $this->getPart('headers', $part);
@@ -393,18 +445,21 @@ class Parser
             }
             fseek($temp_fp, 0, SEEK_SET);
         } else {
-            throw new \Exception(
+            throw new Exception(
                 'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
             );
         }
+
         return $temp_fp;
     }
 
     /**
      * Decode the string from Content-Transfer-Encoding
-     * @return String the decoded string
-     * @param string $encodedString    The string in its original encoded state
-     * @param $encodingType     The encoding type from the Content-Transfer-Encoding header of the part.
+     *
+     * @param string $encodedString The string in its original encoded state
+     * @param string $encodingType  The encoding type from the Content-Transfer-Encoding header of the part.
+     *
+     * @return string The decoded string
      */
     private function decodeContentTransfer($encodedString, $encodingType)
     {
@@ -420,7 +475,9 @@ class Parser
 
     /**
      * $input can be a string or array
+     *
      * @param string|array $input
+     *
      * @return string
      */
     private function decodeHeader($input)
@@ -435,7 +492,9 @@ class Parser
 
     /**
      * Decodes a single header (= string)
-     * @param string
+     *
+     * @param string $input
+     *
      * @return string
      */
     private function decodeSingleHeader($input)
@@ -450,7 +509,6 @@ class Parser
             $encoding = $matches[3];
             $text = $matches[4];
 
-
             switch (strtolower($encoding)) {
                 case 'b':
                     $text = $this->decodeContentTransfer($text, 'base64');
@@ -460,7 +518,7 @@ class Parser
                     $text = str_replace('_', ' ', $text);
                     preg_match_all('/=([a-f0-9]{2})/i', $text, $matches);
                     foreach ($matches[1] as $value) {
-                        $text = str_replace('=' . $value, chr(hexdec($value)), $text);
+                        $text = str_replace('='.$value, chr(hexdec($value)), $text);
                     }
                     break;
             }
@@ -474,8 +532,10 @@ class Parser
 
     /**
      * Return the charset of the MIME part
-     * @return String|false
-     * @param $part Array
+     *
+     * @param array $part
+     *
+     * @return string|false
      */
     private function getPartCharset($part)
     {
@@ -488,8 +548,11 @@ class Parser
 
     /**
      * Retrieve a specified MIME part
-     * @return String|Array
-     * @param string $type String, $parts Array
+     *
+     * @param string $type
+     * @param array  $parts
+     *
+     * @return string|array
      */
     private function getPart($type, $parts)
     {
@@ -498,8 +561,10 @@ class Parser
 
     /**
      * Retrieve the Body of a MIME part
-     * @return String
-     * @param $part Object
+     *
+     * @param array $part
+     *
+     * @return string
      */
     private function getPartBody(&$part)
     {
@@ -509,13 +574,16 @@ class Parser
         } elseif ($this->data) {
             $body = $this->getPartBodyFromText($part);
         }
+
         return $body;
     }
 
     /**
      * Retrieve the Body from a MIME part from file
-     * @return String Mime Body Part
-     * @param $part Array
+     *
+     * @param array $part
+     *
+     * @return string Mime Body Part
      */
     private function getPartBodyFromFile(&$part)
     {
@@ -526,18 +594,22 @@ class Parser
             fseek($this->stream, $start, SEEK_SET);
             $body = fread($this->stream, $end - $start);
         }
+
         return $body;
     }
 
     /**
      * Retrieve the Body from a MIME part from text
-     * @return String Mime Body Part
-     * @param $part Array
+     *
+     * @param array $part
+     *
+     * @return string Mime Body Part
      */
     private function getPartBodyFromText(&$part)
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
+
         return substr($this->data, $start, $end - $start);
     }
 }
