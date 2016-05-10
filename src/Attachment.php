@@ -13,37 +13,37 @@ class Attachment
     /**
      * @var string $filename Filename
      */
-    public $filename;
+    protected $filename;
 
     /**
      * @var string $contentType Mime Type
      */
-    public $contentType;
+    protected $contentType;
 
     /**
      * @var string $content File Content
      */
-    private $content;
+    protected $content;
 
     /**
      * @var string $contentDisposition Content-Disposition (attachment or inline)
      */
-    public $contentDisposition;
+    protected $contentDisposition;
 
     /**
      * @var string $contentId Content-ID
      */
-    public $contentId;
+    protected $contentId;
 
     /**
      * @var array $headers An Array of the attachment headers
      */
-    public $headers;
+    protected $headers;
 
     /**
      * @var resource $stream
      */
-    private $stream;
+    protected $stream;
 
     /**
      * Attachment constructor.

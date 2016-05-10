@@ -17,33 +17,33 @@ class Parser
      *
      * @var resource $resource
      */
-    public $resource;
+    protected $resource;
 
     /**
      * A file pointer to email
      *
      * @var resource $stream
      */
-    public $stream;
+    protected $stream;
 
     /**
      * A text of an email
      *
      * @var string $data
      */
-    public $data;
+    protected $data;
 
     /**
      * Parts of an email
      *
      * @var array $parts
      */
-    public $parts;
+    protected $parts;
 
     /**
-     * Charset managemer object
+     * @var CharsetManager object
      */
-    public $charset;
+    protected $charset;
 
     /**
      * Parser constructor.
@@ -159,7 +159,7 @@ class Parser
      *
      * @return void
      */
-    private function parse()
+    protected function parse()
     {
         $structure = mailparse_msg_get_structure($this->resource);
         $this->parts = [];
@@ -291,7 +291,7 @@ class Parser
      *
      * @return string
      */
-    private function getEmbeddedData($contentId)
+    protected function getEmbeddedData($contentId)
     {
         $embeddedData = 'data:';
         foreach ($this->parts as $part) {
@@ -417,7 +417,7 @@ class Parser
      * @return resource Mime Body Part
      * @throws Exception
      */
-    private function getAttachmentStream(&$part)
+    protected function getAttachmentStream(&$part)
     {
         /** @var resource $temp_fp */
         $temp_fp = tmpfile();
@@ -461,7 +461,7 @@ class Parser
      *
      * @return string The decoded string
      */
-    private function decodeContentTransfer($encodedString, $encodingType)
+    protected function decodeContentTransfer($encodedString, $encodingType)
     {
         $encodingType = strtolower($encodingType);
         if ($encodingType == 'base64') {
@@ -480,7 +480,7 @@ class Parser
      *
      * @return string
      */
-    private function decodeHeader($input)
+    protected function decodeHeader($input)
     {
         //Sometimes we have 2 label From so we take only the first
         if (is_array($input)) {
@@ -497,7 +497,7 @@ class Parser
      *
      * @return string
      */
-    private function decodeSingleHeader($input)
+    protected function decodeSingleHeader($input)
     {
         // Remove white space between encoded-words
         $input = preg_replace('/(=\?[^?]+\?(q|b)\?[^?]*\?=)(\s)+=\?/i', '\1=?', $input);
@@ -537,7 +537,7 @@ class Parser
      *
      * @return string|false
      */
-    private function getPartCharset($part)
+    protected function getPartCharset($part)
     {
         if (isset($part['charset'])) {
             return $this->charset->getCharsetAlias($part['charset']);
@@ -554,7 +554,7 @@ class Parser
      *
      * @return string|array
      */
-    private function getPart($type, $parts)
+    protected function getPart($type, $parts)
     {
         return (isset($parts[$type])) ? $parts[$type] : false;
     }
@@ -566,7 +566,7 @@ class Parser
      *
      * @return string
      */
-    private function getPartBody(&$part)
+    protected function getPartBody(&$part)
     {
         $body = '';
         if ($this->stream) {
@@ -585,7 +585,7 @@ class Parser
      *
      * @return string Mime Body Part
      */
-    private function getPartBodyFromFile(&$part)
+    protected function getPartBodyFromFile(&$part)
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
@@ -605,7 +605,7 @@ class Parser
      *
      * @return string Mime Body Part
      */
-    private function getPartBodyFromText(&$part)
+    protected function getPartBodyFromText(&$part)
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
