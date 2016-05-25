@@ -6,6 +6,10 @@ Fully Tested Mailparse Extension Wrapper for PHP 5.4+
 [![Total Downloads](https://img.shields.io/packagist/dt/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
+## Why ?
+
+If you need to parse and read email from server like postfix. You can also create a webmail and insert into your database emails with all information like subject, html body, attachments, ...
+
 ## Is it reliable ?
 
 Yes, it is.  
