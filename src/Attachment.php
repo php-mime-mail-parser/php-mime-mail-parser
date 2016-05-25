@@ -8,44 +8,60 @@ namespace PhpMimeMailParser;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-
 class Attachment
 {
+    /**
+     * @var string $filename Filename
+     */
+    protected $filename;
 
     /**
-     * @var $filename Filename
+     * @var string $contentType Mime Type
      */
-    public $filename;
-    /**
-     * @var $contentType Mime Type
-     */
-    public $contentType;
-    /**
-     * @var $content File Content
-     */
-    private $content;
-    /**
-     * @var $contentDisposition Content-Disposition (attachment or inline)
-     */
-    public $contentDisposition;
-    /**
-     * @var $contentId Content-ID
-     */
-    public $contentId;
-    /**
-     * @var $headers An Array of the attachment headers
-     */
-    public $headers;
+    protected $contentType;
 
-    private $stream;
+    /**
+     * @var string $content File Content
+     */
+    protected $content;
 
+    /**
+     * @var string $contentDisposition Content-Disposition (attachment or inline)
+     */
+    protected $contentDisposition;
+
+    /**
+     * @var string $contentId Content-ID
+     */
+    protected $contentId;
+
+    /**
+     * @var array $headers An Array of the attachment headers
+     */
+    protected $headers;
+
+    /**
+     * @var resource $stream
+     */
+    protected $stream;
+
+    /**
+     * Attachment constructor.
+     *
+     * @param string   $filename
+     * @param string   $contentType
+     * @param resource $stream
+     * @param string   $contentDisposition
+     * @param string   $contentId
+     * @param array    $headers
+     */
     public function __construct(
         $filename,
         $contentType,
         $stream,
         $contentDisposition = 'attachment',
         $contentId = '',
-        $headers = array()
+        $headers = []
     ) {
         $this->filename = $filename;
         $this->contentType = $contentType;
@@ -58,7 +74,8 @@ class Attachment
 
     /**
      * retrieve the attachment filename
-     * @return String
+     *
+     * @return string
      */
     public function getFilename()
     {
@@ -67,7 +84,8 @@ class Attachment
 
     /**
      * Retrieve the Attachment Content-Type
-     * @return String
+     *
+     * @return string
      */
     public function getContentType()
     {
@@ -76,7 +94,8 @@ class Attachment
 
     /**
      * Retrieve the Attachment Content-Disposition
-     * @return String
+     *
+     * @return string
      */
     public function getContentDisposition()
     {
@@ -85,7 +104,8 @@ class Attachment
 
     /**
      * Retrieve the Attachment Content-ID
-     * @return String
+     *
+     * @return string
      */
     public function getContentID()
     {
@@ -94,7 +114,8 @@ class Attachment
 
     /**
      * Retrieve the Attachment Headers
-     * @return String
+     *
+     * @return array
      */
     public function getHeaders()
     {
@@ -104,8 +125,10 @@ class Attachment
     /**
      * Read the contents a few bytes at a time until completed
      * Once read to completion, it always returns false
-     * @return String
-     * @param $bytes Int[optional]
+     *
+     * @param int $bytes (default: 2082)
+     *
+     * @return string|bool
      */
     public function read($bytes = 2082)
     {
@@ -114,8 +137,9 @@ class Attachment
 
     /**
      * Retrieve the file content in one go
-     * Once you retreive the content you cannot use MimeMailParser_attachment::read()
-     * @return String
+     * Once you retrieve the content you cannot use MimeMailParser_attachment::read()
+     *
+     * @return string
      */
     public function getContent()
     {
@@ -125,6 +149,7 @@ class Attachment
                 $this->content .= $buf;
             }
         }
+
         return $this->content;
     }
 }

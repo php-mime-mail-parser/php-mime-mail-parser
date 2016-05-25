@@ -5,16 +5,20 @@ interface CharsetManager
 
     /**
      * Decode the string from Charset
-     * @return String the decoded string
-     * @param $encodedString    The string in its original encoded state
-     * @param $charset          The Charset header of the part.
+     *
+     * @param string $encodedString The string in its original encoded state
+     * @param string $charset       The Charset header of the part.
+     *
+     * @return string The decoded string
      */
     public function decodeCharset($encodedString, $charset);
 
     /**
      * Get charset alias
-     * @return string the charset alias
-     * @param $charset.
+     *
+     * @param string $charset .
+     *
+     * @return string The charset alias
      */
     public function getCharsetAlias($charset);
 }
