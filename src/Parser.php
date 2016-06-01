@@ -247,18 +247,18 @@ class Parser
     {
         $body = false;
         $mime_types = [
-            'text'         => 'text/plain',
-            'html'         => 'text/html',
-            'htmlEmbedded' => 'text/html',
+        'text'         => 'text/plain',
+        'html'         => 'text/html',
+        'htmlEmbedded' => 'text/html',
         ];
         if (in_array($type, array_keys($mime_types))) {
             foreach ($this->parts as $part) {
                 if ($this->getPart('content-type', $part) == $mime_types[$type]
                     && $this->getPart('content-disposition', $part) != 'attachment'
-                ) {
+                    ) {
                     $headers = $this->getPart('headers', $part);
                     $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-                        $headers['content-transfer-encoding'] : '';
+                    $headers['content-transfer-encoding'] : '';
                     $body = $this->decodeContentTransfer($this->getPartBody($part), $encodingType);
                     $body = $this->charset->decodeCharset($body, $this->getPartCharset($part));
                     break;
@@ -344,7 +344,7 @@ class Parser
                 $disposition = 'attachment';
             } elseif (!in_array($part['content-type'], $non_attachment_types, true)
                 && substr($part['content-type'], 0, 10) !== 'multipart/'
-            ) {
+                ) {
                 // if we cannot get it by getMessageBody(), we assume it is an attachment
                 $disposition = 'attachment';
             }
@@ -424,7 +424,7 @@ class Parser
 
         $headers = $this->getPart('headers', $part);
         $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-            $headers['content-transfer-encoding'] : '';
+        $headers['content-transfer-encoding'] : '';
 
         if ($temp_fp) {
             if ($this->stream) {
@@ -611,5 +611,55 @@ class Parser
         $end = $part['ending-pos-body'];
 
         return substr($this->data, $start, $end - $start);
+    }
+
+    /**
+     * Retrieve the resource
+     *
+     * @return resource resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+    /**
+     * Retrieve the file pointer to email
+     *
+     * @return resource stream
+     */
+    public function getStream()
+    {
+        return $this->stream;
+    }
+
+    /**
+     * Retrieve the text of an email
+     *
+     * @return string data
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * Retrieve the parts of an email
+     *
+     * @return array parts
+     */
+    public function getParts()
+    {
+        return $this->parts;
+    }
+
+    /**
+     * Retrieve the charset manager object
+     *
+     * @return CharsetManager charset
+     */
+    public function getCharset()
+    {
+        return $this->charset;
     }
 }
