@@ -23,7 +23,7 @@ We use Travis CI to help ensure code quality. You can see real-time statistics b
 [![Coverage](https://img.shields.io/coveralls/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://coveralls.io/r/php-mime-mail-parser/php-mime-mail-parser)
 [![Quality Score](https://img.shields.io/scrutinizer/g/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://scrutinizer-ci.com/g/php-mime-mail-parser/php-mime-mail-parser)
 
-## Do I install it?
+## How do I install it?
 
 The easiest way is via [Composer](https://getcomposer.org/).
 
