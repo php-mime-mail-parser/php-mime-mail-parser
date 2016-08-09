@@ -123,6 +123,16 @@ class Attachment
     }
 
     /**
+     * Get a handle to the stream
+     *
+     * @return stream
+     */
+    public function getStream()
+    {
+        return $this->stream;
+    }
+
+    /**
      * Read the contents a few bytes at a time until completed
      * Once read to completion, it always returns false
      *
