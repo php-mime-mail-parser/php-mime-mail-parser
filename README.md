@@ -10,7 +10,7 @@ A fully tested mailparse extension wrapper for PHP 5.4+
 
 This extension can be used to...
  * Parse and read email from Postfix
- * Create and send webmail 
+ * Create webmail 
  * Store email information such a subject, HTML body, attachments, and etc. into a database
 
 ## Is it reliable?
