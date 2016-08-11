@@ -280,7 +280,7 @@ class Parser
      * @return String Mime Header Part
      * @param $part Array
      */
-    private function getPartHeaderFromFile(&$part) 
+    private function getPartHeaderFromFile(&$part)
     {
         $start = $part['starting-pos'];
         $end = $part['starting-pos-body'];
