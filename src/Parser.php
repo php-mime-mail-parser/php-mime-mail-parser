@@ -259,7 +259,7 @@ class Parser
      * @param $part Object
      * @throws Exception
      */
-    private function getPartHeaderRaw(&$part)
+    protected function getPartHeaderRaw(&$part)
     {
         $header = '';
         if ($this->stream) {
@@ -280,7 +280,7 @@ class Parser
      * @return String Mime Header Part
      * @param $part Array
      */
-    private function getPartHeaderFromFile(&$part)
+    protected function getPartHeaderFromFile(&$part)
     {
         $start = $part['starting-pos'];
         $end = $part['starting-pos-body'];
@@ -295,7 +295,7 @@ class Parser
      * @return String Mime Header Part
      * @param $part Array
      */
-    private function getPartHeaderFromText(&$part)
+    protected function getPartHeaderFromText(&$part)
     {
         $start = $part['starting-pos'];
         $end = $part['starting-pos-body'];
