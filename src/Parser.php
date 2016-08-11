@@ -250,8 +250,6 @@ class Parser
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
-    
-        
     }
 
     /**
@@ -261,16 +259,19 @@ class Parser
      * @param $part Object
      * @throws Exception
      */
-    private function getPartHeaderRaw(&$part) {
-            $header = '';
-            if ($this->stream) {
-                    $header = $this->getPartHeaderFromFile($part);
-            } else if ($this->data) {
-                    $header = $this->getPartHeaderFromText($part);
-            } else {
-                    throw new Exception('setPath() or setText() or setStream() must be called before retrieving email headers.');
-            }
-            return $header;
+    private function getPartHeaderRaw(&$part)
+    {
+        $header = '';
+        if ($this->stream) {
+            $header = $this->getPartHeaderFromFile($part);
+        } elseif ($this->data) {
+            $header = $this->getPartHeaderFromText($part);
+        } else {
+            throw new Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
+        }
+        return $header;
     }
 
     /**
@@ -279,12 +280,13 @@ class Parser
      * @return String Mime Header Part
      * @param $part Array
      */
-    private function getPartHeaderFromFile(&$part) {
-            $start = $part['starting-pos'];
-            $end = $part['starting-pos-body'];
-            fseek($this->stream, $start, SEEK_SET);
-            $header = fread($this->stream, $end-$start);
-            return $header;
+    private function getPartHeaderFromFile(&$part) 
+    {
+        $start = $part['starting-pos'];
+        $end = $part['starting-pos-body'];
+        fseek($this->stream, $start, SEEK_SET);
+        $header = fread($this->stream, $end-$start);
+        return $header;
     }
 
     /**
@@ -293,11 +295,12 @@ class Parser
      * @return String Mime Header Part
      * @param $part Array
      */
-    private function getPartHeaderFromText(&$part) {
-            $start = $part['starting-pos'];
-            $end = $part['starting-pos-body'];
-            $header = substr($this->data, $start, $end-$start);
-            return $header;
+    private function getPartHeaderFromText(&$part)
+    {
+        $start = $part['starting-pos'];
+        $end = $part['starting-pos-body'];
+        $header = substr($this->data, $start, $end-$start);
+        return $header;
     }
 
     /**
