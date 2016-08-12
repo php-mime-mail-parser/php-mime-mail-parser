@@ -925,6 +925,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($Parser->getHeader('azerty'));
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
+        //Test Raw Headers
+        $this->assertInternalType('string', $Parser->getHeadersRaw());
+
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
             $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));
@@ -1055,6 +1058,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Test Invalid Header
         $this->assertFalse($Parser->getHeader('azerty'));
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
+
+        //Test Raw Headers
+        $this->assertInternalType('string', $Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
@@ -1187,6 +1193,9 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         //Test Invalid Header
         $this->assertFalse($Parser->getHeader('azerty'));
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
+
+        //Test Raw Headers
+        $this->assertInternalType('string', $Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {

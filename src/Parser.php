@@ -236,6 +236,70 @@ class Parser
     }
 
     /**
+     * Retrieve the raw mail headers as a string
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function getHeadersRaw()
+    {
+        if (isset($this->parts[1])) {
+            return $this->getPartHeader($this->parts[1]);
+        } else {
+            throw new Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
+        }
+    }
+
+    /**
+     * Retrieve the raw Header of a MIME part
+     *
+     * @return String
+     * @param $part Object
+     * @throws Exception
+     */
+    protected function getPartHeader(&$part)
+    {
+        $header = '';
+        if ($this->stream) {
+            $header = $this->getPartHeaderFromFile($part);
+        } elseif ($this->data) {
+            $header = $this->getPartHeaderFromText($part);
+        }
+        return $header;
+    }
+
+    /**
+     * Retrieve the Header from a MIME part from file
+     *
+     * @return String Mime Header Part
+     * @param $part Array
+     */
+    protected function getPartHeaderFromFile(&$part)
+    {
+        $start = $part['starting-pos'];
+        $end = $part['starting-pos-body'];
+        fseek($this->stream, $start, SEEK_SET);
+        $header = fread($this->stream, $end-$start);
+        return $header;
+    }
+
+    /**
+     * Retrieve the Header from a MIME part from text
+     *
+     * @return String Mime Header Part
+     * @param $part Array
+     */
+    protected function getPartHeaderFromText(&$part)
+    {
+        $start = $part['starting-pos'];
+        $end = $part['starting-pos-body'];
+        $header = substr($this->data, $start, $end-$start);
+        return $header;
+    }
+
+    /**
      * Returns the email message body in the specified format
      *
      * @param string $type text, html or htmlEmbedded
