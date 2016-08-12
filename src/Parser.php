@@ -244,7 +244,7 @@ class Parser
     public function getHeadersRaw()
     {
         if (isset($this->parts[1])) {
-            return $this->getPartHeaderRaw($this->parts[1]);
+            return $this->getPartHeader($this->parts[1]);
         } else {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
@@ -259,17 +259,13 @@ class Parser
      * @param $part Object
      * @throws Exception
      */
-    protected function getPartHeaderRaw(&$part)
+    protected function getPartHeader(&$part)
     {
         $header = '';
         if ($this->stream) {
             $header = $this->getPartHeaderFromFile($part);
         } elseif ($this->data) {
             $header = $this->getPartHeaderFromText($part);
-        } else {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
         }
         return $header;
     }

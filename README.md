@@ -87,6 +87,9 @@ $text = $Parser->getMessageBody('text');
 $html = $Parser->getMessageBody('html');
 $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded'); //HTML Body included data
 
+$stringHeaders = $Parser->getHeadersRaw();	// Get all headers as a string, no charset conversion
+$arrayHeaders = $Parser->getHeaders();		// Get all headers as an array, with charset conversion
+
 // Pass in a writeable path to save attachments
 $attach_dir = '/path/to/save/attachments/';
 $Parser->saveAttachments($attach_dir);
