@@ -172,13 +172,14 @@ class Parser
     /**
      * Retrieve a specific Email Header, without charset conversion.
      *
-     * @param string $name Header name
+     * @param string $name Header name (case-insensitive)
      *
      * @return string
      * @throws Exception
      */
     public function getRawHeader($name)
     {
+        $name = strtolower($name);
         if (isset($this->parts[1])) {
             $headers = $this->getPart('headers', $this->parts[1]);
 
@@ -193,7 +194,7 @@ class Parser
     /**
      * Retrieve a specific Email Header
      *
-     * @param string $name Header name
+     * @param string $name Header name (case-insensitive)
      *
      * @return string
      */
@@ -372,7 +373,7 @@ class Parser
     /**
      * Return an array with the following keys display, address, is_group
      *
-     * @param string $name Header name
+     * @param string $name Header name (case-insensitive)
      *
      * @return array
      */
