@@ -1286,4 +1286,18 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             }
         }
     }
+
+    public function testHeaderRetrievalIsCaseInsensitive()
+    {
+        //Init
+        $file = __DIR__.'/mails/m0001';
+
+        //Load From Path
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $this->assertEquals($Parser->getRawHeader('From'), $Parser->getRawHeader('from'));
+        $this->assertEquals($Parser->getHeader('From'), $Parser->getHeader('from'));
+        $this->assertEquals($Parser->getAddresses('To'), $Parser->getAddresses('to'));
+    }
 }
