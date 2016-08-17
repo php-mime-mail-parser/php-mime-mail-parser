@@ -113,6 +113,11 @@ if (count($attachments) > 0) {
 
 Feel free to contribute!
 
+	git clone git clone https://github.com/php-mime-mail-parser/php-mime-mail-parser
+	cd php-mime-mail-parser
+	composer install
+	./vendor/bin/phpunit
+
 If you report an issue, please provide the raw email that triggered it. This helps us reproduce the issue and fix it more quickly.
 
 ### License
