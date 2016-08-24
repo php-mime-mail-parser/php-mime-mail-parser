@@ -418,7 +418,7 @@ class Parser
             // some email clients represent text and html types as base64
             // with a content-disposition : inline
             foreach ($non_attachment_types as $non_attachment_type) {
-                if (strpos($part['content-type'], $non_attachment_type) !== FALSE) {
+                if (strpos($part['content-type'], $non_attachment_type) !== false) {
                     $disposition = '';
                     break;
                 }
