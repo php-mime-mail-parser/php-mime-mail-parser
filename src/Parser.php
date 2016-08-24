@@ -414,6 +414,16 @@ class Parser
                 $disposition = 'attachment';
             }
 
+            // if content type contains a non_attachment type then we will ignore it.
+            // some email clients represent text and html types as base64
+            // with a content-disposition : inline
+            foreach ($non_attachment_types as $non_attachment_type) {
+                if (strpos($part['content-type'], $non_attachment_type) !== FALSE) {
+                    $disposition = '';
+                    break;
+                }
+            }
+
             if (in_array($disposition, $dispositions) === true && isset($filename) === true) {
                 if ($filename == 'noname') {
                     $nonameIter++;
