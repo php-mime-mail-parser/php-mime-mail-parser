@@ -564,15 +564,13 @@ class Parser
      */
     protected function decodeSingleHeader($input)
     {
-        // Remove white space between encoded-words
-        $input = preg_replace('/(=\?[^?]+\?(q|b)\?[^?]*\?=)(\s)+=\?/i', '\1=?', $input);
-
         // For each encoded-word...
-        while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)/i', $input, $matches)) {
+        while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)((\s+)=\?)?/i', $input, $matches)) {
             $encoded = $matches[1];
             $charset = $matches[2];
             $encoding = $matches[3];
             $text = $matches[4];
+            $space = isset($matches[6]) ? $matches[6] : '';
 
             switch (strtolower($encoding)) {
                 case 'b':
@@ -589,7 +587,7 @@ class Parser
             }
 
             $text = $this->charset->decodeCharset($text, $this->charset->getCharsetAlias($charset));
-            $input = str_replace($encoded, $text, $input);
+            $input = str_replace($encoded . $space, $text, $input);
         }
 
         return $input;
