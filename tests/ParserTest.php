@@ -714,7 +714,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     0),
                 array(
                     'm0021',
-                    'occurs when divided into an array, and the last e of the array! Пут ін хуйло!!!!!!',
+                    'occurs when divided into an array, and the last e of the array! Путін хуйло!!!!!!',
                     array(
                         array(
                             'display' => 'mail@exemple.com',
