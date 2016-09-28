@@ -423,13 +423,16 @@ class Parser
                 $headersAttachments = $this->getPart('headers', $part);
                 $contentidAttachments = $this->getPart('content-id', $part);
 
+                $mimePartStr = $this->getPartComplete($part);
+
                 $attachments[] = new Attachment(
                     $filename,
                     $this->getPart('content-type', $part),
                     $this->getAttachmentStream($part),
                     $disposition,
                     $contentidAttachments,
-                    $headersAttachments
+                    $headersAttachments,
+                    $mimePartStr
                 );
             }
         }
@@ -672,6 +675,60 @@ class Parser
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
+
+        return substr($this->data, $start, $end - $start);
+    }
+
+    /**
+     * Retrieve the content of a MIME part
+     *
+     * @param array $part
+     *
+     * @return string
+     */
+    protected function getPartComplete(&$part)
+    {
+        $body = '';
+        if ($this->stream) {
+            $body = $this->getPartFromFile($part);
+        } elseif ($this->data) {
+            $body = $this->getPartFromText($part);
+        }
+
+        return $body;
+    }
+
+    /**
+     * Retrieve the content from a MIME part from file
+     *
+     * @param array $part
+     *
+     * @return string Mime Content
+     */
+    protected function getPartFromFile(&$part)
+    {
+        $start = $part['starting-pos'];
+        $end = $part['ending-pos'];
+        $body = '';
+        if ($end - $start > 0) {
+            fseek($this->stream, $start, SEEK_SET);
+            $body = fread($this->stream, $end - $start);
+        }
+
+        return $body;
+    }
+
+    /**
+     * Retrieve the content from a MIME part from text
+     *
+     * @param array $part
+     *
+     * @return string Mime Content
+     */
+    protected function getPartFromText(&$part)
+    {
+        $start = $part['starting-pos'];
+        $end = $part['ending-pos'];
 
         return substr($this->data, $start, $end - $start);
     }

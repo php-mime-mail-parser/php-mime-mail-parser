@@ -46,6 +46,11 @@ class Attachment
     protected $stream;
 
     /**
+     * @var string $mimePartStr
+     */
+    protected $mimePartStr;
+
+    /**
      * Attachment constructor.
      *
      * @param string   $filename
@@ -54,6 +59,7 @@ class Attachment
      * @param string   $contentDisposition
      * @param string   $contentId
      * @param array    $headers
+     * @param string   $mimePartStr
      */
     public function __construct(
         $filename,
@@ -61,7 +67,8 @@ class Attachment
         $stream,
         $contentDisposition = 'attachment',
         $contentId = '',
-        $headers = []
+        $headers = [],
+        $mimePartStr = ''
     ) {
         $this->filename = $filename;
         $this->contentType = $contentType;
@@ -70,6 +77,7 @@ class Attachment
         $this->contentDisposition = $contentDisposition;
         $this->contentId = $contentId;
         $this->headers = $headers;
+        $this->mimePartStr = $mimePartStr;
     }
 
     /**
@@ -161,5 +169,15 @@ class Attachment
         }
 
         return $this->content;
+    }
+
+    /**
+     * Get mime part string for this attachment
+     *
+     * @return string
+     */
+    public function getMimePartStr()
+    {
+        return $this->mimePartStr;
     }
 }

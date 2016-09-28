@@ -1300,4 +1300,129 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($Parser->getHeader('From'), $Parser->getHeader('from'));
         $this->assertEquals($Parser->getAddresses('To'), $Parser->getAddresses('to'));
     }
+
+
+    public function provideAttachmentsData()
+    {
+        return array(
+            array(
+                'm0001',
+                array(
+                    'Content-Type: application/octet-stream; name=attach01
+Content-Disposition: attachment; filename=attach01
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_hi0eudw60
+
+YQo='
+                )
+            ),
+            array(
+                'm0002',
+                array(
+                    'Content-Type: application/octet-stream; name=attach02
+Content-Disposition: attachment; filename=attach02
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_hi0eyes30
+
+TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4g
+VmVzdGlidWx1bSBjb25ndWUgc2VkIGFudGUgaWQgbGFvcmVldC4gUHJhZXNlbnQgZGljdHVtIHNh
+cGllbiBpYWN1bGlzIG5pc2kgcGhhcmV0cmEsIHBvcnR0aXRvciBibGFuZGl0IG1hc3NhIGN1cnN1
+cy4gRHVpcyByaG9uY3VzIG1hdXJpcyBhYyB1cm5hIHNlbXBlciwgc2VkIG1hbGVzdWFkYSBmZWxp
+cyBpbnRlcmR1bS4gTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBp
+c2NpbmcgZWxpdC4gU2VkIHB1bHZpbmFyIGRpY3R1bSBvcm5hcmUuIEN1cmFiaXR1ciBldSBkb2xv
+ciBmYWNpbGlzaXMsIHNhZ2l0dGlzIHB1cnVzIHByZXRpdW0sIGNvbnNlY3RldHVyIGVsaXQuIE51
+bGxhIGVsZW1lbnR1bSBhdWN0b3IgdWx0cmljZXMuIE51bmMgZmVybWVudHVtIGRpY3R1bSBvZGlv
+IHZlbCB0aW5jaWR1bnQuIFNlZCBjb25zZXF1YXQgdmVzdGlidWx1bSB2ZXN0aWJ1bHVtLiBQcm9p
+biBwdWx2aW5hciBmZWxpcyB2aXRhZSBlbGVtZW50dW0gc3VzY2lwaXQuCgoKTG9yZW0gaXBzdW0g
+ZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4gVmVzdGlidWx1bSBj
+b25ndWUgc2VkIGFudGUgaWQgbGFvcmVldC4gUHJhZXNlbnQgZGljdHVtIHNhcGllbiBpYWN1bGlz
+IG5pc2kgcGhhcmV0cmEsIHBvcnR0aXRvciBibGFuZGl0IG1hc3NhIGN1cnN1cy4gRHVpcyByaG9u
+Y3VzIG1hdXJpcyBhYyB1cm5hIHNlbXBlciwgc2VkIG1hbGVzdWFkYSBmZWxpcyBpbnRlcmR1bS4g
+TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4g
+U2VkIHB1bHZpbmFyIGRpY3R1bSBvcm5hcmUuIEN1cmFiaXR1ciBldSBkb2xvciBmYWNpbGlzaXMs
+IHNhZ2l0dGlzIHB1cnVzIHByZXRpdW0sIGNvbnNlY3RldHVyIGVsaXQuIE51bGxhIGVsZW1lbnR1
+bSBhdWN0b3IgdWx0cmljZXMuIE51bmMgZmVybWVudHVtIGRpY3R1bSBvZGlvIHZlbCB0aW5jaWR1
+bnQuIFNlZCBjb25zZXF1YXQgdmVzdGlidWx1bSB2ZXN0aWJ1bHVtLiBQcm9pbiBwdWx2aW5hciBm
+ZWxpcyB2aXRhZSBlbGVtZW50dW0gc3VzY2lwaXQuCgoKTG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFt
+ZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4gVmVzdGlidWx1bSBjb25ndWUgc2VkIGFu
+dGUgaWQgbGFvcmVldC4gUHJhZXNlbnQgZGljdHVtIHNhcGllbiBpYWN1bGlzIG5pc2kgcGhhcmV0
+cmEsIHBvcnR0aXRvciBibGFuZGl0IG1hc3NhIGN1cnN1cy4gRHVpcyByaG9uY3VzIG1hdXJpcyBh
+YyB1cm5hIHNlbXBlciwgc2VkIG1hbGVzdWFkYSBmZWxpcyBpbnRlcmR1bS4gTG9yZW0gaXBzdW0g
+ZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4gU2VkIHB1bHZpbmFy
+IGRpY3R1bSBvcm5hcmUuIEN1cmFiaXR1ciBldSBkb2xvciBmYWNpbGlzaXMsIHNhZ2l0dGlzIHB1
+cnVzIHByZXRpdW0sIGNvbnNlY3RldHVyIGVsaXQuIE51bGxhIGVsZW1lbnR1bSBhdWN0b3IgdWx0
+cmljZXMuIE51bmMgZmVybWVudHVtIGRpY3R1bSBvZGlvIHZlbCB0aW5jaWR1bnQuIFNlZCBjb25z
+ZXF1YXQgdmVzdGlidWx1bSB2ZXN0aWJ1bHVtLiBQcm9pbiBwdWx2aW5hciBmZWxpcyB2aXRhZSBl
+bGVtZW50dW0gc3VzY2lwaXQuCgpMb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1ldCwgY29uc2VjdGV0
+dXIgYWRpcGlzY2luZyBlbGl0LiBWZXN0aWJ1bHVtIGNvbmd1ZSBzZWQgYW50ZSBpZCBsYW9yZWV0
+LiBQcmFlc2VudCBkaWN0dW0gc2FwaWVuIGlhY3VsaXMgbmlzaSBwaGFyZXRyYSwgcG9ydHRpdG9y
+IGJsYW5kaXQgbWFzc2EgY3Vyc3VzLiBEdWlzIHJob25jdXMgbWF1cmlzIGFjIHVybmEgc2VtcGVy
+LCBzZWQgbWFsZXN1YWRhIGZlbGlzIGludGVyZHVtLiBMb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1l
+dCwgY29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0LiBTZWQgcHVsdmluYXIgZGljdHVtIG9ybmFy
+ZS4gQ3VyYWJpdHVyIGV1IGRvbG9yIGZhY2lsaXNpcywgc2FnaXR0aXMgcHVydXMgcHJldGl1bSwg
+Y29uc2VjdGV0dXIgZWxpdC4gTnVsbGEgZWxlbWVudHVtIGF1Y3RvciB1bHRyaWNlcy4gTnVuYyBm
+ZXJtZW50dW0gZGljdHVtIG9kaW8gdmVsIHRpbmNpZHVudC4gU2VkIGNvbnNlcXVhdCB2ZXN0aWJ1
+bHVtIHZlc3RpYnVsdW0uIFByb2luIHB1bHZpbmFyIGZlbGlzIHZpdGFlIGVsZW1lbnR1bSBzdXNj
+aXBpdC4K'
+                )
+            )
+        );
+    }
+
+    /**
+     * @dataProvider provideAttachmentsData
+     */
+    public function testAttachmentGetMimePartStrFromPath($mid, $attachmentMimeParts)
+    {
+        // Init
+        $file = __DIR__ . '/mails/' . $mid;
+
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $i = 0;
+        foreach ($Parser->getAttachments() as $attachment) {
+            $expectedMimePart = $attachmentMimeParts[$i];
+            $this->assertEquals($expectedMimePart, $attachment->getMimePartStr());
+            $i++;
+        }
+    }
+
+    /**
+     * @dataProvider provideAttachmentsData
+     */
+    public function testAttachmentGetMimePartStrFromStream($mid, $attachmentMimeParts)
+    {
+        // Init
+        $file = __DIR__ . '/mails/' . $mid;
+
+        $Parser = new Parser();
+        $Parser->setStream(fopen($file, 'r'));
+
+        $i = 0;
+        foreach ($Parser->getAttachments() as $attachment) {
+            $expectedMimePart = $attachmentMimeParts[$i];
+            $this->assertEquals($expectedMimePart, $attachment->getMimePartStr());
+            $i++;
+        }
+    }
+
+    /**
+     * @dataProvider provideAttachmentsData
+     */
+    public function testAttachmentGetMimePartStrFromText($mid, $attachmentMimeParts)
+    {
+        // Init
+        $file = __DIR__ . '/mails/' . $mid;
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $i = 0;
+        foreach ($Parser->getAttachments() as $attachment) {
+            $expectedMimePart = $attachmentMimeParts[$i];
+            $this->assertEquals($expectedMimePart, $attachment->getMimePartStr());
+            $i++;
+        }
+    }
 }
