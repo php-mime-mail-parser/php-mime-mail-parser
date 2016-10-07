@@ -19,7 +19,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         (new Parser())->setPath($file)->getMessageBody();
         (new Parser())->setPath($file)->getMessageBody();
     }
-    
+
+    public function testDecodeCharsetFailedIsIgnored()
+    {
+        $file = __DIR__ . '/mails/issue116';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $this->assertEquals("ЖД41 от 28.09.2016", $Parser->getHeader('subject'));
+    }
+
     public function provideData()
     {
 

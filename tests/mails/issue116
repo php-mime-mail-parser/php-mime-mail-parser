@@ -1,0 +1,33 @@
+Subject: =?iso-2022-jp?B?GyRCJygnJS1iGyhCNDEgGyRCJ2AnZBsoQiAyOC4wOS4yMDE2?=
+Accept-Language: ru-RU, en-US
+Content-Language: ru-RU
+Content-Type: multipart/mixed;
+	boundary="_004_D2DB431998F3A041AA54447414836D3C5608E088NVMSGCSH01corpt_"
+MIME-Version: 1.0
+
+--_004_D2DB431998F3A041AA54447414836D3C5608E088NVMSGCSH01corpt_
+Content-Type: multipart/alternative;
+	boundary="_000_D2DB431998F3A041AA54447414836D3C5608E088NVMSGCSH01corpt_"
+
+--_000_D2DB431998F3A041AA54447414836D3C5608E088NVMSGCSH01corpt_
+Content-Type: text/plain; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+toto
+
+
+--_000_D2DB431998F3A041AA54447414836D3C5608E088NVMSGCSH01corpt_
+Content-Type: text/html; charset="iso-2022-jp"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+</head>
+<body lang=3D"RU" link=3D"blue" vlink=3D"purple">
+</body>
+</html>
+
+--_000_D2DB431998F3A041AA54447414836D3C5608E088NVMSGCSH01corpt_--
+
+--_004_D2DB431998F3A041AA54447414836D3C5608E088NVMSGCSH01corpt_--
+
