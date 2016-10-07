@@ -63,8 +63,8 @@ require_once __DIR__.'/vendor/autoload.php';
 $path = 'path/to/mail.txt';
 $Parser = new PhpMimeMailParser\Parser();
 
-// There are three methods available to indicate which mime mail to parse.
-// You only need to use one of the following three:
+// There are four methods available to indicate which mime mail to parse.
+// You only need to use one of the following four:
 
 // 1. Specify a file path to the mime mail.
 $Parser->setPath($path); 
@@ -74,6 +74,9 @@ $Parser->setStream(fopen($path, "r"));
 
 // 3. Specify the raw mime mail text.
 $Parser->setText(file_get_contents($path));
+
+// 4.  Specify a stream to work with mail server
+$Parser->setStream(fopen("php://stdin", "r"));
 
 // Once we've indicated where to find the mail, we can parse out the data
 $to = $Parser->getHeader('to');             // "test" <test@example.com>, "test2" <test2@example.com>
@@ -111,6 +114,23 @@ if (count($attachments) > 0) {
 
 ?>
 ```
+
+Next you need to forward emails to this script above. For that I'm using [Postfix](http://www.postfix.org/) like a mail server, you need to configure /etc/postfix/master.cf
+
+Add this line at the end of the file (specify myhook to send all emails to the script test.php)
+```
+myhook unix - n n - - pipe
+  				flags=F user=www-data argv=php -c /etc/php5/apache2/php.ini -f /var/www/test.php ${sender} ${size} ${recipient}
+```
+
+Edit this line (register myhook)
+```
+smtp      inet  n       -       -       -       -       smtpd
+        			-o content_filter=myhook:dummy
+```
+
+The php script must use the fourth method to work with this configuration.
+
 
 ## Can I contribute?
 
