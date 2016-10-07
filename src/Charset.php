@@ -318,11 +318,7 @@ class Charset implements CharsetManager
         if (strtolower($charset) == 'utf-8' || strtolower($charset) == 'us-ascii') {
             return $encodedString;
         } else {
-            $convertedString = @iconv($this->getCharsetAlias($charset), 'UTF-8//TRANSLIT//IGNORE', $encodedString);
-            if ($convertedString === false)
-                return $encodedString;
-            else
-                return $convertedString;
+            return iconv($this->getCharsetAlias($charset), 'UTF-8//TRANSLIT//IGNORE', $encodedString);
         }
     }
 
