@@ -51,6 +51,8 @@ If you have trouble installing mailparse on Ubuntu, take a look at [this tutoria
 
 Also note that you may need to create `/etc/php5/mods-available/mailparse.ini` file and include the line `extension=mailparse.so`. Then run `sudo php5enmod mailparse` to enable it.
 
+On Windows, you need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line "extension=php_mailparse.dll" to php.ini accordingly.
+
 ## How do I use it?
 
 ```php
