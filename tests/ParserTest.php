@@ -30,6 +30,14 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testEmbeddedDataReturnTheFirstContentWhenContentIdIsNotUnique()
+    {
+        $file = __DIR__ . '/mails/issue115';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $this->assertEquals(1, substr_count($Parser->getMessageBody('htmlEmbedded'), 'image/'));
+    }
+
     public function provideData()
     {
 
