@@ -324,6 +324,7 @@ class Parser
                     $headers = $this->getPart('headers', $part);
                     $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
                     $headers['content-transfer-encoding'] : '';
+                    if ( is_array($encodingType) ) { $encodingType = $encodingType[0]; }
                     $body = $this->decodeContentTransfer($this->getPartBody($part), $encodingType);
                     $body = $this->charset->decodeCharset($body, $this->getPartCharset($part));
                     break;
