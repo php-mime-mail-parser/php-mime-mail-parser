@@ -392,7 +392,7 @@ class Parser
      *
      * @return Attachment[]
      */
-    public function getAttachments($include_inline = false)
+    public function getAttachments($include_inline = true)
     {
         $attachments = [];
         if ($include_inline) {
@@ -456,7 +456,7 @@ class Parser
      * @return array Saved attachments paths
      * @throws Exception
      */
-    public function saveAttachments($attach_dir, $include_inline = false)
+    public function saveAttachments($attach_dir, $include_inline = true)
     {
         $attachments = $this->getAttachments($include_inline);
         if (empty($attachments)) {
