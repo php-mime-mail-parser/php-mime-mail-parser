@@ -96,11 +96,12 @@ $stringHeaders = $Parser->getHeadersRaw();	// Get all headers as a string, no ch
 $arrayHeaders = $Parser->getHeaders();		// Get all headers as an array, with charset conversion
 
 // Pass in a writeable path to save attachments
-$attach_dir = '/path/to/save/attachments/';
-$Parser->saveAttachments($attach_dir);
+$attach_dir = '/path/to/save/attachments/'; 	// Be sure to include the trailing slash
+$include_inline = false 			// Optional argument to include inline attachments (default: false)
+$Parser->saveAttachments($attach_dir [,$include_inline]);
 
 // Get an array of Attachment items from $Parser
-$attachments = $Parser->getAttachments();
+$attachments = $Parser->getAttachments([$include_inline]);
 
 //  Loop through all the Attachments
 if (count($attachments) > 0) {

@@ -392,16 +392,19 @@ class Parser
      *
      * @return Attachment[]
      */
-    public function getAttachments()
+    public function getAttachments($include_inline=false)
     {
         $attachments = [];
-        $dispositions = ['attachment', 'inline'];
+        if ($include_inline) {
+            $dispositions = ['attachment', 'inline'];
+        } else {
+            $dispositions = ['attachment'];
+        }
         $non_attachment_types = ['text/plain', 'text/html'];
         $nonameIter = 0;
 
         foreach ($this->parts as $part) {
             $disposition = $this->getPart('content-disposition', $part);
-            $filename = 'noname';
 
             if (isset($part['disposition-filename'])) {
                 $filename = $this->decodeHeader($part['disposition-filename']);
@@ -419,8 +422,8 @@ class Parser
                 $disposition = 'attachment';
             }
 
-            if (in_array($disposition, $dispositions) === true && isset($filename) === true) {
-                if ($filename == 'noname') {
+            if (in_array($disposition, $dispositions) === true) {
+                if (!isset($filename)) {
                     $nonameIter++;
                     $filename = 'noname'.$nonameIter;
                 }
@@ -453,9 +456,9 @@ class Parser
      * @return array Saved attachments paths
      * @throws Exception
      */
-    public function saveAttachments($attach_dir)
+    public function saveAttachments($attach_dir,$include_inline=false)
     {
-        $attachments = $this->getAttachments();
+        $attachments = $this->getAttachments($include_inline);
         if (empty($attachments)) {
             return false;
         }
