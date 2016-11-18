@@ -395,16 +395,15 @@ class Parser
     public function getAttachments($include_inline = true)
     {
         $attachments = [];
-        if ($include_inline) {
-            $dispositions = ['attachment', 'inline'];
-        } else {
-            $dispositions = ['attachment'];
-        }
+        $dispositions = $include_inline ?
+            ['attachment', 'inline'] :
+            ['attachment'];
         $non_attachment_types = ['text/plain', 'text/html'];
         $nonameIter = 0;
 
         foreach ($this->parts as $part) {
             $disposition = $this->getPart('content-disposition', $part);
+            $filename = 'noname';
 
             if (isset($part['disposition-filename'])) {
                 $filename = $this->decodeHeader($part['disposition-filename']);
@@ -423,7 +422,7 @@ class Parser
             }
 
             if (in_array($disposition, $dispositions) === true) {
-                if (!isset($filename)) {
+                if ($filename=='noname') {
                     $nonameIter++;
                     $filename = 'noname'.$nonameIter;
                 }
