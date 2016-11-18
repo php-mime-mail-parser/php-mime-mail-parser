@@ -403,6 +403,7 @@ class Parser
 
         foreach ($this->parts as $part) {
             $disposition = $this->getPart('content-disposition', $part);
+            $filename = 'noname';
 
             if (isset($part['disposition-filename'])) {
                 $filename = $this->decodeHeader($part['disposition-filename']);
