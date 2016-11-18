@@ -137,7 +137,7 @@ The php script must use the fourth method to work with this configuration.
 
 Feel free to contribute!
 
-	git clone https://github.com/php-mime-mail-parser/php-mime-mail-parser
+	git clone git clone https://github.com/php-mime-mail-parser/php-mime-mail-parser
 	cd php-mime-mail-parser
 	composer install
 	./vendor/bin/phpunit

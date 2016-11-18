@@ -422,7 +422,7 @@ class Parser
             }
 
             if (in_array($disposition, $dispositions) === true) {
-                if ($filename=='noname') {
+                if ($filename == 'noname') {
                     $nonameIter++;
                     $filename = 'noname'.$nonameIter;
                 }
