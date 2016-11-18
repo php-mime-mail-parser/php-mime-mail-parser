@@ -14,6 +14,61 @@ use PhpMimeMailParser\Exception;
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
 
+    /**
+     * @dataProvider provideData
+     */
+    public function testInlineAttachmentsFalse(
+        $mid,
+        $subjectExpected,
+        $fromAddressesExpected,
+        $fromExpected,
+        $toAddressesExpected,
+        $toExpected,
+        $textExpected,
+        $htmlExpected,
+        $attachmentsExpected,
+        $countEmbeddedExpected
+    ) {
+        //Init
+        $file = __DIR__.'/mails/'.$mid;
+
+        //Load From Path
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        // Remove inline attachments from array
+        $attachmentsExpected = array_filter($attachmentsExpected, function ($attachment) {
+            return ($attachment[5] != 'inline');
+        });
+
+        //Test Nb Attachments (ignoring inline attachments)
+        $attachments = $Parser->getAttachments(false);
+        $this->assertEquals(count($attachmentsExpected), count($attachments));
+        $iterAttachments = 0;
+
+        //Test Attachments
+        if (count($attachmentsExpected) > 0) {
+            foreach ($attachmentsExpected as $attachmentExpected) {
+                //Test Filename Attachment
+                $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
+
+                //Test ContentType Attachment
+                $this->assertEquals($attachmentExpected[4], $attachments[$iterAttachments]->getContentType());
+
+                //Test ContentDisposition Attachment
+                $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
+
+                //Test md5 of Headers Attachment
+                $this->assertEquals(
+                    $attachmentExpected[6],
+                    md5(serialize($attachments[$iterAttachments]->getHeaders()))
+                );
+                
+                $iterAttachments++;
+            }
+        }
+    }
+
     public function testMultipleContentTransferEncodingHeader()
     {
         $file = __DIR__.'/mails/issue126';
