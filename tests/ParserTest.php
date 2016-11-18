@@ -13,6 +13,15 @@ use PhpMimeMailParser\Exception;
  */
 class ParserTest extends \PHPUnit_Framework_TestCase
 {
+
+    public function testMultipleContentTransferEncodingHeader()
+    {
+        $file = __DIR__.'/mails/issue126';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $Parser->getMessageBody('text');
+    }
+    
     public function testCreatingMoreThanOneInstanceOfParser()
     {
         $file = __DIR__.'/mails/issue84';
