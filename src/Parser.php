@@ -410,9 +410,11 @@ class Parser
                 // we simulate the presence of an attachment disposition with a disposition filename
                 $filename = $this->decodeHeader($part['content-name']);
                 $disposition = 'attachment';
-            } elseif (!in_array($part['content-type'], $non_attachment_types, true)
-                && substr($part['content-type'], 0, 10) !== 'multipart/'
-                ) {
+            } elseif (in_array($part['content-type'], $non_attachment_types, true)
+                && $disposition !== 'attachment') {
+                // it is a message body, no attachment
+                continue;
+            } elseif (substr($part['content-type'], 0, 10) !== 'multipart/') {
                 // if we cannot get it by getMessageBody(), we assume it is an attachment
                 $disposition = 'attachment';
             }

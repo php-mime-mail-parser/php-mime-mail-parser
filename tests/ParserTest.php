@@ -581,28 +581,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     'me@somewhere.com',
                     array('COUNT',1,'Hi,'),
                     array('COUNT',1,'<strong>*How The Sale Works</strong>'),
-                    array(
-                        array(
-                            'noname1',
-                            2616,
-                            '$150+ of Multivitamins',
-                            1,
-                            'text/plain',
-                            'inline',
-                            '87caaaf9bf1d7ebc2769254710c38a0d',
-                            '',
-                            ),
-                        array(
-                            'noname2',
-                            17341,
-                            'div',
-                            82,
-                            'text/html',
-                            'inline',
-                            'b70ff760112a71009d8295c34fd67d9b',
-                            '',
-                            )
-                        ),
+                    array(),
                     0),
                 array(
                     'm0016',
