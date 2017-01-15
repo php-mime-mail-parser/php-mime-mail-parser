@@ -407,6 +407,8 @@ class Parser
 
             if (isset($part['disposition-filename'])) {
                 $filename = $this->decodeHeader($part['disposition-filename']);
+                // Escape all potentially unsafe characters from the filename
+                $filename = preg_replace('/[^A-Za-z0-9_\-]/', '_', $filename);
             } elseif (isset($part['content-name'])) {
                 // if we have no disposition but we have a content-name, it's a valid attachment.
                 // we simulate the presence of an attachment disposition with a disposition filename
