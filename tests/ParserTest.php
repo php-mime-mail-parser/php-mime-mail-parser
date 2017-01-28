@@ -71,7 +71,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
     public function testIlligalAttachementFilename()
     {
-        $file = __DIR__ . '/mails/issue33';
+        $file = __DIR__ . '/mails/issue133';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
         $attachments = $Parser->getAttachments(false);
