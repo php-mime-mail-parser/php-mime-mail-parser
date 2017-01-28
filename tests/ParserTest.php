@@ -69,6 +69,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    public function testIlligalAttachementFilename()
+    {
+        $file = __DIR__ . '/mails/issue33';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $attachments = $Parser->getAttachments(false);
+        
+        $this->assertEquals(attach_01", $attachments[0]->getFilename());
+    }
+    
     public function testMultipleContentTransferEncodingHeader()
     {
         $file = __DIR__.'/mails/issue126';
