@@ -76,7 +76,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $Parser->setText(file_get_contents($file));
         $attachments = $Parser->getAttachments(false);
         
-        $this->assertEquals(attach_01", $attachments[0]->getFilename());
+        $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
     
     public function testMultipleContentTransferEncodingHeader()
