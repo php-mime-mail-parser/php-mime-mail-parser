@@ -52,7 +52,6 @@ class Attachment
     
     /**
      * Original attachment contents
-     * 
      * @var string  $original_contents
      */
     protected $original_contents;
@@ -76,7 +75,7 @@ class Attachment
         $contentId = '',
         $headers = [],
         $mimePartStr = '',
-        $original_contents
+        $original_contents = ''
     ) {
         $this->filename = $filename;
         $this->contentType = $contentType;
