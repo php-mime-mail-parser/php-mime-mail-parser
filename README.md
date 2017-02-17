@@ -110,7 +110,7 @@ if (count($attachments) > 0) {
 		echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />'; // 1000
 		echo 'Filetype : '.$attachment->getContentType().'<br />'; // image/jpeg
 		echo 'MIME part string : '.$attachment->getMimePartStr().'<br />'; // (the whole MIME part of the attachment)
-                echo 'File Content as it is : '.$attachment->getOrigianlContent().'<br />'; // (The attachment contents as it is)
+               echo 'File Content as it is : '.$attachment->getOrigianlContent().'<br />'; // (The attachment contents as it is)
 	}
 }
 

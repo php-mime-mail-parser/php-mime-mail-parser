@@ -1496,4 +1496,23 @@ aXBpdC4K'
             $i++;
         }
     }
+    
+    /**
+     * @dataProvider provideAttachmentsData
+     */
+    public function testAttachmentOrginalContentText($mid, $attachmentMimeParts)
+    {
+        // Init
+        $file = __DIR__ . '/mails/' . $mid;
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $i = 0;
+        foreach ($Parser->getAttachments() as $attachment) {
+            $expectedMimePart = $attachmentMimeParts[$i];
+            $this->assertEquals($expectedMimePart, $attachment->getOrigianlContent());
+            $i++;
+        }
+    }
 }
