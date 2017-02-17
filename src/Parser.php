@@ -441,7 +441,8 @@ class Parser
                     $disposition,
                     $contentidAttachments,
                     $headersAttachments,
-                    $mimePartStr
+                    $mimePartStr,
+                    $part
                 );
             }
         }
