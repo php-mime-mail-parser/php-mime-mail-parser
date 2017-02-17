@@ -182,12 +182,12 @@ class Attachment
     
     /**
      * Retrieve the attachment content as it is, without any decoding
-     * 
+     *
      * @return string
      */
     public function getOrigianlContent()
     {
-       return $this->original_contents;
+        return $this->original_contents;
     }
 
     /**
