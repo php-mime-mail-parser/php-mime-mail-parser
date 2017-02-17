@@ -1442,14 +1442,7 @@ aXBpdC4K'
     
     public function provideOrginalAttachmentsData()
     {
-        return array(
-            array(
-                'm0001',
-                array('YQo=')
-            ),
-            array(
-                'm0002',
-                array('TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4g
+        return array('TG9yZW0gaXBzdW0gZG9sb3Igc2l0IGFtZXQsIGNvbnNlY3RldHVyIGFkaXBpc2NpbmcgZWxpdC4g
 VmVzdGlidWx1bSBjb25ndWUgc2VkIGFudGUgaWQgbGFvcmVldC4gUHJhZXNlbnQgZGljdHVtIHNh
 cGllbiBpYWN1bGlzIG5pc2kgcGhhcmV0cmEsIHBvcnR0aXRvciBibGFuZGl0IG1hc3NhIGN1cnN1
 cy4gRHVpcyByaG9uY3VzIG1hdXJpcyBhYyB1cm5hIHNlbXBlciwgc2VkIG1hbGVzdWFkYSBmZWxp
@@ -1488,10 +1481,7 @@ ZS4gQ3VyYWJpdHVyIGV1IGRvbG9yIGZhY2lsaXNpcywgc2FnaXR0aXMgcHVydXMgcHJldGl1bSwg
 Y29uc2VjdGV0dXIgZWxpdC4gTnVsbGEgZWxlbWVudHVtIGF1Y3RvciB1bHRyaWNlcy4gTnVuYyBm
 ZXJtZW50dW0gZGljdHVtIG9kaW8gdmVsIHRpbmNpZHVudC4gU2VkIGNvbnNlcXVhdCB2ZXN0aWJ1
 bHVtIHZlc3RpYnVsdW0uIFByb2luIHB1bHZpbmFyIGZlbGlzIHZpdGFlIGVsZW1lbnR1bSBzdXNj
-aXBpdC4K'
-                )
-            )
-        );
+aXBpdC4K');
     }
 
     /**
@@ -1526,8 +1516,8 @@ aXBpdC4K'
 
         $i = 0;
         foreach ($Parser->getAttachments() as $attachment) {
-            $expectedMimePart = $attachmentMimeParts[$i];
-            $this->assertEquals($expectedMimePart, $attachment->getMimePartStr());
+            $expectedMimePart = trim($attachmentMimeParts[$i]);
+            $this->assertEquals($expectedMimePart, trim($attachment->getMimePartStr()));
             $i++;
         }
     }
@@ -1554,19 +1544,17 @@ aXBpdC4K'
     /**
      * @dataProvider provideOrginalAttachmentsData
      */
-    public function testAttachmentOrginalContentText($mid, $attachmentMimeParts)
+    public function testAttachmentOrginalContentText($attachmentParts)
     {
         // Init
-        $file = __DIR__ . '/mails/' . $mid;
+        $file = __DIR__ . '/mails/m0002';
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
-        $i = 0;
         foreach ($Parser->getAttachments() as $attachment) {
-            $expectedMimePart = $attachmentMimeParts[$i];
-            $this->assertEquals($expectedMimePart, $attachment->getOrigianlContent());
-            $i++;
+            $expectedPart = $attachmentParts[0];
+            $this->assertEquals($expectedPart, $attachment->getOrigianlContent());
         }
     }
 }
