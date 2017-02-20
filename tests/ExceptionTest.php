@@ -164,5 +164,43 @@ namespace PhpMimeMailParser {
 
             $Parser->saveAttachments($attach_dir, $attach_url);
         }
+
+        /**
+         * @expectedException        Exception
+         * @expectedExceptionMessage Could not create file for attachment: duplicate filename.
+         */
+        public function testSaveAttachmentsWithDuplicateNames()
+        {
+            $mid = 'm0026';
+            $file = __DIR__ . '/mails/' . $mid;
+            $attach_dir = __DIR__ . '/mails/attach_' . $mid . '/';
+
+            $Parser = new Parser();
+            $Parser->setText(file_get_contents($file));
+
+            try {
+                $Parser->saveAttachments($attach_dir, false, Parser::ATTACHMENT_DUPLICATE_THROW);
+            } catch (Exception $e) {
+                // Clean up attachments dir
+                unlink($attach_dir . 'ATT00001.txt');
+                rmdir($attach_dir);
+
+                throw $e;
+            }
+        }
+
+        /**
+         * @expectedException        Exception
+         * @expectedExceptionMessage Invalid filename strategy argument provided.
+         */
+        public function testSaveAttachmentsInvalidStrategy()
+        {
+            $file = __DIR__ . '/mails/m0026';
+
+            $Parser = new Parser();
+            $Parser->setText(file_get_contents($file));
+
+            $Parser->saveAttachments('dir', false, 'InvalidValue');
+        }
     }
 }

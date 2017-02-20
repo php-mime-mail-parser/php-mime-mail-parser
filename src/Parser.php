@@ -13,6 +13,13 @@ use PhpMimeMailParser\Contracts\CharsetManager;
 class Parser
 {
     /**
+     * Attachment filename argument option for ->saveAttachments().
+     */
+    const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
+    const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
+    const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
+
+    /**
      * PHP MimeParser Resource ID
      *
      * @var resource $resource
@@ -453,11 +460,13 @@ class Parser
      * Save attachments in a folder
      *
      * @param string $attach_dir directory
+     * @param bool $include_inline
+     * @param string $filenameStrategy How to generate attachment filenames
      *
      * @return array Saved attachments paths
      * @throws Exception
      */
-    public function saveAttachments($attach_dir, $include_inline = true)
+    public function saveAttachments($attach_dir, $include_inline = true, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX)
     {
         $attachments = $this->getAttachments($include_inline);
         if (empty($attachments)) {
@@ -470,7 +479,30 @@ class Parser
 
         $attachments_paths = [];
         foreach ($attachments as $attachment) {
-            $attachment_path = $attach_dir.$attachment->getFilename();
+            // Determine filename
+            switch ($filenameStrategy) {
+                case self::ATTACHMENT_RANDOM_FILENAME:
+                    $attachment_path = tempnam($attach_dir, '');
+                    break;
+                case self::ATTACHMENT_DUPLICATE_THROW:
+                case self::ATTACHMENT_DUPLICATE_SUFFIX:
+                    $attachment_path = $attach_dir . $attachment->getFilename();
+                    break;
+                default:
+                    throw new Exception('Invalid filename strategy argument provided.');
+            }
+
+            // Handle duplicate filename
+            if (file_exists($attachment_path)) {
+                switch ($filenameStrategy) {
+                    case self::ATTACHMENT_DUPLICATE_THROW:
+                        throw new Exception('Could not create file for attachment: duplicate filename.');
+                    case self::ATTACHMENT_DUPLICATE_SUFFIX:
+                        $attachment_path = tempnam($attach_dir, $attachment->getFilename());
+                        break;
+                }
+            }
+
             /** @var resource $fp */
             if ($fp = fopen($attachment_path, 'w')) {
                 while ($bytes = $attachment->read()) {

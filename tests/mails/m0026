@@ -1,0 +1,45 @@
+Return-Path: <name@company.com>
+Delivered-To: name@company2.com
+From: <name@company.com>
+To: "name@company2.com" <name@company2.com>
+Subject: [Korea] Name
+Date: Mon, 20 Oct 2014 07:15:27 +0000
+Message-ID: <7B2F0B04-7286-488B-990B-D2EE3759554D@company.com>
+Accept-Language: ko-KR, en-US
+Content-Language: ko-KR
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+Content-Type: multipart/mixed;
+    boundary="_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_"
+MIME-Version: 1.0
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_
+Content-Type: text/plain; charset="ks_c_5601-1987"
+Content-ID: <E31E4DF95743304BB1C77F55A2E0F9B7@company.com>
+Content-Transfer-Encoding: base64
+
+TXkgdHJhdmVsaW5nIGNvbXBhbmlvbnMhDQpNeSBmcmllbmQsIExlIFBsaWFnZSEgDQoNCg==
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_
+Content-Type: text/plain; name="ATT00001.txt"
+Content-Description: ATT00001.txt
+Content-Disposition: attachment; filename="ATT00001.txt"; size=25;
+    creation-date="Mon, 20 Oct 2014 07:15:27 GMT";
+    modification-date="Mon, 20 Oct 2014 07:15:27 GMT"
+Content-ID: <57BAB4E7BA79CB40B41CE0993FA444D4@company.com>
+Content-Transfer-Encoding: base64
+
+DQoNCg0Kc2VudCBmcm9tIG15IGlQaG9uZQ==
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_
+Content-Type: text/plain; name="ATT00001.txt"
+Content-Description: ATT00001.txt
+Content-Disposition: attachment; filename="ATT00001.txt"; size=25;
+    creation-date="Mon, 20 Oct 2014 07:15:27 GMT";
+    modification-date="Mon, 20 Oct 2014 07:15:27 GMT"
+Content-ID: <57BAB4E7BA79CB40B41CE0993FA444D5@company.com>
+Content-Transfer-Encoding: base64
+
+DQoNCg0Kc2VudCBmcm9tIG15IGlQaG9uZQ==
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_--

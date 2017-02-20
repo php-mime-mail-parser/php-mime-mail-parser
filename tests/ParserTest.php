@@ -78,6 +78,44 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
+
+    public function testAttachmentsWithDuplicatesSuffix()
+    {
+        $file = __DIR__ . '/mails/m0026';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $attachDir = __DIR__ . '/mails/m0026_attachments/';
+        $Parser->saveAttachments($attachDir, false);
+
+        $attachmentFiles = glob($attachDir . 'ATT*');
+
+        // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+
+        // Default: generate filename suffix, so we should have two files
+        $this->assertEquals(2, count($attachmentFiles));
+    }
+
+    public function testAttachmentsWithDuplicatesRandom()
+    {
+        $file = __DIR__ . '/mails/m0026';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $attachDir = __DIR__ . '/mails/m0026_attachments/';
+        $Parser->saveAttachments($attachDir, false, Parser::ATTACHMENT_RANDOM_FILENAME);
+
+        $attachmentFiles = glob($attachDir . '*');
+
+        // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+
+        // Default: generate filename suffix, so we should have two files
+        $this->assertEquals(2, count($attachmentFiles));
+    }
     
     public function testMultipleContentTransferEncodingHeader()
     {
