@@ -113,7 +113,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         array_map('unlink', $attachmentFiles);
         rmdir($attachDir);
 
-        // Default: generate filename suffix, so we should have two files
+        // Default: generate random filename, so we should have two files
         $this->assertEquals(2, count($attachmentFiles));
     }
     
