@@ -420,6 +420,8 @@ class Parser
                 // if we have no disposition but we have a content-name, it's a valid attachment.
                 // we simulate the presence of an attachment disposition with a disposition filename
                 $filename = $this->decodeHeader($part['content-name']);
+                // Escape all potentially unsafe characters from the filename
+                $filename = preg_replace('((^\.)|\/|(\.$))', '_', $filename);
                 $disposition = 'attachment';
             } elseif (in_array($part['content-type'], $non_attachment_types, true)
                 && $disposition !== 'attachment') {
