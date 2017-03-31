@@ -69,7 +69,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-    public function testIlligalAttachementFilename()
+    public function testIlligalAttachmentFilenameForDispositionFilename()
     {
         $file = __DIR__ . '/mails/issue133';
         $Parser = new Parser();
@@ -77,6 +77,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $attachments = $Parser->getAttachments(false);
         
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
+    }
+
+    public function testIlligalAttachmentFilenameForContentName()
+    {
+        $file = __DIR__ . '/mails/m0027';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $attachments = $Parser->getAttachments(false);
+
+        $this->assertEquals("1234_.._.._1234.txt", $attachments[0]->getFilename());
     }
 
     public function testAttachmentsWithDuplicatesSuffix()
