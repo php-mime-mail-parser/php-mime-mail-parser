@@ -1544,4 +1544,139 @@ aXBpdC4K'
             $i++;
         }
     }
+
+    /**
+     * @dataProvider provideData
+     */
+    public function testFromPathWithoutMbConvertEncoding(
+        $mid,
+        $subjectExpected,
+        $fromAddressesExpected,
+        $fromExpected,
+        $toAddressesExpected,
+        $toExpected,
+        $textExpected,
+        $htmlExpected,
+        $attachmentsExpected,
+        $countEmbeddedExpected
+    ) {
+        runkit_function_remove('mb_convert_encoding');
+        //Init
+        $file = __DIR__.'/mails/'.$mid;
+        $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
+
+        //Load From Path
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        //Test Header : subject
+        $this->assertEquals($subjectExpected, $Parser->getHeader('subject'));
+        $this->assertArrayHasKey('subject', $Parser->getHeaders());
+
+        //Test Header : from
+        $this->assertEquals($fromAddressesExpected, $Parser->getAddresses('from'));
+        $this->assertEquals($fromExpected, $Parser->getHeader('from'));
+        $this->assertArrayHasKey('from', $Parser->getHeaders());
+
+        //Test Header : to
+        $this->assertEquals($toAddressesExpected, $Parser->getAddresses('to'));
+        $this->assertEquals($toExpected, $Parser->getHeader('to'));
+        $this->assertArrayHasKey('to', $Parser->getHeaders());
+
+        //Test Invalid Header
+        $this->assertFalse($Parser->getHeader('azerty'));
+        $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
+
+        //Test Raw Headers
+        $this->assertInternalType('string', $Parser->getHeadersRaw());
+
+        //Test  Body : text
+        if ($textExpected[0] == 'COUNT') {
+            $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));
+        } elseif ($textExpected[0] == 'MATCH') {
+            $this->assertEquals($textExpected[1], $Parser->getMessageBody('text'));
+        }
+
+        //Test Body : html
+        if ($htmlExpected[0] == 'COUNT') {
+            $this->assertEquals($htmlExpected[1], substr_count($Parser->getMessageBody('html'), $htmlExpected[2]));
+        } elseif ($htmlExpected[0] == 'MATCH') {
+            $this->assertEquals($htmlExpected[1], $Parser->getMessageBody('html'));
+        }
+
+        //Test Nb Attachments
+        $attachments = $Parser->getAttachments();
+        $this->assertEquals(count($attachmentsExpected), count($attachments));
+        $iterAttachments = 0;
+
+        //Test Attachments
+        $attachmentsEmbeddedToCheck = array();
+        if (count($attachmentsExpected) > 0) {
+            //Save attachments
+            $Parser->saveAttachments($attach_dir);
+
+            foreach ($attachmentsExpected as $attachmentExpected) {
+                //Test Exist Attachment
+                $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
+
+                //Test Filename Attachment
+                $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
+
+                //Test Size Attachment
+                $this->assertEquals(
+                    $attachmentExpected[1],
+                    filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
+                );
+
+                //Test Inside Attachment
+                if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
+                    $fileContent = file_get_contents(
+                        $attach_dir.$attachments[$iterAttachments]->getFilename(),
+                        FILE_USE_INCLUDE_PATH
+                    );
+                    $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
+                    $this->assertEquals(
+                        $attachmentExpected[3],
+                        substr_count($attachments[$iterAttachments]->getContent(), $attachmentExpected[2])
+                    );
+                }
+
+                //Test ContentType Attachment
+                $this->assertEquals($attachmentExpected[4], $attachments[$iterAttachments]->getContentType());
+
+                //Test ContentDisposition Attachment
+                $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
+
+                //Test md5 of Headers Attachment
+                $this->assertEquals(
+                    $attachmentExpected[6],
+                    md5(serialize($attachments[$iterAttachments]->getHeaders()))
+                );
+
+                //Save embedded Attachments to check
+                if ($attachmentExpected[7] != '') {
+                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                }
+
+                //Remove Attachment
+                unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
+
+                $iterAttachments++;
+            }
+            //Remove Attachment Directory
+            rmdir($attach_dir);
+        } else {
+            $this->assertFalse($Parser->saveAttachments($attach_dir));
+        }
+
+        //Test embedded Attachments
+        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+
+        if (!empty($attachmentsEmbeddedToCheck)) {
+            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
+            }
+        }
+    }
 }
