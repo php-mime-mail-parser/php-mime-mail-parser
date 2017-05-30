@@ -8,10 +8,12 @@ A fully tested mailparse extension wrapper for PHP 5.4+
 
 ## Why?
 
-This extension can be used to...
- * Parse and read email from Postfix
- * Create webmail 
- * Store email information such a subject, HTML body, attachments, and etc. into a database
+This extension can be used to parse email from one of three sources:
+ * A location on disk
+ * A PHP stream or file resource
+ * Raw MIME mail text
+ 
+This extension is compatible with Postfix.
 
 ## Is it reliable?
 
