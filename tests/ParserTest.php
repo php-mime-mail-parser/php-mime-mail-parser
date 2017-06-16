@@ -999,6 +999,40 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                             )
                         ),
                     2),
+                array(
+                    'issue120',
+                    'Mail avec fichier attaché de 1ko',
+                    array(
+                        array(
+                            'display' => 'Name',
+                            'address' => 'name@company.com',
+                            'is_group' => false
+                            )
+                    ),
+                    'Name <name@company.com>',
+                    array(
+                        array(
+                            'display' => 'name@company2.com',
+                            'address' => 'name@company2.com',
+                            'is_group' => false
+                            )
+                    ),
+                    'name@company2.com',
+                    array('MATCH',"\n"),
+                    array('COUNT',1,'<div dir="ltr"><br></div>'),
+                    array(
+                        array(
+                            'attach01',
+                            2,
+                            'a',
+                            1,
+                            'application/octet-stream',
+                            'attachment',
+                            '04c1d5793efa97c956d011a8b3309f05',
+                            '',
+                            )
+                        ),
+                    0),
                 );
         return $data;
     }
