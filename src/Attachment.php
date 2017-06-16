@@ -49,6 +49,12 @@ class Attachment
      * @var string $mimePartStr
      */
     protected $mimePartStr;
+    
+    /**
+     * Original attachment contents
+     * @var string  $original_contents
+     */
+    protected $original_contents;
 
     /**
      * Attachment constructor.
@@ -68,7 +74,8 @@ class Attachment
         $contentDisposition = 'attachment',
         $contentId = '',
         $headers = [],
-        $mimePartStr = ''
+        $mimePartStr = '',
+        $original_contents = ''
     ) {
         $this->filename = $filename;
         $this->contentType = $contentType;
@@ -78,6 +85,7 @@ class Attachment
         $this->contentId = $contentId;
         $this->headers = $headers;
         $this->mimePartStr = $mimePartStr;
+        $this->original_contents = $original_contents;
     }
 
     /**
@@ -169,6 +177,17 @@ class Attachment
         }
 
         return $this->content;
+    }
+    
+    
+    /**
+     * Retrieve the attachment content as it is, without any decoding
+     *
+     * @return string
+     */
+    public function getOrigianlContent()
+    {
+        return $this->original_contents;
     }
 
     /**
