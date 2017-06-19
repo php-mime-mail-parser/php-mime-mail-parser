@@ -61,7 +61,7 @@ class Charset implements CharsetManager
         'big5'                     => 'Big5',
         'euc-jp'                   => 'EUC-JP',
         'euc-kr'                   => 'EUC-KR',
-        'gb2312'                   => 'GBK',
+        'gb2312'                   => 'GB2312',
         'gb18030'                  => 'gb18030',
         'viscii'                   => 'VISCII',
         'koi8-r'                   => 'KOI8-R',
