@@ -1001,7 +1001,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     2),
                 array(
                     'issue149',
-                    'Mail avec fichier attaché de 1ko',
+                    "מענה 'אני לא נמצא': Invoice 02722027",
                     array(
                         array(
                             'display' => 'Name',
