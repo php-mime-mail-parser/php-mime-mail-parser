@@ -98,7 +98,7 @@ $arrayHeaders = $Parser->getHeaders();		// Get all headers as an array, with cha
 // Pass in a writeable path to save attachments
 $attach_dir = '/path/to/save/attachments/'; 	// Be sure to include the trailing slash
 $include_inline = true;  			// Optional argument to include inline attachments (default: true)
-$Parser->saveAttachments($attach_dir [,$include_inline]);
+$Parser->saveAttachments($attach_dir, [$include_inline]);
 
 // Get an array of Attachment items from $Parser
 $attachments = $Parser->getAttachments([$include_inline]);
