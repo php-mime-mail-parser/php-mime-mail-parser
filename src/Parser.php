@@ -308,6 +308,38 @@ class Parser
     }
 
     /**
+     * Checks whether a given part ID is a child of another part
+     * eg. an RFC822 attachment may have one or more text parts
+     *
+     * @param string $partId
+     * @param string $parentPartId
+     * @return bool
+     */
+    protected function partIdIsChildOfPart($partId, $parentPartId)
+    {
+        return substr($partId, 0, strlen($parentPartId)) == $parentPartId;
+    }
+
+    /**
+     * Whether the given part ID is a child of any attachment part in the message.
+     *
+     * @param string $checkPartId
+     * @return bool
+     */
+    protected function partIdIsChildOfAnAttachment($checkPartId)
+    {
+        foreach ($this->parts as $partId=>$part) {
+            if ($this->getPart('content-disposition', $part) == 'attachment') {
+                if ($this->partIdIsChildOfPart($checkPartId, $partId))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns the email message body in the specified format
      *
      * @param string $type text, html or htmlEmbedded
@@ -323,10 +355,12 @@ class Parser
         'html'         => 'text/html',
         'htmlEmbedded' => 'text/html',
         ];
+
         if (in_array($type, array_keys($mime_types))) {
-            foreach ($this->parts as $part) {
+            foreach ($this->parts as $partId=>$part) {
                 if ($this->getPart('content-type', $part) == $mime_types[$type]
                     && $this->getPart('content-disposition', $part) != 'attachment'
+                    && !$this->partIdIsChildOfAnAttachment($partId)
                     ) {
                     $headers = $this->getPart('headers', $part);
                     $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
