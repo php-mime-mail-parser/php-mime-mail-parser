@@ -328,10 +328,9 @@ class Parser
      */
     protected function partIdIsChildOfAnAttachment($checkPartId)
     {
-        foreach ($this->parts as $partId=>$part) {
+        foreach ($this->parts as $partId => $part) {
             if ($this->getPart('content-disposition', $part) == 'attachment') {
-                if ($this->partIdIsChildOfPart($checkPartId, $partId))
-                {
+                if ($this->partIdIsChildOfPart($checkPartId, $partId)) {
                     return true;
                 }
             }
@@ -357,7 +356,7 @@ class Parser
         ];
 
         if (in_array($type, array_keys($mime_types))) {
-            foreach ($this->parts as $partId=>$part) {
+            foreach ($this->parts as $partId => $part) {
                 if ($this->getPart('content-type', $part) == $mime_types[$type]
                     && $this->getPart('content-disposition', $part) != 'attachment'
                     && !$this->partIdIsChildOfAnAttachment($partId)

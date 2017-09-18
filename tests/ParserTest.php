@@ -1628,6 +1628,16 @@ body... filler filler filler filler filler filler filler filler filler.\n"
                 'html',
                 ''
             ],
+            'Multipart email with both text and html body, with an RFC822 attachment also with a text and html body, get text' => [
+                __DIR__.'/mails/issue158d',
+                'text',
+                "This is the forward email send both emails will have both text and html variances available\n"
+            ],
+			'Multipart email with both text and html body, with an RFC822 attachment also with a text and html body, get html' => [
+				__DIR__.'/mails/issue158d',
+                'html',
+                '<html><body><div style="font-family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000"><div>This is the forward email send both emails will have both text and html variances available &nbsp;</div></div></body></html>'
+            ],
         ];
     }
 
