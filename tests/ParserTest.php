@@ -1604,13 +1604,7 @@ aXBpdC4K'
             'HTML-only message, with text-only RFC822 attachment, message should have HTML body' => [
                 __DIR__.'/mails/issue158a',
                 'html',
-                "<html><body><div style=\"font-family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000\"><div>
-An RFC 822 forward with a <em>HTML</em> body where the <strong>original</strong> message was in 
-<span data-mce-style=\"text-decoration: underline;\" style=\"text-decoration: underline;\">plain text</span>.
-<br></div><div><br data-mce-bogus=\"1\"></div><div>Filler filler filler filler filler filler filler filler</div>
-<div> filler filler filler filler filler filler filler</div><div> filler filler filler filler filler filler<br>
-</div><div> filler filler filler filler filler</div><div> filler filler filler filler</div><div> filler filler filler
-</div><div> filler filler</div><div> filler.</div></div></body></html>\n"
+                "<html><body>An RFC 822 forward with a <em>HTML</em> body</body></html>\n"
             ],
             'Text-only message, with HTML-only RFC822 attachment, message should have empty HTML body' => [
                 __DIR__.'/mails/issue158b',
