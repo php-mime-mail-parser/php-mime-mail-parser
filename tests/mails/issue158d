@@ -26,7 +26,9 @@ This is the forward email send both emails will have both text and html variance
 Content-Type: text/html; charset=utf-8
 Content-Transfer-Encoding: 7bit
 
-<html><body><div style="font-family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000"><div>This is the forward email send both emails will have both text and html variances available &nbsp;</div></div></body></html>
+<html><body><div>This is the forward email send both
+emails will have both text and html
+variances available &nbsp;</div></body></html>
 ------=_Part_226414_202573469.1505469984034--
 
 ------=_Part_226413_1101864383.1505469984034
