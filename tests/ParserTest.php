@@ -1637,7 +1637,9 @@ body... filler filler filler filler filler filler filler filler filler.\n"
             'Multipart with both text and html body, RFC822 attachment also with text and html' => [
                 __DIR__.'/mails/issue158d',
                 'html',
-                '<html><body><div style="font-family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000"><div>This is the forward email send both emails will have both text and html variances available &nbsp;</div></div></body></html>'
+                '<html><body><div>This is the forward email send both
+emails will have both text and html
+variances available &nbsp;</div></body></html>'
             ],
         ];
     }
