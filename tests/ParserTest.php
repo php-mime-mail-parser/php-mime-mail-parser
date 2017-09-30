@@ -1618,7 +1618,8 @@ aXBpdC4K'
 200 character lower-limit in order to avoid preferring future HTML versions of the
 body... filler filler filler filler filler filler filler filler filler.\n"
             ],
-            'Text-only message, with text-only RFC822 attachment, should have text body but not include attachment part' => [
+            'Text-only message, with text-only RFC822 attachment, 
+            should have text body but not include attachment part' => [
                 __DIR__.'/mails/issue158c',
                 'text',
                 "An RFC822 forward of a PLAIN TEXT message with a plain-text body.\n"
