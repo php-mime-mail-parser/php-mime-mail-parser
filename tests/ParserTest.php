@@ -1578,4 +1578,69 @@ aXBpdC4K'
             $i++;
         }
     }
+
+    /**
+     * @dataProvider providerRFC822AttachmentsWithDifferentTextTypes
+     *
+     * @param string $file Mail file path to parse
+     * @param string $getType The type to give to getMessageBody
+     * @param string $expected
+     */
+    public function testRFC822AttachmentPartsShouldNotBeIncludedInGetMessageBody($file, $getType, $expected)
+    {
+        $Parser = new Parser();
+        $Parser->setPath($file);
+        $this->assertEquals($expected, $Parser->getMessageBody($getType));
+    }
+
+    public function providerRFC822AttachmentsWithDifferentTextTypes()
+    {
+        return [
+            'HTML-only message, with text-only RFC822 attachment, message should have empty text body' => [
+                __DIR__.'/mails/issue158a',
+                'text',
+                ''
+            ],
+            'HTML-only message, with text-only RFC822 attachment, message should have HTML body' => [
+                __DIR__.'/mails/issue158a',
+                'html',
+                "<html><body>An RFC 822 forward with a <em>HTML</em> body</body></html>\n"
+            ],
+            'Text-only message, with HTML-only RFC822 attachment, message should have empty HTML body' => [
+                __DIR__.'/mails/issue158b',
+                'html',
+                ''
+            ],
+            'Text-only message, with HTML-only RFC822 attachment, message should have text body' => [
+                __DIR__.'/mails/issue158b',
+                'text',
+                "A text/plain response to an REC822 message, with content filler to get it past the
+200 character lower-limit in order to avoid preferring future HTML versions of the
+body... filler filler filler filler filler filler filler filler filler.\n"
+            ],
+            'Text-only message, with text-only RFC822 attachment, 
+            should have text body but not include attachment part' => [
+                __DIR__.'/mails/issue158c',
+                'text',
+                "An RFC822 forward of a PLAIN TEXT message with a plain-text body.\n"
+            ],
+            'Text-only message, with a text-only RFC822 attachment, message should have an empty HTML body' => [
+                __DIR__.'/mails/issue158c',
+                'html',
+                ''
+            ],
+            'Multipart email with both text and html body, with RFC822 attachment also with a text and html body' => [
+                __DIR__.'/mails/issue158d',
+                'text',
+                "This is the forward email send both emails will have both text and html variances available\n"
+            ],
+            'Multipart with both text and html body, RFC822 attachment also with text and html' => [
+                __DIR__.'/mails/issue158d',
+                'html',
+                '<html><body><div>This is the forward email send both
+emails will have both text and html
+variances available &nbsp;</div></body></html>'
+            ],
+        ];
+    }
 }

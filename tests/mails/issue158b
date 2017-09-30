@@ -1,0 +1,67 @@
+Date: Mon, 6 Mar 2017 14:56:51 +0000 (GMT)
+From: Example Name <example@example.com>
+To: example@example.co.uk
+Message-ID: <445158045.378131.1488812211066.JavaMail.zimbra@zedcore.com>
+In-Reply-To: <649983063.377570.1488812041831.JavaMail.zimbra@zedcore.com>
+References: <649983063.377570.1488812041831.JavaMail.zimbra@zedcore.com>
+Subject: Fwd: Test 5
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_Part_378129_257370687.1488812211065"
+X-Mailer: Zimbra 8.6.0_GA_1200 (ZimbraWebClient - FF45 (Linux)/8.6.0_GA_1200)
+Thread-Topic: Test 5
+Thread-Index: BsIxD6EDQhVNqaTfcPN/d36x7UYGq6dRLyIX
+
+------=_Part_378129_257370687.1488812211065
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 7bit
+
+A text/plain response to an REC822 message, with content filler to get it past the
+200 character lower-limit in order to avoid preferring future HTML versions of the
+body... filler filler filler filler filler filler filler filler filler.
+
+------=_Part_378129_257370687.1488812211065
+Content-Type: message/rfc822
+Content-Disposition: attachment
+
+Return-Path: example@example.com
+Received: from fermat.axiomtech.co.uk (LHLO fermat.axiomtech.co.uk)
+ (89.145.71.216) by fermat.axiomtech.co.uk with LMTP; Mon, 6 Mar 2017
+ 14:54:02 +0000 (GMT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by fermat.axiomtech.co.uk (Postfix) with ESMTP id 174DF1C407FD
+	for <example@example.com>; Mon,  6 Mar 2017 14:54:02 +0000 (GMT)
+X-Spam-Flag: NO
+X-Spam-Score: -2.9
+X-Spam-Level:
+X-Spam-Status: No, score=-2.9 tagged_above=-10 required=6.6
+	tests=[ALL_TRUSTED=-1, BAYES_00=-1.9] autolearn=ham autolearn_force=no
+Received: from fermat.axiomtech.co.uk ([127.0.0.1])
+	by localhost (fermat.axiomtech.co.uk [127.0.0.1]) (amavisd-new, port 10032)
+	with ESMTP id G83UfQTDA5rx for <example@example.com>;
+	Mon,  6 Mar 2017 14:54:01 +0000 (GMT)
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by fermat.axiomtech.co.uk (Postfix) with ESMTP id DEF301C40805
+	for <example@example.com>; Mon,  6 Mar 2017 14:54:01 +0000 (GMT)
+X-Virus-Scanned: amavisd-new at fermat.axiomtech.co.uk
+Received: from fermat.axiomtech.co.uk ([127.0.0.1])
+	by localhost (fermat.axiomtech.co.uk [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id g5r-rGDF7iTG for <example@example.com>;
+	Mon,  6 Mar 2017 14:54:01 +0000 (GMT)
+Received: from fermat.axiomtech.co.uk (fermat.axiomtech.co.uk [89.145.71.216])
+	by fermat.axiomtech.co.uk (Postfix) with ESMTP id CD9B21C407FD
+	for <example@example.co.uk>; Mon,  6 Mar 2017 14:54:01 +0000 (GMT)
+Date: Mon, 6 Mar 2017 14:54:01 +0000 (GMT)
+From: Example Name <example@example.com>
+To: example@example.co.uk
+Message-ID: <649983063.377570.1488812041831.JavaMail.zimbra@example.com>
+Subject: Test 5
+MIME-Version: 1.0
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-Mailer: Zimbra 8.6.0_GA_1200 (ZimbraWebClient - FF45 (Linux)/8.6.0_GA_1200)
+Thread-Topic: Test 5
+Thread-Index: BsIxD6EDQhVNqaTfcPN/d36x7UYGqw==
+
+<html><body><div style="font-family: arial, helvetica, sans-serif; font-size: 12pt; color: #000000"><div>A text/<em>HTML</em> body this is the <strong>original</strong> message <span data-mce-style="text-decoration: underline;" style="text-decoration: underline;">sent</span>.<br></div><div><br data-mce-bogus="1"></div><div>Filler filler filler filler filler filler filler filler</div><div> filler filler filler filler filler filler filler</div><div> filler filler filler filler filler filler<br></div><div> filler filler filler filler filler</div><div> filler filler filler filler</div><div> filler filler filler</div><div> filler filler</div><div> filler.</div></div></body></html>
+------=_Part_378129_257370687.1488812211065--
