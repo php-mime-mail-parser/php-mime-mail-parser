@@ -93,6 +93,16 @@ namespace PhpMimeMailParser {
 
         /**
          * @expectedException        Exception
+         * @expectedExceptionMessage You must not call MimeMailParser::setText with an empty string parameter
+         */
+        public function testSetText()
+        {
+            $Parser = new Parser();
+            $Parser->setText('');
+        }
+
+        /**
+         * @expectedException        Exception
          * @expectedExceptionMessage setStream() expects parameter stream to be readable stream resource.
          */
         public function testSetStream()
