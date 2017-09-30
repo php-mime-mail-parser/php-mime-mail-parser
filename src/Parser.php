@@ -152,6 +152,9 @@ class Parser
      */
     public function setText($data)
     {
+        if (!$data) {
+            throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
+        }
         $this->resource = mailparse_msg_create();
         // does not parse incrementally, fast memory hog might explode
         mailparse_msg_parse($this->resource, $data);
