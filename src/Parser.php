@@ -363,7 +363,7 @@ class Parser
             $inline_parts = $this->getInlineParts($part_type);
             $body = empty($inline_parts) ? '' : $inline_parts[0];
         } else {
-            throw new Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
+            throw new Exception('Invalid type specified for getMessageBody(). "type" can either be text, html or htmlEmbeded.');
         }
 
         if ($type == 'htmlEmbedded') {
