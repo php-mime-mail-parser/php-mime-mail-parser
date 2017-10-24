@@ -63,10 +63,28 @@ class ParserTest extends \PHPUnit_Framework_TestCase
                     $attachmentExpected[6],
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
                 );
-                
+
                 $iterAttachments++;
             }
         }
+    }
+
+    /**
+     * test for being able to extract multiple inline text/plain & text/html parts
+     * related to issue #163
+     *
+     * @return return type
+     */
+    public function testMultiPartInline()
+    {
+        $file = __DIR__ .'/mails/issue163';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $inline_parts = $Parser->getInlineParts('text');
+        $this->assertEquals(is_array($inline_parts), true);
+        $this->assertEquals(count($inline_parts), 2);
+        $this->assertEquals($inline_parts[0],"First we have a text block, then we insert an image:\r\n\r\n");
+        $this->assertEquals($inline_parts[1],"\r\n\r\nThen we have more text\r\n\r\n-- excuse brevity, sent from my phone.");
     }
 
     public function testIlligalAttachmentFilenameForDispositionFilename()
@@ -75,7 +93,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
         $attachments = $Parser->getAttachments(false);
-        
+
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
 
@@ -126,7 +144,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         // Default: generate random filename, so we should have two files
         $this->assertEquals(2, count($attachmentFiles));
     }
-    
+
     public function testMultipleContentTransferEncodingHeader()
     {
         $file = __DIR__.'/mails/issue126';
@@ -134,7 +152,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $Parser->setText(file_get_contents($file));
         $Parser->getMessageBody('text');
     }
-    
+
     public function testCreatingMoreThanOneInstanceOfParser()
     {
         $file = __DIR__.'/mails/issue84';
@@ -1618,7 +1636,7 @@ aXBpdC4K'
 200 character lower-limit in order to avoid preferring future HTML versions of the
 body... filler filler filler filler filler filler filler filler filler.\n"
             ],
-            'Text-only message, with text-only RFC822 attachment, 
+            'Text-only message, with text-only RFC822 attachment,
             should have text body but not include attachment part' => [
                 __DIR__.'/mails/issue158c',
                 'text',
