@@ -84,7 +84,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(is_array($inline_parts), true);
         $this->assertEquals(count($inline_parts), 2);
         $this->assertEquals($inline_parts[0], "First we have a text block, then we insert an image:\r\n\r\n");
-        $this->assertEquals($inline_parts[1], "\r\n\r\nThen we have more text\r\n\r\n-- excuse brevity, sent from my phone.");
+        $this->assertEquals($inline_parts[1], "\r\n\r\nThen we have more text\r\n\r\n-- sent from my phone.");
     }
 
     public function testIlligalAttachmentFilenameForDispositionFilename()
