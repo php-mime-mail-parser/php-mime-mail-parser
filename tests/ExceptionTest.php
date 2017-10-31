@@ -83,7 +83,7 @@ namespace PhpMimeMailParser {
 
         /**
          * @expectedException        Exception
-         * @expectedExceptionMessage Invalid type specified for getMessageBody(). "type" can either be text, html or htmlEmbeded.
+         * @expectedExceptionMessage Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.
          */
         public function testgetMessageBody()
         {
