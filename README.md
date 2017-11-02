@@ -41,15 +41,33 @@ The following versions of PHP are supported:
 * PHP 7
 * HHVM
 
-Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed: 
+```
+sudo apt install php-cli php-pear php-dev php-mbstring
+```
 
-	pecl install mailparse      		#PHP Version = 7
-	pecl install mailparse-2.1.6		#PHP Version < 7
-	
-	
-If you have trouble installing mailparse on Ubuntu, take a look at [this tutorial](http://wiki.cerbweb.com/Installing_PHP_Mailparse_Ubuntu). 
+Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse" else install it:
+* PHP version > 7.0: mailparse
+* PHP version < 7.0: mailparse 2.1.6
 
-Also note that you may need to create `/etc/php5/mods-available/mailparse.ini` file and include the line `extension=mailparse.so`. Then run `sudo php5enmod mailparse` to enable it.
+Follow this steps to install mailparse:
+
+* Compile in the temp folder the extension mailparse or mailparse-2.1.6 (workaround because pecl install doesn't work yet)
+```
+cd
+pecl download mailparse
+tar -xvf mailparse-3.0.2.tgz 
+cd mailparse-3.0.2/
+phpize
+./configure
+sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
+make
+sudo mv modules/mailparse.so /usr/lib/php/20160303/
+```
+* Add the extension mailparse and activate it
+```
+echo "extension=mailparse.so" | sudo tee /etc/php/7.1/mods-available/mailparse.ini
+sudo phpenmod mailparse
+```
 
 On Windows, you need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line "extension=php_mailparse.dll" to php.ini accordingly.
 
