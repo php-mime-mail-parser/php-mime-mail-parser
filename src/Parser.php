@@ -359,24 +359,13 @@ class Parser
         ];
 
         if (in_array($type, array_keys($mime_types))) {
-            foreach ($this->parts as $partId => $part) {
-                if ($this->getPart('content-type', $part) == $mime_types[$type]
-                    && $this->getPart('content-disposition', $part) != 'attachment'
-                    && !$this->partIdIsChildOfAnAttachment($partId)
-                    ) {
-                    $headers = $this->getPart('headers', $part);
-                    $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-                    $headers['content-transfer-encoding'] : '';
-                    if (is_array($encodingType)) {
-                        $encodingType = $encodingType[0];
-                    }
-                    $body = $this->decodeContentTransfer($this->getPartBody($part), $encodingType);
-                    $body = $this->charset->decodeCharset($body, $this->getPartCharset($part));
-                    break;
-                }
-            }
+            $part_type  = $type === 'htmlEmbedded' ? 'html' : $type;
+            $inline_parts = $this->getInlineParts($part_type);
+            $body = empty($inline_parts) ? '' : $inline_parts[0];
         } else {
-            throw new Exception('Invalid type specified for getMessageBody(). "type" can either be text or html.');
+            throw new Exception(
+                'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
+            );
         }
 
         if ($type == 'htmlEmbedded') {
@@ -428,6 +417,43 @@ class Parser
         $value = $this->getHeader($name);
 
         return mailparse_rfc822_parse_addresses($value);
+    }
+
+    /**
+     * Returns the attachments contents in order of appearance
+     *
+     * @return Attachment[]
+     */
+    public function getInlineParts($type = 'text')
+    {
+        $inline_parts = [];
+        $dispositions = ['inline'];
+        $mime_types = [
+            'text'         => 'text/plain',
+            'html'         => 'text/html',
+        ];
+
+        if (!in_array($type, array_keys($mime_types))) {
+            throw new Exception('Invalid type specified for getInlineParts(). "type" can either be text or html.');
+        }
+
+        foreach ($this->parts as $partId => $part) {
+            if ($this->getPart('content-type', $part) == $mime_types[$type]
+                && $this->getPart('content-disposition', $part) != 'attachment'
+                && !$this->partIdIsChildOfAnAttachment($partId)
+                ) {
+                $headers = $this->getPart('headers', $part);
+                $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
+                    $headers['content-transfer-encoding'] : '';
+                if (is_array($encodingType)) {
+                    $encodingType = $encodingType[0];
+                }
+                $undecoded_body = $this->decodeContentTransfer($this->getPartBody($part), $encodingType);
+                $inline_parts[] = $this->charset->decodeCharset($undecoded_body, $this->getPartCharset($part));
+            }
+        }
+
+        return $inline_parts;
     }
 
     /**
