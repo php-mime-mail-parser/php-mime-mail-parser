@@ -97,6 +97,16 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
 
+    public function testIlligalAttachmentFilenameWithApostrophes_ForDispositionFilename()
+    {
+        $file = __DIR__ . '/mails/m0028';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $attachments = $Parser->getAttachments(false);
+
+        $this->assertEquals("O_Reillybooks.txt", $attachments[0]->getFilename());
+    }
+
     public function testIlligalAttachmentFilenameForContentName()
     {
         $file = __DIR__ . '/mails/m0027';
