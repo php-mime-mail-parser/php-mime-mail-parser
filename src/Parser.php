@@ -53,6 +53,15 @@ class Parser
     protected $charset;
 
     /**
+     * Valid stream modes for reading
+     *
+     * @var array
+     */
+    protected static $readableModes = array(
+        'r', 'r+', 'w+', 'a+', 'x+', 'c+', 'rb', 'r+b', 'w+b', 'a+b', 'x+b', 'c+b', 'rt', 'r+t', 'w+t', 'a+t', 'x+t', 'c+t'
+    );
+
+    /**
      * Parser constructor.
      *
      * @param CharsetManager|null $charset
@@ -112,7 +121,7 @@ class Parser
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || $meta['mode'][0] != 'r' || $meta['eof']) {
+        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true) || $meta['eof']) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
@@ -353,9 +362,9 @@ class Parser
     {
         $body = false;
         $mime_types = [
-        'text'         => 'text/plain',
-        'html'         => 'text/html',
-        'htmlEmbedded' => 'text/html',
+            'text'         => 'text/plain',
+            'html'         => 'text/html',
+            'htmlEmbedded' => 'text/html',
         ];
 
         if (in_array($type, array_keys($mime_types))) {
@@ -441,7 +450,7 @@ class Parser
             if ($this->getPart('content-type', $part) == $mime_types[$type]
                 && $this->getPart('content-disposition', $part) != 'attachment'
                 && !$this->partIdIsChildOfAnAttachment($partId)
-                ) {
+            ) {
                 $headers = $this->getPart('headers', $part);
                 $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
                     $headers['content-transfer-encoding'] : '';
@@ -600,7 +609,7 @@ class Parser
 
         $headers = $this->getPart('headers', $part);
         $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-        $headers['content-transfer-encoding'] : '';
+            $headers['content-transfer-encoding'] : '';
 
         if ($temp_fp) {
             if ($this->stream) {
