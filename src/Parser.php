@@ -57,9 +57,9 @@ class Parser
      *
      * @var array
      */
-    protected static $readableModes = array(
+    protected static $readableModes = [
         'r', 'r+', 'w+', 'a+', 'x+', 'c+', 'rb', 'r+b', 'w+b', 'a+b', 'x+b', 'c+b', 'rt', 'r+t', 'w+t', 'a+t', 'x+t', 'c+t'
-    );
+    ];
 
     /**
      * Parser constructor.
