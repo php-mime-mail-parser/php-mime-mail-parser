@@ -330,6 +330,7 @@ class Parser
      */
     protected function partIdIsChildOfPart($partId, $parentPartId)
     {
+        $parentPartId = $parentPartId.'.';
         return substr($partId, 0, strlen($parentPartId)) == $parentPartId;
     }
 
