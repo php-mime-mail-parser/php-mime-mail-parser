@@ -1,0 +1,97 @@
+Return-Path: <test@test.com>
+From: "Company Name" <test@test.com>
+To: "Company Name" <test@test.com>
+Subject: Email with 10 attachments and only plain text content part
+Date: Mon, 15 Jan 2018 17:45:00 +0000
+Message-Id: <em8c49ef0b-c760-42b2-bf4d-60efd9f36838@my-pc>
+Reply-To: "Company Name" <test@test.com>
+User-Agent: eM_Client/7.0
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB"
+
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; format=flowed; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+This is the plain text content of the email
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=789AA8B6-3C8F-4E16-9E55-3CD173C3AE3A.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=789AA8B6-3C8F-4E16-9E55-3CD173C3AE3A.txt
+X-Part-Id: 4887281070df45379ceb83dc0da1b948
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=FC034994-58D9-480F-A28C-3B44C588C44F.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=FC034994-58D9-480F-A28C-3B44C588C44F.txt
+X-Part-Id: 6fefd2afb97248e08791f627c0529008
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=608B96ED-C0D6-4A03-B24E-E082FC507B88.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=608B96ED-C0D6-4A03-B24E-E082FC507B88.txt
+X-Part-Id: 36784a39a88a4975b6d54d9044ac91e0
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=BDF0169F-8921-4E70-9241-0692C116EEC4.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=BDF0169F-8921-4E70-9241-0692C116EEC4.txt
+X-Part-Id: 63d0a873ef15426e9882f1fa4531a57b
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=7ADBF758-DC3B-4413-B0A2-82250147666C.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=7ADBF758-DC3B-4413-B0A2-82250147666C.txt
+X-Part-Id: c2485c209f5145eaa67c48caaebb8ab1
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=8343AC09-0026-4ECB-A81C-70E01705D52E.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=8343AC09-0026-4ECB-A81C-70E01705D52E.txt
+X-Part-Id: 424ebbee693340c8ae248dd59d0a9d2c
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=6A347E5E-9F48-46B9-B7A8-1A5062553F86.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=6A347E5E-9F48-46B9-B7A8-1A5062553F86.txt
+X-Part-Id: ed2935881c3b42d39261d01e85125639
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=1B2491C4-4FAF-4E47-9B6C-43E47F9594F3.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=1B2491C4-4FAF-4E47-9B6C-43E47F9594F3.txt
+X-Part-Id: 45707125757844df8c6297b9a60d766c
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=4BA92D8A-75A6-41A4-9A90-82AC9324077E.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=4BA92D8A-75A6-41A4-9A90-82AC9324077E.txt
+X-Part-Id: 0f46fe1047a947a993133eb3cbd89b7d
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=63C34BC2-FBC9-4C47-88C7-78127DE61343.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=63C34BC2-FBC9-4C47-88C7-78127DE61343.txt
+X-Part-Id: 858e99c177fe4855ac87e11aacb4ba6a
+
+This is an attachment
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB--

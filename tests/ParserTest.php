@@ -97,6 +97,22 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
 
+    /**
+     * Test for being able to extract a text/plain part from an email with 10 attachments.
+     * Related to pr #172.
+     *
+     * @return void
+     */
+    public function testMultiPartWithAttachments()
+    {
+        $file = __DIR__ .'/mails/m0028';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $body = $Parser->getMessageBody('text');
+        $this->assertEquals(is_string($body), true);
+        $this->assertEquals($body, "This is the plain text content of the email");
+    }
+
     public function testIlligalAttachmentFilenameForContentName()
     {
         $file = __DIR__ . '/mails/m0027';
