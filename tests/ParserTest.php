@@ -113,44 +113,6 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($body, "This is the plain text content of the email");
     }
 
-    /**
-     * Test the old and new implementation of the partIdIsChildOfPart function in Parser.
-     * Related to pr #172.
-     *
-     * @return void
-     */
-    public function testPartIdIsChildOfPart()
-    {
-        // Old method matches both 1.1.1 and 1.10 as a child of 1.1
-        $this->assertTrue($this->oldPartIdIsChildOfPart('1.10', '1.1'));
-        $this->assertTrue($this->oldPartIdIsChildOfPart('1.1.1', '1.1'));
-
-        // New method only matches 1.1.1 as a child of 1.1 and not 1.10
-        $this->assertFalse($this->newPartIdIsChildOfPart('1.10', '1.1'));
-        $this->assertTrue($this->newPartIdIsChildOfPart('1.1.1', '1.1'));
-    }
-
-    /**
-     * @param $partId
-     * @param $parentPartId
-     * @return bool
-     */
-    private function oldPartIdIsChildOfPart($partId, $parentPartId)
-    {
-        return substr($partId, 0, strlen($parentPartId)) == $parentPartId;
-    }
-
-    /**
-     * @param $partId
-     * @param $parentPartId
-     * @return bool
-     */
-    private function newPartIdIsChildOfPart($partId, $parentPartId)
-    {
-        $parentPartId = $parentPartId.'.';
-        return substr($partId, 0, strlen($parentPartId)) == $parentPartId;
-    }
-
     public function testIlligalAttachmentFilenameForContentName()
     {
         $file = __DIR__ . '/mails/m0027';
