@@ -722,14 +722,14 @@ class Parser
      *
      * @param array $part
      *
-     * @return string|false
+     * @return string
      */
     protected function getPartCharset($part)
     {
         if (isset($part['charset'])) {
             return $this->charset->getCharsetAlias($part['charset']);
         } else {
-            return false;
+            return 'us-ascii';
         }
     }
 
