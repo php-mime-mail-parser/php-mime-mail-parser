@@ -302,7 +302,7 @@ class Parser
         $start = $part['starting-pos'];
         $end = $part['starting-pos-body'];
         fseek($this->stream, $start, SEEK_SET);
-        $header = fread($this->stream, $end-$start);
+        $header = fread($this->stream, $end - $start);
         return $header;
     }
 
@@ -316,7 +316,7 @@ class Parser
     {
         $start = $part['starting-pos'];
         $end = $part['starting-pos-body'];
-        $header = substr($this->data, $start, $end-$start);
+        $header = substr($this->data, $start, $end - $start);
         return $header;
     }
 
@@ -369,7 +369,7 @@ class Parser
         ];
 
         if (in_array($type, array_keys($mime_types))) {
-            $part_type  = $type === 'htmlEmbedded' ? 'html' : $type;
+            $part_type = $type === 'htmlEmbedded' ? 'html' : $type;
             $inline_parts = $this->getInlineParts($part_type);
             $body = empty($inline_parts) ? '' : $inline_parts[0];
         } else {
@@ -477,9 +477,7 @@ class Parser
     public function getAttachments($include_inline = true)
     {
         $attachments = [];
-        $dispositions = $include_inline ?
-            ['attachment', 'inline'] :
-            ['attachment'];
+        $dispositions = $include_inline ? ['attachment', 'inline'] : ['attachment'];
         $non_attachment_types = ['text/plain', 'text/html'];
         $nonameIter = 0;
 
@@ -566,7 +564,7 @@ class Parser
                     break;
                 case self::ATTACHMENT_DUPLICATE_THROW:
                 case self::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = $attach_dir . $attachment->getFilename();
+                    $attachment_path = $attach_dir.$attachment->getFilename();
                     break;
                 default:
                     throw new Exception('Invalid filename strategy argument provided.');
@@ -711,7 +709,7 @@ class Parser
             }
 
             $text = $this->charset->decodeCharset($text, $this->charset->getCharsetAlias($charset));
-            $input = str_replace($encoded . $space, $text, $input);
+            $input = str_replace($encoded.$space, $text, $input);
         }
 
         return $input;
