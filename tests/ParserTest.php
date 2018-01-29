@@ -209,6 +209,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             ], $from);
     }
 
+    public function testGetMessageBodyNotFound()
+    {
+        $file = __DIR__ . '/mails/m0124';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $body = $Parser->getMessageBody();
+        $this->assertEmpty($body);
+    }
+
     public function provideData()
     {
 
