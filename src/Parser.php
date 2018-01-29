@@ -441,7 +441,6 @@ class Parser
     public function getInlineParts($type = 'text')
     {
         $inline_parts = [];
-        $dispositions = ['inline'];
         $mime_types = [
             'text'         => 'text/plain',
             'html'         => 'text/html',
