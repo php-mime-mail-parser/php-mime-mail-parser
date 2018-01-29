@@ -194,6 +194,21 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(1, substr_count($Parser->getMessageBody('htmlEmbedded'), 'image/'));
     }
 
+    public function testGetAddressesWithQuot()
+    {
+        $file = __DIR__ . '/mails/m0124';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $from = $Parser->getAddresses('from');
+        $this->assertEquals([
+            [
+                "display" => 'ФГУП "СибНИА им.С.А.Чаплыгина""',
+                "address" => 'user@domain.ru',
+                "is_group" => false
+            ]
+            ], $from);
+    }
+
     public function provideData()
     {
 
