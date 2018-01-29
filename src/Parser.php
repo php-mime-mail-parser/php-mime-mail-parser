@@ -425,9 +425,12 @@ class Parser
      */
     public function getAddresses($name)
     {
-        $value = $this->getHeader($name);
-
-        return mailparse_rfc822_parse_addresses($value);
+        $value = $this->getRawHeader($name);
+        $value = (is_array($value)) ? $value[0] : $value;
+        $addresses = mailparse_rfc822_parse_addresses($value);
+        foreach ($addresses as $i => $item)
+            $addresses[$i]['display'] = $this->decodeHeader($item['display']);
+        return $addresses;
     }
 
     /**
