@@ -357,12 +357,11 @@ class Parser
      *
      * @param string $type text, html or htmlEmbedded
      *
-     * @return false|string Body or False if not found
+     * @return string Body
      * @throws Exception
      */
     public function getMessageBody($type = 'text')
     {
-        $body = false;
         $mime_types = [
             'text'         => 'text/plain',
             'html'         => 'text/html',
