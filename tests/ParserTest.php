@@ -1701,4 +1701,36 @@ variances available &nbsp;</div></body></html>'
             ],
         ];
     }
+
+    /**
+     * Ensure the middleware can modify mime part data
+     */
+    public function testMiddleware()
+    {
+
+        $middlewareCalled = false;
+        
+        //Init
+        $file = __DIR__.'/mails/m0001';
+
+        //Load From Path
+        $Parser = new Parser();
+
+        $Parser->addMiddleware(function($mimePart, $next) use (&$middlewareCalled) {
+            $middlewareCalled = true;
+            $part = $mimePart->getPart();
+
+            if (isset($part['headers']['from'])) {
+                $part['headers']['from'] = 'Middleware';
+            }
+            $mimePart->setPart($part);
+
+            return $next->parse($mimePart);
+        });
+
+        $Parser->setPath($file);
+
+        $this->assertTrue($middlewareCalled, 'Middleware was was not called.');
+        $this->assertEquals($Parser->getHeader('from'), 'Middleware', 'From header modification failed');
+    }
 }
