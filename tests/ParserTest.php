@@ -1725,7 +1725,7 @@ variances available &nbsp;</div></body></html>'
             }
             $mimePart->setPart($part);
 
-            return $next->parse($mimePart);
+            return $next($mimePart);
         });
 
         $Parser->setPath($file);

@@ -75,4 +75,15 @@ class MiddlewareStack
         }
         return $stack;
     }
+
+    /**
+     * Allow calling MiddlewareStack instance directly to invoke parse()
+     *
+     * @param MimePart $part
+     * @return MimePart
+     */
+    public function __invoke(MimePart $part)
+    {
+        return $this->parse($part);
+    }
 }
