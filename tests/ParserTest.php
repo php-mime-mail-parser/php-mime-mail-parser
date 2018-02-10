@@ -1753,7 +1753,6 @@ variances available &nbsp;</div></body></html>'
         $middlewareStack->parse($mimePart);
 
         $this->assertTrue($middlewareCallCount == 2, 'Middleware was was not called.');
-
     }
 
     /**
