@@ -916,11 +916,11 @@ class Parser
     /**
      * Add a middleware to the parser MiddlewareStack
      * Each middleware is invoked when:
-     *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse() 
+     *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse()
      * The middleware will receive MimePart $part and the next MiddlewareStack $next
-     * 
-     * Eg: 
-     * 
+     *
+     * Eg:
+     *
      * $Parser->addMiddleware(function(MimePart $part, MiddlewareStack $next) {
      *      // do something with the $part
      *      return $next($part);

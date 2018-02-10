@@ -3,22 +3,22 @@
 namespace PhpMimeMailParser;
 
 /**
- * Mime Part 
+ * Mime Part
  * Represents the results of mailparse_msg_get_part_data()
- * 
- * Note ArrayAccess::offsetSet() cannot modify deeply nestated arrays. 
+ *
+ * Note ArrayAccess::offsetSet() cannot modify deeply nestated arrays.
  * When modifying use getPart() and setPart() for deep nested data modification
- * 
+ *
  * @example
- * 
+ *
  *     $MimePart['headers']['from'] = 'modified@example.com' // fails
- * 
+ *
  *     // correct
  *     $part = $MimePart->getPart();
  *     $part['headers']['from'] = 'modified@example.com';
  *     $MimePart->setPart($part);
  */
-class MimePart implements \ArrayAccess 
+class MimePart implements \ArrayAccess
 {
     /**
      * Internal mime part
@@ -40,7 +40,7 @@ class MimePart implements \ArrayAccess
      * @param array $part
      * @param string $id
      */
-    public function __construct(string $id, array $part) 
+    public function __construct(string $id, array $part)
     {
         $this->part = $part;
         $this->id = $id;
@@ -80,10 +80,9 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetSet($offset, $value) 
+    public function offsetSet($offset, $value)
     {
-        if (is_null($offset)) 
-        {
+        if (is_null($offset)) {
             $this->part[] = $value;
         } else {
             $this->part[$offset] = $value;
@@ -93,7 +92,7 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetExists($offset) 
+    public function offsetExists($offset)
     {
         return isset($this->part[$offset]);
     }
@@ -101,7 +100,7 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetUnset($offset) 
+    public function offsetUnset($offset)
     {
         unset($this->part[$offset]);
     }
@@ -109,7 +108,7 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetGet($offset) 
+    public function offsetGet($offset)
     {
         return isset($this->part[$offset]) ? $this->part[$offset] : null;
     }

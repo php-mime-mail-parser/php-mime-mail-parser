@@ -1716,7 +1716,7 @@ variances available &nbsp;</div></body></html>'
         //Load From Path
         $Parser = new Parser();
 
-        $Parser->addMiddleware(function($mimePart, $next) use (&$middlewareCalled) {
+        $Parser->addMiddleware(function ($mimePart, $next) use (&$middlewareCalled) {
             $middlewareCalled = true;
             $part = $mimePart->getPart();
 
