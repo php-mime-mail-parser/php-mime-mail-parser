@@ -40,7 +40,7 @@ class MimePart implements \ArrayAccess
      * @param array $part
      * @param string $id
      */
-    public function __construct(string $id, array $part)
+    public function __construct($id, array $part)
     {
         $this->part = $part;
         $this->id = $id;
