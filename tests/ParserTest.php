@@ -1716,6 +1716,7 @@ variances available &nbsp;</div></body></html>'
         //Load From Path
         $Parser = new Parser();
 
+        // add literal function middleware
         $Parser->addMiddleware(function ($mimePart, $next) use (&$middlewareCalled) {
             $middlewareCalled = true;
             $part = $mimePart->getPart();
@@ -1728,9 +1729,64 @@ variances available &nbsp;</div></body></html>'
             return $next($mimePart);
         });
 
+        // executes the middleware
         $Parser->setPath($file);
 
         $this->assertTrue($middlewareCalled, 'Middleware was was not called.');
         $this->assertEquals($Parser->getHeader('from'), 'Middleware', 'From header modification failed');
+
+        // run middlware in factory
+        $middlewareCallCount = 0;
+        $mimePart = new MimePart('1', array());
+        $middlewareStack = MiddlewareStack::factory(
+            array(
+                new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
+                    $middlewareCallCount++;
+                    return $next($mimePart);
+                }),
+                new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
+                    $middlewareCallCount++;
+                    return $next($mimePart);
+                })
+            )
+        );
+        $middlewareStack->parse($mimePart);
+
+        $this->assertTrue($middlewareCallCount == 2, 'Middleware was was not called.');
+
+    }
+
+    /**
+     * Ensure MimePart has ArrayAccess
+     */
+    public function testMimePart()
+    {
+        $id = '1';
+        $part = array('foo' => 'bar');
+        $part2 = array('fooz' => 'barz');
+        $mimePart = new MimePart($id, $part);
+
+        // created
+        $this->assertEquals($mimePart->getId(), $id);
+        $this->assertEquals($mimePart->getPart(), $part);
+        $this->assertTrue(isset($mimePart['foo']));
+        $this->assertEquals($mimePart['foo'], $part['foo']);
+
+        // new part
+        $mimePart->setPart($part2);
+        $this->assertEquals($mimePart->getId(), $id);
+        $this->assertEquals($mimePart->getPart(), $part2);
+        $this->assertTrue(isset($mimePart['fooz']));
+        $this->assertEquals($mimePart['fooz'], $part2['fooz']);
+
+        // modification and unset
+        $mimePart['fooz'] = 'foozbarz';
+        $mimePart[] = 'indexedFoo';
+        $this->assertEquals($mimePart['fooz'], 'foozbarz');
+        $this->assertEquals($mimePart[0], 'indexedFoo');
+        unset($mimePart['fooz']);
+        unset($mimePart[0]);
+        $this->assertTrue(isset($mimePart['fooz']) === false);
+        $this->assertTrue(isset($mimePart[0]) === false);
     }
 }
