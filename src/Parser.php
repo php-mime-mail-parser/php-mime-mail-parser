@@ -63,6 +63,13 @@ class Parser
     ];
 
     /**
+     * Stack of middleware registered to process data
+     *
+     * @var MiddlewareStack
+     */
+    protected $middlewareStack;
+
+    /**
      * Parser constructor.
      *
      * @param CharsetManager|null $charset
@@ -74,6 +81,7 @@ class Parser
         }
 
         $this->charset = $charset;
+        $this->middlewareStack = new MiddlewareStack();
     }
 
     /**
@@ -185,7 +193,10 @@ class Parser
         $this->parts = [];
         foreach ($structure as $part_id) {
             $part = mailparse_msg_get_part($this->resource, $part_id);
-            $this->parts[$part_id] = mailparse_msg_get_part_data($part);
+            $part_data = mailparse_msg_get_part_data($part);
+            $mimePart = new MimePart($part_id, $part_data);
+            // let each middleware parse the part before saving
+            $this->parts[$part_id] = $this->middlewareStack->parse($mimePart)->getPart();
         }
     }
 
@@ -900,5 +911,29 @@ class Parser
     public function getCharset()
     {
         return $this->charset;
+    }
+
+    /**
+     * Add a middleware to the parser MiddlewareStack
+     * Each middleware is invoked when:
+     *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse()
+     * The middleware will receive MimePart $part and the next MiddlewareStack $next
+     *
+     * Eg:
+     *
+     * $Parser->addMiddleware(function(MimePart $part, MiddlewareStack $next) {
+     *      // do something with the $part
+     *      return $next($part);
+     * });
+     *
+     * @param callable $middleware Plain Function or Middleware Instance to execute
+     * @return void
+     */
+    public function addMiddleware(callable $middleware)
+    {
+        if (!$middleware instanceof Middleware) {
+            $middleware = new Middleware($middleware);
+        }
+        $this->middlewareStack = $this->middlewareStack->add($middleware);
     }
 }
