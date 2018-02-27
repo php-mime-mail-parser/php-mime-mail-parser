@@ -515,6 +515,9 @@ class Parser
                 // if we cannot get it by getMessageBody(), we assume it is an attachment
                 $disposition = 'attachment';
             }
+            if (in_array($disposition, ['attachment', 'inline']) === false && !empty($disposition)) {
+                $disposition = 'attachment';
+            }
 
             if (in_array($disposition, $dispositions) === true) {
                 if ($filename == 'noname') {

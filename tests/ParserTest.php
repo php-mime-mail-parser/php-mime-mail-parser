@@ -218,6 +218,15 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($body);
     }
 
+    public function testUnknownContentDisposition()
+    {
+        $file = __DIR__ . '/mails/issue182';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $this->assertEquals(1, count($Parser->getAttachments()));
+        $this->assertEquals(1, count($Parser->getAttachments(true)));
+    }
+
     public function provideData()
     {
 
