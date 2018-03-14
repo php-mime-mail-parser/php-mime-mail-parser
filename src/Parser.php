@@ -528,16 +528,16 @@ class Parser
                 $headersAttachments = $this->getPart('headers', $part);
                 $contentidAttachments = $this->getPart('content-id', $part);
 
-                $mimePartStr = $this->getPartComplete($part);
+                $attachmentStream = $this->getAttachmentStream($part);
 
                 $attachments[] = new Attachment(
                     $filename,
                     $this->getPart('content-type', $part),
-                    $this->getAttachmentStream($part),
+                    $attachmentStream,
                     $disposition,
                     $contentidAttachments,
                     $headersAttachments,
-                    $mimePartStr
+                    $this->getPartComplete($part)
                 );
             }
         }
