@@ -528,12 +528,13 @@ class Parser
                 $headersAttachments = $this->getPart('headers', $part);
                 $contentidAttachments = $this->getPart('content-id', $part);
 
+                $attachmentStream = $this->getAttachmentStream($part);
                 $mimePartStr = $this->getPartComplete($part);
 
                 $attachments[] = new Attachment(
                     $filename,
                     $this->getPart('content-type', $part),
-                    $this->getAttachmentStream($part),
+                    $attachmentStream,
                     $disposition,
                     $contentidAttachments,
                     $headersAttachments,
@@ -636,8 +637,8 @@ class Parser
                 $written = 0;
                 while ($written < $len) {
                     $write = $len;
-                    $part = fread($this->stream, $write);
-                    fwrite($temp_fp, $this->decodeContentTransfer($part, $encodingType));
+                    $data = fread($this->stream, $write);
+                    fwrite($temp_fp, $this->decodeContentTransfer($data, $encodingType));
                     $written += $write;
                 }
             } elseif ($this->data) {
