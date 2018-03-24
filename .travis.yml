@@ -30,7 +30,6 @@ before_script:
     - php -i
     - php -v
     - php -m
-    - cat /usr/local/lib/php.ini
     - dismod mbstring
     - if [[ "$TRAVIS_PHP_VERSION" = "5.4" ]]; then pecl install mailparse-2.1.6 ; fi
     - if [[ "$TRAVIS_PHP_VERSION" = "5.5" ]]; then pecl install mailparse-2.1.6 ; fi
