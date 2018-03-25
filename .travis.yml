@@ -5,14 +5,10 @@ language: bash
 services:
   - docker
 
-addons:
-  apt:
-    packages:
-    - cmake
-    - time
-    - php70
-
 before_script:
+    - sudo apt-add-repository ppa:ondrej/php
+    - sudo apt-get update
+    - sudo apt-get install php7.0
     - php -v
     - php -m
     - if [[ "$TRAVIS_PHP_VERSION" = "5.4" ]]; then pecl install mailparse-2.1.6 ; fi
