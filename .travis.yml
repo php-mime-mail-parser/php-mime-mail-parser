@@ -10,11 +10,9 @@ addons:
     packages:
     - cmake
     - time
-    - php
+    - php70
 
 before_script:
-    - sudo apt-get update -qq
-    - sudo apt-get install -qq php
     - php -v
     - php -m
     - if [[ "$TRAVIS_PHP_VERSION" = "5.4" ]]; then pecl install mailparse-2.1.6 ; fi
