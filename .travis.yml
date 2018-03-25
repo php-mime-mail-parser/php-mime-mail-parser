@@ -2,6 +2,10 @@ sudo: required
 
 services: docker
 
+env:
+  - PHP_VERSION=7.0
+  - PHP_VERSION=7.1
+
 before_install:
   - docker build -t php-mime-mail-parser/php-mime-mail-parser .
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "php -v"
