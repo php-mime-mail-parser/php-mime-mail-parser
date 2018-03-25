@@ -1,5 +1,6 @@
-FROM php:7.0-cli
+FROM debian:latest
 
-# Install packages for building ruby
-RUN apt-get update
-
+RUN apt-get update && apt-get install -y \
+		ca-certificates \
+		curl \
+    php \
