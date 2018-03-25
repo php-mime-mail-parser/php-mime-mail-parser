@@ -5,22 +5,11 @@ language: bash
 services:
   - docker
 
-before_script:
-    - sudo apt-add-repository ppa:ondrej/php
-    - sudo apt-get update -qq
-    - sudo apt-get install -qq php7.0
-    - php -v
-    - php -m
-    - if [[ "$TRAVIS_PHP_VERSION" = "5.4" ]]; then pecl install mailparse-2.1.6 ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "5.5" ]]; then pecl install mailparse-2.1.6 ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "5.6" ]]; then pecl install mailparse-2.1.6 ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "7.0" ]]; then pecl install mailparse ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "7.1" ]]; then pecl install mailparse ; fi
-    - composer self-update
-    - composer update $COMPOSER_OPTS
+before_install:
+  - docker pull php:7.0-cli
 
 script:
-    - mkdir -p build/logs
+    - php -v 
     - ./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
     - ./vendor/bin/phpcs src --standard=psr2
     - ./vendor/bin/phpcs tests --standard=psr2
