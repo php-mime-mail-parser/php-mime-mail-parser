@@ -6,7 +6,7 @@ services:
   - docker
 
 before_script:
-    - apt-get install php
+    - sudo apt-get install php
     - php -v
     - php -m
     - if [[ "$TRAVIS_PHP_VERSION" = "5.4" ]]; then pecl install mailparse-2.1.6 ; fi
