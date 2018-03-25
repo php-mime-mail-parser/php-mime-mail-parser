@@ -1,6 +1,5 @@
-FROM ubuntu:14.04
+FROM php:7.0-cli
 
 # Install packages for building ruby
 RUN apt-get update
 
-RUN apt-get install -y --force-yes php
