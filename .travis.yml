@@ -5,6 +5,13 @@ language: bash
 services:
   - docker
 
+addons:
+  apt:
+    packages:
+    - cmake
+    - time
+    - php
+
 before_script:
     - sudo apt-get update -qq
     - sudo apt-get install -qq php
