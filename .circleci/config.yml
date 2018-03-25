@@ -26,6 +26,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+      - php -m
+      - pecl install mailparse
       - run: composer install -n --prefer-dist
 
       - save_cache:
