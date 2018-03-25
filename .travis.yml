@@ -6,3 +6,4 @@ language: php
 
 before_install:
   - docker build -t php-mime-mail-parser/php-mime-mail-parser .
+  - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "php -v"
