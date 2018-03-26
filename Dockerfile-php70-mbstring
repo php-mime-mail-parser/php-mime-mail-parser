@@ -6,6 +6,6 @@ RUN apt-get update && apt-get install -y \
 	php-cli \
 	php-pear \
 	php-dev \
-	php-mbstring \
+	php-mbstring
 
 RUN pecl install mailparse
