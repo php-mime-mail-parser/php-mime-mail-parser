@@ -1,0 +1,72 @@
+FROM debian:latest
+
+RUN apt-get update && apt-get install -y \
+	ca-certificates \
+  wget \
+	curl \
+  libkrb5-devlibc-client2007e \
+  libc-client2007e-dev \
+  libcurl4-openssl-dev \
+  libbz2-dev \
+  libjpeg-dev \
+  libmcrypt-dev \
+  libxslt1-dev \
+  libxslt1.1 \
+  libpq-dev \
+  build-essential \
+  git \
+  make
+
+RUN wget http://php.net/distributions/php-7.0.28.tar.gz
+RUN tar xvf php-7.0.28.tar.gz
+RUN cd php-7.0.28/
+RUN ./configure \
+--prefix=/opt/php-7.0.4                      \
+--with-config-file-path=/opt/php-7.0.4/etc   \
+--with-zlib-dir                              \
+--with-freetype-dir                          \
+--enable-mbstring                            \
+--with-libxml-dir=/usr                       \
+--enable-soap                                \
+--enable-calendar                            \
+--with-curl                                  \
+--with-mcrypt                                \
+--with-zlib                                  \
+--with-gd                                    \
+--disable-rpath                              \
+--enable-inline-optimization                 \
+--with-bz2                                   \
+--with-zlib                                  \
+--enable-sockets                             \
+--enable-sysvsem                             \
+--enable-sysvshm                             \
+--enable-pcntl                               \
+--enable-mbregex                             \
+--enable-exif                                \
+--enable-bcmath                              \
+--with-mhash                                 \
+--enable-zip                                 \
+--with-pcre-regex                            \
+--with-pdo-mysql                             \
+--with-mysqli                                \
+--with-mysql-sock=/var/run/mysqld/mysqld.sock \
+--with-jpeg-dir=/usr                         \
+--with-png-dir=/usr                          \
+--enable-gd-native-ttf                       \
+--with-openssl                               \
+--with-fpm-user=www-data                     \
+--with-fpm-group=www-data                    \
+--with-libdir=/usr/lib/arm-linux-gnueabihf          \
+--enable-ftp                                 \
+--with-imap                                  \
+--with-imap-ssl                              \
+--with-kerberos                              \
+--with-gettext                               \
+--with-xmlrpc                                \
+--with-xsl                                   \
+--enable-opcache                             \
+--enable-fpm
+RUN make
+RUN make install
+
+RUN pecl install mailparse
