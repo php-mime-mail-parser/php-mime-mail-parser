@@ -45,7 +45,6 @@ RUN ./php-7.0.28/configure \
 --with-fpm-group=www-data                    \
 --with-imap                                  \
 --with-imap-ssl                              \
---with-kerberos                              \
 --with-gettext                               \
 --with-xsl                                   \
 --enable-opcache                             \
