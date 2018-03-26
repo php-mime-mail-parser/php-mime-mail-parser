@@ -3,5 +3,9 @@ FROM debian:latest
 RUN apt-get update && apt-get install -y \
 	ca-certificates \
 	curl \
-	php \
+	php-cli \
+	php-pear \
+	php-dev \
 	php-mbstring \
+
+RUN pecl install mailparse
