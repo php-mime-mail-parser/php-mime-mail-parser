@@ -2,10 +2,13 @@ FROM debian:latest
 
 RUN apt-get update && apt-get install -y \
   ca-certificates \
+  clibcurl4-openssl-dev \
+  pkg-config \
+  libssl-dev \
+  libsslcommon2-dev \
   wget \
   curl \
   libc-client2007e-dev \
-  libcurl4-openssl-dev \
   libbz2-dev \
   libjpeg-dev \
   libmcrypt-dev \
