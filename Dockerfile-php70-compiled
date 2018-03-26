@@ -16,6 +16,8 @@ RUN apt-get update && apt-get install -y \
   libpq-dev \
   libzip-dev \
   libzip4 \
+  libreadline-dev \
+  libreadline7 \
   build-essential \
   git \
   make
