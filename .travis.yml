@@ -5,9 +5,11 @@ services: docker
 env:
   - PMMP="1"
   - PMMP="2"
+  - PMMP="3"
 
 before_install:
   - if [[ "$PMMP" = "1" ]]; then docker build -f Dockerfile-php70 -t php-mime-mail-parser/php-mime-mail-parser . ; fi
   - if [[ "$PMMP" = "2" ]]; then docker build -f Dockerfile-php70-mbstring -t php-mime-mail-parser/php-mime-mail-parser . ; fi
+  - if [[ "$PMMP" = "3" ]]; then docker build -f Dockerfile-php70-compiled -t php-mime-mail-parser/php-mime-mail-parser . ; fi
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "php -v"
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "php -m"
