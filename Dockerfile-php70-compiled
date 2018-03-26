@@ -1,10 +1,9 @@
 FROM debian:latest
 
 RUN apt-get update && apt-get install -y \
-	ca-certificates \
+  ca-certificates \
   wget \
-	curl \
-  libkrb5-devlibc-client2007e \
+  curl \
   libc-client2007e-dev \
   libcurl4-openssl-dev \
   libbz2-dev \
