@@ -18,8 +18,7 @@ RUN apt-get update && apt-get install -y \
 
 RUN wget http://php.net/distributions/php-7.0.28.tar.gz
 RUN tar xvf php-7.0.28.tar.gz
-RUN cd php-7.0.28/
-RUN ./configure \
+RUN ./php-7.0.28/configure \
 --prefix=/opt/php-7.0.4                      \
 --with-config-file-path=/opt/php-7.0.4/etc   \
 --with-zlib-dir                              \
