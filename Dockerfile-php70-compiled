@@ -43,6 +43,7 @@ RUN ./php-7.0.28/configure \
 --with-openssl                               \
 --with-fpm-user=www-data                     \
 --with-fpm-group=www-data                    \
+--with-kerberos                               \
 --with-imap                                  \
 --with-imap-ssl                              \
 --enable-fpm
