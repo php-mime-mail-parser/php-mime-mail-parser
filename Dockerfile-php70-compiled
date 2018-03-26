@@ -14,39 +14,34 @@ RUN apt-get update && apt-get install -y \
   libxslt1-dev \
   libxslt1.1 \
   libpq-dev \
+  libzip-dev \
+  libzip4 \
   build-essential \
   git \
   make
 
 RUN wget http://php.net/distributions/php-7.0.28.tar.gz
 RUN tar xvf php-7.0.28.tar.gz
-RUN ./php-7.0.28/configure \
---prefix=/opt/php-7.0.28                      \
---with-config-file-path=/opt/php-7.0.28/etc   \
---with-freetype-dir                          \
---enable-mbstring                            \
---with-libxml-dir=/usr                       \
---enable-calendar                            \
---with-curl                                  \
---with-mcrypt                                \
---disable-rpath                              \
---enable-inline-optimization                 \
---enable-sockets                             \
---enable-sysvsem                             \
---enable-sysvshm                             \
---enable-pcntl                               \
---enable-mbregex                             \
---enable-exif                                \
---enable-bcmath                              \
---with-mhash                                 \
---with-pcre-regex                            \
---with-openssl                               \
---with-fpm-user=www-data                     \
---with-fpm-group=www-data                    \
---with-kerberos                               \
---with-imap                                  \
---with-imap-ssl                              \
---enable-fpm
+RUN ./php-7.0.28/configure --prefix=/opt/php-7.0.28 \
+    --enable-bcmath \
+    --enable-fpm \
+    --with-fpm-user=www-data \
+    --with-fpm-group=www-data \
+    --enable-mbstring \
+    --enable-phpdbg \
+    --enable-shmop \
+    --enable-sockets \
+    --enable-sysvmsg \
+    --enable-sysvsem \
+    --enable-sysvshm \
+    --enable-zip \
+    --with-libzip=/usr/lib/x86_64-linux-gnu \
+    --with-zlib \
+    --with-curl \
+    --with-pear \
+    --with-openssl \
+    --enable-pcntl \
+    --with-readline
 RUN make
 RUN make install
 
