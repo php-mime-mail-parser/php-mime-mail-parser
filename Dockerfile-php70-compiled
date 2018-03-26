@@ -22,21 +22,15 @@ RUN wget http://php.net/distributions/php-7.0.28.tar.gz
 RUN tar xvf php-7.0.28.tar.gz
 RUN ./php-7.0.28/configure \
 --prefix=/opt/php-7.0.4                      \
---with-config-file-path=/opt/php-7.0.4/etc   \
---with-zlib-dir                              \
+--with-config-file-path=/opt/php-7.0.28/etc   \
 --with-freetype-dir                          \
 --enable-mbstring                            \
 --with-libxml-dir=/usr                       \
---enable-soap                                \
 --enable-calendar                            \
 --with-curl                                  \
 --with-mcrypt                                \
---with-zlib                                  \
---with-gd                                    \
 --disable-rpath                              \
 --enable-inline-optimization                 \
---with-bz2                                   \
---with-zlib                                  \
 --enable-sockets                             \
 --enable-sysvsem                             \
 --enable-sysvshm                             \
@@ -45,24 +39,14 @@ RUN ./php-7.0.28/configure \
 --enable-exif                                \
 --enable-bcmath                              \
 --with-mhash                                 \
---enable-zip                                 \
 --with-pcre-regex                            \
---with-pdo-mysql                             \
---with-mysqli                                \
---with-mysql-sock=/var/run/mysqld/mysqld.sock \
---with-jpeg-dir=/usr                         \
---with-png-dir=/usr                          \
---enable-gd-native-ttf                       \
 --with-openssl                               \
 --with-fpm-user=www-data                     \
 --with-fpm-group=www-data                    \
---with-libdir=/usr/lib/arm-linux-gnueabihf          \
---enable-ftp                                 \
 --with-imap                                  \
 --with-imap-ssl                              \
 --with-kerberos                              \
 --with-gettext                               \
---with-xmlrpc                                \
 --with-xsl                                   \
 --enable-opcache                             \
 --enable-fpm
