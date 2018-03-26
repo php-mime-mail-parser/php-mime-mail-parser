@@ -21,7 +21,7 @@ RUN apt-get update && apt-get install -y \
 RUN wget http://php.net/distributions/php-7.0.28.tar.gz
 RUN tar xvf php-7.0.28.tar.gz
 RUN ./php-7.0.28/configure \
---prefix=/opt/php-7.0.4                      \
+--prefix=/opt/php-7.0.28                      \
 --with-config-file-path=/opt/php-7.0.28/etc   \
 --with-freetype-dir                          \
 --enable-mbstring                            \
