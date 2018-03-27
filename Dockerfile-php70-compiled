@@ -56,5 +56,5 @@ ENV PATH="/opt/php-7.0.28/bin/:${PATH}"
 RUN php -v
 RUN pecl install mailparse
 
-RUN echo "extension=mailparse.so" | sudo tee /opt/php-7.0.28/mods-available/mailparse.ini
+RUN echo "extension=mailparse.so" | tee /opt/php-7.0.28/mods-available/mailparse.ini
 RUN phpenmod mailparse
