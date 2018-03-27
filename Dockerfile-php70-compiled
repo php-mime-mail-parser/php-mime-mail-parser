@@ -49,7 +49,7 @@ RUN ./php-7.0.28/configure --prefix=/opt/php-7.0.28 \
 RUN make
 RUN make install
 
-RUN export PATH="/opt/php-7.0.28/bin/:$PATH"
+ENV PATH="/opt/php-7.0.28/bin/:${PATH}"
 
 RUN php -v
 RUN pecl install mailparse
