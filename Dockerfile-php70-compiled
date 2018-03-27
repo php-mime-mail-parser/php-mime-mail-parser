@@ -47,7 +47,6 @@ RUN ./php-7.0.28/configure --prefix=/opt/php-7.0.28 \
 RUN make
 RUN make install
 
-RUN which pecl
 RUN /opt/php-7.0.28/bin/php -v
 RUN /opt/php-7.0.28/bin/pecl install mailparse
 RUN ln -s /opt/php-7.0.28/bin/php ~/bin/php
