@@ -1,6 +1,7 @@
 FROM debian:latest
 
 RUN apt-get update && apt-get install -y \
+  autoconf \
   ca-certificates \
   libcurl4-gnutls-dev \
   pkg-config \
