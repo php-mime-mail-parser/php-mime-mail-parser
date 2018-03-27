@@ -49,8 +49,12 @@ RUN ./php-7.0.28/configure --prefix=/opt/php-7.0.28 \
 
 RUN make
 RUN make install
+RUN cp ./php-7.0.28/php.ini-production /opt/php-7.0.28/lib/php.ini
 
 ENV PATH="/opt/php-7.0.28/bin/:${PATH}"
 
 RUN php -v
 RUN pecl install mailparse
+
+RUN echo "extension=mailparse.so" | sudo tee /opt/php-7.0.28/mods-available/mailparse.ini
+RUN phpenmod mailparse
