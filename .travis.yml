@@ -18,8 +18,7 @@ before_script:
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "composer self-update"
 
 script:
-  - php -v
-  - php -m
+  - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "git clone https://github.com/php-mime-mail-parser/php-mime-mail-parser.git ."
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "composer update"
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "mkdir -p build/logs"
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml"
