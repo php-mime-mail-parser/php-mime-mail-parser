@@ -16,7 +16,7 @@ before_install:
 
 before_script:
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "composer self-update"
-  - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "composer update $COMPOSER_OPTS"
+  - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "composer update"
 
 script:
   - docker run php-mime-mail-parser/php-mime-mail-parser /bin/sh -c "mkdir -p build/logs"
