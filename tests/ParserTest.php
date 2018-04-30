@@ -167,6 +167,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
         $Parser->getMessageBody('text');
+        $Parser->getAttachments();
     }
 
     public function testCreatingMoreThanOneInstanceOfParser()
