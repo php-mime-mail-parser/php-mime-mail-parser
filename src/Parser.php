@@ -665,6 +665,10 @@ class Parser
      */
     protected function decodeContentTransfer($encodedString, $encodingType)
     {
+        if (is_array($encodingType)) {
+           $encodingType = $encodingType[0];
+        }
+
         $encodingType = strtolower($encodingType);
         if ($encodingType == 'base64') {
             return base64_decode($encodedString);
