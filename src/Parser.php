@@ -666,7 +666,7 @@ class Parser
     protected function decodeContentTransfer($encodedString, $encodingType)
     {
         if (is_array($encodingType)) {
-           $encodingType = $encodingType[0];
+            $encodingType = $encodingType[0];
         }
 
         $encodingType = strtolower($encodingType);
