@@ -576,7 +576,7 @@ class Parser
                     break;
                 case self::ATTACHMENT_DUPLICATE_THROW:
                 case self::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = $attach_dir.$attachment->getFilename();
+                    $attachment_path = $attach_dir.DIRECTORY_SEPARATOR.$attachment->getFilename();
                     break;
                 default:
                     throw new Exception('Invalid filename strategy argument provided.');
