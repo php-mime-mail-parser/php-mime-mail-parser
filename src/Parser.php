@@ -563,6 +563,7 @@ class Parser
             return false;
         }
 
+        $attach_dir = rtrim($attach_dir,DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         if (!is_dir($attach_dir)) {
             mkdir($attach_dir);
         }
