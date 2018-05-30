@@ -150,6 +150,8 @@ smtp      inet  n       -       -       -       -       smtpd
 
 The php script must use the fourth method to work with this configuration.
 
+And finally the easiest way is to use my SaaS https://mailcare.io
+
 
 ## Can I contribute?
 
