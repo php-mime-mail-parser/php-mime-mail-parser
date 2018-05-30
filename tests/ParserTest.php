@@ -140,6 +140,29 @@ class ParserTest extends \PHPUnit_Framework_TestCase
 
         // Default: generate filename suffix, so we should have two files
         $this->assertEquals(2, count($attachmentFiles));
+        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[0]);
+        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[1]);
+    }
+
+    public function testAttachmentsWithWrongDirectory()
+    {
+        $file = __DIR__ . '/mails/m0026';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $attachDir = __DIR__ . '/mails/m0026_attachments';
+        $Parser->saveAttachments($attachDir, false);
+
+        $attachmentFiles = glob($attachDir . DIRECTORY_SEPARATOR. 'ATT*');
+
+        // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+
+        // Default: generate filename suffix, so we should have two files
+        $this->assertEquals(2, count($attachmentFiles));
+        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[0]);
+        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[1]);
     }
 
     public function testAttachmentsWithDuplicatesRandom()
