@@ -317,7 +317,7 @@ class Charset implements CharsetManager
     {
         if (strtolower($charset) == 'utf-8' || strtolower($charset) == 'us-ascii') {
             return $encodedString;
-        } elseif (function_exists('mb_convert_encoding') && strtolower($charset) == 'iso-2022-jp' ) {
+        } elseif (function_exists('mb_convert_encoding') && strtolower($charset) == 'iso-2022-jp') {
             return mb_convert_encoding($encodedString, 'UTF-8', 'ISO-2022-JP-MS');
         } elseif (function_exists('mb_convert_encoding')) {
             return mb_convert_encoding($encodedString, 'UTF-8', $this->getCharsetAlias($charset));
