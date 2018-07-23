@@ -46,7 +46,7 @@
         "ext-mailparse": "*"
     },
     "require-dev": {
-        "phpunit/phpunit":              "^4.0 || ^5.0",
+        "phpunit/phpunit":              "^5.7",
         "phpunit/php-token-stream":     "^1.3.0",
         "php-coveralls/php-coveralls":  "0.*",
         "squizlabs/PHP_CodeSniffer":    "2.*"
