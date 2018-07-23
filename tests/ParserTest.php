@@ -11,7 +11,7 @@ use PhpMimeMailParser\Exception;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-class ParserTest extends \PHPUnit_Framework_TestCase
+class ParserTest extends \PHPUnit\Framework\TestCase
 {
 
     /**
