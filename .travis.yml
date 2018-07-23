@@ -1,11 +1,10 @@
 language: php
 
 php:
-    - 5.4
-    - 5.5
     - 5.6
     - 7.0
     - 7.1
+    - 7.2
 
 matrix:
     include:
@@ -25,13 +24,13 @@ env:
 before_install:
     - if [[ "$TRAVIS_PHP_VERSION" = "7.0" ]]; then composer require --dev --no-update phpunit/phpunit ~5 ; fi
     - if [[ "$TRAVIS_PHP_VERSION" = "7.1" ]]; then composer require --dev --no-update phpunit/phpunit ~5 ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.2" ]]; then composer require --dev --no-update phpunit/phpunit ~5 ; fi
 
 before_script:
-    - if [[ "$TRAVIS_PHP_VERSION" = "5.4" ]]; then pecl install mailparse-2.1.6 ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "5.5" ]]; then pecl install mailparse-2.1.6 ; fi
     - if [[ "$TRAVIS_PHP_VERSION" = "5.6" ]]; then pecl install mailparse-2.1.6 ; fi
     - if [[ "$TRAVIS_PHP_VERSION" = "7.0" ]]; then pecl install mailparse ; fi
     - if [[ "$TRAVIS_PHP_VERSION" = "7.1" ]]; then pecl install mailparse ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.2" ]]; then pecl install mailparse ; fi
     - composer self-update
     - composer update $COMPOSER_OPTS
 
