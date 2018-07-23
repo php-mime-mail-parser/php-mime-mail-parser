@@ -206,7 +206,7 @@ class ParserTest extends \PHPUnit_Framework_TestCase
             $file = __DIR__ . '/mails/issue116';
             $Parser = new Parser();
             $Parser->setText(file_get_contents($file));
-            $this->assertEquals("ЖД41 от 28.09.2016", $Parser->getHeader('subject'));
+            $this->assertEquals("ЖД№41 от 28.09.2016", $Parser->getHeader('subject'));
         }
     }
 
