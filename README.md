@@ -1,6 +1,6 @@
 # php-mime-mail-parser
 
-A fully tested mailparse extension wrapper for PHP 5.4+
+A fully tested mailparse extension wrapper for PHP 5.6+
 
 [![Latest Version](https://img.shields.io/packagist/v/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
