@@ -38,9 +38,15 @@ The following versions of PHP are supported:
 * PHP 5.4
 * PHP 5.5
 * PHP 5.6
-* PHP 7
+* PHP 7 (7.0, 7.1, 7.2)
 * HHVM
 
+### How to install requirements in Ubuntu, Debian & derivatives
+```
+sudo apt install php-cli php-mailparse
+```
+
+### How to install requirements in others platforms
 ```
 sudo apt install php-cli php-pear php-dev php-mbstring
 ```
