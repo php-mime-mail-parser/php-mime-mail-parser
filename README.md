@@ -35,8 +35,6 @@ To install the latest version of PHP MIME Mail Parser, run the command below:
 
 The following versions of PHP are supported:
 
-* PHP 5.4
-* PHP 5.5
 * PHP 5.6
 * PHP 7 (7.0, 7.1, 7.2)
 * HHVM
