@@ -6,6 +6,10 @@ php:
     - 7.1
     - 7.2
 
+env:
+    - COMPOSER_OPTS=""
+    - COMPOSER_OPTS="--prefer-lowest"
+
 matrix:
     include:
         - php: hhvm
@@ -13,14 +17,13 @@ matrix:
         - php: hhvm
           dist: trusty
           env: COMPOSER_OPTS="--prefer-lowest"
+    exclude:
+        - php: 5.6
+          env: COMPOSER_OPTS="--prefer-lowest"
     fast_finish: true
 
 sudo: false
 
-env:
-    - COMPOSER_OPTS=""
-    - COMPOSER_OPTS="--prefer-lowest"
-    
 before_install:
     - if [[ "$TRAVIS_PHP_VERSION" = "7.0" ]]; then composer require --dev --no-update phpunit/phpunit ~5 ; fi
     - if [[ "$TRAVIS_PHP_VERSION" = "7.1" ]]; then composer require --dev --no-update phpunit/phpunit ~5 ; fi
