@@ -5,18 +5,15 @@ php:
     - 7.0
     - 7.1
     - 7.2
+    - nightly
 
 env:
     - COMPOSER_OPTS=""
     - COMPOSER_OPTS="--prefer-lowest"
 
 matrix:
-    include:
-        - php: hhvm
-          dist: trusty
-        - php: hhvm
-          dist: trusty
-          env: COMPOSER_OPTS="--prefer-lowest"
+    allow_failures:
+        - php: nightly
     exclude:
         - php: 5.6
           env: COMPOSER_OPTS="--prefer-lowest"
