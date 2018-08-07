@@ -135,7 +135,6 @@ class Parser
      */
     public function setStream($stream)
     {
-        var_dump(feof($stream));
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
         if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true) || $meta['eof']) {
