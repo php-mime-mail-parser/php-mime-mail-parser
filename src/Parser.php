@@ -135,13 +135,9 @@ class Parser
      */
     public function setStream($stream)
     {
+        var_dump(feof($stream));
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        var_dump($meta);
-        var_dump(!$meta);
-        var_dump(!$meta['mode']);
-        var_dump(!in_array($meta['mode'], self::$readableModes, true));
-        var_dump($meta['eof']);
         if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true) || $meta['eof']) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
