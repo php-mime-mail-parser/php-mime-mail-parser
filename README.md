@@ -37,7 +37,8 @@ The following versions of PHP are supported:
 
 * PHP 5.6
 * PHP 7 (7.0, 7.1, 7.2)
-* HHVM
+
+HHVM, PHP 5.4 and PHP 5.5 are only supported until version 2.11.1 
 
 ### How to install requirements in Ubuntu, Debian & derivatives
 ```
