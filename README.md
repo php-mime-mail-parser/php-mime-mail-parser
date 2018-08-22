@@ -1,4 +1,4 @@
-# php-mime-mail-parser
+# php-mime-mail-parser test
 
 A fully tested mailparse extension wrapper for PHP 5.6+
 
