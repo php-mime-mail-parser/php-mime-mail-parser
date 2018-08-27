@@ -110,6 +110,13 @@ class Parser
      */
     public function setPath($path)
     {
+        $file = fopen($path, 'a+');
+        fseek($file, -1, SEEK_END);
+        if (fread($file, 1) != "\n") {
+            fwrite($file, PHP_EOL);
+        }
+        fclose($file);
+
         // should parse message incrementally from file
         $this->resource = mailparse_msg_parse_file($path);
         $this->stream = fopen($path, 'r');
@@ -142,6 +149,11 @@ class Parser
             while (!feof($stream)) {
                 fwrite($tmp_fp, fread($stream, 2028));
             }
+
+            if (fread($tmp_fp, 1) != "\n") {
+                fwrite($tmp_fp, PHP_EOL);
+            }
+
             fseek($tmp_fp, 0);
             $this->stream = &$tmp_fp;
         } else {
@@ -173,6 +185,11 @@ class Parser
         if (empty($data)) {
             throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
         }
+
+        if (substr($data, -1) != "\n") {
+            $data = $data . PHP_EOL;
+        }
+
         $this->resource = mailparse_msg_create();
         // does not parse incrementally, fast memory hog might explode
         mailparse_msg_parse($this->resource, $data);
