@@ -1887,4 +1887,17 @@ mini plain body';
         $ParserByStream->setStream($temp);
         $this->assertContains('mini plain body', $ParserByStream->getMessageBody('text'));
     }
+
+    public function testCharsetNotSupportedByMBString()
+    {
+        // Init
+        $file = __DIR__ . '/mails/issue212';
+
+        $Parser = new Parser();
+        $Parser->setPath($file);
+        $this->assertEquals(
+            'Automatyczna odpowiedź: Piotrze, test z 6 miesięcy nauki ciągle na Ciebie czeka', 
+            $Parser->getHeader('subject')
+        );
+    }
 }
