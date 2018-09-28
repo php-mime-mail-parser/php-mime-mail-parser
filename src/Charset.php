@@ -319,7 +319,7 @@ class Charset implements CharsetManager
             return $encodedString;
         } elseif (function_exists('mb_convert_encoding') && strtolower($charset) == 'iso-2022-jp') {
             return mb_convert_encoding($encodedString, 'UTF-8', 'ISO-2022-JP-MS');
-        } elseif (function_exists('mb_convert_encoding')) {
+        } elseif (function_exists('mb_convert_encoding') && array_search($charset, mb_list_encodings()) !== false) {
             return mb_convert_encoding($encodedString, 'UTF-8', $this->getCharsetAlias($charset));
         } else {
             return iconv($this->getCharsetAlias($charset), 'UTF-8//TRANSLIT//IGNORE', $encodedString);
