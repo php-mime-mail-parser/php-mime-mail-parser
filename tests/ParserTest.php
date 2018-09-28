@@ -1896,7 +1896,7 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setPath($file);
         $this->assertEquals(
-            'Automatyczna odpowiedź: Piotrze, test z 6 miesięcy nauki ciągle na Ciebie czeka', 
+            'Automatyczna odpowiedź: Piotrze, test z 6 miesięcy nauki ciągle na Ciebie czeka',
             $Parser->getHeader('subject')
         );
     }
