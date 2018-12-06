@@ -51,6 +51,11 @@ class Attachment
     protected $mimePartStr;
 
     /**
+     * @var string(32) $md5
+     */
+    protected $md5 = null;
+
+    /**
      * Attachment constructor.
      *
      * @param string   $filename
@@ -180,4 +185,68 @@ class Attachment
     {
         return $this->mimePartStr;
     }
+
+    /**
+     * Get md5 hash of attachment
+     */
+    public function getMd5() {
+        if ( is_null($this->md5) )
+            $this->md5 = md5($this->getContent());
+        return $this->md5;
+    }
+
+    /**
+     * Save the attachment individually
+     */
+    public function save(
+        $attach_dir,
+        $include_inline = true,
+        $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
+    ) {
+
+
+        if ( "" == stream_get_contents($this->stream) ) {
+            $stream = fopen('php://memory', 'r+');
+            fwrite($stream, $this->getContent());
+            rewind($stream);
+            $this->stream = $stream;
+        }
+        
+        // Determine filename
+        switch ($filenameStrategy) {
+            case Parser::ATTACHMENT_RANDOM_FILENAME:
+                $attachment_path = tempnam($attach_dir, '');
+                break;
+            case Parser::ATTACHMENT_DUPLICATE_THROW:
+            case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
+                $attachment_path = $attach_dir.$this->getFilename();
+                break;
+            default:
+                throw new Exception('Invalid filename strategy argument provided.');
+        }
+
+        // Handle duplicate filename
+        if (file_exists($attachment_path)) {
+            switch ($filenameStrategy) {
+                case Parser::ATTACHMENT_DUPLICATE_THROW:
+                    throw new Exception('Could not create file for attachment: duplicate filename.');
+                case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
+                    $attachment_path = tempnam($attach_dir, $this->getFilename());
+                    break;
+            }
+        }
+
+        /** @var resource $fp */
+        if ($fp = fopen($attachment_path, 'w')) {
+            while ($bytes = $this->read()) {
+                fwrite($fp, $bytes);
+            }
+            fclose($fp);
+            return realpath($attachment_path);
+        } else {
+            throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
+        }
+    }
+
+
 }
