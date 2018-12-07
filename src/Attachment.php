@@ -191,7 +191,7 @@ class Attachment
      */
     public function getMd5()
     {
-        if ( is_null($this->md5) ) {
+        if (is_null($this->md5)) {
             $this->md5 = md5($this->getContent());
         }
         return $this->md5;

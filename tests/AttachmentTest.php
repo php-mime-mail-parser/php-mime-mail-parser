@@ -21,16 +21,16 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
         //CLEAN OUT OLD DIRECTORY
         $old_files = glob($save_dir.'*');
-        foreach ($old_files as $old_file ) {
+        foreach ($old_files as $old_file) {
             unlink($old_file);
         }
 
         $emails =  glob('tests/mails/iateadonut001*');
-        foreach ( $emails as $email ) {
+        foreach ($emails as $email) {
 
             $fp = fopen($email, 'r');
             $contents = '';
-            while ( ! feof($fp)) {
+            while (!feof($fp)) {
                 $contents .= fread($fp, 1024);
             }
 
@@ -39,12 +39,11 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
             $attachments = $message->getAttachments();
             foreach ($attachments as $a) {
-                $file_path = $a->save( $save_dir );
+                $file_path = $a->save($save_dir);
                 $a_md5 = $a->getMd5();
                 $f_md5 = md5_file($file_path);
-                $this->assertEquals($a_md5, $f_md5, $a_md5 . ' - from $a; ' . $f_md5 . ' - from file - ' . $file_path );
+                $this->assertEquals($a_md5, $f_md5, $a_md5 . ' - from $a; ' . $f_md5 . ' - from file - ' . $file_path);
             }
-            
         }  
 
     }
@@ -78,10 +77,9 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
                 $c_md5 = md5($a->getContent());
                 $a_md5 = $a->getMd5();
                 $f_md5 = md5_file($file_path);
-                $this->assertEquals($a_md5, $f_md5, $a_md5 . ' - from $a; ' . $f_md5 . ' - from file - ' . $file_path );
-                $this->assertEquals($c_md5, $f_md5, $c_md5 . ' - from $a->getContent(); ' . $f_md5 . ' - from file - ' . $file_path );
+                $this->assertEquals($a_md5, $f_md5, $a_md5 . ' - from $a; ' . $f_md5 . ' - from file - ' . $file_path);
+                $this->assertEquals($c_md5, $f_md5, $c_md5 . ' - from $a->getContent(); ' . $f_md5 . ' - from file - ' . $file_path);
             } 
         }
     }
-
 }
