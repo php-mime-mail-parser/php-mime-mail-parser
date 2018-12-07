@@ -26,7 +26,6 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
         $emails = glob('tests/mails/iateadonut001*');
         foreach ($emails as $email) {
-
             $fp = fopen($email, 'r');
             $contents = '';
             while (!feof($fp)) {
@@ -57,7 +56,7 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
             unlink($old_file);
         }
 
-        $emails =  glob('tests/mails/iateadonut001*');
+        $emails = glob('tests/mails/iateadonut001*');
         foreach ($emails as $email) {
             $fp = fopen($email, 'r');
             $contents = '';
