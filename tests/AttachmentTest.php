@@ -16,7 +16,6 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
     public function testSaveFileFromAttachment()
     {
-
         $save_dir = 'tests/images/tmp/';
 
         //CLEAN OUT OLD DIRECTORY
