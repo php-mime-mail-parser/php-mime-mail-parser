@@ -189,9 +189,11 @@ class Attachment
     /**
      * Get md5 hash of attachment
      */
-    public function getMd5() {
-        if ( is_null($this->md5) )
+    public function getMd5()
+    {
+        if ( is_null($this->md5) ) {
             $this->md5 = md5($this->getContent());
+        }
         return $this->md5;
     }
 
