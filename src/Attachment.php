@@ -204,14 +204,6 @@ class Attachment
         $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
 
-
-        if ( "" == stream_get_contents($this->stream) ) {
-            $stream = fopen('php://memory', 'r+');
-            fwrite($stream, $this->getContent());
-            rewind($stream);
-            $this->stream = $stream;
-        }
-        
         // Determine filename
         switch ($filenameStrategy) {
             case Parser::ATTACHMENT_RANDOM_FILENAME:
