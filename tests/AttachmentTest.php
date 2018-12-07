@@ -11,7 +11,7 @@ use PhpMimeMailParser\Exception;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-class ParserTest extends \PHPUnit\Framework\TestCase
+class AttachmentTest extends \PHPUnit\Framework\TestCase
 {
 
     public function test_save_file_from_attachment() {
