@@ -17,13 +17,11 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
     public function testSaveFileFromAttachment()
     {
         $save_dir = 'tests/images/tmp/';
-
         //CLEAN OUT OLD DIRECTORY
         $old_files = glob($save_dir.'*');
         foreach ($old_files as $old_file) {
             unlink($old_file);
         }
-
         $emails = glob('tests/mails/iateadonut001*');
         foreach ($emails as $email) {
             $fp = fopen($email, 'r');
@@ -31,10 +29,8 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
             while (!feof($fp)) {
                 $contents .= fread($fp, 1024);
             }
-
             $message = new Parser();
             $message->setText($contents);
-
             $attachments = $message->getAttachments();
             foreach ($attachments as $a) {
                 $file_path = $a->save($save_dir);
@@ -55,7 +51,6 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         foreach ($old_files as $old_file) {
             unlink($old_file);
         }
-
         $emails = glob('tests/mails/iateadonut001*');
         foreach ($emails as $email) {
             $fp = fopen($email, 'r');
@@ -63,12 +58,9 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
             while (!feof($fp)) {
                 $contents .= fread($fp, 1024);
             }
-
             $message = new Parser();
             $message->setText($contents);
-
             $message->saveAttachments($save_dir);
-
             $attachments = $message->getAttachments();
             foreach ($attachments as $a) {
                 $file_path = $save_dir . $a->getFilename();
