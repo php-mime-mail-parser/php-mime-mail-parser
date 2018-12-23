@@ -189,7 +189,7 @@ class Attachment
         $include_inline = true,
         $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
-
+        $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         if (!is_dir($attach_dir)) {
             mkdir($attach_dir);
         }
