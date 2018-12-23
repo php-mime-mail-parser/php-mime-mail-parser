@@ -51,11 +51,6 @@ class Attachment
     protected $mimePartStr;
 
     /**
-     * @var string(32) $md5
-     */
-    protected $md5 = null;
-
-    /**
      * Attachment constructor.
      *
      * @param string   $filename
@@ -187,17 +182,6 @@ class Attachment
     }
 
     /**
-     * Get md5 hash of attachment
-     */
-    public function getMd5()
-    {
-        if (is_null($this->md5)) {
-            $this->md5 = md5($this->getContent());
-        }
-        return $this->md5;
-    }
-
-    /**
      * Save the attachment individually
      */
     public function save(
@@ -205,6 +189,10 @@ class Attachment
         $include_inline = true,
         $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
+
+        if (!is_dir($attach_dir)) {
+            mkdir($attach_dir);
+        }
 
         // Determine filename
         switch ($filenameStrategy) {

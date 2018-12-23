@@ -150,10 +150,10 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
-        $attachDir = __DIR__ . '/mails/m0026_attachments';
+        $attachDir = __DIR__ . '/mails/m0026_attachments/';
         $Parser->saveAttachments($attachDir, false);
 
-        $attachmentFiles = glob($attachDir . DIRECTORY_SEPARATOR. 'ATT*');
+        $attachmentFiles = glob($attachDir . '*');
 
         // Clean up attachments dir
         array_map('unlink', $attachmentFiles);

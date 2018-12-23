@@ -580,10 +580,6 @@ class Parser
             return false;
         }
 
-        if (!is_dir($attach_dir)) {
-            mkdir($attach_dir);
-        }
-
         $attachments_paths = [];
         foreach ($attachments as $attachment) {
             $attachments_paths[] = $attachment->save($attach_dir, $include_inline, $filenameStrategy);
