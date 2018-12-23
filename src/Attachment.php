@@ -229,6 +229,4 @@ class Attachment
             throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
         }
     }
-
-
 }
