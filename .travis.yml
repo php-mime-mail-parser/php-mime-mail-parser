@@ -21,6 +21,7 @@ before_script:
     - ./configure
     - make
     - sudo make install
+    - cd ..
     - composer self-update
     - composer update $COMPOSER_OPTS
 
