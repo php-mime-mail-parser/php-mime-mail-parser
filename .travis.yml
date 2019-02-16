@@ -1,8 +1,6 @@
 language: php
 
 php:
-    - 5.6
-    - 7.0
     - 7.1
     - 7.2
     - 7.3
@@ -15,19 +13,12 @@ env:
 matrix:
     allow_failures:
         - php: nightly
-    exclude:
-        - php: 5.6
-          env: COMPOSER_OPTS="--prefer-lowest"
     fast_finish: true
 
 sudo: false
 
-before_install:
-    - if [[ "$TRAVIS_PHP_VERSION" != "5.6" ]]; then composer require --dev --no-update phpunit/phpunit ~6 ; fi
-
 before_script:
-    - if [[ "$TRAVIS_PHP_VERSION" = "5.6" ]]; then pecl install mailparse-2.1.6 ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" != "5.6" ]]; then pecl install mailparse ; fi
+    - pecl install mailparse
     - composer self-update
     - composer update $COMPOSER_OPTS
 
