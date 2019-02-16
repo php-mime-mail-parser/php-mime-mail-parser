@@ -19,6 +19,13 @@ sudo: false
 
 before_script:
     - pecl install mailparse
+    - if [[ "$TRAVIS_PHP_VERSION" != "7.3" ]]; then pecl install mailparse ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then git clone https://github.com/php/pecl-mail-mailparse.git ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then cd pecl-mail-mailparse ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then phpize ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then ./configure ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then make ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then sudo make install ; fi
     - composer self-update
     - composer update $COMPOSER_OPTS
 
