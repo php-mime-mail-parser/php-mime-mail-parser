@@ -21,11 +21,11 @@ before_script:
     - ./configure
     - sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
     - make
+    - sudo mv modules/mailparse.so /home/travis/.phpenv/versions/7.3.2/lib/php/extensions/no-debug-zts-20180731/
     - echo 'extension=mailparse.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - php --ini
     - php -r 'phpinfo();' | grep extension_dir
     - ls /usr/lib
-    - sudo mv modules/mailparse.so /usr/lib/php/20160303/
     - cd ..
     - composer self-update
     - composer update $COMPOSER_OPTS
