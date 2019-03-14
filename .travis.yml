@@ -22,6 +22,7 @@ before_script:
     - sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
     - make
     - php --ini
+    - ls /usr/lib/php/
     - sudo mv modules/mailparse.so /usr/lib/php/20160303/
     - cd ..
     - composer self-update
