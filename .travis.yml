@@ -23,9 +23,6 @@ before_script:
     - make
     - sudo mv modules/mailparse.so /home/travis/.phpenv/versions/7.3.2/lib/php/extensions/no-debug-zts-20180731/
     - echo 'extension=mailparse.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - php --ini
-    - php -r 'phpinfo();' | grep extension_dir
-    - ls /usr/lib
     - cd ..
     - composer self-update
     - composer update $COMPOSER_OPTS
