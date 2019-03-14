@@ -13,8 +13,7 @@ matrix:
     fast_finish: true
 
 sudo: false
-before_script: 
-before_script:
+before_install: 
     - git clone https://github.com/php/pecl-mail-mailparse.git
     - cd pecl-mail-mailparse
     - phpize
@@ -23,6 +22,8 @@ before_script:
     - make
     - sudo mv modules/mailparse.so /home/travis/.phpenv/versions/7.3.2/lib/php/extensions/no-debug-zts-20180731/
     - echo 'extension=mailparse.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+
+before_script:
     - cd ..
     - composer self-update
     - composer update $COMPOSER_OPTS
