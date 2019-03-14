@@ -13,7 +13,7 @@ matrix:
     fast_finish: true
 
 sudo: false
-
+before_script: 
 before_script:
     - git clone https://github.com/php/pecl-mail-mailparse.git
     - cd pecl-mail-mailparse
@@ -21,8 +21,9 @@ before_script:
     - ./configure
     - sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
     - make
+    - echo 'extension=mailparse.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
     - php --ini
-    - ls /usr/lib/php/
+    - ls /usr/lib
     - sudo mv modules/mailparse.so /usr/lib/php/20160303/
     - cd ..
     - composer self-update
