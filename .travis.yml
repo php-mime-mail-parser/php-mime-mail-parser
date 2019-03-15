@@ -17,9 +17,9 @@ matrix:
 
 sudo: false
 before_install: 
-    - if [[ "$TRAVIS_PHP_VERSION" != "7.3" AND "$TRAVIS_PHP_VERSION" != "nightly") ]]; then pecl install mailparse ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" OR "$TRAVIS_PHP_VERSION" = "nightly") ]]; then chmod +x ./compile_mailparse.sh ; fi
-    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" OR "$TRAVIS_PHP_VERSION" = "nightly") ]]; then ./compile_mailparse.sh ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" != "7.3" && "$TRAVIS_PHP_VERSION" != "nightly") ]]; then pecl install mailparse ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" || "$TRAVIS_PHP_VERSION" = "nightly") ]]; then chmod +x ./compile_mailparse.sh ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" || "$TRAVIS_PHP_VERSION" = "nightly") ]]; then ./compile_mailparse.sh ; fi
 
 before_script:
     - composer self-update
