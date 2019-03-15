@@ -18,6 +18,7 @@ matrix:
 sudo: false
 before_install: 
     - if [[ "$TRAVIS_PHP_VERSION" != "7.3" ]]; then pecl install mailparse ; fi
+    - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then chmod +x ./compile_mailparse.sh ; fi
     - if [[ "$TRAVIS_PHP_VERSION" = "7.3" ]]; then ./compile_mailparse.sh ; fi
 
 before_script:
