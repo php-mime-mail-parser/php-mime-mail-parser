@@ -587,29 +587,8 @@ class Parser
 
         $attachments_paths = [];
         foreach ($attachments as $attachment) {
-            // Determine filename
-            switch ($filenameStrategy) {
-                case self::ATTACHMENT_RANDOM_FILENAME:
-                    $attachment_path = tempnam($attach_dir, '');
-                    break;
-                case self::ATTACHMENT_DUPLICATE_THROW:
-                case self::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = $attach_dir.$attachment->getFilename();
-                    break;
-                default:
-                    throw new Exception('Invalid filename strategy argument provided.');
-            }
+            $attachment_path = $this->determineFilename($filenameStrategy);
 
-            // Handle duplicate filename
-            if (file_exists($attachment_path)) {
-                switch ($filenameStrategy) {
-                    case self::ATTACHMENT_DUPLICATE_THROW:
-                        throw new Exception('Could not create file for attachment: duplicate filename.');
-                    case self::ATTACHMENT_DUPLICATE_SUFFIX:
-                        $attachment_path = tempnam($attach_dir, $attachment->getFilename());
-                        break;
-                }
-            }
 
             /** @var resource $fp */
             if ($fp = fopen($attachment_path, 'w')) {
@@ -624,6 +603,41 @@ class Parser
         }
 
         return $attachments_paths;
+    }
+
+    /**
+     * Determiner filename
+     *
+     * @param string $$filenameStrategy
+     *
+     * @return string
+     * @throws Exception
+     */
+    private function determineFilename($filenameStrategy)
+    {
+        switch ($filenameStrategy) {
+            case self::ATTACHMENT_RANDOM_FILENAME:
+                $attachment_path = tempnam($attach_dir, '');
+                break;
+            case self::ATTACHMENT_DUPLICATE_THROW:
+            case self::ATTACHMENT_DUPLICATE_SUFFIX:
+                $attachment_path = $attach_dir.$attachment->getFilename();
+                break;
+            default:
+                throw new Exception('Invalid filename strategy argument provided.');
+        }
+
+        // Handle duplicate filename
+        if (file_exists($attachment_path)) {
+            switch ($filenameStrategy) {
+                case self::ATTACHMENT_DUPLICATE_THROW:
+                    throw new Exception('Could not create file for attachment: duplicate filename.');
+                case self::ATTACHMENT_DUPLICATE_SUFFIX:
+                    $attachment_path = tempnam($attach_dir, $attachment->getFilename());
+                    break;
+            }
+        }
+        return $attachment_path;
     }
 
     /**
