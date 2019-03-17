@@ -187,7 +187,7 @@ class Parser
         }
 
         if (substr($data, -1) != "\n") {
-            $data = $data . PHP_EOL;
+            $data = $data.PHP_EOL;
         }
 
         $this->resource = mailparse_msg_create();
@@ -222,7 +222,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string
+     * @return string|bool
      * @throws Exception
      */
     public function getRawHeader($name)
@@ -231,7 +231,7 @@ class Parser
         if (isset($this->parts[1])) {
             $headers = $this->getPart('headers', $this->parts[1]);
 
-            return (isset($headers[$name])) ? $headers[$name] : false;
+            return isset($headers[$name]) ? $headers[$name] : false;
         } else {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
@@ -244,7 +244,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string
+     * @return string|bool
      */
     public function getHeader($name)
     {
@@ -576,9 +576,6 @@ class Parser
         $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
         $attachments = $this->getAttachments($include_inline);
-        if (empty($attachments)) {
-            return false;
-        }
 
         $attachments_paths = [];
         foreach ($attachments as $attachment) {

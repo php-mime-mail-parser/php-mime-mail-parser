@@ -1,6 +1,9 @@
 # php-mime-mail-parser
 
-A fully tested mailparse extension wrapper for PHP 5.6+
+A fully tested email parser for PHP 7.1+ (mailparse extension wrapper).
+
+It's the most effective php email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
+Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](https://tools.ietf.org/html/rfc2822), [5322](https://tools.ietf.org/html/rfc5322).
 
 [![Latest Version](https://img.shields.io/packagist/v/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
@@ -10,6 +13,7 @@ A fully tested mailparse extension wrapper for PHP 5.6+
 
 This extension can be used to...
  * Parse and read email from Postfix
+ * For reading messages (Filename extension: eml)
  * Create webmail 
  * Store email information such a subject, HTML body, attachments, and etc. into a database
 
@@ -35,46 +39,43 @@ To install the latest version of PHP MIME Mail Parser, run the command below:
 
 The following versions of PHP are supported:
 
-* PHP 5.6
-* PHP 7 (7.0, 7.1, 7.2)
+* PHP 7.1
+* PHP 7.2
+* PHP 7.3
 
 HHVM, PHP 5.4 and PHP 5.5 are only supported until version 2.11.1 
+PHP 5.6 and PHP 7.0 are only supported until version 3.0.3
 
-### How to install requirements in Ubuntu, Debian & derivatives
+Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
+
+### How to install mailparse extension in Ubuntu, Debian & derivatives
 ```
 sudo apt install php-cli php-mailparse
 ```
 
-### How to install requirements in others platforms
+### How to install mailparse extension in others platforms
 ```
 sudo apt install php-cli php-pear php-dev php-mbstring
+pecl install mailparse
 ```
 
-Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse" else install it:
-* PHP version > 7.0: mailparse
-* PHP version < 7.0: mailparse 2.1.6
+### How to install mailparse from source (required for PHP 7.3)
 
-Follow this steps to install mailparse:
-
-* Compile in the temp folder the extension mailparse or mailparse-2.1.6 (workaround because pecl install doesn't work yet)
+AAAAMMDD should be `php-config --extension-dir`
 ```
-cd
-pecl download mailparse
-tar -xvf mailparse-3.0.2.tgz 
-cd mailparse-3.0.2/
+git clone https://github.com/php/pecl-mail-mailparse.git
+cd pecl-mail-mailparse
 phpize
 ./configure
 sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
 make
-sudo mv modules/mailparse.so /usr/lib/php/20160303/
-```
-* Add the extension mailparse and activate it
-```
+sudo mv modules/mailparse.so /usr/lib/php/AAAAMMDD/
 echo "extension=mailparse.so" | sudo tee /etc/php/7.1/mods-available/mailparse.ini
 sudo phpenmod mailparse
 ```
 
-On Windows, you need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line "extension=php_mailparse.dll" to php.ini accordingly.
+### How to install mailparse extension in Windows
+You need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line "extension=php_mailparse.dll" to php.ini accordingly.
 
 ## How do I use it?
 

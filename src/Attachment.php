@@ -133,7 +133,7 @@ class Attachment
     /**
      * Get a handle to the stream
      *
-     * @return stream
+     * @return resource
      */
     public function getStream()
     {
