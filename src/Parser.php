@@ -580,65 +580,12 @@ class Parser
             return false;
         }
 
-        $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-        if (!is_dir($attach_dir)) {
-            mkdir($attach_dir);
-        }
-
         $attachments_paths = [];
         foreach ($attachments as $attachment) {
-            $attachment_path = $this->determineFilename($attach_dir, $filenameStrategy, $attachment);
-
-            /** @var resource $fp */
-            if ($fp = fopen($attachment_path, 'w')) {
-                while ($bytes = $attachment->read()) {
-                    fwrite($fp, $bytes);
-                }
-                fclose($fp);
-                $attachments_paths[] = realpath($attachment_path);
-            } else {
-                throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
-            }
+            $attachments_paths[] = $attachment->save($attach_dir, $include_inline, $filenameStrategy);
         }
 
         return $attachments_paths;
-    }
-
-    /**
-     * Determine filename
-     *
-     * @param string $attach_dir
-     * @param string $filenameStrategy
-     * @param Attachment $attachment
-     *
-     * @return string
-     * @throws Exception
-     */
-    private function determineFilename($attach_dir, $filenameStrategy, $attachment)
-    {
-        switch ($filenameStrategy) {
-            case self::ATTACHMENT_RANDOM_FILENAME:
-                $attachment_path = tempnam($attach_dir, '');
-                break;
-            case self::ATTACHMENT_DUPLICATE_THROW:
-            case self::ATTACHMENT_DUPLICATE_SUFFIX:
-                $attachment_path = $attach_dir.$attachment->getFilename();
-                break;
-            default:
-                throw new Exception('Invalid filename strategy argument provided.');
-        }
-
-        // Handle duplicate filename
-        if (file_exists($attachment_path)) {
-            switch ($filenameStrategy) {
-                case self::ATTACHMENT_DUPLICATE_THROW:
-                    throw new Exception('Could not create file for attachment: duplicate filename.');
-                case self::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = tempnam($attach_dir, $attachment->getFilename());
-                    break;
-            }
-        }
-        return $attachment_path;
     }
 
     /**

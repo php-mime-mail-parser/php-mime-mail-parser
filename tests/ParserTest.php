@@ -150,10 +150,10 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
-        $attachDir = __DIR__ . '/mails/m0026_attachments';
+        $attachDir = __DIR__ . '/mails/m0026_attachments/';
         $Parser->saveAttachments($attachDir, false);
 
-        $attachmentFiles = glob($attachDir . DIRECTORY_SEPARATOR. 'ATT*');
+        $attachmentFiles = glob($attachDir . '*');
 
         // Clean up attachments dir
         array_map('unlink', $attachmentFiles);
@@ -191,6 +191,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $Parser->setText(file_get_contents($file));
         $Parser->getMessageBody('text');
         $Parser->getAttachments();
+        $this->assertTrue(true);
     }
 
     public function testCreatingMoreThanOneInstanceOfParser()
@@ -198,6 +199,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $file = __DIR__.'/mails/issue84';
         (new Parser())->setPath($file)->getMessageBody();
         (new Parser())->setPath($file)->getMessageBody();
+        $this->assertTrue(true);
     }
 
     public function testDecodeCharsetFailedIsIgnored()
