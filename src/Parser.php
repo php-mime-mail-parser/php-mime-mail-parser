@@ -607,7 +607,9 @@ class Parser
     /**
      * Determine filename
      *
+     * @param string $attach_dir
      * @param string $filenameStrategy
+     * @param Attachment $attachment
      *
      * @return string
      * @throws Exception
