@@ -187,7 +187,7 @@ class Parser
         }
 
         if (substr($data, -1) != "\n") {
-            $data = $data . PHP_EOL;
+            $data = $data.PHP_EOL;
         }
 
         $this->resource = mailparse_msg_create();
