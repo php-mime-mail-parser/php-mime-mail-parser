@@ -587,8 +587,7 @@ class Parser
 
         $attachments_paths = [];
         foreach ($attachments as $attachment) {
-            $attachment_path = $this->determineFilename($filenameStrategy);
-
+            $attachment_path = $this->determineFilename($attach_dir, $filenameStrategy, $attachment);
 
             /** @var resource $fp */
             if ($fp = fopen($attachment_path, 'w')) {
@@ -606,14 +605,14 @@ class Parser
     }
 
     /**
-     * Determiner filename
+     * Determine filename
      *
-     * @param string $$filenameStrategy
+     * @param string $filenameStrategy
      *
      * @return string
      * @throws Exception
      */
-    private function determineFilename($filenameStrategy)
+    private function determineFilename($attach_dir, $filenameStrategy, $attachment)
     {
         switch ($filenameStrategy) {
             case self::ATTACHMENT_RANDOM_FILENAME:
