@@ -222,7 +222,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string
+     * @return string|bool
      * @throws Exception
      */
     public function getRawHeader($name)
@@ -231,7 +231,7 @@ class Parser
         if (isset($this->parts[1])) {
             $headers = $this->getPart('headers', $this->parts[1]);
 
-            return (isset($headers[$name])) ? $headers[$name] : false;
+            return isset($headers[$name]) ? $headers[$name] : false;
         } else {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
