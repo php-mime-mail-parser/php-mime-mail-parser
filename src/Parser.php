@@ -576,9 +576,6 @@ class Parser
         $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
         $attachments = $this->getAttachments($include_inline);
-        if (empty($attachments)) {
-            return false;
-        }
 
         $attachments_paths = [];
         foreach ($attachments as $attachment) {
