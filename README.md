@@ -44,7 +44,7 @@ The following versions of PHP are supported:
 * PHP 7.3
 
 HHVM, PHP 5.4 and PHP 5.5 are only supported until version 2.11.1 
-PHP 5.6 and PHP 7.0 are only supported until version 3.0.3
+PHP 5.6 and PHP 7.0 are only supported until version 3.0.4
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
 
