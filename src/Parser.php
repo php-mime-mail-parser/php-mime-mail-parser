@@ -110,12 +110,14 @@ class Parser
      */
     public function setPath($path)
     {
-        $file = fopen($path, 'a+');
-        fseek($file, -1, SEEK_END);
-        if (fread($file, 1) != "\n") {
-            fwrite($file, PHP_EOL);
+        if (is_writable($path)) {
+            $file = fopen($path, 'a+');
+            fseek($file, -1, SEEK_END);
+            if (fread($file, 1) != "\n") {
+                fwrite($file, PHP_EOL);
+            }
+            fclose($file);
         }
-        fclose($file);
 
         // should parse message incrementally from file
         $this->resource = mailparse_msg_parse_file($path);
