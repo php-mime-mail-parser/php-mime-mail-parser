@@ -136,6 +136,16 @@ Get the subject:
 $subject = $parser->getHeader('subject');
 ```
 
+Get other headers:
+
+```php
+$stringHeaders = $parser->getHeadersRaw();
+// return all headers as a string, no charset conversion
+
+$arrayHeaders = $parser->getHeaders();
+// return all headers as an array, with charset conversion
+```
+
 ### Get the body of the message
 
 ```php
@@ -150,34 +160,45 @@ $htmlEmbedded = $parser->getMessageBody('htmlEmbedded');
 
 ```
 
+### Get attachments
 
+Save all attachments in a directory
 
 ```php
+$parser->saveAttachments('/path/to/save/attachments/');
+// return all attachments saved in the directory (include inline attachments)
+
+$parser->saveAttachments('/path/to/save/attachments/', false);
+// return all attachments saved in the directory (exclude inline attachments)
+
+```
+
+Get all attachments
+
+```php
+$attachments = $parser->getAttachments();
+// return an array of all attachments (include inline attachments)
+
+$attachments = $parser->getAttachments(false);
+// return an array of all attachments (exclude inline attachments)
+```
 
 
-
-$stringHeaders = $Parser->getHeadersRaw();	// Get all headers as a string, no charset conversion
-$arrayHeaders = $Parser->getHeaders();		// Get all headers as an array, with charset conversion
-
-// Pass in a writeable path to save attachments
-$attach_dir = '/path/to/save/attachments/'; 	// Be sure to include the trailing slash
-$include_inline = true;  			// Optional argument to include inline attachments (default: true)
-$Parser->saveAttachments($attach_dir [,$include_inline]);
-
-// Get an array of Attachment items from $Parser
-$attachments = $Parser->getAttachments([$include_inline]);
-
-//  Loop through all the Attachments
-if (count($attachments) > 0) {
-	foreach ($attachments as $attachment) {
-		echo 'Filename : '.$attachment->getFilename().'<br />'; // logo.jpg
-		echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />'; // 1000
-		echo 'Filetype : '.$attachment->getContentType().'<br />'; // image/jpeg
-		echo 'MIME part string : '.$attachment->getMimePartStr().'<br />'; // (the whole MIME part of the attachment)
-	}
+Loop through all the Attachments
+```php
+foreach ($attachments as $attachment) {
+    echo 'Filename : '.$attachment->getFilename().'<br />';
+    // return logo.jpg
+    
+    echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />';
+    // return 1000
+    
+    echo 'Filetype : '.$attachment->getContentType().'<br />';
+    // return image/jpeg
+    
+    echo 'MIME part string : '.$attachment->getMimePartStr().'<br />';
+    // return the whole MIME part of the attachment
 }
-
-?>
 ```
 
 Next you need to forward emails to this script above. For that I'm using [Postfix](http://www.postfix.org/) like a mail server, you need to configure /etc/postfix/master.cf
