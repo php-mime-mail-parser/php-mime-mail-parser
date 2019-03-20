@@ -201,6 +201,8 @@ foreach ($attachments as $attachment) {
 }
 ```
 
+### Postfix configuration to manager email from a mail server
+
 Next you need to forward emails to this script above. For that I'm using [Postfix](http://www.postfix.org/) like a mail server, you need to configure /etc/postfix/master.cf
 
 Add this line at the end of the file (specify myhook to send all emails to the script test.php)
