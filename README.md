@@ -89,42 +89,72 @@ You need to download mailparse DLL from http://pecl.php.net/package/mailparse an
 
 ## How do I use it?
 
+### Loading an email
+
+You can load an email with 4 differents ways. You only need to use one of the following four.
+
 ```php
-<?php
-// Include the library first
 require_once __DIR__.'/vendor/autoload.php';
 
-$path = 'path/to/mail.txt';
-$Parser = new PhpMimeMailParser\Parser();
+$path = 'path/to/email.eml';
+$parser = new PhpMimeMailParser\Parser();
 
-// There are four methods available to indicate which mime mail to parse.
-// You only need to use one of the following four:
+// 1. Specify a file path (string)
+$parser->setPath($path); 
 
-// 1. Specify a file path to the mime mail.
-$Parser->setPath($path); 
+// 2. Specify the raw mime mail text (string)
+$parser->setText(file_get_contents($path));
 
-// 2. Specify a php file resource (stream) to the mime mail.
-$Parser->setStream(fopen($path, "r"));
+// 3. Specify a php file resource (stream)
+$parser->setStream(fopen($path, "r"));
 
-// 3. Specify the raw mime mail text.
-$Parser->setText(file_get_contents($path));
+// 4.  Specify a stream to work with mail server (stream)
+$parser->setStream(fopen("php://stdin", "r"));
+```
 
-// 4.  Specify a stream to work with mail server
-$Parser->setStream(fopen("php://stdin", "r"));
+### Get the metadata of the message
 
-// Once we've indicated where to find the mail, we can parse out the data
-$to = $Parser->getHeader('to');             // "test" <test@example.com>, "test2" <test2@example.com>
-$addressesTo = $Parser->getAddresses('to'); //Return an array : [["display"=>"test", "address"=>"test@example.com", false],["display"=>"test2", "address"=>"test2@example.com", false]]
+Get the sender and the receiver:
 
-$from = $Parser->getHeader('from');             // "test" <test@example.com>
-$addressesFrom = $Parser->getAddresses('from'); //Return an array : [["display"=>"test", "address"=>"test@example.com", "is_group"=>false]]
+```php
+$rawHeaderTo = $parser->getHeader('to');
+// return "test" <test@example.com>, "test2" <test2@example.com>
 
-$subject = $Parser->getHeader('subject');
+$arrayHeaderTo = $parser->getAddresses('to');
+// return [["display"=>"test", "address"=>"test@example.com", false]]
 
-$text = $Parser->getMessageBody('text');
+$rawHeaderFrom = $parser->getHeader('from');
+// return "test" <test@example.com>
 
-$html = $Parser->getMessageBody('html');
-$htmlEmbedded = $Parser->getMessageBody('htmlEmbedded'); //HTML Body included data
+$arrayHeaderFrom = $parser->getHeader('from');
+// return [["display"=>"test", "address"=>"test@example.com", "is_group"=>false]]
+```
+
+Get the subject:
+
+```php
+$subject = $parser->getHeader('subject');
+```
+
+### Get the body of the message
+
+```php
+$text = $parser->getMessageBody('text');
+// return the text version
+
+$html = $parser->getMessageBody('html');
+// return the html version
+
+$htmlEmbedded = $parser->getMessageBody('htmlEmbedded');
+// return the html version with the embedded contents like images
+
+```
+
+
+
+```php
+
+
 
 $stringHeaders = $Parser->getHeadersRaw();	// Get all headers as a string, no charset conversion
 $arrayHeaders = $Parser->getHeaders();		// Get all headers as an array, with charset conversion
