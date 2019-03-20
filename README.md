@@ -43,13 +43,15 @@ The following versions of PHP are supported:
 * PHP 7.2
 * PHP 7.3
 
+Previous Versions:
+
 | PHP Compatibility  | Version |
 | ------------- | ------------- |
-| HHVM  | 2.11.1  |
-| PHP 5.4  | 2.11.1  |
-| PHP 5.5  | 2.11.1  |
-| PHP 5.6  | 3.0.4  |
-| PHP 7.0  | 3.0.4  |
+| HHVM  | php-mime-mail-parser 2.11.1  |
+| PHP 5.4  | php-mime-mail-parser 2.11.1  |
+| PHP 5.5  | php-mime-mail-parser 2.11.1  |
+| PHP 5.6  | php-mime-mail-parser 3.0.4  |
+| PHP 7.0  | php-mime-mail-parser 3.0.4  |
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
 
