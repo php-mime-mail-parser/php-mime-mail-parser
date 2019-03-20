@@ -48,18 +48,21 @@ PHP 5.6 and PHP 7.0 are only supported until version 3.0.4
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
 
-### How to install mailparse extension in Ubuntu, Debian & derivatives
+
+### Install mailparse extension
+
+#### Ubuntu, Debian & derivatives
 ```
 sudo apt install php-cli php-mailparse
 ```
 
-### How to install mailparse extension in others platforms
+#### Others platforms
 ```
 sudo apt install php-cli php-pear php-dev php-mbstring
 pecl install mailparse
 ```
 
-### How to install mailparse from source (required for PHP 7.3)
+#### From source
 
 AAAAMMDD should be `php-config --extension-dir`
 ```
@@ -74,7 +77,7 @@ echo "extension=mailparse.so" | sudo tee /etc/php/7.1/mods-available/mailparse.i
 sudo phpenmod mailparse
 ```
 
-### How to install mailparse extension in Windows
+#### Windows
 You need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line "extension=php_mailparse.dll" to php.ini accordingly.
 
 ## How do I use it?
