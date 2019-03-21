@@ -201,7 +201,7 @@ foreach ($attachments as $attachment) {
 }
 ```
 
-### Postfix configuration to manager email from a mail server
+## Postfix configuration to manage email from a mail server
 
 Next you need to forward emails to this script above. For that I'm using [Postfix](http://www.postfix.org/) like a mail server, you need to configure /etc/postfix/master.cf
 
@@ -233,6 +233,6 @@ Feel free to contribute!
 
 If you report an issue, please provide the raw email that triggered it. This helps us reproduce the issue and fix it more quickly.
 
-### License
+## License
 
 The php-mime-mail-parser/php-mime-mail-parser is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
