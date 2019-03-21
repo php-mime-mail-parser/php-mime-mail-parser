@@ -43,23 +43,33 @@ The following versions of PHP are supported:
 * PHP 7.2
 * PHP 7.3
 
-HHVM, PHP 5.4 and PHP 5.5 are only supported until version 2.11.1 
-PHP 5.6 and PHP 7.0 are only supported until version 3.0.4
+Previous Versions:
+
+| PHP Compatibility  | Version |
+| ------------- | ------------- |
+| HHVM  | php-mime-mail-parser 2.11.1  |
+| PHP 5.4  | php-mime-mail-parser 2.11.1  |
+| PHP 5.5  | php-mime-mail-parser 2.11.1  |
+| PHP 5.6  | php-mime-mail-parser 3.0.4  |
+| PHP 7.0  | php-mime-mail-parser 3.0.4  |
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
 
-### How to install mailparse extension in Ubuntu, Debian & derivatives
+
+### Install mailparse extension
+
+#### Ubuntu, Debian & derivatives
 ```
 sudo apt install php-cli php-mailparse
 ```
 
-### How to install mailparse extension in others platforms
+#### Others platforms
 ```
 sudo apt install php-cli php-pear php-dev php-mbstring
 pecl install mailparse
 ```
 
-### How to install mailparse from source (required for PHP 7.3)
+#### From source
 
 AAAAMMDD should be `php-config --extension-dir`
 ```
@@ -74,71 +84,124 @@ echo "extension=mailparse.so" | sudo tee /etc/php/7.1/mods-available/mailparse.i
 sudo phpenmod mailparse
 ```
 
-### How to install mailparse extension in Windows
+#### Windows
 You need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line "extension=php_mailparse.dll" to php.ini accordingly.
 
 ## How do I use it?
 
+### Loading an email
+
+You can load an email with 4 differents ways. You only need to use one of the following four.
+
 ```php
-<?php
-// Include the library first
 require_once __DIR__.'/vendor/autoload.php';
 
-$path = 'path/to/mail.txt';
-$Parser = new PhpMimeMailParser\Parser();
+$path = 'path/to/email.eml';
+$parser = new PhpMimeMailParser\Parser();
 
-// There are four methods available to indicate which mime mail to parse.
-// You only need to use one of the following four:
+// 1. Specify a file path (string)
+$parser->setPath($path); 
 
-// 1. Specify a file path to the mime mail.
-$Parser->setPath($path); 
+// 2. Specify the raw mime mail text (string)
+$parser->setText(file_get_contents($path));
 
-// 2. Specify a php file resource (stream) to the mime mail.
-$Parser->setStream(fopen($path, "r"));
+// 3. Specify a php file resource (stream)
+$parser->setStream(fopen($path, "r"));
 
-// 3. Specify the raw mime mail text.
-$Parser->setText(file_get_contents($path));
-
-// 4.  Specify a stream to work with mail server
-$Parser->setStream(fopen("php://stdin", "r"));
-
-// Once we've indicated where to find the mail, we can parse out the data
-$to = $Parser->getHeader('to');             // "test" <test@example.com>, "test2" <test2@example.com>
-$addressesTo = $Parser->getAddresses('to'); //Return an array : [["display"=>"test", "address"=>"test@example.com", false],["display"=>"test2", "address"=>"test2@example.com", false]]
-
-$from = $Parser->getHeader('from');             // "test" <test@example.com>
-$addressesFrom = $Parser->getAddresses('from'); //Return an array : [["display"=>"test", "address"=>"test@example.com", "is_group"=>false]]
-
-$subject = $Parser->getHeader('subject');
-
-$text = $Parser->getMessageBody('text');
-
-$html = $Parser->getMessageBody('html');
-$htmlEmbedded = $Parser->getMessageBody('htmlEmbedded'); //HTML Body included data
-
-$stringHeaders = $Parser->getHeadersRaw();	// Get all headers as a string, no charset conversion
-$arrayHeaders = $Parser->getHeaders();		// Get all headers as an array, with charset conversion
-
-// Pass in a writeable path to save attachments
-$attach_dir = '/path/to/save/attachments/'; 	// Be sure to include the trailing slash
-$include_inline = true;  			// Optional argument to include inline attachments (default: true)
-$Parser->saveAttachments($attach_dir [,$include_inline]);
-
-// Get an array of Attachment items from $Parser
-$attachments = $Parser->getAttachments([$include_inline]);
-
-//  Loop through all the Attachments
-if (count($attachments) > 0) {
-	foreach ($attachments as $attachment) {
-		echo 'Filename : '.$attachment->getFilename().'<br />'; // logo.jpg
-		echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />'; // 1000
-		echo 'Filetype : '.$attachment->getContentType().'<br />'; // image/jpeg
-		echo 'MIME part string : '.$attachment->getMimePartStr().'<br />'; // (the whole MIME part of the attachment)
-	}
-}
-
-?>
+// 4.  Specify a stream to work with mail server (stream)
+$parser->setStream(fopen("php://stdin", "r"));
 ```
+
+### Get the metadata of the message
+
+Get the sender and the receiver:
+
+```php
+$rawHeaderTo = $parser->getHeader('to');
+// return "test" <test@example.com>, "test2" <test2@example.com>
+
+$arrayHeaderTo = $parser->getAddresses('to');
+// return [["display"=>"test", "address"=>"test@example.com", false]]
+
+$rawHeaderFrom = $parser->getHeader('from');
+// return "test" <test@example.com>
+
+$arrayHeaderFrom = $parser->getHeader('from');
+// return [["display"=>"test", "address"=>"test@example.com", "is_group"=>false]]
+```
+
+Get the subject:
+
+```php
+$subject = $parser->getHeader('subject');
+```
+
+Get other headers:
+
+```php
+$stringHeaders = $parser->getHeadersRaw();
+// return all headers as a string, no charset conversion
+
+$arrayHeaders = $parser->getHeaders();
+// return all headers as an array, with charset conversion
+```
+
+### Get the body of the message
+
+```php
+$text = $parser->getMessageBody('text');
+// return the text version
+
+$html = $parser->getMessageBody('html');
+// return the html version
+
+$htmlEmbedded = $parser->getMessageBody('htmlEmbedded');
+// return the html version with the embedded contents like images
+
+```
+
+### Get attachments
+
+Save all attachments in a directory
+
+```php
+$parser->saveAttachments('/path/to/save/attachments/');
+// return all attachments saved in the directory (include inline attachments)
+
+$parser->saveAttachments('/path/to/save/attachments/', false);
+// return all attachments saved in the directory (exclude inline attachments)
+
+```
+
+Get all attachments
+
+```php
+$attachments = $parser->getAttachments();
+// return an array of all attachments (include inline attachments)
+
+$attachments = $parser->getAttachments(false);
+// return an array of all attachments (exclude inline attachments)
+```
+
+
+Loop through all the Attachments
+```php
+foreach ($attachments as $attachment) {
+    echo 'Filename : '.$attachment->getFilename().'<br />';
+    // return logo.jpg
+    
+    echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />';
+    // return 1000
+    
+    echo 'Filetype : '.$attachment->getContentType().'<br />';
+    // return image/jpeg
+    
+    echo 'MIME part string : '.$attachment->getMimePartStr().'<br />';
+    // return the whole MIME part of the attachment
+}
+```
+
+### Postfix configuration to manager email from a mail server
 
 Next you need to forward emails to this script above. For that I'm using [Postfix](http://www.postfix.org/) like a mail server, you need to configure /etc/postfix/master.cf
 
