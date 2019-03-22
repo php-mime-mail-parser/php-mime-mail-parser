@@ -97,6 +97,17 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
 
+    public function testCharsetMacCyrillic()
+    {
+        $file = __DIR__ . '/mails/issue230';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertEquals('Scientific conferences, Bulgaria 2019', $Parser->getHeader('subject'));
+        $body = $Parser->getMessageBody('text');
+        $this->assertEquals(is_string($body), true);
+    }
+
     /**
      * Test for being able to extract a text/plain part from an email with 10 attachments.
      * Related to pr #172.
