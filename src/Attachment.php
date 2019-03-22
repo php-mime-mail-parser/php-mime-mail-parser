@@ -141,6 +141,39 @@ class Attachment
     }
 
     /**
+     * Rename a file if it already exists at its destination.
+     * Renaming is done by adding a duplicate number to the fileName. E.g. existingFileName_1.ext.
+     * When 1000 duplicates exist already, renaming the file will switch over to generating a random suffix.
+     *
+     * @param string $dir       Path to the file.
+     * @param string $fileName  File name to change.
+     * @return string           The suffixed fileName or the original fileName when it doesn't exist yet.
+     */
+    protected function suffixFileName(string $dir, string $fileName): string
+    {
+        $pathInfo = pathinfo($dir . DIRECTORY_SEPARATOR . $fileName);
+        $i = 0;
+        while (file_exists($dir . DIRECTORY_SEPARATOR . $fileName)) {
+            if ($i++ <= 1000) {
+                $fileName = $pathInfo['filename'] . "_$i." . $pathInfo['extension'];
+            } else {
+                $fileName = $pathInfo['filename'] . '_' . self::getRandomString() . $pathInfo['extension'];
+            }
+        }
+        return $fileName;
+    }
+
+    /**
+     * Generate a random and unique string.
+     *
+     * @return string Random value.
+     */
+    public static function getRandomString(): string
+    {
+        return uniqid() . '-' . str_replace('.', '', microtime(true));
+    }
+
+    /**
      * Read the contents a few bytes at a time until completed
      * Once read to completion, it always returns false
      *
@@ -213,7 +246,7 @@ class Attachment
                 case Parser::ATTACHMENT_DUPLICATE_THROW:
                     throw new Exception('Could not create file for attachment: duplicate filename.');
                 case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = tempnam($attach_dir, $this->getFilename());
+                    $attachment_path = $attach_dir . $this->suffixFileName($attach_dir, $this->getFilename());
                     break;
             }
         }
