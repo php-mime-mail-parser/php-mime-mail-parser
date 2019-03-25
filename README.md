@@ -126,7 +126,7 @@ $arrayHeaderTo = $parser->getAddresses('to');
 $rawHeaderFrom = $parser->getHeader('from');
 // return "test" <test@example.com>
 
-$arrayHeaderFrom = $parser->getHeader('from');
+$arrayHeaderFrom = $parser->getAddresses('from');
 // return [["display"=>"test", "address"=>"test@example.com", "is_group"=>false]]
 ```
 
