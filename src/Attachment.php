@@ -152,12 +152,16 @@ class Attachment
     protected function suffixFileName(string $dir, string $fileName): string
     {
         $pathInfo = pathinfo($dir . DIRECTORY_SEPARATOR . $fileName);
+        $fileExtension = $pathInfo['extension'] ?? '';
+        if ($fileExtension != '') {
+            $fileExtension = '.'. $fileExtension;
+        }
         $i = 0;
         while (file_exists($dir . DIRECTORY_SEPARATOR . $fileName)) {
-            if ($i++ <= 1000) {
-                $fileName = $pathInfo['filename'] . "_$i." . $pathInfo['extension'];
+            if ($i++ < 1000) {
+                $fileName = $pathInfo['filename'] . "_$i" . $fileExtension;
             } else {
-                $fileName = $pathInfo['filename'] . '_' . self::getRandomString() . $pathInfo['extension'];
+                $fileName = $pathInfo['filename'] . '_' . self::getRandomString() . $fileExtension;
             }
         }
         return $fileName;

@@ -50,4 +50,30 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
         $this->assertCount(1, $attachmentFiles);
     }
+
+    public function testSaveEachAttachmentDuplicateSuffix()
+    {
+        $file = __DIR__ . '/mails/m0002';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachDir = __DIR__ . '/mails/m0002_attachments/';
+        $attachments = $Parser->getAttachments();
+
+        for ($i = 0; $i <= 1001; $i++) {
+            $attachments[0]->save($attachDir);
+        }
+
+        $filePath = "$attachDir/{$attachments[0]->getFilename()}";
+        $this->assertTrue(file_exists($filePath));
+        $this->assertTrue(file_exists("{$filePath}_1000"));
+
+        $attachmentFiles = glob($attachDir . '*');
+
+        // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+
+        $this->assertCount(1002, $attachmentFiles); //Original + 1000 suffixed + 1 random
+    }
 }
