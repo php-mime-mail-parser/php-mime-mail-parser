@@ -320,7 +320,7 @@ class Charset implements CharsetManager
         } elseif (function_exists('mb_convert_encoding') && strtolower($charset) == 'iso-2022-jp') {
             return mb_convert_encoding($encodedString, 'UTF-8', 'ISO-2022-JP-MS');
         } elseif (function_exists('mb_convert_encoding')
-        	&& array_search(strtolower($charset), array_map('strtolower', mb_list_encodings())) !== false
+            && array_search(strtolower($charset), array_map('strtolower', mb_list_encodings())) !== false
         ) {
             return mb_convert_encoding($encodedString, 'UTF-8', $charset);
         } else {
