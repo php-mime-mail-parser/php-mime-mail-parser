@@ -152,7 +152,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         // Default: generate filename suffix, so we should have two files
         $this->assertEquals(2, count($attachmentFiles));
         $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[0]);
-        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[1]);
+        $this->assertEquals(__DIR__ . '/mails/m0026_attachments/ATT00001_1.txt', $attachmentFiles[1]);
     }
 
     public function testAttachmentsWithWrongDirectory()
@@ -173,7 +173,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         // Default: generate filename suffix, so we should have two files
         $this->assertEquals(2, count($attachmentFiles));
         $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[0]);
-        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[1]);
+        $this->assertEquals(__DIR__ . '/mails/m0026_attachments/ATT00001_1.txt', $attachmentFiles[1]);
     }
 
     public function testAttachmentsWithDuplicatesRandom()
@@ -1755,7 +1755,7 @@ variances available &nbsp;</div></body></html>'
     {
 
         $middlewareCalled = false;
-        
+
         //Init
         $file = __DIR__.'/mails/m0001';
 
@@ -1792,7 +1792,7 @@ variances available &nbsp;</div></body></html>'
 
         // executes the middleware
         $middlewareStack->parse($mimePart);
-        
+
         $this->assertTrue($middlewareCallCount == 2, 'Middleware was was not called.');
     }
 

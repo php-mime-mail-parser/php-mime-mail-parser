@@ -151,10 +151,10 @@ class Attachment
      */
     protected function suffixFileName(string $dir, string $fileName): string
     {
-        $pathInfo = pathinfo($dir . DIRECTORY_SEPARATOR . $fileName);
-        $fileExtension = $pathInfo['extension'] ?? '';
-        if ($fileExtension != '') {
-            $fileExtension = '.'. $fileExtension;
+        $pathInfo       = pathinfo($dir . DIRECTORY_SEPARATOR . $fileName);
+        $fileExtension  = $pathInfo['extension'] ?? null;
+        if (null !== $fileExtension) {
+            $fileExtension = '.' . $pathInfo['extension'];
         }
         $i = 0;
         while (file_exists($dir . DIRECTORY_SEPARATOR . $fileName)) {
