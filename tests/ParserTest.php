@@ -151,8 +151,8 @@ class ParserTest extends \PHPUnit\Framework\TestCase
 
         // Default: generate filename suffix, so we should have two files
         $this->assertEquals(2, count($attachmentFiles));
-        $this->assertEquals(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[0]);
-        $this->assertEquals(__DIR__ . '/mails/m0026_attachments/ATT00001_1.txt', $attachmentFiles[1]);
+        $this->assertEquals($attachDir . 'ATT00001.txt', $attachmentFiles[0]);
+        $this->assertEquals($attachDir . 'ATT00001_1.txt', $attachmentFiles[1]);
     }
 
     public function testAttachmentsWithDuplicatesRandom()

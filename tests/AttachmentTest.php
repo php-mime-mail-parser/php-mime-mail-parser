@@ -64,16 +64,18 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
             $attachments[0]->save($attachDir);
         }
 
-        $filePath = "$attachDir/{$attachments[0]->getFilename()}";
-        $this->assertTrue(file_exists($filePath));
-        $this->assertTrue(file_exists("{$filePath}_1000"));
-
         $attachmentFiles = glob($attachDir . '*');
+
+        //Original + 1000 suffixed + 1 random
+        $this->assertEquals(1002, count($attachmentFiles));
+        $this->assertFileExists($attachDir . 'attach02');
+        $this->assertFileExists($attachDir . 'attach02_1');
+        $this->assertFileExists($attachDir . 'attach02_500');
+        $this->assertFileExists($attachDir . 'attach02_1000');
+        $this->assertFileNotExists($attachDir . 'attach02_1001');
 
         // Clean up attachments dir
         array_map('unlink', $attachmentFiles);
         rmdir($attachDir);
-
-        $this->assertCount(1002, $attachmentFiles); //Original + 1000 suffixed + 1 random
     }
 }
