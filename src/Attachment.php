@@ -142,29 +142,29 @@ class Attachment
 
     /**
      * Rename a file if it already exists at its destination.
-     * Renaming is done by adding a duplicate number to the fileName. E.g. existingFileName_1.ext.
+     * Renaming is done by adding a duplicate number to the filename. E.g. existingFilename_1.ext.
      * When 1000 duplicates exist already, renaming the file will switch over to generating a random suffix.
      *
      * @param string $dir       Path to the file.
      * @param string $fileName  File name to change.
-     * @return string           The suffixed fileName or the original fileName when it doesn't exist yet.
+     * @return string           The suffixed filename or the original filename when it doesn't exist yet.
      */
-    protected function suffixFileName(string $dir, string $fileName): string
+    protected function suffixFilename(string $dir, string $filename): string
     {
-        $pathInfo       = pathinfo($dir . DIRECTORY_SEPARATOR . $fileName);
+        $pathInfo       = pathinfo($dir . $filename);
         $fileExtension  = $pathInfo['extension'] ?? null;
         if (null !== $fileExtension) {
             $fileExtension = '.' . $pathInfo['extension'];
         }
         $i = 0;
-        while (file_exists($dir . DIRECTORY_SEPARATOR . $fileName)) {
+        while (file_exists($dir . DIRECTORY_SEPARATOR . $filename)) {
             if ($i++ < 1000) {
-                $fileName = $pathInfo['filename'] . "_$i" . $fileExtension;
+                $filename = $pathInfo['filename'] . "_$i" . $fileExtension;
             } else {
-                $fileName = $pathInfo['filename'] . '_' . self::getRandomString() . $fileExtension;
+                $filename = $pathInfo['filename'] . '_' . self::getRandomString() . $fileExtension;
             }
         }
-        return $fileName;
+        return $filename;
     }
 
     /**
@@ -250,7 +250,7 @@ class Attachment
                 case Parser::ATTACHMENT_DUPLICATE_THROW:
                     throw new Exception('Could not create file for attachment: duplicate filename.');
                 case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = $attach_dir . $this->suffixFileName($attach_dir, $this->getFilename());
+                    $attachment_path = $attach_dir . $this->suffixFilename($attach_dir, $this->getFilename());
                     break;
             }
         }
