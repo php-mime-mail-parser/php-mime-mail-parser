@@ -53,7 +53,7 @@ class Attachment
     /**
      * @var integer $maxDuplicateNumber
      */
-    public $maxDuplicateNumber = 1000;
+    public $maxDuplicateNumber = 100;
 
     /**
      * Attachment constructor.
