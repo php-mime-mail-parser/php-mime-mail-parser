@@ -148,15 +148,14 @@ class Attachment
     /**
      * Rename a file if it already exists at its destination.
      * Renaming is done by adding a duplicate number to the file name. E.g. existingFileName_1.ext.
-     * When 'maxDuplicateNumber' duplicates exist already, renaming the file will switch over to generating a random suffix.
+     * After a max duplicate number, renaming the file will switch over to generating a random suffix.
      *
-     * @param string $dir       Path to the file.
-     * @param string $fileName  File name to change.
-     * @return string           The suffixed file name or the original file name when it doesn't exist yet.
+     * @param string $fileName  Complete path to the file.
+     * @return string           The suffixed file name.
      */
-    protected function suffixFileName(string $attachment_path): string
+    protected function suffixFileName(string $fileName): string
     {
-        $pathInfo       = pathinfo($attachment_path);
+        $pathInfo = pathinfo($fileName);
         $dirname = $pathInfo['dirname'] . DIRECTORY_SEPARATOR;
         $filename = $pathInfo['filename'];
         $extension  = empty($pathInfo['extension']) ? '' : '.' . $pathInfo['extension'];
@@ -172,7 +171,6 @@ class Attachment
             }
 
             $resultName = $dirname . $filename . "_$duplicateExtension" . $extension;
-
         } while (file_exists($resultName));
 
         return $resultName;
