@@ -51,6 +51,11 @@ class Attachment
     protected $mimePartStr;
 
     /**
+     * @var integer $maxDuplicateNumber
+     */
+    public $maxDuplicateNumber = 1000;
+
+    /**
      * Attachment constructor.
      *
      * @param string   $filename
@@ -142,39 +147,36 @@ class Attachment
 
     /**
      * Rename a file if it already exists at its destination.
-     * Renaming is done by adding a duplicate number to the filename. E.g. existingFilename_1.ext.
-     * When 1000 duplicates exist already, renaming the file will switch over to generating a random suffix.
+     * Renaming is done by adding a duplicate number to the file name. E.g. existingFileName_1.ext.
+     * When 'maxDuplicateNumber' duplicates exist already, renaming the file will switch over to generating a random suffix.
      *
      * @param string $dir       Path to the file.
      * @param string $fileName  File name to change.
-     * @return string           The suffixed filename or the original filename when it doesn't exist yet.
+     * @return string           The suffixed file name or the original file name when it doesn't exist yet.
      */
-    protected function suffixFilename(string $dir, string $filename): string
+    protected function suffixFileName(string $attachment_path): string
     {
-        $pathInfo       = pathinfo($dir . $filename);
-        $fileExtension  = $pathInfo['extension'] ?? null;
-        if (null !== $fileExtension) {
-            $fileExtension = '.' . $pathInfo['extension'];
-        }
-        $i = 0;
-        while (file_exists($dir . DIRECTORY_SEPARATOR . $filename)) {
-            if ($i++ < 1000) {
-                $filename = $pathInfo['filename'] . "_$i" . $fileExtension;
-            } else {
-                $filename = $pathInfo['filename'] . '_' . self::getRandomString() . $fileExtension;
-            }
-        }
-        return $filename;
-    }
+        $pathInfo       = pathinfo($attachment_path);
+        $dirname = $pathInfo['dirname'] . DIRECTORY_SEPARATOR;
+        $filename = $pathInfo['filename'];
+        $extension  = empty($pathInfo['extension']) ? '' : '.' . $pathInfo['extension'];
 
-    /**
-     * Generate a random and unique string.
-     *
-     * @return string Random value.
-     */
-    public static function getRandomString(): string
-    {
-        return uniqid() . '-' . str_replace('.', '', microtime(true));
+        $i = 0;
+        do {
+            $i++;
+
+            if ($i > $this->maxDuplicateNumber) {
+                $duplicateExtension = uniqid();
+            }
+            else {
+                $duplicateExtension = $i;
+            }
+
+            $resultName = $dirname . $filename . "_$duplicateExtension" . $extension;
+
+        } while(file_exists($resultName));
+
+        return $resultName;
     }
 
     /**
@@ -250,7 +252,7 @@ class Attachment
                 case Parser::ATTACHMENT_DUPLICATE_THROW:
                     throw new Exception('Could not create file for attachment: duplicate filename.');
                 case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = $attach_dir . $this->suffixFilename($attach_dir, $this->getFilename());
+                    $attachment_path = $this->suffixFileName($attachment_path);
                     break;
             }
         }
