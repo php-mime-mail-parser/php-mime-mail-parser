@@ -167,14 +167,13 @@ class Attachment
 
             if ($i > $this->maxDuplicateNumber) {
                 $duplicateExtension = uniqid();
-            }
-            else {
+            } else {
                 $duplicateExtension = $i;
             }
 
             $resultName = $dirname . $filename . "_$duplicateExtension" . $extension;
 
-        } while(file_exists($resultName));
+        } while (file_exists($resultName));
 
         return $resultName;
     }
