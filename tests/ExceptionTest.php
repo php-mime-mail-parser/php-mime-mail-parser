@@ -175,7 +175,6 @@ namespace PhpMimeMailParser {
             $mid = 'm0001';
             $file = __DIR__.'/mails/'.$mid;
             $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
-            $attach_url = 'http://www.company.com/attachments/'.$mid.'/';
 
             $Parser = new Parser();
             $Parser->setStream(fopen($file, 'r'));
@@ -183,7 +182,7 @@ namespace PhpMimeMailParser {
             global $mockFopen;
             $mockFopen = true;
 
-            $Parser->saveAttachments($attach_dir, $attach_url);
+            $Parser->saveAttachments($attach_dir);
         }
 
         /**
