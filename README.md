@@ -211,8 +211,8 @@ foreach ($attachments as $attachment) {
     echo 'MIME part string : '.$attachment->getMimePartStr().'<br />';
     // return the whole MIME part of the attachment
 
-    $attachment->save('/path/to/save/myattachment/', false, Parser::ATTACHMENT_DUPLICATE_SUFFIX);
-    // return the path and the filename saved (same parameters than saveAttachments)
+    $attachment->save('/path/to/save/myattachment/', Parser::ATTACHMENT_DUPLICATE_SUFFIX);
+    // return the path and the filename saved (same strategy available than saveAttachments)
 }
 ```
 
