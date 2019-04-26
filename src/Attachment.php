@@ -156,9 +156,9 @@ class Attachment
     protected function suffixFileName(string $fileName): string
     {
         $pathInfo = pathinfo($fileName);
-        $dirname = $pathInfo['dirname'] . DIRECTORY_SEPARATOR;
+        $dirname = $pathInfo['dirname'].DIRECTORY_SEPARATOR;
         $filename = $pathInfo['filename'];
-        $extension  = empty($pathInfo['extension']) ? '' : '.' . $pathInfo['extension'];
+        $extension  = empty($pathInfo['extension']) ? '' : '.'.$pathInfo['extension'];
 
         $i = 0;
         do {
@@ -170,7 +170,7 @@ class Attachment
                 $duplicateExtension = $i;
             }
 
-            $resultName = $dirname . $filename . "_$duplicateExtension" . $extension;
+            $resultName = $dirname.$filename."_$duplicateExtension".$extension;
         } while (file_exists($resultName));
 
         return $resultName;
