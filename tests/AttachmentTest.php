@@ -50,4 +50,66 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
         $this->assertCount(1, $attachmentFiles);
     }
+
+    public function testGeneratingDuplicateSuffixWithoutExtension()
+    {
+        $file = __DIR__ . '/mails/m0002';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachDir = __DIR__ . '/mails/m0002_attachments/';
+        $attachments = $Parser->getAttachments();
+
+        $attachments[0]->maxDuplicateNumber = 5;
+
+        for ($i = 1; $i <= 7; $i++) {
+            $attachments[0]->save($attachDir);
+        }
+
+        $attachmentFiles = glob($attachDir . '*');
+
+        //Original + 5 suffixed + 1 random
+        $this->assertEquals(7, count($attachmentFiles));
+        $this->assertFileExists($attachDir . 'attach02');
+        $this->assertFileExists($attachDir . 'attach02_1');
+        $this->assertFileExists($attachDir . 'attach02_2');
+        $this->assertFileExists($attachDir . 'attach02_3');
+        $this->assertFileExists($attachDir . 'attach02_4');
+        $this->assertFileExists($attachDir . 'attach02_5');
+        $this->assertFileNotExists($attachDir . 'attach02_6');
+
+        // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+    }
+
+    public function testGeneratingDuplicateSuffix()
+    {
+        $file = __DIR__ . '/mails/issue115';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachDir = __DIR__ . '/mails/issue115_attachments/';
+        $attachments = $Parser->getAttachments();
+
+        $attachments[0]->maxDuplicateNumber = 3;
+
+        for ($i = 1; $i <= 5; $i++) {
+            $attachments[0]->save($attachDir);
+        }
+
+        $attachmentFiles = glob($attachDir . '*');
+
+        //Original + 3 suffixed + 1 random
+        $this->assertEquals(5, count($attachmentFiles));
+        $this->assertFileExists($attachDir . 'logo.jpg');
+        $this->assertFileExists($attachDir . 'logo_1.jpg');
+        $this->assertFileExists($attachDir . 'logo_2.jpg');
+        $this->assertFileExists($attachDir . 'logo_3.jpg');
+        $this->assertFileNotExists($attachDir . 'logo_4.jpg');
+
+        // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+    }
 }

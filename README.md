@@ -171,6 +171,18 @@ $parser->saveAttachments('/path/to/save/attachments/');
 $parser->saveAttachments('/path/to/save/attachments/', false);
 // return all attachments saved in the directory (exclude inline attachments)
 
+// Save all attachments with the strategy ATTACHMENT_DUPLICATE_SUFFIX (default)
+$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_DUPLICATE_SUFFIX);
+// return all attachments saved in the directory: logo.jpg, logo_1.jpg, ..., logo_100.jpg, YY34UFHBJ.jpg
+
+// Save all attachments with the strategy ATTACHMENT_RANDOM_FILENAME
+$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_RANDOM_FILENAME);
+// return all attachments saved in the directory: YY34UFHBJ.jpg and F98DBZ9FZF.jpg
+
+// Save all attachments with the strategy ATTACHMENT_DUPLICATE_THROW
+$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_DUPLICATE_THROW);
+// return an exception when there is attachments duplicate.
+
 ```
 
 Get all attachments
@@ -198,6 +210,9 @@ foreach ($attachments as $attachment) {
     
     echo 'MIME part string : '.$attachment->getMimePartStr().'<br />';
     // return the whole MIME part of the attachment
+
+    $attachment->save('/path/to/save/myattachment/', Parser::ATTACHMENT_DUPLICATE_SUFFIX);
+    // return the path and the filename saved (same strategy available than saveAttachments)
 }
 ```
 

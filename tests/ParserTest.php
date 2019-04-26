@@ -143,27 +143,6 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $attachDir = __DIR__ . '/mails/m0026_attachments/';
         $Parser->saveAttachments($attachDir, false);
 
-        $attachmentFiles = glob($attachDir . 'ATT*');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
-
-        // Default: generate filename suffix, so we should have two files
-        $this->assertEquals(2, count($attachmentFiles));
-        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[0]);
-        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[1]);
-    }
-
-    public function testAttachmentsWithWrongDirectory()
-    {
-        $file = __DIR__ . '/mails/m0026';
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
-
-        $attachDir = __DIR__ . '/mails/m0026_attachments/';
-        $Parser->saveAttachments($attachDir, false);
-
         $attachmentFiles = glob($attachDir . '*');
 
         // Clean up attachments dir
@@ -172,8 +151,8 @@ class ParserTest extends \PHPUnit\Framework\TestCase
 
         // Default: generate filename suffix, so we should have two files
         $this->assertEquals(2, count($attachmentFiles));
-        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[0]);
-        $this->assertStringStartsWith(__DIR__ . '/mails/m0026_attachments/ATT00001.txt', $attachmentFiles[1]);
+        $this->assertEquals($attachDir . 'ATT00001.txt', $attachmentFiles[0]);
+        $this->assertEquals($attachDir . 'ATT00001_1.txt', $attachmentFiles[1]);
     }
 
     public function testAttachmentsWithDuplicatesRandom()
@@ -1755,7 +1734,7 @@ variances available &nbsp;</div></body></html>'
     {
 
         $middlewareCalled = false;
-        
+
         //Init
         $file = __DIR__.'/mails/m0001';
 
@@ -1792,7 +1771,7 @@ variances available &nbsp;</div></body></html>'
 
         // executes the middleware
         $middlewareStack->parse($mimePart);
-        
+
         $this->assertTrue($middlewareCallCount == 2, 'Middleware was was not called.');
     }
 

@@ -51,6 +51,11 @@ class Attachment
     protected $mimePartStr;
 
     /**
+     * @var integer $maxDuplicateNumber
+     */
+    public $maxDuplicateNumber = 100;
+
+    /**
      * Attachment constructor.
      *
      * @param string   $filename
@@ -141,6 +146,37 @@ class Attachment
     }
 
     /**
+     * Rename a file if it already exists at its destination.
+     * Renaming is done by adding a duplicate number to the file name. E.g. existingFileName_1.ext.
+     * After a max duplicate number, renaming the file will switch over to generating a random suffix.
+     *
+     * @param string $fileName  Complete path to the file.
+     * @return string           The suffixed file name.
+     */
+    protected function suffixFileName(string $fileName): string
+    {
+        $pathInfo = pathinfo($fileName);
+        $dirname = $pathInfo['dirname'].DIRECTORY_SEPARATOR;
+        $filename = $pathInfo['filename'];
+        $extension  = empty($pathInfo['extension']) ? '' : '.'.$pathInfo['extension'];
+
+        $i = 0;
+        do {
+            $i++;
+
+            if ($i > $this->maxDuplicateNumber) {
+                $duplicateExtension = uniqid();
+            } else {
+                $duplicateExtension = $i;
+            }
+
+            $resultName = $dirname.$filename."_$duplicateExtension".$extension;
+        } while (file_exists($resultName));
+
+        return $resultName;
+    }
+
+    /**
      * Read the contents a few bytes at a time until completed
      * Once read to completion, it always returns false
      *
@@ -183,10 +219,14 @@ class Attachment
 
     /**
      * Save the attachment individually
+     *
+     * @param string $attach_dir
+     * @param string $filenameStrategy
+     *
+     * @return string
      */
     public function save(
         $attach_dir,
-        $include_inline = true,
         $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
         $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
@@ -213,7 +253,7 @@ class Attachment
                 case Parser::ATTACHMENT_DUPLICATE_THROW:
                     throw new Exception('Could not create file for attachment: duplicate filename.');
                 case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = tempnam($attach_dir, $this->getFilename());
+                    $attachment_path = $this->suffixFileName($attachment_path);
                     break;
             }
         }

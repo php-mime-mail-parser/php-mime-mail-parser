@@ -581,7 +581,7 @@ class Parser
 
         $attachments_paths = [];
         foreach ($attachments as $attachment) {
-            $attachments_paths[] = $attachment->save($attach_dir, $include_inline, $filenameStrategy);
+            $attachments_paths[] = $attachment->save($attach_dir, $filenameStrategy);
         }
 
         return $attachments_paths;
