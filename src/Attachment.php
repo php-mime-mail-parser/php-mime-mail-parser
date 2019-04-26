@@ -222,7 +222,6 @@ class Attachment
      */
     public function save(
         $attach_dir,
-        $include_inline = true,
         $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
         $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
