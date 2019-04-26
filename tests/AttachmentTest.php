@@ -68,7 +68,7 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
         $attachmentFiles = glob($attachDir . '*');
 
-        //Original + 1000 suffixed + 1 random
+        //Original + 5 suffixed + 1 random
         $this->assertEquals(7, count($attachmentFiles));
         $this->assertFileExists($attachDir . 'attach02');
         $this->assertFileExists($attachDir . 'attach02_1');
@@ -100,7 +100,7 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
 
         $attachmentFiles = glob($attachDir . '*');
 
-        //Original + 1000 suffixed + 1 random
+        //Original + 3 suffixed + 1 random
         $this->assertEquals(5, count($attachmentFiles));
         $this->assertFileExists($attachDir . 'logo.jpg');
         $this->assertFileExists($attachDir . 'logo_1.jpg');
