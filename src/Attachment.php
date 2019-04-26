@@ -219,6 +219,11 @@ class Attachment
 
     /**
      * Save the attachment individually
+     *
+     * @param string $attach_dir
+     * @param string $filenameStrategy
+     *
+     * @return string
      */
     public function save(
         $attach_dir,
