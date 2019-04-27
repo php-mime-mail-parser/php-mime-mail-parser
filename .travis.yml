@@ -17,7 +17,7 @@ matrix:
 
 sudo: false
 before_install: 
-    - phpenv config-rm mbstring.ini
+    - phpdismod mbstring
     - if [ $FORCE_MBSTRING = true ]; then sudo apt-get remove -y php-mbstring foo; else sudo apt-get install -y php-mbstring; fi
     - pecl install mailparse
 
