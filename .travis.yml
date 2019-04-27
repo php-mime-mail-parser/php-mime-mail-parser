@@ -17,7 +17,7 @@ matrix:
 
 sudo: false
 before_install: 
-    - if [ $FORCE_MBSTRING = true ]; then sudo apt-get remove -y mbstring foo; else sudo apt-get install -y mbstring; fi
+    - if [ $FORCE_MBSTRING = true ]; then sudo apt-get remove -y php-mbstring foo; else sudo apt-get install -y php-mbstring; fi
     - pecl install mailparse
 
 before_script:
