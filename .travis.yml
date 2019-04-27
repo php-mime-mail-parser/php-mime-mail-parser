@@ -7,8 +7,8 @@ php:
     - nightly
 
 env:
-    - COMPOSER_OPTS=""
-    - COMPOSER_OPTS="--prefer-lowest"
+    - COMPOSER_OPTS="" FORCE_MBSTRING=true
+    - COMPOSER_OPTS="--prefer-lowest" FORCE_MBSTRING=false
 
 matrix:
     allow_failures:
@@ -17,7 +17,7 @@ matrix:
 
 sudo: false
 before_install: 
-    - sudo apt-get remove -y mbstring
+    - if [ $FORCE_MBSTRING = true ]; then sudo apt-get remove -y mbstring foo; else sudo apt-get install -y mbstring; fi
     - pecl install mailparse
 
 before_script:
