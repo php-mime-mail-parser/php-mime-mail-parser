@@ -17,12 +17,12 @@ matrix:
 
 sudo: false
 before_install: 
+    - sudo apt-get remove -y mbstring
     - pecl install mailparse
 
 before_script:
     - composer self-update
     - composer update $COMPOSER_OPTS
-    - sudo apt-get remove mbstring
 
 script:
     - mkdir -p build/logs
