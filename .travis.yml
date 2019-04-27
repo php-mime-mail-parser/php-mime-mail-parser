@@ -14,11 +14,6 @@ matrix:
     allow_failures:
         - php: nightly
     fast_finish: true
-  include:
-  - name: "With mbstring"
-    env: FORCE_MBSTRING=true
-  - name: "Without mbstring"
-    env: FORCE_MBSTRING=false
 
 sudo: false
 before_install: 
@@ -27,6 +22,7 @@ before_install:
 before_script:
     - composer self-update
     - composer update $COMPOSER_OPTS
+    - sudo apt-get remove mbstring
 
 script:
     - mkdir -p build/logs
