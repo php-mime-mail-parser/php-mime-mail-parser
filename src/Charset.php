@@ -315,15 +315,23 @@ class Charset implements CharsetManager
      */
     public function decodeCharset($encodedString, $charset)
     {
-        if (strtolower($charset) == 'utf-8' || strtolower($charset) == 'us-ascii') {
+        $charset = $this->getCharsetAlias($charset);
+
+        if ($charset == 'utf-8' || $charset == 'us-ascii') {
             return $encodedString;
-        } elseif (function_exists('mb_convert_encoding') && strtolower($charset) == 'iso-2022-jp') {
-            return mb_convert_encoding($encodedString, 'UTF-8', 'ISO-2022-JP-MS');
-        } elseif (function_exists('mb_convert_encoding') && array_search($charset, mb_list_encodings()) !== false) {
-            return mb_convert_encoding($encodedString, 'UTF-8', $this->getCharsetAlias($charset));
-        } else {
-            return iconv($this->getCharsetAlias($charset), 'UTF-8//TRANSLIT//IGNORE', $encodedString);
         }
+
+        if (function_exists('mb_convert_encoding')) {
+            if ($charset == 'ISO-2022-JP') {
+                return mb_convert_encoding($encodedString, 'UTF-8', 'ISO-2022-JP-MS');
+            }
+
+            if (array_search($charset, array_map('strtolower', mb_list_encodings()))) {
+                return mb_convert_encoding($encodedString, 'UTF-8', $charset);
+            }
+        }
+
+        return iconv($charset, 'UTF-8//TRANSLIT//IGNORE', $encodedString);
     }
 
     /**
@@ -335,8 +343,8 @@ class Charset implements CharsetManager
 
         if (array_key_exists($charset, $this->charsetAlias)) {
             return $this->charsetAlias[$charset];
-        } else {
-            return null;
         }
+        
+        return 'us-ascii';
     }
 }
