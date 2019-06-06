@@ -1906,7 +1906,6 @@ mini plain body';
         $this->assertEquals(5, count($attachments));
 
         foreach ($attachments as $key => $attachment) {
-
             $attachmentsName = [
                 0 => 'Hello from SwiftMailer.docx',
                 1 => 'Hello from SwiftMailer.pdf',
