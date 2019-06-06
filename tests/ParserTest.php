@@ -1892,4 +1892,29 @@ mini plain body';
             $Parser->getHeader('subject')
         );
     }
+
+    public function testRecursiveMessageThatReturnContentTypeError()
+    {
+        $Parser = new Parser();
+        $Parser->setPath(__DIR__.'/mails/issue274.eml');
+
+        $this->assertEquals('guest@localhost', $Parser->getRawHeader('from'));
+        $this->assertContains('ligne 1', $Parser->getMessageBody('text'));
+        $this->assertContains('ligne 1', $Parser->getMessageBody('html'));
+
+        $attachments = $Parser->getAttachments();
+        $this->assertEquals(5, count($attachments));
+
+        foreach ($attachments as $key => $attachment) {
+            $attachmentsName = [
+                0 => 'Hello from SwiftMailer.docx',
+                1 => 'Hello from SwiftMailer.pdf',
+                2 => 'Hello from SwiftMailer.odt',
+                3 => 'Cours-Tutoriels-Serge-Tahé-1568x268.png',
+                4 => 'test-localhost.eml',
+            ];
+
+            $this->assertEquals($attachmentsName[$key], $attachment->getFilename());
+        }
+    }
 }
