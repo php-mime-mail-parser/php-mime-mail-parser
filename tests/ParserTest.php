@@ -1893,7 +1893,7 @@ mini plain body';
         );
     }
 
-    public function testGetPdfInsideMultipleEmails()
+    public function testRecursiveMessageThatReturnContentTypeError()
     {
         $Parser = new Parser();
         $Parser->setPath(__DIR__.'/mails/issue274.eml');
@@ -1901,50 +1901,21 @@ mini plain body';
         $this->assertEquals('guest@localhost', $Parser->getRawHeader('from'));
         $this->assertContains('ligne 1', $Parser->getMessageBody('text'));
         $this->assertContains('ligne 1', $Parser->getMessageBody('html'));
-        $this->assertEquals(5, count($Parser->getAttachments()));
 
-        $i = 1;
-        foreach ($Parser->getAttachments() as $attachment) {
+        $attachments = $Parser->getAttachments();
+        $this->assertEquals(5, count($attachments));
+
+        foreach ($attachments as $key => $attachment) {
 
             $attachmentsName = [
-                1 => 'Hello from SwiftMailer.docx',
-                2 => 'Hello from SwiftMailer.pdf',
-                3 => 'Hello from SwiftMailer.odt',
-                4 => 'Cours-Tutoriels-Serge-Tahé-1568x268.png',
-                5 => 'test-localhost.eml',
+                0 => 'Hello from SwiftMailer.docx',
+                1 => 'Hello from SwiftMailer.pdf',
+                2 => 'Hello from SwiftMailer.odt',
+                3 => 'Cours-Tutoriels-Serge-Tahé-1568x268.png',
+                4 => 'test-localhost.eml',
             ];
 
-            $this->assertEquals($attachmentsName[$i], $attachment->getFilename());
-
-            if ($i == 5) {
-                $filename = $attachment->save(__DIR__.'/mails/issue274_attachments/');
-                $p2 = new Parser();
-                $p2->setText(file_get_contents($filename));
-                unlink($filename);
-                $this->assertEquals('guest@localhost', $p2->getRawHeader('from'));
-                $this->assertContains('invité', $p2->getMessageBody('text'));
-                $this->assertContains('invité', $p2->getMessageBody('html'));
-                $this->assertEquals(4, count($p2->getAttachments()));
-
-
-                $j = 1;
-                foreach ($p2->getAttachments() as $attachment_p2) {
-
-                    $attachmentsP2Name = [
-                        1 => 'Hello from SwiftMailer.docx',
-                        2 => 'Hello from SwiftMailer.pdf',
-                        3 => 'Hello from SwiftMailer.odt',
-                        4 => 'Cours-Tutoriels-Serge-Tahé-1568x268.png',
-                    ];
-
-                    $this->assertEquals($attachmentsP2Name[$j], $attachment_p2->getFilename());
-
-                    $j++;
-                    
-                }
-            }
-            $i++;
-            
+            $this->assertEquals($attachmentsName[$key], $attachment->getFilename());
         }
     }
 }
