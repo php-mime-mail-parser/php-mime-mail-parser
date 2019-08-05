@@ -514,14 +514,10 @@ class Parser
 
             if (isset($part['disposition-filename'])) {
                 $filename = $this->decodeHeader($part['disposition-filename']);
-                // Escape all potentially unsafe characters from the filename
-                $filename = preg_replace('((^\.)|\/|(\.$))', '_', $filename);
             } elseif (isset($part['content-name'])) {
                 // if we have no disposition but we have a content-name, it's a valid attachment.
                 // we simulate the presence of an attachment disposition with a disposition filename
                 $filename = $this->decodeHeader($part['content-name']);
-                // Escape all potentially unsafe characters from the filename
-                $filename = preg_replace('((^\.)|\/|(\.$))', '_', $filename);
                 $disposition = 'attachment';
             } elseif (in_array($part['content-type'], $non_attachment_types, true)
                 && $disposition !== 'attachment') {
@@ -540,6 +536,9 @@ class Parser
                 if ($filename == 'noname') {
                     $nonameIter++;
                     $filename = 'noname'.$nonameIter;
+                } else {
+                    // Escape all potentially unsafe characters from the filename
+                    $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
                 }
 
                 $headersAttachments = $this->getPart('headers', $part);
