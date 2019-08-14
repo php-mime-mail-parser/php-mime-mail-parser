@@ -134,6 +134,15 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals("1234_.._.._1234.txt", $attachments[0]->getFilename());
     }
 
+    public function testAttachmentFilenameWithLineBreaksForContentName()
+    {
+        $file = __DIR__ . '/mails/issue250';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $attachments = $Parser->getAttachments(false);
+        $this->assertEquals("Kontoutskrift for 1506.14.90466_Bedriftskonto.pdf", $attachments[0]->getFilename());
+    }
+
     public function testAttachmentsWithDuplicatesSuffix()
     {
         $file = __DIR__ . '/mails/m0026';
