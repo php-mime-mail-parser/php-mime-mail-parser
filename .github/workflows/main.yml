@@ -21,4 +21,9 @@ jobs:
     
     steps:
     - name: PhpUnit
-      run: ./vendor/bin/phpunit
+      run: |
+        ls 
+        pwd
+        ls ./vendor
+        ls ./vendor/bin
+        ./vendor/bin/phpunit
