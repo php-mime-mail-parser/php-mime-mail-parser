@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1565976950">
-  <project timestamp="1565976950">
+<coverage generated="1565977117">
+  <project timestamp="1565977117">
     <package name="PhpMimeMailParser">
       <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Attachment.php">
         <class name="PhpMimeMailParser\Attachment" namespace="PhpMimeMailParser">
-          <metrics complexity="27" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="57" coveredstatements="56" elements="69" coveredelements="67"/>
+          <metrics complexity="27" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="54" coveredstatements="53" elements="66" coveredelements="64"/>
         </class>
         <line num="69" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="96"/>
         <line num="78" type="stmt" count="96"/>
@@ -55,18 +55,15 @@
         <line num="232" type="stmt" count="66"/>
         <line num="233" type="stmt" count="66"/>
         <line num="234" type="stmt" count="65"/>
-        <line num="239" type="stmt" count="66"/>
+        <line num="238" type="stmt" count="66"/>
         <line num="240" type="stmt" count="1"/>
         <line num="241" type="stmt" count="1"/>
-        <line num="242" type="stmt" count="65"/>
-        <line num="243" type="stmt" count="64"/>
         <line num="244" type="stmt" count="64"/>
         <line num="245" type="stmt" count="64"/>
         <line num="247" type="stmt" count="1"/>
         <line num="251" type="stmt" count="65"/>
-        <line num="253" type="stmt" count="5"/>
+        <line num="252" type="stmt" count="5"/>
         <line num="254" type="stmt" count="1"/>
-        <line num="255" type="stmt" count="4"/>
         <line num="256" type="stmt" count="3"/>
         <line num="257" type="stmt" count="3"/>
         <line num="262" type="stmt" count="65"/>
@@ -75,7 +72,7 @@
         <line num="266" type="stmt" count="64"/>
         <line num="267" type="stmt" count="64"/>
         <line num="269" type="stmt" count="1"/>
-        <metrics loc="272" ncloc="158" classes="1" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="57" coveredstatements="56" elements="69" coveredelements="67"/>
+        <metrics loc="272" ncloc="158" classes="1" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="54" coveredstatements="53" elements="66" coveredelements="64"/>
       </file>
       <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Charset.php">
         <class name="PhpMimeMailParser\Charset" namespace="PhpMimeMailParser">
@@ -289,7 +286,7 @@
         <line num="375" type="stmt" count="91"/>
         <line num="376" type="stmt" count="91"/>
         <line num="377" type="stmt" count="55"/>
-        <line num="378" type="stmt" count="91"/>
+        <line num="378" type="stmt" count="5"/>
         <line num="382" type="stmt" count="89"/>
         <line num="393" type="method" name="getMessageBody" visibility="public" complexity="7" crap="7" count="94"/>
         <line num="396" type="stmt" count="94"/>
@@ -306,7 +303,7 @@
         <line num="415" type="stmt" count="10"/>
         <line num="416" type="stmt" count="10"/>
         <line num="417" type="stmt" count="10"/>
-        <line num="418" type="stmt" count="58"/>
+        <line num="418" type="stmt" count="10"/>
         <line num="424" type="stmt" count="93"/>
         <line num="434" type="method" name="getEmbeddedData" visibility="protected" complexity="3" crap="3.02" count="10"/>
         <line num="436" type="stmt" count="10"/>
@@ -337,7 +334,7 @@
         <line num="489" type="stmt" count="89"/>
         <line num="490" type="stmt" count="89"/>
         <line num="491" type="stmt" count="89"/>
-        <line num="492" type="stmt" count="94"/>
+        <line num="492" type="stmt" count="89"/>
         <line num="496" type="stmt" count="94"/>
         <line num="504" type="method" name="getAttachments" visibility="public" complexity="13" crap="13" count="123"/>
         <line num="506" type="stmt" count="123"/>
@@ -376,7 +373,7 @@
         <line num="554" type="stmt" count="96"/>
         <line num="555" type="stmt" count="96"/>
         <line num="556" type="stmt" count="96"/>
-        <line num="557" type="stmt" count="115"/>
+        <line num="557" type="stmt" count="96"/>
         <line num="562" type="stmt" count="122"/>
         <line num="575" type="method" name="saveAttachments" visibility="public" complexity="2" crap="2" count="81"/>
         <line num="580" type="stmt" count="81"/>
@@ -509,6 +506,6 @@
     <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Contracts/Middleware.php">
       <metrics loc="23" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
-    <metrics files="9" loc="1833" ncloc="1231" classes="6" methods="68" coveredmethods="60" conditionals="0" coveredconditionals="0" statements="390" coveredstatements="382" elements="458" coveredelements="442"/>
+    <metrics files="9" loc="1833" ncloc="1231" classes="6" methods="68" coveredmethods="60" conditionals="0" coveredconditionals="0" statements="387" coveredstatements="379" elements="455" coveredelements="439"/>
   </project>
 </coverage>
