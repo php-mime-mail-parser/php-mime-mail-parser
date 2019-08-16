@@ -34,6 +34,7 @@ jobs:
     - name: Auto Commit changed files
       uses: stefanzweifel/git-auto-commit-action@v1.0.0
       env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COMMIT_MESSAGE: "Bonjour"
         COMMIT_AUTHOR_NAME: "CS Fixer"
         COMMIT_AUTHOR_EMAIL: "john.doe@example.com"
