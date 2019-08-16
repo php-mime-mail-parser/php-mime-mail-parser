@@ -13,7 +13,7 @@ jobs:
     - name: PHPCS
       run: echo "toto new fixer" >> file.log
     - name: Auto Commit
-      if: github.event.head_commit.author.name != "PHP CS Fixer"
+      if: github.event.head_commit.author.name != 'PHP CS Fixer'
       run: |
         git remote set-url origin https://eXorus:${{ secrets.GITHUB_TOKEN }}@github.com/php-mime-mail-parser/php-mime-mail-parser
         git config --global user.email "you@example.com"
