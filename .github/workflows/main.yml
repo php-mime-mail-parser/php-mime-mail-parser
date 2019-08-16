@@ -30,14 +30,7 @@ jobs:
         ./vendor/bin/phpcs src --standard=psr2
         ./vendor/bin/phpcs tests --standard=psr2
     - name: toto
-      run: echo "toto" > test.log
-    - name: Auto Commit changed files
-      uses: stefanzweifel/git-auto-commit-action@v1.0.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        COMMIT_MESSAGE: "Bonjour"
-        COMMIT_AUTHOR_NAME: "CS Fixer"
-        COMMIT_AUTHOR_EMAIL: "john.doe@example.com"
+      run: git status
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
