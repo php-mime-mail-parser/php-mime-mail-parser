@@ -36,6 +36,7 @@ jobs:
       env:
         COMMIT_MESSAGE: "Bonjour"
         COMMIT_AUTHOR_NAME: "CS Fixer"
+        COMMIT_AUTHOR_EMAIL: "john.doe@example.com"
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
