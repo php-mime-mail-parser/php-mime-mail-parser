@@ -35,6 +35,7 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v1.0.0
       env:
         COMMIT_MESSAGE: "Bonjour"
+        COMMIT_AUTHOR_NAME: "CS Fixer"
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
