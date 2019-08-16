@@ -32,6 +32,8 @@ jobs:
     - name: toto
       run: |
         git status
+        git config --global user.email "you@example.com"
+        git config --global user.name "PHP CS Fixer"
         git add .
         git commit -m "test"
         git push
