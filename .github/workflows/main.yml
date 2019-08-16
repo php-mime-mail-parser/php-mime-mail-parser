@@ -23,7 +23,7 @@ jobs:
     - name: PhpUnit
       run: |
         mkdir -p build/logs
-        ./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml
+        ./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml -c phpunit.xml.dist
     - name: PHPCS
       run: |
         ./vendor/bin/phpcs src --standard=psr2
