@@ -29,6 +29,8 @@ jobs:
       run: |
         ./vendor/bin/phpcs src --standard=psr2
         ./vendor/bin/phpcs tests --standard=psr2
+    - name: Git info
+      run: git remote get-url --all origin
     - name: Auto Commit
       run: |
         git status
