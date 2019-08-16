@@ -9,9 +9,15 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: php -v
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Composer install
+      run: composer install
+    - name: Install mailparse
+      run: pecl install mailparse
+
+  test:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: PhpUnit
+      run: ./vendor/bin/phpunit
