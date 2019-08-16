@@ -13,7 +13,7 @@ jobs:
     - name: Composer install
       run: composer update --no-progress
     - name: PHPCS
-      run: echo "toto phpcs" >> file.log
+      run: echo "toto phpcs"
     - name: Auto Commit
       run: |
         git remote set-url origin https://eXorus:${{ secrets.GITHUB_TOKEN }}@github.com/php-mime-mail-parser/php-mime-mail-parser
