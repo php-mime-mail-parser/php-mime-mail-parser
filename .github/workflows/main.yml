@@ -69,7 +69,7 @@ jobs:
         git status
         git commit -m "test" || echo "No changes found. Nothing to commit."
         git status
-        git push -u origin auto-commit
+        git push
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
