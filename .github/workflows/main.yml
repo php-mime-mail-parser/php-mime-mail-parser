@@ -9,13 +9,13 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Composer install
-      run: composer install
     - name: Install mailparse
       run: pecl install mailparse
+    - name: Composer install
+      run: composer install
 
   test:
-
+    needs: build
     runs-on: ubuntu-latest
     
     steps:
