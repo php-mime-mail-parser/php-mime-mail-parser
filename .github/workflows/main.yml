@@ -18,7 +18,7 @@ jobs:
     - name: Install mailparse
       run: sudo apt install php-mailparse
     - name: Composer install
-      run: composer update ${{ matrix.composer }}
+      run: composer update ${{ matrix.composer }} --no-progress
     - name: PHP Version
       run: php -v
     - name: PhpUnit
@@ -32,6 +32,7 @@ jobs:
     - name: Auto Commit
       run: |
         git status
+        git remote get-url --all origin
         git config --global user.email "you@example.com"
         git config --global user.name "PHP CS Fixer"
         git add -A
