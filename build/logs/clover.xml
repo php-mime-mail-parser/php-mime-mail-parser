@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1565976950">
+  <project timestamp="1565976950">
+    <package name="PhpMimeMailParser">
+      <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Attachment.php">
+        <class name="PhpMimeMailParser\Attachment" namespace="PhpMimeMailParser">
+          <metrics complexity="27" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="57" coveredstatements="56" elements="69" coveredelements="67"/>
+        </class>
+        <line num="69" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="96"/>
+        <line num="78" type="stmt" count="96"/>
+        <line num="79" type="stmt" count="96"/>
+        <line num="80" type="stmt" count="96"/>
+        <line num="81" type="stmt" count="96"/>
+        <line num="82" type="stmt" count="96"/>
+        <line num="83" type="stmt" count="96"/>
+        <line num="84" type="stmt" count="96"/>
+        <line num="85" type="stmt" count="96"/>
+        <line num="86" type="stmt" count="96"/>
+        <line num="93" type="method" name="getFilename" visibility="public" complexity="1" crap="1" count="85"/>
+        <line num="95" type="stmt" count="85"/>
+        <line num="103" type="method" name="getContentType" visibility="public" complexity="1" crap="1" count="74"/>
+        <line num="105" type="stmt" count="74"/>
+        <line num="113" type="method" name="getContentDisposition" visibility="public" complexity="1" crap="1" count="74"/>
+        <line num="115" type="stmt" count="74"/>
+        <line num="123" type="method" name="getContentID" visibility="public" complexity="1" crap="1" count="58"/>
+        <line num="125" type="stmt" count="58"/>
+        <line num="133" type="method" name="getHeaders" visibility="public" complexity="1" crap="1" count="74"/>
+        <line num="135" type="stmt" count="74"/>
+        <line num="143" type="method" name="getStream" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="145" type="stmt" count="0"/>
+        <line num="156" type="method" name="suffixFileName" visibility="protected" complexity="4" crap="4" count="3"/>
+        <line num="158" type="stmt" count="3"/>
+        <line num="159" type="stmt" count="3"/>
+        <line num="160" type="stmt" count="3"/>
+        <line num="161" type="stmt" count="3"/>
+        <line num="163" type="stmt" count="3"/>
+        <line num="165" type="stmt" count="3"/>
+        <line num="167" type="stmt" count="3"/>
+        <line num="168" type="stmt" count="2"/>
+        <line num="170" type="stmt" count="3"/>
+        <line num="173" type="stmt" count="3"/>
+        <line num="174" type="stmt" count="3"/>
+        <line num="176" type="stmt" count="3"/>
+        <line num="187" type="method" name="read" visibility="public" complexity="2" crap="2" count="64"/>
+        <line num="189" type="stmt" count="64"/>
+        <line num="198" type="method" name="getContent" visibility="public" complexity="3" crap="3" count="48"/>
+        <line num="200" type="stmt" count="48"/>
+        <line num="201" type="stmt" count="48"/>
+        <line num="202" type="stmt" count="48"/>
+        <line num="203" type="stmt" count="48"/>
+        <line num="207" type="stmt" count="48"/>
+        <line num="215" type="method" name="getMimePartStr" visibility="public" complexity="1" crap="1" count="6"/>
+        <line num="217" type="stmt" count="6"/>
+        <line num="228" type="method" name="save" visibility="public" complexity="10" crap="10" count="66"/>
+        <line num="232" type="stmt" count="66"/>
+        <line num="233" type="stmt" count="66"/>
+        <line num="234" type="stmt" count="65"/>
+        <line num="239" type="stmt" count="66"/>
+        <line num="240" type="stmt" count="1"/>
+        <line num="241" type="stmt" count="1"/>
+        <line num="242" type="stmt" count="65"/>
+        <line num="243" type="stmt" count="64"/>
+        <line num="244" type="stmt" count="64"/>
+        <line num="245" type="stmt" count="64"/>
+        <line num="247" type="stmt" count="1"/>
+        <line num="251" type="stmt" count="65"/>
+        <line num="253" type="stmt" count="5"/>
+        <line num="254" type="stmt" count="1"/>
+        <line num="255" type="stmt" count="4"/>
+        <line num="256" type="stmt" count="3"/>
+        <line num="257" type="stmt" count="3"/>
+        <line num="262" type="stmt" count="65"/>
+        <line num="263" type="stmt" count="64"/>
+        <line num="264" type="stmt" count="64"/>
+        <line num="266" type="stmt" count="64"/>
+        <line num="267" type="stmt" count="64"/>
+        <line num="269" type="stmt" count="1"/>
+        <metrics loc="272" ncloc="158" classes="1" methods="12" coveredmethods="11" conditionals="0" coveredconditionals="0" statements="57" coveredstatements="56" elements="69" coveredelements="67"/>
+      </file>
+      <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Charset.php">
+        <class name="PhpMimeMailParser\Charset" namespace="PhpMimeMailParser">
+          <metrics complexity="8" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
+        </class>
+        <line num="316" type="method" name="decodeCharset" visibility="public" complexity="6" crap="6" count="98"/>
+        <line num="318" type="stmt" count="98"/>
+        <line num="320" type="stmt" count="98"/>
+        <line num="321" type="stmt" count="37"/>
+        <line num="324" type="stmt" count="67"/>
+        <line num="325" type="stmt" count="67"/>
+        <line num="326" type="stmt" count="1"/>
+        <line num="329" type="stmt" count="66"/>
+        <line num="330" type="stmt" count="65"/>
+        <line num="334" type="stmt" count="1"/>
+        <line num="340" type="method" name="getCharsetAlias" visibility="public" complexity="2" crap="2" count="98"/>
+        <line num="342" type="stmt" count="98"/>
+        <line num="344" type="stmt" count="98"/>
+        <line num="345" type="stmt" count="98"/>
+        <line num="348" type="stmt" count="1"/>
+        <metrics loc="350" ncloc="341" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="13" coveredstatements="13" elements="15" coveredelements="15"/>
+      </file>
+      <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Exception.php">
+        <class name="PhpMimeMailParser\Exception" namespace="PhpMimeMailParser">
+          <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        </class>
+        <metrics loc="8" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      </file>
+      <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Middleware.php">
+        <class name="PhpMimeMailParser\Middleware" namespace="PhpMimeMailParser">
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+        </class>
+        <line num="17" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="19" type="stmt" count="1"/>
+        <line num="20" type="stmt" count="1"/>
+        <line num="25" type="method" name="parse" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="27" type="stmt" count="1"/>
+        <metrics loc="29" ncloc="18" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="3" elements="5" coveredelements="5"/>
+      </file>
+      <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/MiddlewareStack.php">
+        <class name="PhpMimeMailParser\MiddlewareStack" namespace="PhpMimeMailParser">
+          <metrics complexity="7" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="19" coveredelements="19"/>
+        </class>
+        <line num="32" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="153"/>
+        <line num="34" type="stmt" count="153"/>
+        <line num="35" type="stmt" count="153"/>
+        <line num="43" type="method" name="add" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="45" type="stmt" count="1"/>
+        <line num="46" type="stmt" count="1"/>
+        <line num="47" type="stmt" count="1"/>
+        <line num="55" type="method" name="parse" visibility="public" complexity="2" crap="2" count="144"/>
+        <line num="57" type="stmt" count="144"/>
+        <line num="58" type="stmt" count="144"/>
+        <line num="60" type="stmt" count="1"/>
+        <line num="61" type="stmt" count="1"/>
+        <line num="70" type="method" name="factory" visibility="public" complexity="2" crap="2" count="1"/>
+        <line num="72" type="stmt" count="1"/>
+        <line num="73" type="stmt" count="1"/>
+        <line num="74" type="stmt" count="1"/>
+        <line num="76" type="stmt" count="1"/>
+        <line num="85" type="method" name="__invoke" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="87" type="stmt" count="1"/>
+        <metrics loc="89" ncloc="47" classes="1" methods="5" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="14" coveredstatements="14" elements="19" coveredelements="19"/>
+      </file>
+      <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/MimePart.php">
+        <class name="PhpMimeMailParser\MimePart" namespace="PhpMimeMailParser">
+          <metrics complexity="10" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="23" coveredelements="23"/>
+        </class>
+        <line num="43" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="145"/>
+        <line num="45" type="stmt" count="145"/>
+        <line num="46" type="stmt" count="145"/>
+        <line num="47" type="stmt" count="145"/>
+        <line num="54" type="method" name="getId" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="56" type="stmt" count="1"/>
+        <line num="64" type="method" name="getPart" visibility="public" complexity="1" crap="1" count="145"/>
+        <line num="66" type="stmt" count="145"/>
+        <line num="75" type="method" name="setPart" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="77" type="stmt" count="2"/>
+        <line num="78" type="stmt" count="2"/>
+        <line num="83" type="method" name="offsetSet" visibility="public" complexity="2" crap="2" count="1"/>
+        <line num="85" type="stmt" count="1"/>
+        <line num="86" type="stmt" count="1"/>
+        <line num="88" type="stmt" count="1"/>
+        <line num="90" type="stmt" count="1"/>
+        <line num="95" type="method" name="offsetExists" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="97" type="stmt" count="1"/>
+        <line num="103" type="method" name="offsetUnset" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="105" type="stmt" count="1"/>
+        <line num="106" type="stmt" count="1"/>
+        <line num="111" type="method" name="offsetGet" visibility="public" complexity="2" crap="2" count="1"/>
+        <line num="113" type="stmt" count="1"/>
+        <metrics loc="115" ncloc="55" classes="1" methods="8" coveredmethods="8" conditionals="0" coveredconditionals="0" statements="15" coveredstatements="15" elements="23" coveredelements="23"/>
+      </file>
+      <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Parser.php">
+        <class name="PhpMimeMailParser\Parser" namespace="PhpMimeMailParser">
+          <metrics complexity="120" methods="39" coveredmethods="32" conditionals="0" coveredconditionals="0" statements="288" coveredstatements="281" elements="327" coveredelements="313"/>
+        </class>
+        <line num="77" type="method" name="__construct" visibility="public" complexity="2" crap="2" count="153"/>
+        <line num="79" type="stmt" count="153"/>
+        <line num="80" type="stmt" count="153"/>
+        <line num="83" type="stmt" count="153"/>
+        <line num="84" type="stmt" count="153"/>
+        <line num="85" type="stmt" count="153"/>
+        <line num="92" type="method" name="__destruct" visibility="public" complexity="3" crap="3" count="153"/>
+        <line num="95" type="stmt" count="153"/>
+        <line num="96" type="stmt" count="101"/>
+        <line num="99" type="stmt" count="153"/>
+        <line num="100" type="stmt" count="144"/>
+        <line num="102" type="stmt" count="153"/>
+        <line num="111" type="method" name="setPath" visibility="public" complexity="3" crap="3" count="71"/>
+        <line num="113" type="stmt" count="71"/>
+        <line num="114" type="stmt" count="71"/>
+        <line num="115" type="stmt" count="71"/>
+        <line num="116" type="stmt" count="71"/>
+        <line num="117" type="stmt" count="2"/>
+        <line num="119" type="stmt" count="71"/>
+        <line num="123" type="stmt" count="71"/>
+        <line num="124" type="stmt" count="71"/>
+        <line num="125" type="stmt" count="71"/>
+        <line num="127" type="stmt" count="71"/>
+        <line num="138" type="method" name="setStream" visibility="public" complexity="9" crap="9" count="33"/>
+        <line num="141" type="stmt" count="33"/>
+        <line num="142" type="stmt" count="33"/>
+        <line num="143" type="stmt" count="2"/>
+        <line num="144" type="stmt" count="2"/>
+        <line num="149" type="stmt" count="31"/>
+        <line num="150" type="stmt" count="31"/>
+        <line num="151" type="stmt" count="30"/>
+        <line num="152" type="stmt" count="30"/>
+        <line num="155" type="stmt" count="30"/>
+        <line num="156" type="stmt" count="30"/>
+        <line num="159" type="stmt" count="30"/>
+        <line num="160" type="stmt" count="30"/>
+        <line num="162" type="stmt" count="1"/>
+        <line num="163" type="stmt" count="1"/>
+        <line num="166" type="stmt" count="30"/>
+        <line num="168" type="stmt" count="30"/>
+        <line num="170" type="stmt" count="30"/>
+        <line num="171" type="stmt" count="30"/>
+        <line num="173" type="stmt" count="30"/>
+        <line num="175" type="stmt" count="30"/>
+        <line num="185" type="method" name="setText" visibility="public" complexity="3" crap="3" count="45"/>
+        <line num="187" type="stmt" count="45"/>
+        <line num="188" type="stmt" count="1"/>
+        <line num="191" type="stmt" count="44"/>
+        <line num="192" type="stmt" count="5"/>
+        <line num="195" type="stmt" count="44"/>
+        <line num="197" type="stmt" count="44"/>
+        <line num="198" type="stmt" count="44"/>
+        <line num="199" type="stmt" count="44"/>
+        <line num="201" type="stmt" count="44"/>
+        <line num="209" type="method" name="parse" visibility="protected" complexity="2" crap="2" count="144"/>
+        <line num="211" type="stmt" count="144"/>
+        <line num="212" type="stmt" count="144"/>
+        <line num="213" type="stmt" count="144"/>
+        <line num="214" type="stmt" count="144"/>
+        <line num="215" type="stmt" count="144"/>
+        <line num="216" type="stmt" count="144"/>
+        <line num="218" type="stmt" count="144"/>
+        <line num="220" type="stmt" count="144"/>
+        <line num="230" type="method" name="getRawHeader" visibility="public" complexity="3" crap="3" count="83"/>
+        <line num="232" type="stmt" count="83"/>
+        <line num="233" type="stmt" count="83"/>
+        <line num="234" type="stmt" count="82"/>
+        <line num="236" type="stmt" count="82"/>
+        <line num="238" type="stmt" count="1"/>
+        <line num="239" type="stmt" count="1"/>
+        <line num="251" type="method" name="getHeader" visibility="public" complexity="2" crap="2" count="81"/>
+        <line num="253" type="stmt" count="81"/>
+        <line num="254" type="stmt" count="80"/>
+        <line num="255" type="stmt" count="75"/>
+        <line num="258" type="stmt" count="80"/>
+        <line num="267" type="method" name="getHeaders" visibility="public" complexity="5" crap="5" count="76"/>
+        <line num="269" type="stmt" count="76"/>
+        <line num="270" type="stmt" count="75"/>
+        <line num="271" type="stmt" count="75"/>
+        <line num="272" type="stmt" count="75"/>
+        <line num="273" type="stmt" count="57"/>
+        <line num="274" type="stmt" count="57"/>
+        <line num="277" type="stmt" count="75"/>
+        <line num="281" type="stmt" count="75"/>
+        <line num="283" type="stmt" count="1"/>
+        <line num="284" type="stmt" count="1"/>
+        <line num="295" type="method" name="getHeadersRaw" visibility="public" complexity="2" crap="2" count="76"/>
+        <line num="297" type="stmt" count="76"/>
+        <line num="298" type="stmt" count="75"/>
+        <line num="300" type="stmt" count="1"/>
+        <line num="301" type="stmt" count="1"/>
+        <line num="313" type="method" name="getPartHeader" visibility="protected" complexity="3" crap="3" count="75"/>
+        <line num="315" type="stmt" count="75"/>
+        <line num="316" type="stmt" count="75"/>
+        <line num="317" type="stmt" count="50"/>
+        <line num="318" type="stmt" count="25"/>
+        <line num="319" type="stmt" count="25"/>
+        <line num="321" type="stmt" count="75"/>
+        <line num="330" type="method" name="getPartHeaderFromFile" visibility="protected" complexity="1" crap="1" count="50"/>
+        <line num="332" type="stmt" count="50"/>
+        <line num="333" type="stmt" count="50"/>
+        <line num="334" type="stmt" count="50"/>
+        <line num="335" type="stmt" count="50"/>
+        <line num="336" type="stmt" count="50"/>
+        <line num="345" type="method" name="getPartHeaderFromText" visibility="protected" complexity="1" crap="1" count="25"/>
+        <line num="347" type="stmt" count="25"/>
+        <line num="348" type="stmt" count="25"/>
+        <line num="349" type="stmt" count="25"/>
+        <line num="350" type="stmt" count="25"/>
+        <line num="361" type="method" name="partIdIsChildOfPart" visibility="protected" complexity="1" crap="1" count="55"/>
+        <line num="363" type="stmt" count="55"/>
+        <line num="364" type="stmt" count="55"/>
+        <line num="373" type="method" name="partIdIsChildOfAnAttachment" visibility="protected" complexity="4" crap="4" count="91"/>
+        <line num="375" type="stmt" count="91"/>
+        <line num="376" type="stmt" count="91"/>
+        <line num="377" type="stmt" count="55"/>
+        <line num="378" type="stmt" count="91"/>
+        <line num="382" type="stmt" count="89"/>
+        <line num="393" type="method" name="getMessageBody" visibility="public" complexity="7" crap="7" count="94"/>
+        <line num="396" type="stmt" count="94"/>
+        <line num="401" type="stmt" count="94"/>
+        <line num="402" type="stmt" count="93"/>
+        <line num="403" type="stmt" count="93"/>
+        <line num="404" type="stmt" count="93"/>
+        <line num="406" type="stmt" count="1"/>
+        <line num="407" type="stmt" count="1"/>
+        <line num="411" type="stmt" count="93"/>
+        <line num="412" type="stmt" count="76"/>
+        <line num="413" type="stmt" count="76"/>
+        <line num="414" type="stmt" count="58"/>
+        <line num="415" type="stmt" count="10"/>
+        <line num="416" type="stmt" count="10"/>
+        <line num="417" type="stmt" count="10"/>
+        <line num="418" type="stmt" count="58"/>
+        <line num="424" type="stmt" count="93"/>
+        <line num="434" type="method" name="getEmbeddedData" visibility="protected" complexity="3" crap="3.02" count="10"/>
+        <line num="436" type="stmt" count="10"/>
+        <line num="437" type="stmt" count="10"/>
+        <line num="438" type="stmt" count="10"/>
+        <line num="439" type="stmt" count="10"/>
+        <line num="440" type="stmt" count="10"/>
+        <line num="441" type="stmt" count="10"/>
+        <line num="442" type="stmt" count="10"/>
+        <line num="445" type="stmt" count="0"/>
+        <line num="455" type="method" name="getAddresses" visibility="public" complexity="3" crap="3" count="77"/>
+        <line num="457" type="stmt" count="77"/>
+        <line num="458" type="stmt" count="77"/>
+        <line num="459" type="stmt" count="77"/>
+        <line num="460" type="stmt" count="77"/>
+        <line num="461" type="stmt" count="77"/>
+        <line num="463" type="stmt" count="77"/>
+        <line num="471" type="method" name="getInlineParts" visibility="public" complexity="7" crap="7" count="95"/>
+        <line num="473" type="stmt" count="95"/>
+        <line num="475" type="stmt" count="95"/>
+        <line num="479" type="stmt" count="95"/>
+        <line num="480" type="stmt" count="1"/>
+        <line num="483" type="stmt" count="94"/>
+        <line num="484" type="stmt" count="94"/>
+        <line num="485" type="stmt" count="94"/>
+        <line num="486" type="stmt" count="94"/>
+        <line num="488" type="stmt" count="89"/>
+        <line num="489" type="stmt" count="89"/>
+        <line num="490" type="stmt" count="89"/>
+        <line num="491" type="stmt" count="89"/>
+        <line num="492" type="stmt" count="94"/>
+        <line num="496" type="stmt" count="94"/>
+        <line num="504" type="method" name="getAttachments" visibility="public" complexity="13" crap="13" count="123"/>
+        <line num="506" type="stmt" count="123"/>
+        <line num="507" type="stmt" count="123"/>
+        <line num="508" type="stmt" count="123"/>
+        <line num="509" type="stmt" count="123"/>
+        <line num="511" type="stmt" count="123"/>
+        <line num="512" type="stmt" count="123"/>
+        <line num="513" type="stmt" count="123"/>
+        <line num="515" type="stmt" count="123"/>
+        <line num="516" type="stmt" count="86"/>
+        <line num="517" type="stmt" count="122"/>
+        <line num="520" type="stmt" count="5"/>
+        <line num="521" type="stmt" count="5"/>
+        <line num="522" type="stmt" count="121"/>
+        <line num="523" type="stmt" count="121"/>
+        <line num="525" type="stmt" count="112"/>
+        <line num="526" type="stmt" count="113"/>
+        <line num="527" type="stmt" count="113"/>
+        <line num="529" type="stmt" count="8"/>
+        <line num="531" type="stmt" count="115"/>
+        <line num="532" type="stmt" count="1"/>
+        <line num="535" type="stmt" count="115"/>
+        <line num="536" type="stmt" count="97"/>
+        <line num="537" type="stmt" count="8"/>
+        <line num="538" type="stmt" count="8"/>
+        <line num="541" type="stmt" count="89"/>
+        <line num="544" type="stmt" count="97"/>
+        <line num="545" type="stmt" count="97"/>
+        <line num="547" type="stmt" count="97"/>
+        <line num="548" type="stmt" count="96"/>
+        <line num="550" type="stmt" count="96"/>
+        <line num="551" type="stmt" count="96"/>
+        <line num="552" type="stmt" count="96"/>
+        <line num="553" type="stmt" count="96"/>
+        <line num="554" type="stmt" count="96"/>
+        <line num="555" type="stmt" count="96"/>
+        <line num="556" type="stmt" count="96"/>
+        <line num="557" type="stmt" count="115"/>
+        <line num="562" type="stmt" count="122"/>
+        <line num="575" type="method" name="saveAttachments" visibility="public" complexity="2" crap="2" count="81"/>
+        <line num="580" type="stmt" count="81"/>
+        <line num="582" type="stmt" count="81"/>
+        <line num="583" type="stmt" count="81"/>
+        <line num="584" type="stmt" count="63"/>
+        <line num="587" type="stmt" count="78"/>
+        <line num="598" type="method" name="getAttachmentStream" visibility="protected" complexity="6" crap="6" count="97"/>
+        <line num="601" type="stmt" count="97"/>
+        <line num="603" type="stmt" count="97"/>
+        <line num="604" type="stmt" count="97"/>
+        <line num="605" type="stmt" count="97"/>
+        <line num="607" type="stmt" count="97"/>
+        <line num="608" type="stmt" count="96"/>
+        <line num="609" type="stmt" count="65"/>
+        <line num="610" type="stmt" count="65"/>
+        <line num="611" type="stmt" count="65"/>
+        <line num="612" type="stmt" count="65"/>
+        <line num="613" type="stmt" count="65"/>
+        <line num="614" type="stmt" count="65"/>
+        <line num="615" type="stmt" count="65"/>
+        <line num="616" type="stmt" count="65"/>
+        <line num="617" type="stmt" count="65"/>
+        <line num="618" type="stmt" count="65"/>
+        <line num="620" type="stmt" count="31"/>
+        <line num="621" type="stmt" count="31"/>
+        <line num="622" type="stmt" count="31"/>
+        <line num="624" type="stmt" count="96"/>
+        <line num="626" type="stmt" count="1"/>
+        <line num="627" type="stmt" count="1"/>
+        <line num="631" type="stmt" count="96"/>
+        <line num="642" type="method" name="decodeContentTransfer" visibility="protected" complexity="4" crap="4" count="128"/>
+        <line num="644" type="stmt" count="128"/>
+        <line num="645" type="stmt" count="1"/>
+        <line num="648" type="stmt" count="128"/>
+        <line num="649" type="stmt" count="128"/>
+        <line num="650" type="stmt" count="95"/>
+        <line num="651" type="stmt" count="86"/>
+        <line num="652" type="stmt" count="32"/>
+        <line num="654" type="stmt" count="54"/>
+        <line num="665" type="method" name="decodeHeader" visibility="protected" complexity="2" crap="2" count="121"/>
+        <line num="668" type="stmt" count="121"/>
+        <line num="669" type="stmt" count="3"/>
+        <line num="672" type="stmt" count="121"/>
+        <line num="682" type="method" name="decodeSingleHeader" visibility="protected" complexity="6" crap="6" count="121"/>
+        <line num="685" type="stmt" count="121"/>
+        <line num="686" type="stmt" count="49"/>
+        <line num="687" type="stmt" count="49"/>
+        <line num="688" type="stmt" count="49"/>
+        <line num="689" type="stmt" count="49"/>
+        <line num="690" type="stmt" count="49"/>
+        <line num="692" type="stmt" count="49"/>
+        <line num="693" type="stmt" count="49"/>
+        <line num="694" type="stmt" count="13"/>
+        <line num="695" type="stmt" count="13"/>
+        <line num="697" type="stmt" count="39"/>
+        <line num="698" type="stmt" count="39"/>
+        <line num="699" type="stmt" count="39"/>
+        <line num="700" type="stmt" count="39"/>
+        <line num="701" type="stmt" count="39"/>
+        <line num="703" type="stmt" count="39"/>
+        <line num="706" type="stmt" count="49"/>
+        <line num="707" type="stmt" count="49"/>
+        <line num="710" type="stmt" count="121"/>
+        <line num="720" type="method" name="getPartCharset" visibility="protected" complexity="2" crap="2.15" count="89"/>
+        <line num="722" type="stmt" count="89"/>
+        <line num="723" type="stmt" count="89"/>
+        <line num="725" type="stmt" count="0"/>
+        <line num="737" type="method" name="getPart" visibility="protected" complexity="2" crap="2" count="144"/>
+        <line num="739" type="stmt" count="144"/>
+        <line num="749" type="method" name="getPartBody" visibility="protected" complexity="3" crap="3" count="89"/>
+        <line num="751" type="stmt" count="89"/>
+        <line num="752" type="stmt" count="89"/>
+        <line num="753" type="stmt" count="60"/>
+        <line num="754" type="stmt" count="30"/>
+        <line num="755" type="stmt" count="30"/>
+        <line num="758" type="stmt" count="89"/>
+        <line num="768" type="method" name="getPartBodyFromFile" visibility="protected" complexity="2" crap="2" count="60"/>
+        <line num="770" type="stmt" count="60"/>
+        <line num="771" type="stmt" count="60"/>
+        <line num="772" type="stmt" count="60"/>
+        <line num="773" type="stmt" count="60"/>
+        <line num="774" type="stmt" count="58"/>
+        <line num="775" type="stmt" count="58"/>
+        <line num="778" type="stmt" count="60"/>
+        <line num="788" type="method" name="getPartBodyFromText" visibility="protected" complexity="1" crap="1" count="41"/>
+        <line num="790" type="stmt" count="41"/>
+        <line num="791" type="stmt" count="41"/>
+        <line num="793" type="stmt" count="41"/>
+        <line num="803" type="method" name="getPartComplete" visibility="protected" complexity="3" crap="3" count="96"/>
+        <line num="805" type="stmt" count="96"/>
+        <line num="806" type="stmt" count="96"/>
+        <line num="807" type="stmt" count="65"/>
+        <line num="808" type="stmt" count="31"/>
+        <line num="809" type="stmt" count="31"/>
+        <line num="812" type="stmt" count="96"/>
+        <line num="822" type="method" name="getPartFromFile" visibility="protected" complexity="2" crap="2" count="65"/>
+        <line num="824" type="stmt" count="65"/>
+        <line num="825" type="stmt" count="65"/>
+        <line num="826" type="stmt" count="65"/>
+        <line num="827" type="stmt" count="65"/>
+        <line num="828" type="stmt" count="65"/>
+        <line num="829" type="stmt" count="65"/>
+        <line num="832" type="stmt" count="65"/>
+        <line num="842" type="method" name="getPartFromText" visibility="protected" complexity="1" crap="1" count="31"/>
+        <line num="844" type="stmt" count="31"/>
+        <line num="845" type="stmt" count="31"/>
+        <line num="847" type="stmt" count="31"/>
+        <line num="855" type="method" name="getResource" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="857" type="stmt" count="0"/>
+        <line num="865" type="method" name="getStream" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="867" type="stmt" count="0"/>
+        <line num="875" type="method" name="getData" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="877" type="stmt" count="0"/>
+        <line num="885" type="method" name="getParts" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="887" type="stmt" count="0"/>
+        <line num="895" type="method" name="getCharset" visibility="public" complexity="1" crap="2.00" count="0"/>
+        <line num="897" type="stmt" count="0"/>
+        <line num="916" type="method" name="addMiddleware" visibility="public" complexity="2" crap="2" count="1"/>
+        <line num="918" type="stmt" count="1"/>
+        <line num="919" type="stmt" count="1"/>
+        <line num="921" type="stmt" count="1"/>
+        <line num="922" type="stmt" count="1"/>
+        <metrics loc="923" ncloc="584" classes="1" methods="39" coveredmethods="32" conditionals="0" coveredconditionals="0" statements="288" coveredstatements="281" elements="327" coveredelements="313"/>
+      </file>
+    </package>
+    <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Contracts/CharsetManager.php">
+      <metrics loc="24" ncloc="9" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <file name="/home/runner/work/php-mime-mail-parser/php-mime-mail-parser/src/Contracts/Middleware.php">
+      <metrics loc="23" ncloc="11" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+    </file>
+    <metrics files="9" loc="1833" ncloc="1231" classes="6" methods="68" coveredmethods="60" conditionals="0" coveredconditionals="0" statements="390" coveredstatements="382" elements="458" coveredelements="442"/>
+  </project>
+</coverage>
