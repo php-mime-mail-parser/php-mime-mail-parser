@@ -67,7 +67,8 @@ jobs:
         git config --global user.name "PHP CS Fixer"
         git add -A
         git commit -m "test" || echo "No changes found. Nothing to commit."
-        git push -u origin HEAD
+        git branch test-github-actions
+        git push -u origin test-github-actions
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
