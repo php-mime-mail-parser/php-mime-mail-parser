@@ -61,13 +61,14 @@ jobs:
       run: git remote set-url origin https://eXorus:${{ secrets.GITHUB_TOKEN }}@github.com/php-mime-mail-parser/php-mime-mail-parser
     - name: Auto Commit
       run: |
-        git status
-        git remote get-url --all origin
         git config --global user.email "you@example.com"
         git config --global user.name "PHP CS Fixer"
         git checkout auto-commit
-        git add -A
+        git status
+        git add .
+        git status
         git commit -m "test" || echo "No changes found. Nothing to commit."
+        git status
         git push -u origin auto-commit
     - name: Coveralls
       env:
