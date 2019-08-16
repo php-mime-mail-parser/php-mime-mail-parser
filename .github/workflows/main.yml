@@ -10,23 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install mailparse
-      run: |
-        sudo apt install php-mailparse
+      run: sudo apt install php-mailparse
     - name: Composer install
       run: composer install
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: ls
-      run: ls
-    - name: pwd
-      run: pwd
-    - name: ls vendor
-      run: ls ./vendor
-    - name: ls vendor bin
-      run: ls ./vendor/bin
     - name: PhpUnit
       run: ./vendor/bin/phpunit
