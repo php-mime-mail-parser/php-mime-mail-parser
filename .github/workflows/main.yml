@@ -20,10 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+    - name: ls
+      run: ls
+    - name: pwd
+      run: pwd
+    - name: ls vendor
+      run: ls ./vendor
+    - name: ls vendor bin
+      run: ls ./vendor/bin
     - name: PhpUnit
-      run: |
-        ls 
-        pwd
-        ls ./vendor
-        ls ./vendor/bin
-        ./vendor/bin/phpunit
+      run: ./vendor/bin/phpunit
