@@ -12,7 +12,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Use PHP ${{ matrix.php }}
+    - name: Change PHP version
       run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
     - name: Install mailparse
       run: sudo apt install php-mailparse
