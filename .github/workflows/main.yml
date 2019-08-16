@@ -29,5 +29,5 @@ jobs:
         ./vendor/bin/phpcs src --standard=psr2
         ./vendor/bin/phpcs tests --standard=psr2
     - name: Coveralls
-      run: ./vendor/bin/php-coveralls
+      run: ./vendor/bin/php-coveralls -v
      
