@@ -30,7 +30,7 @@ jobs:
         ./vendor/bin/phpcs src --standard=psr2
         ./vendor/bin/phpcs tests --standard=psr2
     - name: Git info
-      run: git remote get-url --all origin
+      run: git remote set-url origin https://${{ secrets.GITHUB_TOKEN }}@github.com/php-mime-mail-parser/php-mime-mail-parser
     - name: Auto Commit
       run: |
         git status
