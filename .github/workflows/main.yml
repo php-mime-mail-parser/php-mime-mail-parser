@@ -29,14 +29,14 @@ jobs:
       run: |
         ./vendor/bin/phpcs src --standard=psr2
         ./vendor/bin/phpcs tests --standard=psr2
-    - name: toto
+    - name: Auto Commit
       run: |
         git status
         git config --global user.email "you@example.com"
         git config --global user.name "PHP CS Fixer"
-        git add .
-        git commit -m "test"
-        git push
+        git add -A
+        git commit -m "test" || echo "No changes found. Nothing to commit."
+        git push -u origin HEAD
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
