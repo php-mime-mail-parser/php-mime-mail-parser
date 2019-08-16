@@ -6,9 +6,14 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [7.1, 7.2, 7.3]
     
     steps:
     - uses: actions/checkout@v1
+    - name: Use PHP ${{ matrix.php }}
+      run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
     - name: Install mailparse
       run: sudo apt install php-mailparse
     - name: Composer install
