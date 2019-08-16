@@ -10,7 +10,9 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install mailparse
-      run: pecl install mailparse
+      run: |
+        apt-get install php-pear
+        pecl install mailparse
     - name: Composer install
       run: composer install
 
