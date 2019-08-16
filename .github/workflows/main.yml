@@ -12,8 +12,16 @@ jobs:
       run: sudo apt install php-mailparse
     - name: Composer install
       run: composer update --no-progress
+    - name: Dump GitHub context 1
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Dump GitHub context 2
+      env:
+        GITHUB_CONTEXT_LAST_COMMIT: ${{ toJson(github.head_commit) }}
+      run: echo "$GITHUB_CONTEXT_LAST_COMMIT"
     - name: PHPCS
-      run: echo ${{ github.head_commit.author.name }}
+      run: echo "${{ github.head_commit.author.name }}"
     - name: Auto Commit
       run: |
         git remote set-url origin https://eXorus:${{ secrets.GITHUB_TOKEN }}@github.com/php-mime-mail-parser/php-mime-mail-parser
