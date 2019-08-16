@@ -11,7 +11,10 @@ jobs:
     - name: Composer install
       run: composer update --no-progress --ignore-platform-reqs
     - name: PHPCS
-      run: echo "toto new fixer" >> file.log
+      run: |
+        composer require friendsofphp/php-cs-fixer
+        ./vendor/bin/php-cs-fixer fix src
+        ./vendor/bin/php-cs-fixer fix tests
     - name: Auto Commit
       if: github.event.head_commit.author.name != 'PHP CS Fixer'
       run: |
