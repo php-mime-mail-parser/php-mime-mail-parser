@@ -30,6 +30,6 @@ jobs:
         ./vendor/bin/phpcs tests --standard=psr2
     - name: Coveralls
       env:
-        COVERALLS_REPO_TOKEN:BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
+        COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
       run: ./vendor/bin/php-coveralls -v
      
