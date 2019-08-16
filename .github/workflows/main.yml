@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         php: [7.1, 7.2, 7.3]
+        composer: ["", "--prefer-lowest"]
     
     steps:
     - uses: actions/checkout@v1
@@ -17,7 +18,7 @@ jobs:
     - name: Install mailparse
       run: sudo apt install php-mailparse
     - name: Composer install
-      run: composer install
+      run: composer update ${{ matrix.composer }}
     - name: PHP Version
       run: php -v
     - name: PhpUnit
