@@ -29,6 +29,10 @@ jobs:
       run: |
         ./vendor/bin/phpcs src --standard=psr2
         ./vendor/bin/phpcs tests --standard=psr2
+    - name: toto
+      run: echo "toto" > test.log
+    - name: Auto Commit changed files
+      uses: stefanzweifel/git-auto-commit-action@v1.0.0
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
