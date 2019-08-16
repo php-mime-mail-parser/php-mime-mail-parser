@@ -18,5 +18,7 @@ jobs:
       run: sudo apt install php-mailparse
     - name: Composer install
       run: composer install
+    - name: PHP Version
+      run: php -v
     - name: PhpUnit
       run: ./vendor/bin/phpunit
