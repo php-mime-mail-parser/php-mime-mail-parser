@@ -254,7 +254,6 @@ class ParserTest extends \PHPUnit\Framework\TestCase
 
     public function provideData()
     {
-
         $data = array(
             /*
             array(
@@ -1741,7 +1740,6 @@ variances available &nbsp;</div></body></html>'
      */
     public function testMiddleware()
     {
-
         $middlewareCalled = false;
 
         //Init

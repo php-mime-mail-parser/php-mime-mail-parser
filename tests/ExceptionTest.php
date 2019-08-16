@@ -143,7 +143,6 @@ namespace PhpMimeMailParser {
          */
         public function testGetAttachmentStreamWithoutTmpPermissions()
         {
-
             $file = __DIR__.'/mails/m0001';
 
             $Parser = new Parser();
