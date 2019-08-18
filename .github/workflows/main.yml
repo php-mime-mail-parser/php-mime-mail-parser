@@ -22,9 +22,10 @@ jobs:
         git config --global user.name "PHP CS Fixer"
         git checkout auto-commit
         git status
-        git add .
+        git add src
+        git add tests
         git status
-        git commit -m "test fixer" || echo "No changes found. Nothing to commit."
+        git commit -m "PHP CS Fixer" || echo "No changes found. Nothing to commit."
         git status
         git push
 
