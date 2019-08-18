@@ -17,7 +17,7 @@ jobs:
         ./vendor/bin/php-cs-fixer fix tests
     - name: Auto Commit
       run: |
-        git remote set-url origin https://eXorus:${{ secrets.GITHUB_TOKEN }}@github.com/php-mime-mail-parser/php-mime-mail-parser
+        git remote set-url origin https://eXorus:${{ secrets.TADA }}@github.com/php-mime-mail-parser/php-mime-mail-parser
         git config --global user.email "you@example.com"
         git config --global user.name "PHP CS Fixer"
         git checkout auto-commit
