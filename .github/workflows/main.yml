@@ -20,7 +20,7 @@ jobs:
         git remote set-url origin https://eXorus:${{ secrets.TADA }}@github.com/php-mime-mail-parser/php-mime-mail-parser
         git config --global user.email "you@example.com"
         git config --global user.name "PHP CS Fixer"
-        git checkout ${{ GITHUB_REF }}
+        git checkout $GITHUB_REF
         git add src
         git add tests
         git commit -m "PHP CS Fixer" || echo "No changes found. Nothing to commit."
