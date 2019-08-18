@@ -5,6 +5,7 @@ A fully tested email parser for PHP 7.1+ (mailparse extension wrapper).
 It's the most effective php email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
 Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](https://tools.ietf.org/html/rfc2822), [5322](https://tools.ietf.org/html/rfc5322).
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/196cf8cf5fda4427b67ab7da9db876dc)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser?utm_source=github.com&utm_medium=referral&utm_content=php-mime-mail-parser/php-mime-mail-parser&utm_campaign=Badge_Grade_Dashboard)
 [![Latest Version](https://img.shields.io/packagist/v/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases)
 [![Total Downloads](https://img.shields.io/packagist/dt/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
