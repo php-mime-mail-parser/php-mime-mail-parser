@@ -1,16 +1,37 @@
 name: CI
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  build:
 
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Composer install
+      run: composer update --no-progress --ignore-platform-reqs
+    - name: PHPCS
+      run: |
+        composer require friendsofphp/php-cs-fixer  --ignore-platform-reqs
+        ./vendor/bin/php-cs-fixer fix src 
+        ./vendor/bin/php-cs-fixer fix tests
+    - name: Auto Commit
+      run: |
+        git remote set-url origin https://eXorus:${{ secrets.TADA }}@github.com/php-mime-mail-parser/php-mime-mail-parser
+        git config --global user.email "you@example.com"
+        git config --global user.name "PHP CS Fixer"
+        git checkout ${{ GITHUB_REF }}
+        git add src
+        git add tests
+        git commit -m "PHP CS Fixer" || echo "No changes found. Nothing to commit."
+        git push
+        
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php: [7.1, 7.2, 7.3]
         composer: ["", "--prefer-lowest"]
-    
     steps:
     - uses: actions/checkout@v1
     - name: Change PHP version
@@ -18,7 +39,7 @@ jobs:
     - name: Install mailparse
       run: sudo apt install php-mailparse
     - name: Composer install
-      run: composer update ${{ matrix.composer }}
+      run: composer update ${{ matrix.composer }} --no-progress
     - name: PHP Version
       run: php -v
     - name: PhpUnit
