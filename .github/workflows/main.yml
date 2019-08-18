@@ -3,7 +3,24 @@ name: CI
 on: [push]
 
 jobs:
-        
+
+  tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [7.1, 7.2, 7.3]
+        composer: ["", "--prefer-lowest"]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Change PHP version
+      run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }} && php -v
+    - name: Install mailparse
+      run: sudo apt install php-mailparse
+    - name: Composer update
+      run: composer update ${{ matrix.composer }} --no-progress
+    - name: PhpUnit
+      run: ./vendor/bin/phpunit
+     
   php-cs:
     runs-on: ubuntu-latest
     steps:
@@ -29,21 +46,4 @@ jobs:
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
       run: ./vendor/bin/php-coveralls -v
-     
-  tests:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php: [7.1, 7.2, 7.3]
-        composer: ["", "--prefer-lowest"]
-    steps:
-    - uses: actions/checkout@v1
-    - name: Change PHP version
-      run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }} && php -v
-    - name: Install mailparse
-      run: sudo apt install php-mailparse
-    - name: Composer update
-      run: composer update ${{ matrix.composer }} --no-progress
-    - name: PhpUnit
-      run: ./vendor/bin/phpunit
      
