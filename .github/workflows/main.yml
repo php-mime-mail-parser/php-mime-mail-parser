@@ -4,6 +4,15 @@ on: [push]
 
 jobs:
         
+  php-cs:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Composer update
+      run: composer update --no-progress --ignore-platform-reqs
+    - name: PHP CS
+      run: ./vendor/bin/phpcs src tests --standard=psr2
+     
   build:
     runs-on: ubuntu-latest
     strategy:
@@ -22,10 +31,6 @@ jobs:
       run: |
         mkdir -p build/logs
         ./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml -c phpunit.xml.dist --whitelist src
-    - name: PHP CS
-      run: |
-        ./vendor/bin/phpcs src --standard=psr2
-        ./vendor/bin/phpcs tests --standard=psr2
     - name: Coveralls
       env:
         COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
