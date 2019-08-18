@@ -38,12 +38,10 @@ jobs:
       run: sudo apt install php-mailparse
     - name: Composer update
       run: composer update --no-progress
-    - name: PhpUnit
-      run: |
-        mkdir -p build/logs
-        ./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml -c phpunit.xml.dist --whitelist src
-    - name: Coveralls
+    - name: Codecov
       env:
-        COVERALLS_REPO_TOKEN: BS4E6dtQa8fUMHQiOTFbQICA6ydxSqkRt
-      run: ./vendor/bin/php-coveralls -v
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      run: |
+        ./vendor/bin/phpunit --coverage-clover=coverage.xml
+        bash <(curl -s https://codecov.io/bash)
      
