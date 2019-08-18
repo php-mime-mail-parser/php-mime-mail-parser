@@ -2,8 +2,7 @@
 
 use PhpMimeMailParser\Contracts\CharsetManager;
 
-class Charset implements CharsetManager
-{
+class Charset implements CharsetManager {
     /**
      * Charset Aliases
      */
