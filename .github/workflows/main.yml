@@ -19,7 +19,7 @@ jobs:
     - name: Composer update
       run: composer update ${{ matrix.composer }} --no-progress
     - name: PhpUnit
-      run: ./vendor/bin/phpunit
+      run: php -d xdebug.profiler_enable=off ./vendor/bin/phpunit
      
   php-cs:
     runs-on: ubuntu-latest
