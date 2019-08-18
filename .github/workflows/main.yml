@@ -13,7 +13,7 @@ jobs:
     - name: PHP CS
       run: ./vendor/bin/phpcs src tests --standard=psr2
      
-  build:
+  tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
