@@ -1,30 +1,8 @@
 name: CI
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-
-  php-cs-fixer:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: Composer install
-      run: composer update --no-progress --ignore-platform-reqs
-    - name: PHPCS
-      run: |
-        composer require friendsofphp/php-cs-fixer  --ignore-platform-reqs
-        ./vendor/bin/php-cs-fixer fix src 
-        ./vendor/bin/php-cs-fixer fix tests
-    - name: Auto Commit
-      run: |
-        git remote set-url origin https://eXorus:${{ secrets.TADA }}@github.com/php-mime-mail-parser/php-mime-mail-parser
-        git config --global user.email "you@example.com"
-        git config --global user.name "PHP CS Fixer"
-        git checkout $GITHUB_REF
-        git add src
-        git add tests
-        git commit -m "PHP CS Fixer" || echo "No changes found. Nothing to commit."
-        git push
         
   build:
     runs-on: ubuntu-latest
@@ -35,18 +13,16 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Change PHP version
-      run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }}
+      run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }} && php -v
     - name: Install mailparse
       run: sudo apt install php-mailparse
-    - name: Composer install
+    - name: Composer update
       run: composer update ${{ matrix.composer }} --no-progress
-    - name: PHP Version
-      run: php -v
     - name: PhpUnit
       run: |
         mkdir -p build/logs
         ./vendor/bin/phpunit --coverage-text --coverage-clover build/logs/clover.xml -c phpunit.xml.dist --whitelist src
-    - name: PHPCS
+    - name: PHP CS
       run: |
         ./vendor/bin/phpcs src --standard=psr2
         ./vendor/bin/phpcs tests --standard=psr2
