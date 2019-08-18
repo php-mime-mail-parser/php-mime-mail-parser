@@ -23,10 +23,9 @@ Yes. All known issues have been reproduced, fixed and tested.
 
 We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see real-time statistics below:
 
-[![Actions Status](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/php-mime-mail-parser/php-mime-mail-parser)](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/results/php-mime-mail-parser/php-mime-mail-parser)
-[![Coverage](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser/branch/master/graph/badge.svg)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
-[![Code Quality](https://api.codacy.com/project/badge/Grade/196cf8cf5fda4427b67ab7da9db876dc)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser?utm_source=github.com&utm_medium=referral&utm_content=php-mime-mail-parser/php-mime-mail-parser&utm_campaign=Badge_Grade_Dashboard)
-
+[![Actions Status](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/badge/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://wdp9fww0r9.execute-api.us-west-2.amazonaws.com/production/results/php-mime-mail-parser/php-mime-mail-parser)
+[![Coverage](https://img.shields.io/codecov/c/gh/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
+[![Code Quality](https://img.shields.io/codacy/grade/4e0e44fee21147ddbdd18ff976251875?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
 
 
 ## How do I install it?
