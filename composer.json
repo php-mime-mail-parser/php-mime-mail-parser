@@ -43,8 +43,7 @@
     },
     "require": {
         "php":           "^7.1",
-        "ext-mailparse": "*",
-        "friendsofphp/php-cs-fixer": "^2.15"
+        "ext-mailparse": "*"
     },
     "require-dev": {
         "phpunit/phpunit":              "^7.0",
