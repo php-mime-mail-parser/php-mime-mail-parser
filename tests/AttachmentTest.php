@@ -11,8 +11,7 @@ use PhpMimeMailParser\Exception;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-class AttachmentTest extends \PHPUnit\Framework\TestCase
-{
+class AttachmentTest extends \PHPUnit\Framework\TestCase {
     public function testSaveAttachmentsFromParser()
     {
         $file = __DIR__ . '/mails/m0002';
