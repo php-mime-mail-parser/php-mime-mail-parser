@@ -13,8 +13,7 @@ namespace {
 
 namespace PhpMimeMailParser {
 
-    function tmpfile()
-    {
+    function tmpfile(){
         global $mockTmpFile;
         if (isset($mockTmpFile) && $mockTmpFile === true) {
             return false;
