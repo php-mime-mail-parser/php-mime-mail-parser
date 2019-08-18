@@ -18,7 +18,8 @@ namespace PhpMimeMailParser;
  *     $part['headers']['from'] = 'modified@example.com';
  *     $MimePart->setPart($part);
  */
-class MimePart implements \ArrayAccess {
+class MimePart implements \ArrayAccess
+{
     /**
      * Internal mime part
      *
