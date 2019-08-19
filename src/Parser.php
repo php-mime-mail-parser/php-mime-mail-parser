@@ -268,7 +268,7 @@ class Parser
     {
         if (isset($this->parts[1])) {
             $headers = $this->getPart('headers', $this->parts[1]);
-            foreach ($headers as $name => &$value) {
+            foreach ($headers as &$value) {
                 if (is_array($value)) {
                     foreach ($value as &$v) {
                         $v = $this->decodeSingleHeader($v);
