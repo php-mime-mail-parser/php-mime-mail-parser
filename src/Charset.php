@@ -325,11 +325,8 @@ class Charset implements CharsetManager
             if ($charset == 'iso-2022-jp') {
                 return mb_convert_encoding($encodedString, 'utf-8', 'iso-2022-jp-ms');
             }
-            if ($charset == 'gb2312') {
-                return mb_convert_encoding($encodedString, 'utf-8', $charset);
-            }
 
-            if (array_search($charset, array_map('strtolower', mb_list_encodings()))) {
+            if (array_search($charset, $this->getSupportedEncodings())) {
                 return mb_convert_encoding($encodedString, 'utf-8', $charset);
             }
         }
@@ -349,5 +346,25 @@ class Charset implements CharsetManager
         }
         
         return 'us-ascii';
+    }
+
+    private function getSupportedEncodings()
+    {
+        return
+        array_map('strtolower',
+        array_unique(
+            array_merge(
+                $enc = mb_list_encodings(), 
+                call_user_func_array(
+                    'array_merge',
+                    array_map(
+                            "mb_encoding_aliases", 
+                            $enc
+                    )
+                )
+            )
+        )
+    )
+    ;
     }
 }
