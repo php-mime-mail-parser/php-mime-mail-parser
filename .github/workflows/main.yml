@@ -18,6 +18,8 @@ jobs:
       run: sudo apt install php-mailparse
     - name: Composer update
       run: composer update ${{ matrix.composer }} --no-progress
+    - name: Version iconv
+      run: php -i | grep "iconv impl"
     - name: PhpUnit
       run: php -d xdebug.profiler_enable=off ./vendor/bin/phpunit
      
