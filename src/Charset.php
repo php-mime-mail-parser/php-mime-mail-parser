@@ -322,17 +322,16 @@ class Charset implements CharsetManager
         }
 
         if (function_exists('mb_convert_encoding')) {
-            var_dump("expression exist");
             if ($charset == 'iso-2022-jp') {
                 return mb_convert_encoding($encodedString, 'utf-8', 'iso-2022-jp-ms');
+            }
+            if ($charset == 'gb2312') {
+                return mb_convert_encoding($encodedString, 'utf-8', $charset);
             }
 
             if (array_search($charset, array_map('strtolower', mb_list_encodings()))) {
                 return mb_convert_encoding($encodedString, 'utf-8', $charset);
             }
-        }else {
-            var_dump("expression doesnt exist");
-
         }
 
         return iconv($charset, 'utf-8//translit//ignore', $encodedString);
