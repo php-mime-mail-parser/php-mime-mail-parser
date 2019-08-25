@@ -12,6 +12,8 @@ jobs:
         composer: ["", "--prefer-lowest"]
     steps:
     - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
     - name: Change PHP version
       run: sudo update-alternatives --set php /usr/bin/php${{ matrix.php }} && php -v
     - name: Install mailparse
@@ -25,6 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
     - name: Composer update
       run: composer update --no-progress --ignore-platform-reqs
     - name: PHP CS
@@ -34,6 +38,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
     - name: Install mailparse
       run: sudo apt install php-mailparse
     - name: Composer update
