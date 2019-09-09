@@ -1888,7 +1888,8 @@ mini plain body';
         $ParserByStream->setStream($temp);
         $this->assertContains('mini plain body', $ParserByStream->getMessageBody('text'));
     }
-    public function testFailureEmail()
+
+    public function testCharsetSupportedAsAnAlias()
     {
         // Init
         $file = __DIR__ . '/mails/failure.eml';
