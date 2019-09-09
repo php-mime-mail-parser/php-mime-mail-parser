@@ -351,20 +351,20 @@ class Charset implements CharsetManager
     private function getSupportedEncodings()
     {
         return
-        array_map('strtolower',
-        array_unique(
-            array_merge(
-                $enc = mb_list_encodings(), 
-                call_user_func_array(
-                    'array_merge',
-                    array_map(
-                            "mb_encoding_aliases", 
+        array_map(
+            'strtolower',
+            array_unique(
+                array_merge(
+                    $enc = mb_list_encodings(),
+                    call_user_func_array(
+                        'array_merge',
+                        array_map(
+                            "mb_encoding_aliases",
                             $enc
+                        )
                     )
                 )
             )
-        )
-    )
-    ;
+        );
     }
 }
