@@ -1,0 +1,16 @@
+From: <foo@bar.de>
+To: <foo@bar.de>
+Content-Type: multipart/report; report-type=delivery-status;
+	boundary="2bd35790-9057-4632-abe3-a437bbc1e047"
+
+--2bd35790-9057-4632-abe3-a437bbc1e047
+Content-Type: multipart/alternative; differences=Content-Type;
+	boundary="7d6f9b31-044c-445f-9b52-1908a16f0ac9"
+
+--7d6f9b31-044c-445f-9b52-1908a16f0ac9
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: quoted-printable
+
+=B4=CE=A4=CE=CA=DC=D0=C5=D5=DF=A4=DE=A4=BF=A4=CF=A5=B0=A5=EB=A9`=A5=D7=A4=
+=D8=A4=CE=C5=E4=D0=C5=A4=CB=CA=A7=94=A1=A4=B7=A4=DE=A4=B7=A4=BF:
+

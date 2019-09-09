@@ -1889,6 +1889,17 @@ mini plain body';
         $this->assertContains('mini plain body', $ParserByStream->getMessageBody('text'));
     }
 
+    public function testCharsetSupportedAsAnAlias()
+    {
+        // Init
+        $file = __DIR__ . '/mails/failure.eml';
+
+        $Parser = new Parser();
+        $Parser->setPath($file);
+        $this->assertEquals('<foo@bar.de>', $Parser->getHeader('from'));
+        $this->assertContains('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getMessageBody('text'));
+    }
+
     public function testCharsetNotSupportedByMBString()
     {
         // Init
