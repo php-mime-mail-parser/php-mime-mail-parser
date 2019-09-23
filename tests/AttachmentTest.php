@@ -112,4 +112,27 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         array_map('unlink', $attachmentFiles);
         rmdir($attachDir);
     }
+
+    public function testSavingWithRandomFilenameKeepExtension()
+    {
+        $file = __DIR__ . '/mails/m0025';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachDir = __DIR__ . '/mails/m0025_attachments/';
+        $Parser->saveAttachments($attachDir, true, $Parser::ATTACHMENT_RANDOM_FILENAME);
+
+        $attachmentFiles = glob($attachDir . '*');
+        $attachmentJpgFiles = glob($attachDir . '*.jpg');
+        $attachmentTxtFiles = glob($attachDir . '*.txt');
+
+        // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+
+        $this->assertCount(3, $attachmentFiles);
+        $this->assertCount(2, $attachmentJpgFiles);
+        $this->assertCount(1, $attachmentTxtFiles);
+
+    }
 }
