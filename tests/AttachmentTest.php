@@ -133,6 +133,5 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(3, $attachmentFiles);
         $this->assertCount(2, $attachmentJpgFiles);
         $this->assertCount(1, $attachmentTxtFiles);
-
     }
 }
