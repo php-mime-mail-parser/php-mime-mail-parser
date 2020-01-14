@@ -19,6 +19,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: mailparse
+          ini-values: mbstring.http_input=pass, mbstring.http_output=pass
           coverage: none
 
       - name: Install dependencies
