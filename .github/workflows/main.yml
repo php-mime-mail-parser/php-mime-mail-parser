@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest --no-progress
 
+      - name: Mbstring
+        run: php -m | grep mbstring
+
       - name: Execute tests
         run: vendor/bin/phpunit
 
