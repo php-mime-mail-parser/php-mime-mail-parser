@@ -19,14 +19,10 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           extensions: mailparse
-          ini-values: mbstring.http_input=pass, mbstring.http_output=pass
           coverage: none
 
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest --no-progress
-
-      - name: Mbstring
-        run: php -m | grep mbstring
 
       - name: Execute tests
         run: vendor/bin/phpunit
