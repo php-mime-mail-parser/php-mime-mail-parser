@@ -159,7 +159,7 @@ class ParserTest extends TestCase
         rmdir($attachDir);
 
         // Default: generate filename suffix, so we should have two files
-        $this->assertEquals(2, count($attachmentFiles));
+        $this->assertCount(2, $attachmentFiles);
         $this->assertEquals($attachDir . 'ATT00001.txt', $attachmentFiles[0]);
         $this->assertEquals($attachDir . 'ATT00001_1.txt', $attachmentFiles[1]);
     }
@@ -180,7 +180,7 @@ class ParserTest extends TestCase
         rmdir($attachDir);
 
         // Default: generate random filename, so we should have two files
-        $this->assertEquals(2, count($attachmentFiles));
+        $this->assertCount(2, $attachmentFiles);
     }
 
     public function testMultipleContentTransferEncodingHeader()
@@ -248,8 +248,8 @@ class ParserTest extends TestCase
         $file = __DIR__ . '/mails/issue182';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $this->assertEquals(1, count($Parser->getAttachments()));
-        $this->assertEquals(1, count($Parser->getAttachments(true)));
+        $this->assertCount(1, $Parser->getAttachments());
+        $this->assertCount(1, $Parser->getAttachments(true));
     }
 
     public function provideData()
@@ -1171,7 +1171,7 @@ class ParserTest extends TestCase
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
-        $this->assertInternalType('string', $Parser->getHeadersRaw());
+        $this->assertIsString($Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
@@ -1200,7 +1200,7 @@ class ParserTest extends TestCase
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
+                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1305,7 +1305,7 @@ class ParserTest extends TestCase
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
-        $this->assertInternalType('string', $Parser->getHeadersRaw());
+        $this->assertIsString($Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
@@ -1334,7 +1334,7 @@ class ParserTest extends TestCase
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
+                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1440,7 +1440,7 @@ class ParserTest extends TestCase
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
-        $this->assertInternalType('string', $Parser->getHeadersRaw());
+        $this->assertIsString($Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
@@ -1469,7 +1469,7 @@ class ParserTest extends TestCase
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertTrue(file_exists($attach_dir.$attachmentExpected[0]));
+                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1833,7 +1833,7 @@ mini plain body';
 
         $ParserByText = new Parser();
         $ParserByText->setText($file);
-        $this->assertContains('mini plain body', $ParserByText->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByText->getMessageBody('text'));
 
         $ParserByPath = new Parser();
         $temp = tmpfile();
@@ -1842,7 +1842,7 @@ mini plain body';
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
         $ParserByPath->setPath($tmpFilename);
-        $this->assertContains('mini plain body', $ParserByPath->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByPath->getMessageBody('text'));
     }
 
     public function testParsingFileWithoutEndOfLineFromPath()
@@ -1865,7 +1865,7 @@ mini plain body';
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
         $ParserByPath->setPath($tmpFilename);
-        $this->assertContains('mini plain body', $ParserByPath->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByPath->getMessageBody('text'));
     }
 
     public function testParsingFileWithoutEndOfLineFromStream()
@@ -1886,7 +1886,7 @@ mini plain body';
         fwrite($temp, $file);
         rewind($temp);
         $ParserByStream->setStream($temp);
-        $this->assertContains('mini plain body', $ParserByStream->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByStream->getMessageBody('text'));
     }
 
     public function testCharsetSupportedAsAnAlias()
@@ -1897,7 +1897,7 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setPath($file);
         $this->assertEquals('<foo@bar.de>', $Parser->getHeader('from'));
-        $this->assertContains('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getMessageBody('text'));
+        $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getMessageBody('text'));
     }
 
     public function testCharsetNotSupportedByMBString()
@@ -1919,11 +1919,11 @@ mini plain body';
         $Parser->setPath(__DIR__.'/mails/issue274.eml');
 
         $this->assertEquals('guest@localhost', $Parser->getRawHeader('from'));
-        $this->assertContains('ligne 1', $Parser->getMessageBody('text'));
-        $this->assertContains('ligne 1', $Parser->getMessageBody('html'));
+        $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('text'));
+        $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('html'));
 
         $attachments = $Parser->getAttachments();
-        $this->assertEquals(5, count($attachments));
+        $this->assertCount(5, $attachments);
 
         foreach ($attachments as $key => $attachment) {
             $attachmentsName = [

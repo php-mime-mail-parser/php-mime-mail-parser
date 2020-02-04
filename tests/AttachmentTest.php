@@ -67,7 +67,7 @@ class AttachmentTest extends TestCase
         $attachmentFiles = glob($attachDir . '*');
 
         //Original + 5 suffixed + 1 random
-        $this->assertEquals(7, count($attachmentFiles));
+        $this->assertCount(7, $attachmentFiles);
         $this->assertFileExists($attachDir . 'attach02');
         $this->assertFileExists($attachDir . 'attach02_1');
         $this->assertFileExists($attachDir . 'attach02_2');
@@ -99,7 +99,7 @@ class AttachmentTest extends TestCase
         $attachmentFiles = glob($attachDir . '*');
 
         //Original + 3 suffixed + 1 random
-        $this->assertEquals(5, count($attachmentFiles));
+        $this->assertCount(5, $attachmentFiles);
         $this->assertFileExists($attachDir . 'logo.jpg');
         $this->assertFileExists($attachDir . 'logo_1.jpg');
         $this->assertFileExists($attachDir . 'logo_2.jpg');
