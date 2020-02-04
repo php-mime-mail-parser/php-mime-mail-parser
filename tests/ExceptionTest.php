@@ -26,82 +26,90 @@ class ExceptionTest extends TestCase
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage setPath() or setText() or setStream() must be called before
      */
     public function testGetHeader()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
+
         $Parser = new Parser();
         $Parser->getHeader('test');
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage setPath() or setText() or setStream() must be called before
      */
     public function testGetHeaders()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
+
         $Parser = new Parser();
         $Parser->getHeaders();
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage setPath() or setText() or setStream() must be called before
      */
     public function testGetHeadersRaw()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
+
         $Parser = new Parser();
         $Parser->getHeadersRaw();
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.
      */
     public function testgetMessageBody()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.');
+
         $Parser = new Parser();
         $Parser->getMessageBody('azerty');
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage Invalid type specified for getInlineParts(). "type" can either be text or html.
      */
     public function testgetInlineParts()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('Invalid type specified for getInlineParts(). "type" can either be text or html.');
+
         $Parser = new Parser();
         $Parser->getInlineParts('azerty');
     }
 
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage You must not call MimeMailParser::setText with an empty string parameter
      */
     public function testSetText()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('You must not call MimeMailParser::setText with an empty string parameter');
+
         $Parser = new Parser();
         $Parser->setText('');
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage setStream() expects parameter stream to be readable stream resource.
      */
     public function testSetStream()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+
         $Parser = new Parser();
         $Parser->setStream('azerty');
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage Could not create temporary files for attachments.
      */
     public function testSetStreamWithoutTmpPermissions()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('Could not create temporary files for attachments.');
+
         global $mockTmpFile;
         $mockTmpFile = true;
 
@@ -112,11 +120,12 @@ class ExceptionTest extends TestCase
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage Could not create temporary files for attachments.
      */
     public function testGetAttachmentStreamWithoutTmpPermissions()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('Could not create temporary files for attachments.');
+
 
         $file = __DIR__.'/mails/m0001';
 
@@ -130,22 +139,24 @@ class ExceptionTest extends TestCase
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage setStream() expects parameter stream to be readable stream resource.
      */
     public function testSetStreamResource()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+
         $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
         $Parser = new Parser();
         $Parser->setStream($c);
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage Could not write attachments. Your directory may be unwritable by PHP.
      */
     public function testSaveAttachmentsWithoutPermissions()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('Could not write attachments. Your directory may be unwritable by PHP.');
+
         $mid = 'm0001';
         $file = __DIR__.'/mails/'.$mid;
         $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
@@ -160,11 +171,12 @@ class ExceptionTest extends TestCase
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage Could not create file for attachment: duplicate filename.
      */
     public function testSaveAttachmentsWithDuplicateNames()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
+
         $mid = 'm0026';
         $file = __DIR__ . '/mails/' . $mid;
         $attach_dir = __DIR__ . '/mails/attach_' . $mid . '/';
@@ -184,11 +196,12 @@ class ExceptionTest extends TestCase
     }
 
     /**
-     * @expectedException \PhpMimeMailParser\Exception
-     * @expectedExceptionMessage Invalid filename strategy argument provided.
      */
     public function testSaveAttachmentsInvalidStrategy()
     {
+        $this->expectException(\PhpMimeMailParser\Exception::class);
+        $this->expectExceptionMessage('Invalid filename strategy argument provided.');
+
         $file = __DIR__ . '/mails/m0026';
 
         $Parser = new Parser();
