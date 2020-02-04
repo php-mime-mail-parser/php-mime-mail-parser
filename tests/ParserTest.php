@@ -1,9 +1,12 @@
 <?php
-namespace PhpMimeMailParser;
+namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\Attachment;
 use PhpMimeMailParser\Exception;
+use PhpMimeMailParser\MimePart;
+use PhpMimeMailParser\MiddleWare;
+use PhpMimeMailParser\MiddleWareStack;
 
 /**
  * Test Parser of php-mime-mail-parser
@@ -11,9 +14,8 @@ use PhpMimeMailParser\Exception;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-class ParserTest extends \PHPUnit\Framework\TestCase
+class ParserTest extends TestCase
 {
-
     /**
      * @dataProvider provideData
      */
@@ -72,8 +74,6 @@ class ParserTest extends \PHPUnit\Framework\TestCase
     /**
      * test for being able to extract multiple inline text/plain & text/html parts
      * related to issue #163
-     *
-     * @return return type
      */
     public function testMultiPartInline()
     {
