@@ -61,5 +61,16 @@
     "autoload-dev": {
         "psr-4": { "Tests\\PhpMimeMailParser\\": "tests/" },
         "files": ["tests/globals.php"]
+    },
+    "scripts": {
+        "check-format": [
+            "vendor/bin/phpcs src tests --standard=psr2"
+        ],
+        "test": [
+            "vendor/bin/phpunit"
+        ],
+        "test-with-coverage": [
+            "vendor/bin/phpunit --coverage-clover=coverage.xml --whitelist src"
+        ]
     }
 }
