@@ -13,15 +13,12 @@ use PhpMimeMailParser\Exception;
  */
 class ExceptionTest extends TestCase
 {
-    public function setUp(): void
+    protected function tearDown(): void
     {
         global $mockTmpFile;
         $mockTmpFile = false;
 
-        global $mockFopen;
-        $mockFopen = false;
-
-        parent::setUp();
+        parent::tearDown();
     }
 
     /**
@@ -162,13 +159,11 @@ class ExceptionTest extends TestCase
 
         $mid = 'm0001';
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
+        $attach_dir = $this->tempdir('attach_'.$mid);
+        chmod($attach_dir, 0600);
 
         $Parser = new Parser();
         $Parser->setStream(fopen($file, 'r'));
-
-        global $mockFopen;
-        $mockFopen = true;
 
         $Parser->saveAttachments($attach_dir);
     }
@@ -182,20 +177,12 @@ class ExceptionTest extends TestCase
 
         $mid = 'm0026';
         $file = __DIR__ . '/mails/' . $mid;
-        $attach_dir = __DIR__ . '/mails/attach_' . $mid . '/';
+        $attach_dir = $this->tempdir('attach_' . $mid);
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
-        try {
-            $Parser->saveAttachments($attach_dir, false, Parser::ATTACHMENT_DUPLICATE_THROW);
-        } catch (Exception $e) {
-            // Clean up attachments dir
-            unlink($attach_dir . 'ATT00001.txt');
-            rmdir($attach_dir);
-
-            throw $e;
-        }
+        $Parser->saveAttachments($attach_dir, false, Parser::ATTACHMENT_DUPLICATE_THROW);
     }
 
     /**

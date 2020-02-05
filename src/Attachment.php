@@ -263,7 +263,7 @@ class Attachment
         }
 
         /** @var resource $fp */
-        if ($fp = fopen($attachment_path, 'w')) {
+        if ($fp = @fopen($attachment_path, 'w')) {
             while ($bytes = $this->read()) {
                 fwrite($fp, $bytes);
             }
