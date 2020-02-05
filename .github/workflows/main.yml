@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4]
-        dependency-version: [prefer-lowest, prefer-stable]
+        dependency-version: [prefer-stable]
     steps:
       - name: Checkout code
         uses: actions/checkout@v1
