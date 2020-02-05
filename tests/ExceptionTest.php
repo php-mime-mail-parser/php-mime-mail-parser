@@ -5,7 +5,6 @@ namespace Tests\PhpMimeMailParser;
 use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\Exception;
 
-
 /**
  * ExceptionTest of php-mime-mail-parser
  *
@@ -63,7 +62,9 @@ class ExceptionTest extends TestCase
     public function testgetMessageBody()
     {
         $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.');
+        $this->expectExceptionMessage(
+            'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
+        );
 
         $Parser = new Parser();
         $Parser->getMessageBody('azerty');
@@ -74,7 +75,9 @@ class ExceptionTest extends TestCase
     public function testgetInlineParts()
     {
         $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('Invalid type specified for getInlineParts(). "type" can either be text or html.');
+        $this->expectExceptionMessage(
+            'Invalid type specified for getInlineParts(). "type" can either be text or html.'
+        );
 
         $Parser = new Parser();
         $Parser->getInlineParts('azerty');
