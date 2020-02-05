@@ -149,14 +149,10 @@ class ParserTest extends TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
-        $attachDir = __DIR__ . '/mails/m0026_attachments/';
+        $attachDir = $this->tempdir('m0002_attachments');
         $Parser->saveAttachments($attachDir, false);
 
         $attachmentFiles = glob($attachDir . '*');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
 
         // Default: generate filename suffix, so we should have two files
         $this->assertCount(2, $attachmentFiles);
@@ -170,14 +166,10 @@ class ParserTest extends TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
-        $attachDir = __DIR__ . '/mails/m0026_attachments/';
+        $attachDir = $this->tempdir('m0026_attachments');
         $Parser->saveAttachments($attachDir, false, Parser::ATTACHMENT_RANDOM_FILENAME);
 
         $attachmentFiles = glob($attachDir . '*');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
 
         // Default: generate random filename, so we should have two files
         $this->assertCount(2, $attachmentFiles);
@@ -1144,7 +1136,7 @@ class ParserTest extends TestCase
     ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
+        $attach_dir = $this->tempdir('attach_'.$mid);
 
         //Load From Path
         $Parser = new Parser();
@@ -1239,13 +1231,8 @@ class ParserTest extends TestCase
                     array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
                 }
 
-                //Remove Attachment
-                unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
-
                 $iterAttachments++;
             }
-            //Remove Attachment Directory
-            rmdir($attach_dir);
         } else {
             $this->assertEquals([], $Parser->saveAttachments($attach_dir));
         }
@@ -1278,7 +1265,7 @@ class ParserTest extends TestCase
     ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
+        $attach_dir = $this->tempdir('attach_'.$mid);
 
         //Load From Text
         $Parser = new Parser();
@@ -1373,13 +1360,8 @@ class ParserTest extends TestCase
                     array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
                 }
 
-                //Remove Attachment
-                unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
-
                 $iterAttachments++;
             }
-            //Remove Attachment Directory
-            rmdir($attach_dir);
         } else {
             $this->assertEquals([], $Parser->saveAttachments($attach_dir));
         }
@@ -1413,7 +1395,8 @@ class ParserTest extends TestCase
     ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = __DIR__.'/mails/attach_'.$mid.'/';
+        $attach_dir = $this->tempdir('attach_'.$mid);
+
 
         //Load From Path
         $Parser = new Parser();
@@ -1508,13 +1491,8 @@ class ParserTest extends TestCase
                     array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
                 }
 
-                //Remove Attachment
-                unlink($attach_dir.$attachments[$iterAttachments]->getFilename());
-
                 $iterAttachments++;
             }
-            //Remove Attachment Directory
-            rmdir($attach_dir);
         } else {
             $this->assertEquals([], $Parser->saveAttachments($attach_dir));
         }

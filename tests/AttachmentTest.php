@@ -17,15 +17,11 @@ class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $attachDir = __DIR__ . '/mails/m0002_attachments/';
+        $attachDir = $this->tempdir('m0002_attachments');
+
         $Parser->saveAttachments($attachDir);
 
         $attachmentFiles = glob($attachDir . '*');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
-
         $this->assertCount(1, $attachmentFiles);
     }
 
@@ -35,17 +31,13 @@ class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $attachDir = __DIR__ . '/mails/m0002_attachments/';
+        $attachDir = $this->tempdir('m0002_attachments');
+
         foreach ($Parser->getAttachments() as $attachment) {
             $attachment->save($attachDir);
         }
 
         $attachmentFiles = glob($attachDir . '*');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
-
         $this->assertCount(1, $attachmentFiles);
     }
 
@@ -55,7 +47,8 @@ class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $attachDir = __DIR__ . '/mails/m0002_attachments/';
+        $attachDir = $this->tempdir('m0002_attachments');
+
         $attachments = $Parser->getAttachments();
 
         $attachments[0]->maxDuplicateNumber = 5;
@@ -75,10 +68,6 @@ class AttachmentTest extends TestCase
         $this->assertFileExists($attachDir . 'attach02_4');
         $this->assertFileExists($attachDir . 'attach02_5');
         $this->assertFileNotExists($attachDir . 'attach02_6');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
     }
 
     public function testGeneratingDuplicateSuffix()
@@ -87,7 +76,8 @@ class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $attachDir = __DIR__ . '/mails/issue115_attachments/';
+        $attachDir = $this->tempdir('issue115_attachments');
+
         $attachments = $Parser->getAttachments();
 
         $attachments[0]->maxDuplicateNumber = 3;
@@ -105,10 +95,6 @@ class AttachmentTest extends TestCase
         $this->assertFileExists($attachDir . 'logo_2.jpg');
         $this->assertFileExists($attachDir . 'logo_3.jpg');
         $this->assertFileNotExists($attachDir . 'logo_4.jpg');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
     }
 
     public function testSavingWithRandomFilenameKeepExtension()
@@ -117,16 +103,13 @@ class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $attachDir = __DIR__ . '/mails/m0025_attachments/';
+        $attachDir = $this->tempdir('m0025_attachments');
+
         $Parser->saveAttachments($attachDir, true, $Parser::ATTACHMENT_RANDOM_FILENAME);
 
         $attachmentFiles = glob($attachDir . '*');
         $attachmentJpgFiles = glob($attachDir . '*.jpg');
         $attachmentTxtFiles = glob($attachDir . '*.txt');
-
-        // Clean up attachments dir
-        array_map('unlink', $attachmentFiles);
-        rmdir($attachDir);
 
         $this->assertCount(3, $attachmentFiles);
         $this->assertCount(2, $attachmentJpgFiles);
