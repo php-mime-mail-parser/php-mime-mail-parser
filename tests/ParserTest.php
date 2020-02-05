@@ -203,12 +203,10 @@ class ParserTest extends TestCase
 
     public function testDecodeCharsetFailedIsIgnored()
     {
-        if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
-            $file = __DIR__ . '/mails/issue116';
-            $Parser = new Parser();
-            $Parser->setText(file_get_contents($file));
-            $this->assertEquals("ЖД№41 от 28.09.2016", $Parser->getHeader('subject'));
-        }
+        $file = __DIR__ . '/mails/issue116';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $this->assertEquals("ЖД№41 от 28.09.2016", $Parser->getHeader('subject'));
     }
 
     public function testEmbeddedDataReturnTheFirstContentWhenContentIdIsNotUnique()
