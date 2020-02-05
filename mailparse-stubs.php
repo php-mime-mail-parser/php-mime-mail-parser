@@ -234,13 +234,6 @@ class mimemessage
     /**
      * @return
      */
-    public function mimemessage()
-    {
-    }
-
-    /**
-     * @return
-     */
     public function get_child()
     {
     }
