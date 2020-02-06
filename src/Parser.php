@@ -870,7 +870,7 @@ class Parser
     /**
      * Retrieve the text of an email
      *
-     * @return string data
+     * @return string|null data
      */
     public function getData()
     {

@@ -7,6 +7,7 @@ use PhpMimeMailParser\Exception;
 use PhpMimeMailParser\MimePart;
 use PhpMimeMailParser\MiddleWare;
 use PhpMimeMailParser\MiddleWareStack;
+use PhpMimeMailParser\Contracts\CharsetManager;
 
 /**
  * Test Parser of php-mime-mail-parser
@@ -1912,5 +1913,30 @@ mini plain body';
 
             $this->assertEquals($attachmentsName[$key], $attachment->getFilename());
         }
+    }
+
+    public function testGetterMethods()
+    {
+        $file = __DIR__.'/mails/m0001';
+
+        $Parser = new Parser();
+        $Parser->setStream(fopen($file, 'r'));
+
+        $this->assertIsResource($Parser->getResource());
+        $this->assertIsResource($Parser->getStream());
+        $this->assertIsArray($Parser->getParts());
+        $this->assertInstanceOf(CharsetManager::class, $Parser->getCharset());
+
+        $this->assertNull($Parser->getData());
+    }
+
+    public function testTextGetter()
+    {
+        $file = __DIR__.'/mails/m0001';
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertNotEmpty($Parser->getData());
     }
 }
