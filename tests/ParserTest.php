@@ -66,6 +66,8 @@ class ParserTest extends TestCase
                     md5(serialize($attachments[$iterAttachments]->getHeaders()))
                 );
 
+                $this->assertIsResource($attachments[$iterAttachments]->getStream());
+
                 $iterAttachments++;
             }
         }
