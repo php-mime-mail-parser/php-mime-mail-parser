@@ -111,38 +111,20 @@ class ExceptionTest extends TestCase
     }
 
     /**
-     */
-    public function testSetStreamWithoutTmpPermissions()
-    {
-        global $mockTmpFile;
-        $mockTmpFile = true;
-
-        $file = __DIR__.'/mails/m0001';
-
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('Could not create temporary files for attachments.');
-
-        $Parser->setStream(fopen($file, 'r'));
-    }
-
-    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
      */
     public function testGetAttachmentStreamWithoutTmpPermissions()
     {
+        putenv('TMPDIR=/invalid');
+
         $file = __DIR__.'/mails/m0001';
-
-        $Parser = new Parser();
-        $Parser->setStream(fopen($file, 'r'));
-
-        global $mockTmpFile;
-        $mockTmpFile = true;
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create temporary files for attachments.');
 
-        $attachments = $Parser->getAttachments();
+        $Parser = new Parser();
+        $Parser->setStream(fopen($file, 'r'));
     }
 
     /**
