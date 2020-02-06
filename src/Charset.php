@@ -35,7 +35,7 @@ class Charset implements CharsetManager
         'iso-2022-cn'              => 'iso-2022-cn',
         'iso-2022-cn-ext'          => 'iso-2022-cn',
         'iso-2022-kr'              => 'iso-2022-kr',
-        'iso-2022-jp'              => 'iso-2022-jp',
+        'iso-2022-jp'              => 'iso-2022-jp-ms',
         'utf-16be'                 => 'utf-16be',
         'utf-16le'                 => 'utf-16le',
         'utf-16'                   => 'utf-16',
@@ -322,10 +322,6 @@ class Charset implements CharsetManager
         }
 
         if (function_exists('mb_convert_encoding')) {
-            if ($charset == 'iso-2022-jp') {
-                return mb_convert_encoding($encodedString, 'utf-8', 'iso-2022-jp-ms');
-            }
-
             if (array_search($charset, $this->getSupportedEncodings())) {
                 return mb_convert_encoding($encodedString, 'utf-8', $charset);
             }
