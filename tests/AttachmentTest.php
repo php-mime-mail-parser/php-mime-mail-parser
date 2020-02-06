@@ -18,6 +18,7 @@ class AttachmentTest extends TestCase
         $Parser->setPath($file);
 
         $attachDir = $this->tempdir('m0002_attachments');
+        $attachDir .= 'not-yet-existing-directory';
 
         $Parser->saveAttachments($attachDir);
 
