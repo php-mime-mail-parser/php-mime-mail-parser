@@ -703,7 +703,7 @@ class Parser
                     break;
             }
 
-            $text = $this->charset->decodeCharset($text, $this->charset->getCharsetAlias($charset));
+            $text = $this->charset->decodeCharset($text, $charset);
             $input = str_replace($encoded.$space, $text, $input);
         }
 
