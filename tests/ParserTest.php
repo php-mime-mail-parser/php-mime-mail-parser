@@ -1937,6 +1937,6 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
-        $this->assertNotEmpty($Parser->getData());
+        $this->assertStringEqualsFile($file, $Parser->getData());
     }
 }
