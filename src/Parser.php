@@ -431,18 +431,20 @@ class Parser
      *
      * @return string
      */
-    protected function getEmbeddedData($contentId)
+    protected function getEmbeddedData(string $contentId)
     {
+        $embeddedData = 'data:';
+
         foreach ($this->parts as $part) {
             if ($this->getPart('content-id', $part) == $contentId) {
-                $embeddedData = 'data:';
                 $embeddedData .= $this->getPart('content-type', $part);
                 $embeddedData .= ';'.$this->getPart('transfer-encoding', $part);
                 $embeddedData .= ','.$this->getPartBody($part);
-                return $embeddedData;
+                break;
             }
         }
-        return '';
+
+        return $embeddedData;
     }
 
     /**
