@@ -44,6 +44,28 @@ class AttachmentTest extends TestCase
         $this->assertCount(1, $attachmentFiles);
     }
 
+    public function testNestedAttachment()
+    {
+        $file = __DIR__ . '/mails/issue270';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachments = $Parser->getAttachments(); // Default is GA_INCLUDE_ALL
+        $this->assertCount(7, $attachments);
+       
+        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_ALL);
+        $this->assertCount(7, $attachments);
+
+        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_NESTED);
+        $this->assertCount(6, $attachments);
+
+        $attachments = $Parser->getAttachments(Parser::GA_TOPLEVEL);
+        $this->assertCount(1, $attachments);
+
+        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_INLINE);
+        $this->assertCount(2, $attachments);
+    }
+
     public function testGeneratingDuplicateSuffixWithoutExtension()
     {
         $file = __DIR__ . '/mails/m0002';
