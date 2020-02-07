@@ -119,11 +119,11 @@ class ExceptionTest extends TestCase
         putenv('TMPDIR=/invalid');
 
         $file = __DIR__.'/mails/m0001';
+        $Parser = new Parser();
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create temporary files for attachments.');
 
-        $Parser = new Parser();
         $Parser->setStream(fopen($file, 'r'));
     }
 
