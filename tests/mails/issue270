@@ -1,6 +1,6 @@
-Return-Path: <stuart@cryptodira.org>
-Delivered-To: stuart@cryptodira.org
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cryptodira.org;
+Return-Path: <sender@example.com>
+Delivered-To: sender@example.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=example.com;
 	 h=message-id:user-agent:subject:subject:from:from:date:date
 	:content-transfer-encoding:content-type:content-type
 	:mime-version:received; s=201801; t=1581114564; x=1582928965;
@@ -8,23 +8,22 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=cryptodira.org;
 	S8WXU6Lhxb5IXLkwcCbt/n5LPrLNS/puaFrht6GMKAU5SFjtOJiLi4HjkElD6wZY
 	fKsSS8G+klx1cefv0d3gmUJtXKc5NPJEPGGKs8OjIbW7z9RdveTMGp9sQ+w5t1WA
 	qGG5R77xYhbCBZuFEdVILkDR50x5A2c=
-Received: from cryptodira.org (unknown [10.10.10.3])
+Received: from example.com (unknown [192.168.1.1])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	(Authenticated sender: stuart@cryptodira.org)
-	by mail.cryptodira.org (Postfix) with ESMTPSA id 2C82E37EE7
-	for <stuart@cryptodira.org>; Fri,  7 Feb 2020 22:29:24 +0000 (UTC)
+	(Authenticated sender: sender@example.com)
+	by mail.example.com (Postfix) with ESMTPSA id 2C82E37EE7
+	for <sender@example.com>; Fri,  7 Feb 2020 22:29:24 +0000 (UTC)
 MIME-Version: 1.0
 Content-Type: multipart/mixed;
  boundary="=_df20c3224c70c405cda78d0eec7b7737"
 Content-Transfer-Encoding: quoted-printable
 Date: Fri, 07 Feb 2020 17:29:23 -0500
-From: "Stuart C. Naifeh" <stuart@cryptodira.org>
-To: stuart@cryptodira.org
+From: "Joe Sender" <sender@example.com>
+To: sender@example.com
 Subject: Nested attachment
-User-Agent: Roundcube Webmail/1.4.2
-Message-ID: <9e9881fd3b0cefe97a9bd45a6ffc02f1@cryptodira.org>
-X-Sender: stuart@cryptodira.org
+Message-ID: <9e9881fd3b0cefe97a9bd45a6ffc02f1@example.com>
+X-Sender: sender@example.com
 
 --=_df20c3224c70c405cda78d0eec7b7737
 Content-Type: multipart/related;
@@ -37,14 +36,14 @@ Content-Type: text/html; charset=UTF-8
 <html><head><meta http-equiv=3D"Content-Type" content=3D"text/html; charset=
 =3DUTF-8" /></head><body style=3D'font-size: 10pt; font-family: Verdana,Gen=
 eva,sans-serif'>
-<p><img src=3D"cid:15811145635e3de4c3e925b430550483@cryptodira.org" alt=3D"=
+<p><img src=3D"cid:15811145635e3de4c3e925b430550483@example.com" alt=3D"=
 " /></p>
 
 </body></html>
 
 --=_2e91c535ac139131152f74e49e6427c2
 Content-Transfer-Encoding: base64
-Content-ID: <15811145635e3de4c3e925b430550483@cryptodira.org>
+Content-ID: <15811145635e3de4c3e925b430550483@example.com>
 Content-Type: image/png;
  name=basn2c16.png
 Content-Disposition: inline;
