@@ -322,6 +322,10 @@ class Charset implements CharsetManager
         }
 
         if (function_exists('mb_convert_encoding')) {
+            if ($charset == 'iso-2022-jp') {
+                return mb_convert_encoding($encodedString, 'utf-8', 'iso-2022-jp-ms');
+            }
+
             if (array_search($charset, $this->getSupportedEncodings())) {
                 return mb_convert_encoding($encodedString, 'utf-8', $charset);
             }
