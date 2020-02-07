@@ -19,6 +19,14 @@ class Parser
     const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
     const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
 
+    /** 
+     * Attachment types to include for ->getAttachment() 
+     */
+    const GA_INCLUDE_INLINE = 1; // include inline and top-level attachments
+    const GA_INCLUDE_NESTED = 2; // all true (non-inline) attachments, including nested attachments
+    const GA_INCLUDE_ALL = 3;    // inline and nested attachments 
+    const GA_TOPLEVEL = 0;       // only non-inline top-level attachments (i.e., attachments that are directly attached to the message, but not attachements to those attachments)
+
     /**
      * PHP MimeParser Resource ID
      *
@@ -513,14 +521,17 @@ class Parser
      *
      * @return Attachment[]
      */
-    public function getAttachments($include_inline = true)
+    public function getAttachments($attachment_types = self::GA_INCLUDE_ALL)
     {
+        $include_inline = $attachment_types & self::GA_INCLUDE_INLINE;
+        $include_subparts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
+
         $attachments = [];
         $dispositions = $include_inline ? ['attachment', 'inline'] : ['attachment'];
         $non_attachment_types = ['text/plain', 'text/html'];
         $nonameIter = 0;
 
-        foreach ($this->parts as $part) {
+        foreach ($this->parts as $partId => $part) {
             $disposition = $this->getPart('content-disposition', $part);
             $filename = 'noname';
 
@@ -545,6 +556,9 @@ class Parser
             }
 
             if (in_array($disposition, $dispositions) === true) {
+                if (!$include_subparts && $this->partIdIsChildOfAnAttachment($partId)) {
+                    continue;
+                }
                 if ($filename == 'noname') {
                     $nonameIter++;
                     $filename = 'noname'.$nonameIter;
