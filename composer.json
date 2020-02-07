@@ -55,6 +55,7 @@
     "require-dev": {
         "php-coveralls/php-coveralls": "^2.2",
         "phpunit/phpunit": "^8.0",
+        "rregeer/phpunit-coverage-check": "^0.3.1",
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/filesystem": "^5.0"
     },
@@ -76,7 +77,7 @@
             "vendor/bin/phpunit"
         ],
         "test-with-coverage": [
-            "vendor/bin/phpunit --coverage-clover=coverage.xml --whitelist src"
+            "vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml"
         ]
     }
 }
