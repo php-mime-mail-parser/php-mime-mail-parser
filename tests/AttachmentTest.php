@@ -56,7 +56,15 @@ class AttachmentTest extends TestCase
         $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_ALL);
         $this->assertCount(7, $attachments);
 
+        // Old version took a boolean - true should be equivalent of ALL
+        $attachments = $Parser->getAttachments(true);
+        $this->assertCount(7, $attachments);
+
         $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_NESTED);
+        $this->assertCount(6, $attachments);
+
+        // Old version took a boolean - false should be equivalent of NESTED (i.e., all attachments except inline)
+        $attachments = $Parser->getAttachments(false);
         $this->assertCount(6, $attachments);
 
         $attachments = $Parser->getAttachments(Parser::GA_TOPLEVEL);
