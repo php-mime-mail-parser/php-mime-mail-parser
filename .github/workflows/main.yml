@@ -52,7 +52,8 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: 7.4
-          extensions: mailparse
+          extensions: mailparse, mbstring
+          coverage: pcov
 
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-suggest --no-progress
