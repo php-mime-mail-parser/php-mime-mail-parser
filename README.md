@@ -23,7 +23,7 @@ Yes. All known issues have been reproduced, fixed and tested.
 
 We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see real-time statistics below:
 
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fphp-mime-mail-parser%2Fphp-mime-mail-parser%2Fbadge%3Fref%3Dmaster&style=flat-square)](https://actions-badge.atrox.dev/php-mime-mail-parser/php-mime-mail-parser/goto?ref=master)
+![Build Status](https://github.com/php-mime-mail-parser/php-mime-mail-parser/workflows/CI/badge.svg)
 [![Coverage](https://img.shields.io/codecov/c/gh/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
 [![Code Quality](https://img.shields.io/codacy/grade/4e0e44fee21147ddbdd18ff976251875?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
 
