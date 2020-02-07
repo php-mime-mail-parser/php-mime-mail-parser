@@ -62,7 +62,8 @@ jobs:
         run: composer test-with-coverage
 
       - name: Upload code coverage
-        run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_REPO_TOKEN }}
+        continue-on-error: true
+        run: bash <(curl -s https://codecov.io/bash) -Z -t ${{ secrets.CODECOV_REPO_TOKEN }}
 
       - name: Check code coverage
         run: php vendor/bin/coverage-check coverage.xml 100
