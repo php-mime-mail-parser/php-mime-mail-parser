@@ -114,7 +114,7 @@ class ExceptionTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testGetAttachmentStreamWithoutTmpPermissions()
+    public function testSetStreamWithoutTmpPermissions()
     {
         putenv('TMPDIR=/invalid');
 
