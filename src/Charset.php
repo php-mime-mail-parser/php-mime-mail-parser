@@ -35,7 +35,7 @@ class Charset implements CharsetManager
         'iso-2022-cn'              => 'iso-2022-cn',
         'iso-2022-cn-ext'          => 'iso-2022-cn',
         'iso-2022-kr'              => 'iso-2022-kr',
-        'iso-2022-jp'              => 'iso-2022-jp-ms',
+        'iso-2022-jp'              => 'iso-2022-jp',
         'utf-16be'                 => 'utf-16be',
         'utf-16le'                 => 'utf-16le',
         'utf-16'                   => 'utf-16',
