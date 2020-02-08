@@ -21,14 +21,13 @@ class Parser
     const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
     const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
 
-    /** 
-     * Attachment types to include for ->getAttachment() 
+    /**
+     * Attachment types to include for ->getAttachment()
      */
     const GA_INCLUDE_INLINE = 1; // include inline and top-level attachments
-    const GA_INCLUDE_NESTED = 2; // all true (non-inline) attachments, including nested attachments
-    const GA_INCLUDE_ALL = 3;    // inline and nested attachments 
-    const GA_TOPLEVEL = 0;       // only non-inline top-level attachments (i.e., attachments that are directly attached to the message, but not attachements to those attachments)
-
+    const GA_INCLUDE_NESTED = 2; // all non-inline attachments, including nested
+    const GA_INCLUDE_ALL = 3;    // inline and nested attachments
+    const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
     /**
      * PHP MimeParser Resource ID
      *
