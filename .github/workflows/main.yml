@@ -62,7 +62,7 @@ jobs:
         run: composer test-with-coverage
 
       - name: Upload code coverage
-        if: env.CODECOV_REPO_TOKEN
+        if: ${{ secrets.CODECOV_REPO_TOKEN }}
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_REPO_TOKEN }}
