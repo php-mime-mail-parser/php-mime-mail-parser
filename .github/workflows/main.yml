@@ -62,11 +62,10 @@ jobs:
         run: composer test-with-coverage
 
       - name: Upload code coverage
-        env:
-          CODECOV_REPO_TOKEN: ${{ secrets.CODECOV_REPO_TOKEN }}
-        if: env.CODECOV_REPO_TOKEN
-        continue-on-error: true
-        run: bash <(curl -s https://codecov.io/bash) -Z -t ${{ secrets.CODECOV_REPO_TOKEN }}
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_REPO_TOKEN }}
+          fail_ci_if_error: true
 
       - name: Check code coverage
         run: php vendor/bin/coverage-check coverage.xml 100
