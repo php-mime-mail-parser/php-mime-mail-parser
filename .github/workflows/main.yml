@@ -22,8 +22,8 @@ jobs:
           ini-values: mbstring.http_input=pass, mbstring.http_output=pass
           coverage: none
           
-      - name: Test mbstring
-        run: sudo apt-get remove php-mbstring
+      - name: Remove mbstring
+        run: sudo apt-get remove --purge php${{ matrix.php }}-mbstring
 
       - name: Test mbstring
         run: php -r "echo function_exists('mb_convert_encoding');"
