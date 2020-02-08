@@ -62,7 +62,6 @@ jobs:
         run: composer test-with-coverage
 
       - name: Upload code coverage
-        if: github.event == 'push'
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_REPO_TOKEN }}
