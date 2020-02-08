@@ -23,8 +23,11 @@ jobs:
           coverage: none
           
       - name: Test mbstring
-        run: php -r "echo function_exists('mb_convert_encoding');"
+        run: sudo apt-get remove php-mbstring
 
+      - name: Test mbstring
+        run: php -r "echo function_exists('mb_convert_encoding');"
+        
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest --no-progress
 
