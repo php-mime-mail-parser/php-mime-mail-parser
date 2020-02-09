@@ -34,4 +34,15 @@ final class ContentDecoderTest extends TestCase
 
         $this->assertSame('any carnal pleasure', $decoded);
     }
+
+    public function testDecodeCaseInsensitive()
+    {
+        $decoder = new ContentDecoder();
+        $decoded = $decoder->decodeContentTransfer(
+            '=D0=9F=D1=80=D0=BE=D0=B2=D0=B5=D1=80=D0=BA=D0=B0',
+            strtoupper($decoder::ENCODING_QUOTED_PRINTABLE)
+        );
+
+        $this->assertSame('Проверка', $decoded);
+    }
 }
