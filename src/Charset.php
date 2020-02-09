@@ -318,7 +318,11 @@ final class Charset implements CharsetManager
     {
         $charset = $this->getCharsetAlias($charset);
 
-        if ($charset == 'utf-8' || $charset == 'us-ascii') {
+        if ($charset == 'utf-8') {
+            return $encodedString;
+        }
+
+        if ($charset == 'us-ascii') {
             return $encodedString;
         }
 

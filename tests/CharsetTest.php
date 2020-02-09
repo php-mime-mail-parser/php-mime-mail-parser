@@ -18,6 +18,8 @@ final class CharsetTest extends TestCase
         ['iso-8859-1', 'HasenundFr=F6sche=2Etxt', 'HasenundFrösche.txt'],
         ['windows-1250', 'Automatyczna odpowied=9F: Piotrze, test z 6 miesi=EAcy',
                          'Automatyczna odpowiedź: Piotrze, test z 6 miesięcy'],
+        ['us-ascii', 'Testing', 'Testing'],
+        ['utf-8', 'Testing', 'Testing'],
     ];
 
     /**
