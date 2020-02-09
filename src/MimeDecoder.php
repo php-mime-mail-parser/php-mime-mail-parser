@@ -42,7 +42,7 @@ final class MimeDecoder implements Contracts\HeaderDecoder
     {
         $result = @iconv_mime_decode($input);
 
-        if (is_string($result)) {
+        if (false !== $result) {
             return $result;
         }
 
