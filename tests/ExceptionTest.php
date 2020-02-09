@@ -8,19 +8,11 @@ use PhpMimeMailParser\Exception;
 /**
  * ExceptionTest of php-mime-mail-parser
  *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
+ * @covers \PhpMimeMailParser\Parser
+ * @covers \PhpMimeMailParser\Attachment
  */
 class ExceptionTest extends TestCase
 {
-    protected function tearDown(): void
-    {
-        global $mockTmpFile;
-        $mockTmpFile = false;
-
-        parent::tearDown();
-    }
-
     /**
      */
     public function testGetHeader()

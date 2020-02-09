@@ -3,6 +3,8 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Contracts\CharsetManager;
+use PhpMimeMailParser\Contracts\HeaderDecoder;
+use PhpMimeMailParser\Contracts\ContentTransferDecoder;
 
 /**
  * Parser of php-mime-mail-parser
@@ -53,6 +55,16 @@ class Parser
     protected $charset;
 
     /**
+     * @var ContentTransferDecoder
+     */
+    private $ctDecoder;
+
+    /**
+     * @var HeaderDecoder
+     */
+    private $headerDecoder;
+
+    /**
      * Valid stream modes for reading
      *
      * @var array
@@ -74,13 +86,15 @@ class Parser
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(CharsetManager $charset = null)
-    {
-        if ($charset == null) {
-            $charset = new Charset();
-        }
+    public function __construct(
+        CharsetManager $charset = null,
+        ContentTransferDecoder $ctDecoder = null,
+        HeaderDecoder $headerDecoder = null
+    ) {
+        $this->charset = $charset ?? new Charset();
+        $this->ctDecoder = $ctDecoder ?? new ContentDecoder();
+        $this->headerDecoder = $headerDecoder ?? new MimeDecoder($this->charset, $this->ctDecoder);
 
-        $this->charset = $charset;
         $this->middlewareStack = new MiddlewareStack();
     }
 
@@ -281,10 +295,10 @@ class Parser
             foreach ($headers as &$value) {
                 if (is_array($value)) {
                     foreach ($value as &$v) {
-                        $v = $this->decodeSingleHeader($v);
+                        $v = $this->headerDecoder->decodeHeader($v);
                     }
                 } else {
-                    $value = $this->decodeSingleHeader($value);
+                    $value = $this->headerDecoder->decodeHeader($value);
                 }
             }
 
@@ -500,7 +514,7 @@ class Parser
                 $headers = $this->getPart('headers', $part);
                 $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
                     $headers['content-transfer-encoding'] : '';
-                $undecoded_body = $this->decodeContentTransfer($this->getPartBody($part), $encodingType);
+                $undecoded_body = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
                 $inline_parts[] = $this->charset->decodeCharset($undecoded_body, $this->getPartCharset($part));
             }
         }
@@ -614,6 +628,7 @@ class Parser
         $headers = $this->getPart('headers', $part);
         $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
             $headers['content-transfer-encoding'] : '';
+        $encodingType = is_array($encodingType) ? $encodingType[0] : $encodingType;
 
         if ($this->stream) {
             $start = $part['starting-pos-body'];
@@ -624,11 +639,11 @@ class Parser
             while ($written < $len) {
                 $write = $len;
                 $data = fread($this->stream, $write);
-                fwrite($temp_fp, $this->decodeContentTransfer($data, $encodingType));
+                fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($data, $encodingType));
                 $written += $write;
             }
         } elseif ($this->data) {
-            $attachment = $this->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
+            $attachment = $this->ctDecoder->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
             fwrite($temp_fp, $attachment, strlen($attachment));
         }
         fseek($temp_fp, 0, SEEK_SET);
@@ -636,29 +651,6 @@ class Parser
         return $temp_fp;
     }
 
-    /**
-     * Decode the string from Content-Transfer-Encoding
-     *
-     * @param string $encodedString The string in its original encoded state
-     * @param string $encodingType  The encoding type from the Content-Transfer-Encoding header of the part.
-     *
-     * @return string The decoded string
-     */
-    protected function decodeContentTransfer($encodedString, $encodingType)
-    {
-        if (is_array($encodingType)) {
-            $encodingType = $encodingType[0];
-        }
-
-        $encodingType = strtolower($encodingType);
-        if ($encodingType == 'base64') {
-            return base64_decode($encodedString);
-        } elseif ($encodingType == 'quoted-printable') {
-            return quoted_printable_decode($encodedString);
-        } else {
-            return $encodedString;
-        }
-    }
 
     /**
      * $input can be a string or array
@@ -671,48 +663,10 @@ class Parser
     {
         //Sometimes we have 2 label From so we take only the first
         if (is_array($input)) {
-            return $this->decodeSingleHeader($input[0]);
+            return $this->headerDecoder->decodeHeader($input[0]);
         }
 
-        return $this->decodeSingleHeader($input);
-    }
-
-    /**
-     * Decodes a single header (= string)
-     *
-     * @param string $input
-     *
-     * @return string
-     */
-    protected function decodeSingleHeader($input)
-    {
-        // For each encoded-word...
-        while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)((\s+)=\?)?/i', $input, $matches)) {
-            $encoded = $matches[1];
-            $charset = $matches[2];
-            $encoding = $matches[3];
-            $text = $matches[4];
-            $space = isset($matches[6]) ? $matches[6] : '';
-
-            switch (strtolower($encoding)) {
-                case 'b':
-                    $text = $this->decodeContentTransfer($text, 'base64');
-                    break;
-
-                case 'q':
-                    $text = str_replace('_', ' ', $text);
-                    preg_match_all('/=([a-f0-9]{2})/i', $text, $matches);
-                    foreach ($matches[1] as $value) {
-                        $text = str_replace('='.$value, chr(hexdec($value)), $text);
-                    }
-                    break;
-            }
-
-            $text = $this->charset->decodeCharset($text, $charset);
-            $input = str_replace($encoded.$space, $text, $input);
-        }
-
-        return $input;
+        return $this->headerDecoder->decodeHeader($input);
     }
 
     /**

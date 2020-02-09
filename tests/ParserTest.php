@@ -10,10 +10,11 @@ use PhpMimeMailParser\MiddleWareStack;
 use PhpMimeMailParser\Contracts\CharsetManager;
 
 /**
- * Test Parser of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
+ * @covers \PhpMimeMailParser\Parser
+ * @covers \PhpMimeMailParser\MimePart
+ * @covers \PhpMimeMailParser\Attachment
+ * @covers \PhpMimeMailParser\MiddleWareStack
+ * @covers \PhpMimeMailParser\Middleware
  */
 class ParserTest extends TestCase
 {

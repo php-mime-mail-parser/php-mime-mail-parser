@@ -2,7 +2,7 @@
 
 use PhpMimeMailParser\Contracts\CharsetManager;
 
-class Charset implements CharsetManager
+final class Charset implements CharsetManager
 {
     /**
      * Charset Aliases
@@ -36,6 +36,7 @@ class Charset implements CharsetManager
         'iso-2022-cn-ext'          => 'iso-2022-cn',
         'iso-2022-kr'              => 'iso-2022-kr',
         'iso-2022-jp'              => 'iso-2022-jp',
+        'iso-2022-jp-ms'           => 'iso-2022-jp',
         'utf-16be'                 => 'utf-16be',
         'utf-16le'                 => 'utf-16le',
         'utf-16'                   => 'utf-16',
@@ -313,7 +314,7 @@ class Charset implements CharsetManager
     /**
      * {@inheritdoc}
      */
-    public function decodeCharset($encodedString, $charset)
+    public function decodeCharset(string $encodedString, string $charset): string
     {
         $charset = $this->getCharsetAlias($charset);
 
@@ -331,20 +332,21 @@ class Charset implements CharsetManager
             }
         }
 
-        return iconv($charset, 'utf-8//translit//ignore', $encodedString);
+        // We're using 'ignore' flag here, but still cast to string to make type checkers satisfied
+        return (string) iconv($charset, 'utf-8//translit//ignore', $encodedString);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getCharsetAlias($charset)
+    public function getCharsetAlias(string $charset): string
     {
         $charset = strtolower($charset);
 
         if (array_key_exists($charset, $this->charsetAlias)) {
             return $this->charsetAlias[$charset];
         }
-        
+
         return 'us-ascii';
     }
 
