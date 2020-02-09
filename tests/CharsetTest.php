@@ -30,6 +30,7 @@ final class CharsetTest extends TestCase
         ['iso-2022-jp', 'GyRCJygnJS1iGyhCNDEgGyRCJ2AnZBsoQiAyOC4wOS4yMDE2', 'ЖД№41 от 28.09.2016'],
         ['ISO-2022-JP-MS', 'GyRCLSEtIi1qfGIbKEkxMjM0NRsoQg==', '①②㈱髙ｱｲｳｴｵ'],
         ['iso-8859-8-i', '7vLw5CAn4PDpIOzgIPDu9uAnOiBJbnZvaWNlIDAyNzIyMDI3', "מענה 'אני לא נמצא': Invoice 02722027"],
+        ['ISO-8859-1', 'SWYgeW91IGNhbiByZWFkIHRoaXMgeW8', "If you can read this yo"],
     ];
 
     /**
@@ -77,6 +78,22 @@ final class CharsetTest extends TestCase
         $this->assertSame('iso-2022-jp', $decoder->getCharsetAlias('iso-2022-jp-ms'));
     }
 
+    /**
+     * @requires extension mbstring
+     */
+    public function testSupportedEncodingsCache()
+    {
+        $decoder = new Charset();
+
+        $expected = $decoder->decodeCharset('Test', 'ISO-8859-1');
+        $actual = $decoder->decodeCharset('Test', 'ISO-8859-1');
+
+        $this->assertSame($expected, $actual);
+    }
+
+    /**
+     * @requires extension mbstring
+     */
     public function testSupportedEncodings()
     {
         $decoder = new Charset();
@@ -92,6 +109,9 @@ final class CharsetTest extends TestCase
         $this->assertEquals($legacySupportedEncodings, $supportedEncodings);
     }
 
+    /**
+     * @see Charset::getSupportedEncodings()
+     */
     private function getSupportedEncodingsLegacy()
     {
         return
