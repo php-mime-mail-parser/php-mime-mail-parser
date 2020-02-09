@@ -76,4 +76,39 @@ final class CharsetTest extends TestCase
 
         $this->assertSame('iso-2022-jp', $decoder->getCharsetAlias('iso-2022-jp-ms'));
     }
+
+    public function testSupportedEncodings()
+    {
+        $decoder = new Charset();
+
+        $supportedEncodings = (function () {
+            return $this->getSupportedEncodings();
+        })->call($decoder);
+        sort($supportedEncodings);
+
+        $legacySupportedEncodings = $this->getSupportedEncodingsLegacy();
+        sort($legacySupportedEncodings);
+
+        $this->assertEquals($legacySupportedEncodings, $supportedEncodings);
+    }
+
+    private function getSupportedEncodingsLegacy()
+    {
+        return
+        array_map(
+            'strtolower',
+            array_unique(
+                array_merge(
+                    $enc = mb_list_encodings(),
+                    call_user_func_array(
+                        'array_merge',
+                        array_map(
+                            "mb_encoding_aliases",
+                            $enc
+                        )
+                    )
+                )
+            )
+        );
+    }
 }
