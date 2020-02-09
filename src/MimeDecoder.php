@@ -40,6 +40,12 @@ final class MimeDecoder implements Contracts\HeaderDecoder
      */
     public function decodeHeader(string $input): string
     {
+        $result = @iconv_mime_decode($input);
+
+        if (is_string($result)) {
+            return $result;
+        }
+
         // For each encoded-word...
         while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)((\s+)=\?)?/i', $input, $matches)) {
             $encoded = $matches[1];
