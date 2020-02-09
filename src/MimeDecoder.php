@@ -11,12 +11,12 @@ use PhpMimeMailParser\Contracts\ContentTransferDecoder;
 final class MimeDecoder implements Contracts\HeaderDecoder
 {
     /**
-     * @var CharsetManager
+     * @var CharsetManager|Charset
      */
     private $charset;
 
     /**
-     * @var ContentTransferDecoder
+     * @var ContentTransferDecoder|ContentDecoder
      */
     private $decoder;
 
@@ -40,6 +40,8 @@ final class MimeDecoder implements Contracts\HeaderDecoder
      */
     public function decodeHeader(string $input): string
     {
+        // This function will emit a warning on a broken example,
+        // but we'll just continue with out alternative approach
         $result = @iconv_mime_decode($input);
 
         if (false !== $result) {
