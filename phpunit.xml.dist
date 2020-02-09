@@ -4,6 +4,8 @@
          bootstrap="vendor/autoload.php"
          executionOrder="random"
          resolveDependencies="true"
+         forceCoversAnnotation="true"
+         beStrictAboutCoversAnnotation="false"
          colors="true">
 
     <testsuites>
@@ -13,7 +15,7 @@
     </testsuites>
 
     <filter>
-        <whitelist>
+        <whitelist addUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src/</directory>
         </whitelist>
     </filter>

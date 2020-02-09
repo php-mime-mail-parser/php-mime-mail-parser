@@ -6,8 +6,8 @@ use PhpMimeMailParser\Parser;
 /**
  * Test Attachment of php-mime-mail-parser
  *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
+ * @covers \PhpMimeMailParser\Parser
+ * @covers \PhpMimeMailParser\Attachment
  */
 class AttachmentTest extends TestCase
 {

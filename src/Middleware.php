@@ -22,7 +22,7 @@ class Middleware implements Contracts\Middleware
     /**
      * Process a mime part, optionally delegating parsing to the $next MiddlewareStack
      */
-    public function parse(MimePart $part, MiddlewareStack $next)
+    public function parse(MimePart $part, MiddlewareStack $next): MimePart
     {
         return call_user_func($this->parser, $part, $next);
     }

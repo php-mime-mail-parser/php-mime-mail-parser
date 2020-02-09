@@ -2,7 +2,6 @@
 
 interface CharsetManager
 {
-
     /**
      * Decode the string from Charset
      *
@@ -11,7 +10,7 @@ interface CharsetManager
      *
      * @return string The decoded string
      */
-    public function decodeCharset($encodedString, $charset);
+    public function decodeCharset(string $encodedString, string $charset): string;
 
     /**
      * Get charset alias
@@ -20,5 +19,5 @@ interface CharsetManager
      *
      * @return string The charset alias
      */
-    public function getCharsetAlias($charset);
+    public function getCharsetAlias(string $charset): string;
 }
