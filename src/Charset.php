@@ -327,7 +327,7 @@ final class Charset implements CharsetManager
                 return mb_convert_encoding($encodedString, 'utf-8', 'iso-2022-jp-ms');
             }
 
-            if (array_search($charset, $this->getSupportedEncodings())) {
+            if (in_array($charset, $this->getSupportedEncodings())) {
                 return mb_convert_encoding($encodedString, 'utf-8', $charset);
             }
         }
@@ -350,23 +350,22 @@ final class Charset implements CharsetManager
         return 'us-ascii';
     }
 
-    private function getSupportedEncodings()
+    private $encodings;
+
+    private function getSupportedEncodings(): array
     {
-        return
-        array_map(
-            'strtolower',
-            array_unique(
-                array_merge(
-                    $enc = mb_list_encodings(),
-                    call_user_func_array(
-                        'array_merge',
-                        array_map(
-                            "mb_encoding_aliases",
-                            $enc
-                        )
-                    )
-                )
-            )
-        );
+        if (null !== $this->encodings) {
+            return $this->encodings;
+        }
+
+        $this->encodings = mb_list_encodings();
+
+        $aliases = array_map('mb_encoding_aliases', $this->encodings);
+
+        $this->encodings = array_merge($this->encodings, ...$aliases);
+        $this->encodings = array_unique($this->encodings);
+        $this->encodings = array_map('strtolower', $this->encodings);
+
+        return $this->encodings;
     }
 }
