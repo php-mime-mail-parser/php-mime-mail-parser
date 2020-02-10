@@ -201,9 +201,7 @@ class Attachment
     {
         if ($this->content === null) {
             fseek($this->stream, 0);
-            while (($buf = $this->read()) !== false) {
-                $this->content .= $buf;
-            }
+            $this->content = stream_get_contents($this->stream);
         }
 
         return $this->content;
@@ -263,14 +261,13 @@ class Attachment
         }
 
         /** @var resource $fp */
-        if ($fp = @fopen($attachment_path, 'w')) {
-            while ($bytes = $this->read()) {
-                fwrite($fp, $bytes);
-            }
-            fclose($fp);
-            return realpath($attachment_path);
-        } else {
+        if (!$fp = @fopen($attachment_path, 'w')) {
             throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
         }
+
+        stream_copy_to_stream($this->stream, $fp);
+        fclose($fp);
+
+        return realpath($attachment_path);
     }
 }
