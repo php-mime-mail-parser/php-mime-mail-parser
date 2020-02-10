@@ -630,7 +630,9 @@ class Parser
             $headers['content-transfer-encoding'] : '';
 
         // There could be multiple Content-Transfer-Encoding headers, we need only one
-        $encodingType = is_array($encodingType) ? $encodingType[0] : $encodingType;
+        if (is_array($encodingType)) {
+            $encodingType = $encodingType[0];
+        }
 
         if ($this->stream) {
             $start = $part['starting-pos-body'];
