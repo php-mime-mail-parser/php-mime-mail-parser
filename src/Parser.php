@@ -628,6 +628,8 @@ class Parser
         $headers = $this->getPart('headers', $part);
         $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
             $headers['content-transfer-encoding'] : '';
+
+        // There could be multiple Content-Transfer-Encoding headers, we need only one
         $encodingType = is_array($encodingType) ? $encodingType[0] : $encodingType;
 
         if ($this->stream) {
