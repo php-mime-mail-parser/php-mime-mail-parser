@@ -676,11 +676,15 @@ class Parser
      * @param string $type
      * @param array  $parts
      *
-     * @return string|array
+     * @return string|array|null
      */
     protected function getPart($type, $parts)
     {
-        return (isset($parts[$type])) ? $parts[$type] : false;
+        if (array_key_exists($type, $parts)) {
+            return $parts[$type];
+        }
+
+        return null;
     }
 
     /**
