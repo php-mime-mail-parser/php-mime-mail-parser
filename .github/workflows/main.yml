@@ -52,7 +52,7 @@ jobs:
         uses: shivammathur/setup-php@v1
         with:
           php-version: 7.4
-          extensions: mailparse, mbstring
+          extensions: mailparse
           coverage: pcov
 
       - name: Install dependencies
