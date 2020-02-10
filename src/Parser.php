@@ -643,7 +643,7 @@ class Parser
      *
      * @return string|array|null
      */
-    protected function getPart($type, $parts)
+    protected function getPart($type, &$parts)
     {
         if (array_key_exists($type, $parts)) {
             return $parts[$type];
