@@ -60,9 +60,6 @@
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/filesystem": "^5.0"
     },
-    "suggest": {
-        "ext-mbstring": "*"
-    },
     "autoload": {
         "psr-4": {
             "PhpMimeMailParser\\": "src/"

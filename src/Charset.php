@@ -326,14 +326,12 @@ final class Charset implements CharsetManager
             return $encodedString;
         }
 
-        if (function_exists('mb_convert_encoding')) {
-            if ($charset == 'iso-2022-jp') {
-                return mb_convert_encoding($encodedString, 'utf-8', 'iso-2022-jp-ms');
-            }
+        if ($charset == 'iso-2022-jp') {
+            return mb_convert_encoding($encodedString, 'utf-8', 'iso-2022-jp-ms');
+        }
 
-            if (in_array($charset, $this->getSupportedEncodings())) {
-                return mb_convert_encoding($encodedString, 'utf-8', $charset);
-            }
+        if (in_array($charset, $this->getSupportedEncodings())) {
+            return mb_convert_encoding($encodedString, 'utf-8', $charset);
         }
 
         // We're using 'ignore' flag here, but still cast to string to make type checkers satisfied
