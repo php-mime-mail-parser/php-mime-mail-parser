@@ -5,7 +5,7 @@ namespace PhpMimeMailParser;
 /**
  * Content transfer decoder of php-mime-mail-parser
  */
-final class ContentDecoder implements Contracts\ContentTransferDecoder
+final class ContentDecoder implements Contracts\ContentTransferEncodingManager
 {
     public function decodeContentTransfer(string $encodedString, string $encodingType): string
     {
