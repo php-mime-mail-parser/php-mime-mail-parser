@@ -692,54 +692,7 @@ class Parser
      */
     protected function getPartBody(&$part)
     {
-        $body = '';
-        if ($this->stream) {
-            $body = $this->getPartBodyFromFile($part);
-        } elseif ($this->data) {
-            $body = $this->getPartBodyFromText($part);
-        }
-
-        return $body;
-    }
-
-    /**
-     * Retrieve the Body from a MIME part from file
-     *
-     * @param array $part
-     *
-     * @return string Mime Body Part
-     */
-    protected function getPartBodyFromFile(&$part): string
-    {
-        $start = $part['starting-pos-body'];
-        $end = $part['ending-pos-body'];
-
-        if ($start >= $end) {
-            return '';
-        }
-
-        fseek($this->stream, $start, SEEK_SET);
-
-        return fread($this->stream, $end - $start);
-    }
-
-    /**
-     * Retrieve the Body from a MIME part from text
-     *
-     * @param array $part
-     *
-     * @return string Mime Body Part
-     */
-    protected function getPartBodyFromText(&$part)
-    {
-        $start = $part['starting-pos-body'];
-        $end = $part['ending-pos-body'];
-
-        if ($start >= $end) {
-            return '';
-        }
-
-        return substr($this->data, $start, $end - $start);
+        return $this->getSection($part['starting-pos-body'], $part['ending-pos-body']);
     }
 
     /**
@@ -751,47 +704,20 @@ class Parser
      */
     protected function getPartComplete(&$part)
     {
-        $body = '';
+        return $this->getSection($part['starting-pos'], $part['ending-pos']);
+    }
+
+    private function getSection($start, $end): string
+    {
+        if ($start >= $end) {
+            return '';
+        }
+
         if ($this->stream) {
-            $body = $this->getPartFromFile($part);
-        } elseif ($this->data) {
-            $body = $this->getPartFromText($part);
-        }
-
-        return $body;
-    }
-
-    /**
-     * Retrieve the content from a MIME part from file
-     *
-     * @param array $part
-     *
-     * @return string Mime Content
-     */
-    protected function getPartFromFile(&$part)
-    {
-        $start = $part['starting-pos'];
-        $end = $part['ending-pos'];
-        $body = '';
-        if ($end - $start > 0) {
             fseek($this->stream, $start, SEEK_SET);
-            $body = fread($this->stream, $end - $start);
+
+            return fread($this->stream, $end - $start);
         }
-
-        return $body;
-    }
-
-    /**
-     * Retrieve the content from a MIME part from text
-     *
-     * @param array $part
-     *
-     * @return string Mime Content
-     */
-    protected function getPartFromText(&$part)
-    {
-        $start = $part['starting-pos'];
-        $end = $part['ending-pos'];
 
         return substr($this->data, $start, $end - $start);
     }
