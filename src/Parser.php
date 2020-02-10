@@ -634,22 +634,7 @@ class Parser
             $encodingType = $encodingType[0];
         }
 
-        if ($this->stream) {
-            $start = $part['starting-pos-body'];
-            $end = $part['ending-pos-body'];
-            fseek($this->stream, $start, SEEK_SET);
-            $len = $end - $start;
-            $written = 0;
-            while ($written < $len) {
-                $write = $len;
-                $data = fread($this->stream, $write);
-                fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($data, $encodingType));
-                $written += $write;
-            }
-        } elseif ($this->data) {
-            $attachment = $this->ctDecoder->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
-            fwrite($temp_fp, $attachment, strlen($attachment));
-        }
+        fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType));
         fseek($temp_fp, 0, SEEK_SET);
 
         return $temp_fp;
@@ -724,17 +709,18 @@ class Parser
      *
      * @return string Mime Body Part
      */
-    protected function getPartBodyFromFile(&$part)
+    protected function getPartBodyFromFile(&$part): string
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
-        $body = '';
-        if ($end - $start > 0) {
-            fseek($this->stream, $start, SEEK_SET);
-            $body = fread($this->stream, $end - $start);
+
+        if ($start >= $end) {
+            return '';
         }
 
-        return $body;
+        fseek($this->stream, $start, SEEK_SET);
+
+        return fread($this->stream, $end - $start);
     }
 
     /**
@@ -748,6 +734,10 @@ class Parser
     {
         $start = $part['starting-pos-body'];
         $end = $part['ending-pos-body'];
+
+        if ($start >= $end) {
+            return '';
+        }
 
         return substr($this->data, $start, $end - $start);
     }
