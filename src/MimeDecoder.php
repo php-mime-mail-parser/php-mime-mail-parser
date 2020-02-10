@@ -56,11 +56,13 @@ final class MimeDecoder implements Contracts\HeaderEncodingManager
             $text = $matches[4];
             $space = isset($matches[6]) ? $matches[6] : '';
 
-            switch (strtolower($encoding)) {
+            switch ($encoding) {
+                case 'B':
                 case 'b':
                     $text = $this->decoder->decodeContentTransfer($text, $this->decoder::ENCODING_BASE64);
                     break;
 
+                case 'Q':
                 case 'q':
                     $text = str_replace('_', ' ', $text);
                     $text = $this->decoder->decodeContentTransfer($text, $this->decoder::ENCODING_QUOTED_PRINTABLE);

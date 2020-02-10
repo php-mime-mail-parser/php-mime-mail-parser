@@ -18,7 +18,7 @@ final class MimeDecoderTest extends TestCase
         ['=?iso-2022-jp?B?GyRCJygnJS1iGyhCNDEgGyRCJ2AnZBsoQiAyOC4wOS4yMDE2?=', 'ЖД№41 от 28.09.2016'],
         ['=?iso-2022-jp?Q?=1B$B-!-"=1B(B?=', '①②'],
         ['=?iso-8859-8-i?B?7vLw5CAn4PDpIOzgIPDu9uAnOiBJbnZvaWNlIDAyNzIyMDI3?=', "מענה 'אני לא נמצא': Invoice 02722027"],
-        ['=?iso-8859-8-i?Q?Test_message?=', 'Test message'],
+        ['=?iso-8859-8-i?q?Test_message?=', 'Test message'],
         ['=?ISO-8859-1?Q?Mail_avec_fichier_attach=E9_de_1ko?=', 'Mail avec fichier attaché de 1ko'],
         ['=?windows-1251?Q?occurs_when_divided_into_an_array?= =?windows-1251?Q?=2C_and_the_last_e_of_the_array!_?=',
             'occurs when divided into an array, and the last e of the array! '],
