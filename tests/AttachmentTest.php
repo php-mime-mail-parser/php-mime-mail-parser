@@ -32,6 +32,8 @@ class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
+        $this->assertCount(1, $Parser->getAttachments());
+
         $attachDir = $this->tempdir('m0002_attachments');
 
         foreach ($Parser->getAttachments() as $attachment) {
@@ -40,6 +42,16 @@ class AttachmentTest extends TestCase
 
         $attachmentFiles = glob($attachDir . '*');
         $this->assertCount(1, $attachmentFiles);
+
+        $content = '';
+
+        foreach ($Parser->getAttachments() as $attachment) {
+            while (($buf = $attachment->read()) !== false) {
+                $content .= $buf;
+            }
+        }
+
+        $this->assertStringEqualsFile($attachmentFiles[0], $content);
     }
 
     public function testGeneratingDuplicateSuffixWithoutExtension()
