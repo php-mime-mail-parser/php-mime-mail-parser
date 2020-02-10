@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser\Contracts;
 
-interface ContentTransferDecoder
+interface ContentTransferEncodingManager
 {
     /**
      * @var string

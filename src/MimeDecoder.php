@@ -3,12 +3,12 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Contracts\CharsetManager;
-use PhpMimeMailParser\Contracts\ContentTransferDecoder;
+use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 
 /**
  * Header decoder decodes MIME-encoded headers.
  */
-final class MimeDecoder implements Contracts\HeaderDecoder
+final class MimeDecoder implements Contracts\HeaderEncodingManager
 {
     /**
      * @var CharsetManager|Charset
@@ -16,7 +16,7 @@ final class MimeDecoder implements Contracts\HeaderDecoder
     private $charset;
 
     /**
-     * @var ContentTransferDecoder|ContentDecoder
+     * @var ContentTransferEncodingManager|ContentDecoder
      */
     private $decoder;
 
@@ -25,7 +25,7 @@ final class MimeDecoder implements Contracts\HeaderDecoder
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(CharsetManager $charset, ContentTransferDecoder $decoder)
+    public function __construct(CharsetManager $charset, ContentTransferEncodingManager $decoder)
     {
         $this->charset = $charset;
         $this->decoder = $decoder;

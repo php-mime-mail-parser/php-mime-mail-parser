@@ -3,8 +3,8 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Contracts\CharsetManager;
-use PhpMimeMailParser\Contracts\HeaderDecoder;
-use PhpMimeMailParser\Contracts\ContentTransferDecoder;
+use PhpMimeMailParser\Contracts\HeaderEncodingManager;
+use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 
 /**
  * Parser of php-mime-mail-parser
@@ -55,12 +55,12 @@ class Parser
     protected $charset;
 
     /**
-     * @var ContentTransferDecoder
+     * @var ContentTransferEncodingManager
      */
     private $ctDecoder;
 
     /**
-     * @var HeaderDecoder
+     * @var HeaderEncodingManager
      */
     private $headerDecoder;
 
@@ -88,8 +88,8 @@ class Parser
      */
     public function __construct(
         CharsetManager $charset = null,
-        ContentTransferDecoder $ctDecoder = null,
-        HeaderDecoder $headerDecoder = null
+        ContentTransferEncodingManager $ctDecoder = null,
+        HeaderEncodingManager $headerDecoder = null
     ) {
         $this->charset = $charset ?? new Charset();
         $this->ctDecoder = $ctDecoder ?? new ContentDecoder();
