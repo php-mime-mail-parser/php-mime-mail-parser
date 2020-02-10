@@ -248,21 +248,25 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string|bool
+     * @return string[]|null
      * @throws Exception
      */
-    public function getRawHeader($name)
+    public function getRawHeader($name): ?array
     {
-        $name = strtolower($name);
-        if (isset($this->parts[1])) {
-            $headers = $this->getPart('headers', $this->parts[1]);
-
-            return isset($headers[$name]) ? $headers[$name] : false;
-        } else {
+        if (!isset($this->parts[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
+
+        $headers = $this->getPart('headers', $this->parts[1]);
+        $name = strtolower($name);
+
+        if (array_key_exists($name, $headers)) {
+            return (array) $headers[$name];
+        }
+
+        return null;
     }
 
     /**
@@ -270,16 +274,18 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string|bool
+     * @return string|array|bool
      */
     public function getHeader($name)
     {
         $rawHeader = $this->getRawHeader($name);
-        if ($rawHeader === false) {
+
+        if ($rawHeader === null) {
+            // TODO This should be returning null if we want to have this function to return an optional value
             return false;
         }
 
-        return $this->decodeHeader($rawHeader);
+        return $this->headerDecoder->decodeHeader($rawHeader[0]);
     }
 
     /**
@@ -445,12 +451,14 @@ class Parser
      */
     public function getAddresses($name)
     {
-        $value = $this->getRawHeader($name);
-        $value = (is_array($value)) ? $value[0] : $value;
+        $value = $this->getRawHeader($name)[0];
+
         $addresses = mailparse_rfc822_parse_addresses($value);
+
         foreach ($addresses as $i => $item) {
-            $addresses[$i]['display'] = $this->decodeHeader($item['display']);
+            $addresses[$i]['display'] = $this->headerDecoder->decodeHeader($item['display']);
         }
+
         return $addresses;
     }
 
@@ -504,11 +512,11 @@ class Parser
             $filename = 'noname';
 
             if (isset($part['disposition-filename'])) {
-                $filename = $this->decodeHeader($part['disposition-filename']);
+                $filename = $this->headerDecoder->decodeHeader($part['disposition-filename']);
             } elseif (isset($part['content-name'])) {
                 // if we have no disposition but we have a content-name, it's a valid attachment.
                 // we simulate the presence of an attachment disposition with a disposition filename
-                $filename = $this->decodeHeader($part['content-name']);
+                $filename = $this->headerDecoder->decodeHeader($part['content-name']);
                 $disposition = 'attachment';
             } elseif (in_array($part['content-type'], $non_attachment_types, true)
                 && $disposition !== 'attachment') {
@@ -603,24 +611,6 @@ class Parser
         fseek($temp_fp, 0, SEEK_SET);
 
         return $temp_fp;
-    }
-
-
-    /**
-     * $input can be a string or array
-     *
-     * @param string|array $input
-     *
-     * @return string
-     */
-    protected function decodeHeader($input)
-    {
-        //Sometimes we have 2 label From so we take only the first
-        if (is_array($input)) {
-            return $this->headerDecoder->decodeHeader($input[0]);
-        }
-
-        return $this->headerDecoder->decodeHeader($input);
     }
 
     /**

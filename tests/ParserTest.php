@@ -1898,7 +1898,7 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setPath(__DIR__.'/mails/issue274.eml');
 
-        $this->assertEquals('guest@localhost', $Parser->getRawHeader('from'));
+        $this->assertEquals('guest@localhost', $Parser->getRawHeader('from')[0]);
         $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('text'));
         $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('html'));
 
