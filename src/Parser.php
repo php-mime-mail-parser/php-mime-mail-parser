@@ -336,42 +336,7 @@ class Parser
      */
     protected function getPartHeader(&$part)
     {
-        $header = '';
-        if ($this->stream) {
-            $header = $this->getPartHeaderFromFile($part);
-        } elseif ($this->data) {
-            $header = $this->getPartHeaderFromText($part);
-        }
-        return $header;
-    }
-
-    /**
-     * Retrieve the Header from a MIME part from file
-     *
-     * @return String Mime Header Part
-     * @param $part Array
-     */
-    protected function getPartHeaderFromFile(&$part)
-    {
-        $start = $part['starting-pos'];
-        $end = $part['starting-pos-body'];
-        fseek($this->stream, $start, SEEK_SET);
-        $header = fread($this->stream, $end - $start);
-        return $header;
-    }
-
-    /**
-     * Retrieve the Header from a MIME part from text
-     *
-     * @return String Mime Header Part
-     * @param $part Array
-     */
-    protected function getPartHeaderFromText(&$part)
-    {
-        $start = $part['starting-pos'];
-        $end = $part['starting-pos-body'];
-        $header = substr($this->data, $start, $end - $start);
-        return $header;
+        return $this->getSection($part['starting-pos'], $part['starting-pos-body']);
     }
 
     /**
