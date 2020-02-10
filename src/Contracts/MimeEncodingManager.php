@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser\Contracts;
 
-interface HeaderEncodingManager
+interface MimeEncodingManager
 {
     /**
      * Decodes a single MIME-encoded header.

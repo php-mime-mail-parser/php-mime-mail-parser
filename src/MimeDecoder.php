@@ -8,7 +8,7 @@ use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 /**
  * Header decoder decodes MIME-encoded headers.
  */
-final class MimeDecoder implements Contracts\HeaderEncodingManager
+final class MimeDecoder implements Contracts\MimeEncodingManager
 {
     /**
      * @var CharsetManager|Charset
