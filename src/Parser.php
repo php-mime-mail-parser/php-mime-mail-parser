@@ -296,24 +296,19 @@ class Parser
      */
     public function getHeaders()
     {
-        if (isset($this->parts[1])) {
-            $headers = $this->getPart('headers', $this->parts[1]);
-            foreach ($headers as &$value) {
-                if (is_array($value)) {
-                    foreach ($value as &$v) {
-                        $v = $this->headerDecoder->decodeHeader($v);
-                    }
-                } else {
-                    $value = $this->headerDecoder->decodeHeader($value);
-                }
-            }
-
-            return $headers;
-        } else {
+        if (!isset($this->parts[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
+
+        $headers = $this->getPart('headers', $this->parts[1]);
+
+        array_walk_recursive($headers, function (&$value) {
+            $value = $this->headerDecoder->decodeHeader($value);
+        });
+
+        return $headers;
     }
 
     /**
@@ -324,13 +319,13 @@ class Parser
      */
     public function getHeadersRaw()
     {
-        if (isset($this->parts[1])) {
-            return $this->getPartHeader($this->parts[1]);
-        } else {
+        if (!isset($this->parts[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
+
+        return $this->getPartHeader($this->parts[1]);
     }
 
     /**
@@ -393,15 +388,15 @@ class Parser
             'htmlEmbedded' => 'text/html',
         ];
 
-        if (in_array($type, array_keys($mime_types))) {
-            $part_type = $type === 'htmlEmbedded' ? 'html' : $type;
-            $inline_parts = $this->getInlineParts($part_type);
-            $body = empty($inline_parts) ? '' : $inline_parts[0];
-        } else {
+        if (!array_key_exists($type, $mime_types)) {
             throw new Exception(
                 'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
             );
         }
+
+        $part_type = $type === 'htmlEmbedded' ? 'html' : $type;
+        $inline_parts = $this->getInlineParts($part_type);
+        $body = empty($inline_parts) ? '' : $inline_parts[0];
 
         if ($type == 'htmlEmbedded') {
             $attachments = $this->getAttachments();
@@ -475,7 +470,7 @@ class Parser
             'html'         => 'text/html',
         ];
 
-        if (!in_array($type, array_keys($mime_types))) {
+        if (!array_key_exists($type, $mime_types)) {
             throw new Exception('Invalid type specified for getInlineParts(). "type" can either be text or html.');
         }
 
