@@ -2,7 +2,7 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Charset;
-use PhpMimeMailParser\ContentDecoder;
+use PhpMimeMailParser\ContentTransferDecoder;
 
 /**
  * @covers \PhpMimeMailParser\Charset
@@ -48,7 +48,7 @@ final class CharsetTest extends TestCase
 
     public function provideData()
     {
-        $ctDecoder = new ContentDecoder();
+        $ctDecoder = new ContentTransferDecoder();
 
         foreach (self::DATA_QUOTED_PRINTABLE as $row) {
             $row[1] = $ctDecoder->decodeContentTransfer($row[1], $ctDecoder::ENCODING_QUOTED_PRINTABLE);

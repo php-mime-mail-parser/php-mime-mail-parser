@@ -92,7 +92,7 @@ class Parser
         MimeEncodingManager $headerDecoder = null
     ) {
         $this->charset = $charset ?? new Charset();
-        $this->ctDecoder = $ctDecoder ?? new ContentDecoder();
+        $this->ctDecoder = $ctDecoder ?? new ContentTransferDecoder();
         $this->headerDecoder = $headerDecoder ?? new MimeDecoder($this->charset, $this->ctDecoder);
 
         $this->middlewareStack = new MiddlewareStack();
