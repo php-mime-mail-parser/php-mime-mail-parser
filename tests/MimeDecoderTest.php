@@ -2,13 +2,13 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\ContentTransferDecoder;
-use PhpMimeMailParser\MimeDecoder;
+use PhpMimeMailParser\MimeHeaderDecoder;
 use PhpMimeMailParser\Charset;
 
 /**
- * @covers \PhpMimeMailParser\MimeDecoder
+ * @covers \PhpMimeMailParser\MimeHeaderDecoder
  */
-final class MimeDecoderTest extends TestCase
+final class MimeHeaderDecoderTest extends TestCase
 {
     const DATA = [
         ['=?iso-8859-1?Q?HasenundFr=F6sche=2Etxt?=', 'HasenundFrösche.txt'],
@@ -31,7 +31,7 @@ final class MimeDecoderTest extends TestCase
      */
     public function testDecode($input, $expected)
     {
-        $decoder = new MimeDecoder(new Charset(), new ContentTransferDecoder());
+        $decoder = new MimeHeaderDecoder(new Charset(), new ContentTransferDecoder());
 
         $actual = $decoder->decodeHeader($input);
 
