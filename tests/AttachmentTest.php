@@ -42,16 +42,6 @@ class AttachmentTest extends TestCase
 
         $attachmentFiles = glob($attachDir . '*');
         $this->assertCount(1, $attachmentFiles);
-
-        $content = '';
-
-        foreach ($Parser->getAttachments() as $attachment) {
-            while (($buf = $attachment->read()) !== false) {
-                $content .= $buf;
-            }
-        }
-
-        $this->assertStringEqualsFile($attachmentFiles[0], $content);
     }
 
     public function testGeneratingDuplicateSuffixWithoutExtension()
