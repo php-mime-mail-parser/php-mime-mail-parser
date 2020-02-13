@@ -1,16 +1,16 @@
 <?php
 namespace Tests\PhpMimeMailParser;
 
-use PhpMimeMailParser\ContentDecoder;
+use PhpMimeMailParser\ContentTransferDecoder;
 
 /**
- * @covers \PhpMimeMailParser\ContentDecoder
+ * @covers \PhpMimeMailParser\ContentTransferDecoder
  */
-final class ContentDecoderTest extends TestCase
+final class ContentTransferDecoderTest extends TestCase
 {
     public function testDecodeUnknownEncoding()
     {
-        $decoder = new ContentDecoder();
+        $decoder = new ContentTransferDecoder();
 
         $this->assertSame('testing', $decoder->decodeContentTransfer('testing', 'unknown'));
         $this->assertSame('testing', $decoder->decodeContentTransfer('testing', ''));
@@ -18,7 +18,7 @@ final class ContentDecoderTest extends TestCase
 
     public function testDecodeQuotedPrintable()
     {
-        $decoder = new ContentDecoder();
+        $decoder = new ContentTransferDecoder();
         $decoded = $decoder->decodeContentTransfer(
             '=D0=9F=D1=80=D0=BE=D0=B2=D0=B5=D1=80=D0=BA=D0=B0',
             $decoder::ENCODING_QUOTED_PRINTABLE
@@ -29,7 +29,7 @@ final class ContentDecoderTest extends TestCase
 
     public function testDecodeBase64()
     {
-        $decoder = new ContentDecoder();
+        $decoder = new ContentTransferDecoder();
         $decoded = $decoder->decodeContentTransfer('YW55IGNhcm5hbCBwbGVhc3VyZQ==', $decoder::ENCODING_BASE64);
 
         $this->assertSame('any carnal pleasure', $decoded);
@@ -37,7 +37,7 @@ final class ContentDecoderTest extends TestCase
 
     public function testDecodeCaseInsensitive()
     {
-        $decoder = new ContentDecoder();
+        $decoder = new ContentTransferDecoder();
         $decoded = $decoder->decodeContentTransfer(
             '=D0=9F=D1=80=D0=BE=D0=B2=D0=B5=D1=80=D0=BA=D0=B0',
             strtoupper($decoder::ENCODING_QUOTED_PRINTABLE)

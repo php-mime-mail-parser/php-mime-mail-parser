@@ -1,7 +1,7 @@
 <?php
 namespace Tests\PhpMimeMailParser;
 
-use PhpMimeMailParser\ContentDecoder;
+use PhpMimeMailParser\ContentTransferDecoder;
 use PhpMimeMailParser\MimeDecoder;
 use PhpMimeMailParser\Charset;
 
@@ -31,7 +31,7 @@ final class MimeDecoderTest extends TestCase
      */
     public function testDecode($input, $expected)
     {
-        $decoder = new MimeDecoder(new Charset(), new ContentDecoder());
+        $decoder = new MimeDecoder(new Charset(), new ContentTransferDecoder());
 
         $actual = $decoder->decodeHeader($input);
 

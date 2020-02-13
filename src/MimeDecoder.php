@@ -16,7 +16,7 @@ final class MimeDecoder implements Contracts\MimeEncodingManager
     private $charset;
 
     /**
-     * @var ContentTransferEncodingManager|ContentDecoder
+     * @var ContentTransferEncodingManager|ContentTransferDecoder
      */
     private $decoder;
 
