@@ -179,21 +179,7 @@ class Attachment
     }
 
     /**
-     * Read the contents a few bytes at a time until completed
-     * Once read to completion, it always returns false
-     *
-     * @param int $bytes (default: 2082)
-     *
-     * @return string|bool
-     */
-    public function read($bytes = 2082)
-    {
-        return feof($this->stream) ? false : fread($this->stream, $bytes);
-    }
-
-    /**
      * Retrieve the file content in one go
-     * Once you retrieve the content you cannot use MimeMailParser_attachment::read()
      *
      * @return string
      */
