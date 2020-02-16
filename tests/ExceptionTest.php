@@ -11,7 +11,7 @@ use PhpMimeMailParser\Exception;
  * @covers \PhpMimeMailParser\Parser
  * @covers \PhpMimeMailParser\Attachment
  */
-class ExceptionTest extends TestCase
+final class ExceptionTest extends TestCase
 {
     /**
      */

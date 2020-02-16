@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser;
 
-use function var_dump;
+use PhpMimeMailParser\Contracts\AttachmentInterface;
 
 /**
  * Attachment of php-mime-mail-parser
@@ -10,7 +10,7 @@ use function var_dump;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-class Attachment
+final class Attachment implements AttachmentInterface
 {
     /**
      * @var string $filename Filename
@@ -92,7 +92,7 @@ class Attachment
      *
      * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return $this->filename;
     }
@@ -102,7 +102,7 @@ class Attachment
      *
      * @return string
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return $this->contentType;
     }
@@ -112,7 +112,7 @@ class Attachment
      *
      * @return string
      */
-    public function getContentDisposition()
+    public function getContentDisposition(): string
     {
         return $this->contentDisposition;
     }
@@ -122,7 +122,7 @@ class Attachment
      *
      * @return string
      */
-    public function getContentID()
+    public function getContentID(): ?string
     {
         return $this->contentId;
     }
@@ -132,7 +132,7 @@ class Attachment
      *
      * @return array
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
@@ -183,7 +183,7 @@ class Attachment
      *
      * @return string
      */
-    public function getContent()
+    public function getContent(): string
     {
         if ($this->content === null) {
             fseek($this->stream, 0);
@@ -198,7 +198,7 @@ class Attachment
      *
      * @return string
      */
-    public function getMimePartStr()
+    public function getMimePartStr(): string
     {
         return $this->mimePartStr;
     }
@@ -214,7 +214,7 @@ class Attachment
     public function save(
         $attach_dir,
         $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
-    ) {
+    ): string {
         $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         if (!is_dir($attach_dir)) {
             mkdir($attach_dir);

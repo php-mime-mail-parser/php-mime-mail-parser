@@ -5,7 +5,7 @@ namespace PhpMimeMailParser;
 /**
  * Wraps a callable as a Middleware
  */
-class Middleware implements Contracts\Middleware
+final class Middleware implements Contracts\Middleware
 {
     protected $parser;
 

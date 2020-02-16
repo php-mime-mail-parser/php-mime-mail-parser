@@ -9,7 +9,7 @@ use PhpMimeMailParser\Parser;
  * @covers \PhpMimeMailParser\Parser
  * @covers \PhpMimeMailParser\Attachment
  */
-class AttachmentTest extends TestCase
+final class AttachmentTest extends TestCase
 {
     public function testSaveAttachmentsFromParser()
     {

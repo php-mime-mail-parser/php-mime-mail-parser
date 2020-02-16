@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser;
 
-class Exception extends \RuntimeException
+final class Exception extends \RuntimeException
 {
 
 }

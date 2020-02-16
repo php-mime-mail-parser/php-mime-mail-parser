@@ -7,7 +7,7 @@ use PhpMimeMailParser\Contracts\MiddleWare as MiddleWareContracts;
 /**
  * A stack of middleware chained together by (MiddlewareStack $next)
  */
-class MiddlewareStack
+final class MiddlewareStack
 {
     /**
      * Next MiddlewareStack in chain

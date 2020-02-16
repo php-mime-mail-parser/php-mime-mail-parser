@@ -16,7 +16,7 @@ use PhpMimeMailParser\Contracts\CharsetManager;
  * @covers \PhpMimeMailParser\MiddleWareStack
  * @covers \PhpMimeMailParser\Middleware
  */
-class ParserTest extends TestCase
+final class ParserTest extends TestCase
 {
     /**
      * @dataProvider provideData

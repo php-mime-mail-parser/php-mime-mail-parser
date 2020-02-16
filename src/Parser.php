@@ -5,6 +5,7 @@ namespace PhpMimeMailParser;
 use PhpMimeMailParser\Contracts\CharsetManager;
 use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
 use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
+use PhpMimeMailParser\Contracts\ParserInterface;
 
 /**
  * Parser of php-mime-mail-parser
@@ -12,15 +13,8 @@ use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
  */
-class Parser
+final class Parser implements ParserInterface
 {
-    /**
-     * Attachment filename argument option for ->saveAttachments().
-     */
-    const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
-    const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
-    const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
-
     /**
      * PHP MimeParser Resource ID
      *
@@ -122,7 +116,7 @@ class Parser
      *
      * @return Parser MimeMailParser Instance
      */
-    public function setPath($path)
+    public function setPath(string $path): ParserInterface
     {
         if (is_writable($path)) {
             $file = fopen($path, 'a+');
@@ -149,7 +143,7 @@ class Parser
      * @return Parser MimeMailParser Instance
      * @throws Exception
      */
-    public function setStream($stream)
+    public function setStream($stream): ParserInterface
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
@@ -206,7 +200,7 @@ class Parser
      *
      * @return Parser MimeMailParser Instance
      */
-    public function setText($data)
+    public function setText($data): ParserInterface
     {
         if (empty($data)) {
             throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
@@ -294,7 +288,7 @@ class Parser
      * @return array
      * @throws Exception
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         if (!isset($this->parts[1])) {
             throw new Exception(
@@ -462,7 +456,7 @@ class Parser
      *
      * @return Attachment[]
      */
-    public function getInlineParts($type = 'text')
+    public function getInlineParts(string $type = 'text'): array
     {
         $inline_parts = [];
         $mime_types = [
@@ -721,7 +715,7 @@ class Parser
      *
      * @return CharsetManager charset
      */
-    public function getCharset()
+    public function getCharset(): CharsetManager
     {
         return $this->charset;
     }
@@ -742,7 +736,7 @@ class Parser
      * @param callable $middleware Plain Function or Middleware Instance to execute
      * @return void
      */
-    public function addMiddleware(callable $middleware)
+    public function addMiddleware(callable $middleware): void
     {
         if (!$middleware instanceof Middleware) {
             $middleware = new Middleware($middleware);
