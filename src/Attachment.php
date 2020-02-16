@@ -2,8 +2,6 @@
 
 namespace PhpMimeMailParser;
 
-use function var_dump;
-
 /**
  * Attachment of php-mime-mail-parser
  *
