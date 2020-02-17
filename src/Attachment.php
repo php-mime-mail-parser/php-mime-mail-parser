@@ -1,6 +1,7 @@
 <?php
 
 namespace PhpMimeMailParser;
+
 use PhpMimeMailParser\Contracts\AttachmentInterface;
 
 /**
