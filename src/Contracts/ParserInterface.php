@@ -7,7 +7,29 @@ use PhpMimeMailParser\Attachment;
 
 interface ParserInterface
 {
+    /**
+     * Attachment filename argument option for ->saveAttachments().
+     */
+    const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
+    const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
+    const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
 
+    /**
+     * Attachment types to include for ->getAttachment()
+     */
+    const GA_INCLUDE_INLINE = 1; // include inline and top-level attachments
+    const GA_INCLUDE_NESTED = 2; // all non-inline attachments, including nested
+    const GA_INCLUDE_ALL = 3;    // inline and nested attachments
+    const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
+    
+
+    /**
+     * Set the file path we use to get the email text
+     *
+     * @param string $path File path to the MIME mail
+     *
+     * @return Parser MimeMailParser Instance
+     */
     public function setPath(string $path): ParserInterface;
 
     /**
