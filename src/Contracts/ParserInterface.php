@@ -7,12 +7,6 @@ use PhpMimeMailParser\Attachment;
 
 interface ParserInterface
 {
-    /**
-     * Attachment filename argument option for ->saveAttachments().
-     */
-    const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
-    const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
-    const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
 
     public function setPath(string $path): ParserInterface;
 
