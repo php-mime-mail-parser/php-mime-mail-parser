@@ -153,7 +153,7 @@ final class Attachment implements AttachmentInterface
      * @param string $fileName  Complete path to the file.
      * @return string           The suffixed file name.
      */
-    protected function suffixFileName(string $fileName): string
+    private function suffixFileName(string $fileName): string
     {
         $pathInfo = pathinfo($fileName);
         $dirname = $pathInfo['dirname'].DIRECTORY_SEPARATOR;
