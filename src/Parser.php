@@ -224,7 +224,7 @@ final class Parser implements ParserInterface
      *
      * @return void
      */
-    protected function parse()
+    private function parse()
     {
         $structure = mailparse_msg_get_structure($this->resource);
         $this->parts = [];
@@ -329,7 +329,7 @@ final class Parser implements ParserInterface
      * @param $part Object
      * @throws Exception
      */
-    protected function getPartHeader(&$part)
+    private function getPartHeader(&$part)
     {
         return $this->getSection($part['starting-pos'], $part['starting-pos-body']);
     }
@@ -342,7 +342,7 @@ final class Parser implements ParserInterface
      * @param string $parentPartId
      * @return bool
      */
-    protected function partIdIsChildOfPart($partId, $parentPartId)
+    private function partIdIsChildOfPart($partId, $parentPartId)
     {
         $parentPartId = $parentPartId.'.';
         return substr($partId, 0, strlen($parentPartId)) == $parentPartId;
@@ -354,7 +354,7 @@ final class Parser implements ParserInterface
      * @param string $checkPartId
      * @return bool
      */
-    protected function partIdIsChildOfAnAttachment($checkPartId)
+    private function partIdIsChildOfAnAttachment($checkPartId)
     {
         foreach ($this->parts as $partId => $part) {
             if ($this->getPart('content-disposition', $part) == 'attachment') {
@@ -415,7 +415,7 @@ final class Parser implements ParserInterface
      *
      * @return string
      */
-    protected function getEmbeddedData(string $contentId)
+    private function getEmbeddedData(string $contentId)
     {
         $embeddedData = 'data:';
 
@@ -589,7 +589,7 @@ final class Parser implements ParserInterface
      * @return resource Mime Body Part
      * @throws Exception
      */
-    protected function getAttachmentStream(&$part)
+    private function getAttachmentStream(&$part)
     {
         $temp_fp = self::tmpfile();
 
@@ -615,7 +615,7 @@ final class Parser implements ParserInterface
      *
      * @return string
      */
-    protected function getPartCharset($part)
+    private function getPartCharset($part)
     {
         return $this->charset->getCharsetAlias($part['charset']);
     }
@@ -628,7 +628,7 @@ final class Parser implements ParserInterface
      *
      * @return string|array|null
      */
-    protected function getPart($type, &$parts)
+    private function getPart($type, &$parts)
     {
         if (array_key_exists($type, $parts)) {
             return $parts[$type];
@@ -644,7 +644,7 @@ final class Parser implements ParserInterface
      *
      * @return string
      */
-    protected function getPartBody(&$part)
+    private function getPartBody(&$part)
     {
         return $this->getSection($part['starting-pos-body'], $part['ending-pos-body']);
     }
@@ -656,7 +656,7 @@ final class Parser implements ParserInterface
      *
      * @return string
      */
-    protected function getPartComplete(&$part)
+    private function getPartComplete(&$part)
     {
         return $this->getSection($part['starting-pos'], $part['ending-pos']);
     }
