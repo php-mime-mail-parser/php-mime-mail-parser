@@ -80,5 +80,11 @@
         "test-with-coverage": [
             "vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml"
         ]
-    }
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/eXorus"
+        }
+    ]
 }
