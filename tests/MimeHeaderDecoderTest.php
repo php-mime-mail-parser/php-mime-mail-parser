@@ -24,6 +24,7 @@ final class MimeHeaderDecoderTest extends TestCase
             'occurs when divided into an array, and the last e of the array! '],
         ['=?US-ASCII?Q?Katerine_Moore?=', 'Katerine Moore'],
         ['=?UTF-8?Q?Biodiversit=C3=A9_de_semaine_en_semaine.doc?=', 'Biodiversité de semaine en semaine.doc'],
+        ['=?utf-8?Q?Aug_26_2019_9=5F16_PM_-_=D0=BA=D0=BE=D0=BF=D0=B8=D1=8F=2Ecsv?=', 'Aug 26 2019 9_16 PM - копия.csv'],
     ];
 
     /**

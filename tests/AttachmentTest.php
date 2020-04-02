@@ -148,4 +148,13 @@ final class AttachmentTest extends TestCase
         $this->assertCount(2, $attachmentJpgFiles);
         $this->assertCount(1, $attachmentTxtFiles);
     }
+
+    public function testDecodeAttachmentFilename()
+    {
+        $file = __DIR__ . '/mails/issue300';
+        $parser = new Parser();
+        $parser->setPath($file);
+        $this->assertCount(1, $parser->getAttachments());
+        $this->assertEquals("Aug 26 2019 9_16 PM - копия.csv", $parser->getAttachments()[0]->getFilename());
+    }
 }

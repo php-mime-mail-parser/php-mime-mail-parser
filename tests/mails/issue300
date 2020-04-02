@@ -1,0 +1,37 @@
+Message-ID: <b011a0812d34d32d1259d46e9027be08@swift.generated>
+Date: Wed, 01 Apr 2020 06:43:27 -0400
+Subject: Message subject
+From: example <example@example.com>
+To: anotherone@example.com
+Content-Type: multipart/mixed;
+ boundary="_=_swift_1585737807_7368852ed4a09a706f72d7134e73b7f2_=_"
+MIME-Version: 1.0
+
+--_=_swift_1585737807_7368852ed4a09a706f72d7134e73b7f2_=_
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html><html><head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf-8"></=
+head>
+<body style=3D"font-family: Arial;font-size: 10pt;color: #000000;">
+<p>7.</p>
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+</head>
+<body style=3D"font-family: Arial;font-size: 10pt;color: #000000;">
+
+</body>
+</html>
+
+--_=_swift_1585737807_7368852ed4a09a706f72d7134e73b7f2_=_
+Content-Type: text/csv;
+ name="=?utf-8?Q?Aug_26_2019_9=5F16_PM_-_=D0=BA=D0=BE=D0=BF=D0=B8=D1=8F=2Ecsv?="
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename*0*=utf-8''Aug%2026%202019%209_16%20PM%20-%20%D0%BA%D0%BE;
+ filename*1*=%D0%BF%D0%B8%D1%8F.csv
+
+--_=_swift_1585737807_7368852ed4a09a706f72d7134e73b7f2_=_--
