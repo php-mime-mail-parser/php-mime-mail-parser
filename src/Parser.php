@@ -505,7 +505,7 @@ final class Parser implements ParserInterface
 
             if (isset($part['content-name'])) {
                 $filename = $this->headerDecoder->decodeHeader($part['content-name']);
-            } else if (isset($part['disposition-filename'])) {
+            } elseif (isset($part['disposition-filename'])) {
                 $filename = $this->headerDecoder->decodeHeader($part['disposition-filename']);
             } elseif (isset($part['content-name'])) {
                 // if we have no disposition but we have a content-name, it's a valid attachment.
