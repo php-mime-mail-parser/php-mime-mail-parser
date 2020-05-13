@@ -67,6 +67,10 @@ final class Attachment implements AttachmentInterface
      * @param string   $mimePartStr
      */
     public function __construct(
+    ) {
+    }
+
+    public static function create(
         $filename,
         $contentType,
         $stream,
@@ -75,14 +79,17 @@ final class Attachment implements AttachmentInterface
         $headers = [],
         $mimePartStr = ''
     ) {
-        $this->filename = $filename;
-        $this->contentType = $contentType;
-        $this->stream = $stream;
-        $this->content = null;
-        $this->contentDisposition = $contentDisposition;
-        $this->contentId = $contentId;
-        $this->headers = $headers;
-        $this->mimePartStr = $mimePartStr;
+        $attachment = new self();
+        $attachment->filename = $filename;
+        $attachment->contentType = $contentType;
+        $attachment->stream = $stream;
+        $attachment->content = null;
+        $attachment->contentDisposition = $contentDisposition;
+        $attachment->contentId = $contentId;
+        $attachment->headers = $headers;
+        $attachment->mimePartStr = $mimePartStr;
+
+        return $attachment;
     }
 
     /**

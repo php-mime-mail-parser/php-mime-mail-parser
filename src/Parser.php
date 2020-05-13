@@ -6,6 +6,7 @@ use PhpMimeMailParser\Contracts\CharsetManager;
 use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
 use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 use PhpMimeMailParser\Contracts\ParserInterface;
+use PhpMimeMailParser\Contracts\AttachmentInterface;
 
 /**
  * Parser of php-mime-mail-parser
@@ -74,6 +75,7 @@ final class Parser implements ParserInterface
      * @var MiddlewareStack
      */
     protected $middlewareStack;
+    protected $attachmentManager;
 
     /**
      * Parser constructor.
@@ -83,11 +85,13 @@ final class Parser implements ParserInterface
     public function __construct(
         CharsetManager $charset = null,
         ContentTransferEncodingManager $ctDecoder = null,
-        MimeHeaderEncodingManager $headerDecoder = null
+        MimeHeaderEncodingManager $headerDecoder = null,
+        AttachmentInterface $attachmentManager = null
     ) {
         $this->charset = $charset ?? new Charset();
         $this->ctDecoder = $ctDecoder ?? new ContentTransferDecoder();
         $this->headerDecoder = $headerDecoder ?? new MimeHeaderDecoder($this->charset, $this->ctDecoder);
+        $this->attachmentManager = $attachmentManager ?? new Attachment();
 
         $this->middlewareStack = new MiddlewareStack();
     }
@@ -541,7 +545,7 @@ final class Parser implements ParserInterface
                 $attachmentStream = $this->getAttachmentStream($part);
                 $mimePartStr = $this->getPartComplete($part);
 
-                $attachments[] = new Attachment(
+                $attachments[] = $this->attachmentManager::create(
                     $filename,
                     $this->getPart('content-type', $part),
                     $attachmentStream,
