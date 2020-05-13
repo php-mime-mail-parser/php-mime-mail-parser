@@ -2,6 +2,7 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
+use Tests\PhpMimeMailParser\AnotherAttachment;
 
 /**
  * Test Attachment of php-mime-mail-parser
@@ -148,4 +149,17 @@ final class AttachmentTest extends TestCase
         $this->assertCount(2, $attachmentJpgFiles);
         $this->assertCount(1, $attachmentTxtFiles);
     }
+
+    public function testUsingAnotherAttachmentClass()
+    {
+        $file = __DIR__ . '/mails/m0025';
+        $Parser = new Parser(null, null, null, new Stubs\AnotherAttachment);
+        $Parser->setPath($file);
+
+        $attachments = $Parser->getAttachments();
+
+        $this->assertInstanceOf(Stubs\AnotherAttachment::class, $attachments[0]);
+
+    }
 }
+
