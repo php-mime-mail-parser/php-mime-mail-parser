@@ -75,7 +75,11 @@ final class Parser implements ParserInterface
      * @var MiddlewareStack
      */
     protected $middlewareStack;
-    protected $attachmentManager;
+
+    /**
+     * @var AttachmentInterface
+     */
+    protected $attachmentInterface;
 
     /**
      * Parser constructor.
@@ -86,12 +90,12 @@ final class Parser implements ParserInterface
         CharsetManager $charset = null,
         ContentTransferEncodingManager $ctDecoder = null,
         MimeHeaderEncodingManager $headerDecoder = null,
-        AttachmentInterface $attachmentManager = null
+        AttachmentInterface $attachmentInterface = null
     ) {
         $this->charset = $charset ?? new Charset();
         $this->ctDecoder = $ctDecoder ?? new ContentTransferDecoder();
         $this->headerDecoder = $headerDecoder ?? new MimeHeaderDecoder($this->charset, $this->ctDecoder);
-        $this->attachmentManager = $attachmentManager ?? new Attachment();
+        $this->attachmentInterface = $attachmentInterface ?? new Attachment();
 
         $this->middlewareStack = new MiddlewareStack();
     }
@@ -545,7 +549,7 @@ final class Parser implements ParserInterface
                 $attachmentStream = $this->getAttachmentStream($part);
                 $mimePartStr = $this->getPartComplete($part);
 
-                $attachments[] = $this->attachmentManager::create(
+                $attachments[] = $this->attachmentInterface::create(
                     $filename,
                     $this->getPart('content-type', $part),
                     $attachmentStream,
