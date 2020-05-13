@@ -159,7 +159,5 @@ final class AttachmentTest extends TestCase
         $attachments = $Parser->getAttachments();
 
         $this->assertInstanceOf(Stubs\AnotherAttachment::class, $attachments[0]);
-
     }
 }
-

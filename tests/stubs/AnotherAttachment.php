@@ -7,34 +7,42 @@ use \PhpMimeMailParser\Contracts\ParserInterface;
 class AnotherAttachment implements AttachmentInterface
 {
     public function getFilename(): string
-    {}
+    {
+    }
 
     public function getContentType(): string
-    {}
+    {
+    }
 
     public function getContentDisposition(): string
-    {}
+    {
+    }
 
     public function getContentID(): ?string
-    {}
+    {
+    }
 
     public function getHeaders(): array
-    {}
+    {
+    }
 
     public function getStream()
-    {}
+    {
+    }
 
     public function getContent(): string
-    {}
+    {
+    }
 
     public function getMimePartStr(): string
-    {}
+    {
+    }
 
     public function save(
         $attach_dir,
         $filenameStrategy = ParserInterface::ATTACHMENT_DUPLICATE_SUFFIX
-    ): string
-    {}
+    ): string {
+    }
 
     public static function create(
         $filename,
@@ -44,8 +52,7 @@ class AnotherAttachment implements AttachmentInterface
         $contentId = '',
         $headers = [],
         $mimePartStr = ''
-    )
-    {
+    ) {
         return new self();
     }
 }
