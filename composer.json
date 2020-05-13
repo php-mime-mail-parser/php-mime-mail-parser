@@ -67,7 +67,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\PhpMimeMailParser\\": "tests/"
+            "Tests\\PhpMimeMailParser\\": "tests/",
+            "Tests\\PhpMimeMailParser\\Stubs\\": "tests/stubs/"
         }
     },
     "scripts": {
