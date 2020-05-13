@@ -148,4 +148,15 @@ final class AttachmentTest extends TestCase
         $this->assertCount(2, $attachmentJpgFiles);
         $this->assertCount(1, $attachmentTxtFiles);
     }
+
+    public function testCalendarIsDetectedAsAttachment()
+    {
+        $file = __DIR__ . '/mails/m0020';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachments = $Parser->getAttachments();
+
+        $this->assertSame('text/calendar', $attachments[0]->getContentType());
+    }
 }
