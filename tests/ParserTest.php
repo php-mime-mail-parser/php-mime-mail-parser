@@ -242,6 +242,8 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/issue182';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+        $attachments = $Parser->getAttachments();
+        
         $this->assertCount(1, $Parser->getAttachments());
         $this->assertCount(1, $Parser->getAttachments(true));
     }
@@ -506,7 +508,7 @@ final class ParserTest extends TestCase
                             'facilisis',
                             4,
                             'application/octet-stream',
-                            'attachment',
+                            null,
                             '0e6d510323b009da939070faf72e521c',
                             '',
                             )
@@ -746,18 +748,7 @@ final class ParserTest extends TestCase
                     'Joe Blow <blow@example.com>',
                     array('COUNT',1,'Die Hasen und die'),
                     array('MATCH',''),
-                    array(
-                        array(
-                            'HasenundFrösche.txt',
-                            747,
-                            'noch',
-                            2,
-                            'text/plain',
-                            'inline',
-                            '865238356eec20b67ce8c33c68d8a95a',
-                            '',
-                            )
-                        ),
+                    array(),
                     0),
                 array(
                     'm0015',
@@ -803,18 +794,7 @@ final class ParserTest extends TestCase
                     'Joe Blow <blow@example.com>',
                     array('COUNT',1,'Die Hasen und die'),
                     array('MATCH',''),
-                    array(
-                        array(
-                            'HasenundFrösche.txt',
-                            747,
-                            'noch',
-                            2,
-                            'text/plain',
-                            'inline',
-                            '865238356eec20b67ce8c33c68d8a95a',
-                            '',
-                            )
-                        ),
+                    array(),
                     0),
                 array(
                     'm0018',
@@ -911,7 +891,7 @@ final class ParserTest extends TestCase
                             '',
                             0,
                             'text/calendar',
-                            'attachment',
+                            null,
                             'bf7bfb9b8dd11ff0c830b2388560d434',
                             '',
                             )

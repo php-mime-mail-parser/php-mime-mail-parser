@@ -458,7 +458,6 @@ final class Parser implements ParserInterface
      */
     public function getInlineParts(string $type = 'text'): array
     {
-        $inline_parts = [];
         $mime_types = [
             'text'         => 'text/plain',
             'html'         => 'text/html',
@@ -468,20 +467,121 @@ final class Parser implements ParserInterface
             throw new Exception('Invalid type specified for getInlineParts(). "type" can either be text or html.');
         }
 
-        foreach ($this->parts as $partId => $part) {
-            if ($this->getPart('content-type', $part) == $mime_types[$type]
-                && $this->getPart('content-disposition', $part) != 'attachment'
-                && !$this->partIdIsChildOfAnAttachment($partId)
-            ) {
-                $headers = $this->getPart('headers', $part);
-                $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-                    $headers['content-transfer-encoding'] : '';
-                $undecoded_body = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-                $inline_parts[] = $this->charset->decodeCharset($undecoded_body, $this->getPartCharset($part));
-            }
+        $parts = $this->filterParts([$type], false);
+        $inline_parts = [];
+
+        foreach ($parts as $part) {
+            $headers = $this->getPart('headers', $part);
+            $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
+                $headers['content-transfer-encoding'] : '';
+            $undecoded_body = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
+            $inline_parts[] = $this->charset->decodeCharset($undecoded_body, $this->getPartCharset($part));
         }
 
         return $inline_parts;
+    }
+
+    public function isTextMessage($part)
+    {
+        $disposition = $this->getPart('content-disposition', $part);
+        $contentType = $this->getPart('content-type', $part);
+
+        if ($disposition == 'inline' || empty($disposition))
+        {
+            if ($contentType == 'text/plain')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function isHtmlMessage($part)
+    {
+        $disposition = $this->getPart('content-disposition', $part);
+        $contentType = $this->getPart('content-type', $part);
+
+        if ($disposition == 'inline' || empty($disposition))
+        {
+            if ($contentType == 'text/html')
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function filterParts($filters, $includeSubParts = true)
+    {
+        $filteredParts = [];
+
+        foreach ($this->parts as $partId => $part) {
+
+            $disposition = $this->getPart('content-disposition', $part);
+            $contentType = $this->getPart('content-type', $part);
+            $attachmentType = null;
+
+            if (isset($disposition))
+            {
+                if ($disposition == 'inline' || $disposition == 'attachment')
+                {
+                    $attachmentType = $disposition;
+                }
+                else {
+                    $attachmentType = 'attachment';
+                }
+                
+            }
+            else {
+                if (
+                    $contentType != 'text/plain' 
+                    && $contentType != 'text/html'
+                    && $contentType!= 'multipart/alternative'
+                    && $contentType != 'multipart/related'
+                    && $contentType != 'multipart/mixed'
+                    && $contentType != 'text/plain; (error)')
+                {
+                    $attachmentType = 'attachment';
+                }
+            }
+            if ($this->partIdIsChildOfAnAttachment($partId) && !$includeSubParts) {
+                continue;
+            }
+
+            if ($this->isTextMessage($part))
+            {
+                if (\in_array('text', $filters)){
+                    $filteredParts[] = $part;
+                    continue;
+                }
+            }
+            elseif ($this->isHtmlMessage($part))
+            {
+                if (\in_array('html', $filters)){
+                    $filteredParts[] = $part;
+                    continue;
+                }
+            }
+            elseif ($attachmentType == 'inline')
+            {
+                if (\in_array('inline', $filters)){
+                    $filteredParts[] = $part;
+                    continue;
+                }
+            }
+            elseif ($attachmentType == 'attachment')
+            {
+                if (\in_array('attachment', $filters)){
+                    $filteredParts[] = $part;
+                    continue;
+                }
+            }
+            elseif ($attachmentType == null)
+            {
+                continue;
+            }
+        }
+        return $filteredParts;
     }
 
     /**
@@ -491,66 +591,45 @@ final class Parser implements ParserInterface
      */
     public function getAttachments($attachment_types = self::GA_INCLUDE_ALL)
     {
-        $include_inline = $attachment_types & self::GA_INCLUDE_INLINE;
-        $include_subparts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
+        $includeSubParts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
 
         $attachments = [];
-        $dispositions = $include_inline ? ['attachment', 'inline'] : ['attachment'];
-        $non_attachment_types = ['text/plain', 'text/html'];
         $nonameIter = 0;
 
-        foreach ($this->parts as $partId => $part) {
-            $disposition = $this->getPart('content-disposition', $part);
-            $filename = 'noname';
+        $filters = ['attachment'];
+        if ( $attachment_types & self::GA_INCLUDE_INLINE ) {
+            $filters[] = 'inline';
+        }
+
+        $parts = $this->filterParts($filters, $includeSubParts);
+
+        foreach ($parts as $part) {
 
             if (isset($part['disposition-filename'])) {
-                $filename = $this->headerDecoder->decodeHeader($part['disposition-filename']);
+                $filename = $part['disposition-filename'];
             } elseif (isset($part['content-name'])) {
-                // if we have no disposition but we have a content-name, it's a valid attachment.
-                // we simulate the presence of an attachment disposition with a disposition filename
-                $filename = $this->headerDecoder->decodeHeader($part['content-name']);
-                $disposition = 'attachment';
-            } elseif (in_array($part['content-type'], $non_attachment_types, true)
-                && $disposition !== 'attachment') {
-                // it is a message body, no attachment
-                continue;
-            } elseif (substr($part['content-type'], 0, 10) !== 'multipart/'
-                && $part['content-type'] !== 'text/plain; (error)') {
-                // if we cannot get it by getMessageBody(), we assume it is an attachment
-                $disposition = 'attachment';
-            }
-            if (in_array($disposition, ['attachment', 'inline']) === false && !empty($disposition)) {
-                $disposition = 'attachment';
+                $filename =$part['content-name'];
             }
 
-            if (in_array($disposition, $dispositions) === true) {
-                if (!$include_subparts && $this->partIdIsChildOfAnAttachment($partId)) {
-                    continue;
-                }
-                if ($filename == 'noname') {
-                    $nonameIter++;
-                    $filename = 'noname'.$nonameIter;
-                } else {
-                    // Escape all potentially unsafe characters from the filename
-                    $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
-                }
-
-                $headersAttachments = $this->getPart('headers', $part);
-                $contentidAttachments = $this->getPart('content-id', $part);
-
-                $attachmentStream = $this->getAttachmentStream($part);
-                $mimePartStr = $this->getPartComplete($part);
-
-                $attachments[] = new Attachment(
-                    $filename,
-                    $this->getPart('content-type', $part),
-                    $attachmentStream,
-                    $disposition,
-                    $contentidAttachments,
-                    $headersAttachments,
-                    $mimePartStr
-                );
+            if (isset($filename))
+            {
+                $filename = $this->headerDecoder->decodeHeader($filename);
+                $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
             }
+            else {
+                $nonameIter++;
+                $filename = 'noname'.$nonameIter;
+            }
+
+            $attachments[] = new Attachment(
+                $filename,
+                $this->getPart('content-type', $part),
+                $this->getAttachmentStream($part),
+                $this->getPart('content-disposition', $part),
+                $this->getPart('content-id', $part),
+                $this->getPart('headers', $part),
+                $this->getPartComplete($part)
+            );
         }
 
         return $attachments;

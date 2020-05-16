@@ -110,7 +110,7 @@ final class Attachment implements AttachmentInterface
      *
      * @return string
      */
-    public function getContentDisposition(): string
+    public function getContentDisposition(): ?string
     {
         return $this->contentDisposition;
     }

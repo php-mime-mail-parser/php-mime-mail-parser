@@ -24,7 +24,7 @@ interface AttachmentInterface
      *
      * @return string
      */
-    public function getContentDisposition(): string;
+    public function getContentDisposition(): ?string;
 
     /**
      * Retrieve the Attachment Content-ID
