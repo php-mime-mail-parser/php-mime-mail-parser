@@ -583,11 +583,7 @@ final class Parser implements ParserInterface
 
         foreach ($parts as $part) {
 
-            if (isset($part['disposition-filename'])) {
-                $filename = $part['disposition-filename'];
-            } elseif (isset($part['content-name'])) {
-                $filename =$part['content-name'];
-            }
+            $filename = $this->getPart('disposition-filename', $part) ?? $this->getPart('content-name', $part);
 
             if (isset($filename))
             {
