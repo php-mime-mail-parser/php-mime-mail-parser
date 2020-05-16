@@ -466,11 +466,9 @@ final class Parser implements ParserInterface
         $inline_parts = [];
 
         foreach ($parts as $part) {
-            $headers = $this->getPart('headers', $part);
-            $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-                $headers['content-transfer-encoding'] : '';
-            $undecoded_body = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-            $inline_parts[] = $this->charset->decodeCharset($undecoded_body, $this->getPartCharset($part));
+            $encodingType = $this->getPart('transfer-encoding', $part);
+            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
+            $inline_parts[] = $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
         }
 
         return $inline_parts;
