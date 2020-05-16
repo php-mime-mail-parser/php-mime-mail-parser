@@ -73,4 +73,25 @@ interface AttachmentInterface
         $attach_dir,
         $filenameStrategy = ParserInterface::ATTACHMENT_DUPLICATE_SUFFIX
     ): string;
+
+    /**
+     * Get mime part string for this attachment
+     *
+     * @param string   $filename
+     * @param string   $contentType
+     * @param resource $stream
+     * @param string   $contentDisposition
+     * @param string   $contentId
+     * @param array    $headers
+     * @param string   $mimePartStr
+     */
+    public static function create(
+        $filename,
+        $contentType,
+        $stream,
+        $contentDisposition = 'attachment',
+        $contentId = '',
+        $headers = [],
+        $mimePartStr = ''
+    );
 }

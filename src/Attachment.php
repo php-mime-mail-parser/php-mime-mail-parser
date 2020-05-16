@@ -56,7 +56,7 @@ final class Attachment implements AttachmentInterface
     public $maxDuplicateNumber = 100;
 
     /**
-     * Attachment constructor.
+     * Create Attachment.
      *
      * @param string   $filename
      * @param string   $contentType
@@ -66,7 +66,7 @@ final class Attachment implements AttachmentInterface
      * @param array    $headers
      * @param string   $mimePartStr
      */
-    public function __construct(
+    public static function create(
         $filename,
         $contentType,
         $stream,
@@ -76,14 +76,17 @@ final class Attachment implements AttachmentInterface
         $mimePartStr = '',
         MimePart $part
     ) {
-        $this->filename = $filename;
-        $this->contentType = $contentType;
-        $this->stream = $stream;
-        $this->content = null;
-        $this->contentDisposition = $contentDisposition;
-        $this->contentId = $contentId;
-        $this->headers = $headers;
-        $this->mimePartStr = $mimePartStr;
+        $attachment = new self();
+        $attachment->filename = $filename;
+        $attachment->contentType = $contentType;
+        $attachment->stream = $stream;
+        $attachment->content = null;
+        $attachment->contentDisposition = $contentDisposition;
+        $attachment->contentId = $contentId;
+        $attachment->headers = $headers;
+        $attachment->mimePartStr = $mimePartStr;
+
+        return $attachment;
     }
 
     /**
