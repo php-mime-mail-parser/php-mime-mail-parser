@@ -603,7 +603,7 @@ final class Parser implements ParserInterface
                 $filename = 'noname'.$nonameIter;
             }
 
-            $attachments[] = new Attachment(
+            $attachments[] = $this->attachmentInterface::create(
                 $filename,
                 $this->getPart('content-type', $part),
                 $this->getAttachmentStream($part),

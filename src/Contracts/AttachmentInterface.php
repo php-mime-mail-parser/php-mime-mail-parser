@@ -2,6 +2,8 @@
 
 namespace PhpMimeMailParser\Contracts;
 
+use PhpMimeMailParser\MimePart;
+
 interface AttachmentInterface
 {
 
@@ -92,6 +94,7 @@ interface AttachmentInterface
         $contentDisposition = 'attachment',
         $contentId = '',
         $headers = [],
-        $mimePartStr = ''
+        $mimePartStr = '',
+        MimePart $part
     );
 }

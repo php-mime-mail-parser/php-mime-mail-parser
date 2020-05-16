@@ -3,6 +3,7 @@ namespace Tests\PhpMimeMailParser\Stubs;
 
 use \PhpMimeMailParser\Contracts\AttachmentInterface;
 use \PhpMimeMailParser\Contracts\ParserInterface;
+use \PhpMimeMailParser\MimePart;
 
 class AnotherAttachment implements AttachmentInterface
 {
@@ -51,7 +52,8 @@ class AnotherAttachment implements AttachmentInterface
         $contentDisposition = 'attachment',
         $contentId = '',
         $headers = [],
-        $mimePartStr = ''
+        $mimePartStr = '',
+        MimePart $part
     ) {
         return new self();
     }
