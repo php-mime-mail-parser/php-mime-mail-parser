@@ -458,12 +458,7 @@ final class Parser implements ParserInterface
      */
     public function getInlineParts(string $type = 'text'): array
     {
-        $mime_types = [
-            'text'         => 'text/plain',
-            'html'         => 'text/html',
-        ];
-
-        if (!array_key_exists($type, $mime_types)) {
+        if ($type != 'text' && $type != 'html') {
             throw new Exception('Invalid type specified for getInlineParts(). "type" can either be text or html.');
         }
 
