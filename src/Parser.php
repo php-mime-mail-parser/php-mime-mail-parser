@@ -602,7 +602,8 @@ final class Parser implements ParserInterface
                 $this->getPart('content-disposition', $part),
                 $this->getPart('content-id', $part),
                 $this->getPart('headers', $part),
-                $this->getPartComplete($part)
+                $this->getPartComplete($part),
+                new MimePart(1,$part)
             );
         }
 

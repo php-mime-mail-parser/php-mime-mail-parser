@@ -73,7 +73,8 @@ final class Attachment implements AttachmentInterface
         $contentDisposition = 'attachment',
         $contentId = '',
         $headers = [],
-        $mimePartStr = ''
+        $mimePartStr = '',
+        MimePart $part
     ) {
         $this->filename = $filename;
         $this->contentType = $contentType;
