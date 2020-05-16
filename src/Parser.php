@@ -474,29 +474,14 @@ final class Parser implements ParserInterface
         return $inline_parts;
     }
 
-    public function isTextMessage($part)
+    public function isTextMessage($part, $subType)
     {
         $disposition = $this->getPart('content-disposition', $part);
         $contentType = $this->getPart('content-type', $part);
 
         if ($disposition == 'inline' || empty($disposition))
         {
-            if ($contentType == 'text/plain')
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function isHtmlMessage($part)
-    {
-        $disposition = $this->getPart('content-disposition', $part);
-        $contentType = $this->getPart('content-type', $part);
-
-        if ($disposition == 'inline' || empty($disposition))
-        {
-            if ($contentType == 'text/html')
+            if ($contentType == 'text/'.$subType)
             {
                 return true;
             }
@@ -541,14 +526,14 @@ final class Parser implements ParserInterface
                 continue;
             }
 
-            if ($this->isTextMessage($part))
+            if ($this->isTextMessage($part, 'plain'))
             {
                 if (\in_array('text', $filters)){
                     $filteredParts[] = $part;
                     continue;
                 }
             }
-            elseif ($this->isHtmlMessage($part))
+            elseif ($this->isTextMessage($part, 'html'))
             {
                 if (\in_array('html', $filters)){
                     $filteredParts[] = $part;
