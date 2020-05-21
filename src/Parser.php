@@ -389,6 +389,66 @@ final class Parser implements ParserInterface
         return false;
     }
 
+    private function getFirstTextRaw($subType)
+    {
+        $type = ($subType == 'plain') ? 'text' : 'html';
+        $parts = $this->filterParts([$type], false);
+
+        foreach ($parts as $part)
+        {
+            if(empty($part))
+            {
+                return '';
+            }
+
+            return $this->getPartBody($part);
+        }
+        return '';
+    }
+
+    private function getFirstTextDecoded($subType)
+    {
+        $type = ($subType == 'plain') ? 'text' : 'html';
+        $parts = $this->filterParts([$type], false);
+
+        foreach ($parts as $part)
+        {
+            if(empty($part))
+            {
+                return '';
+            }
+
+            $encodingType = $this->getPart('transfer-encoding', $part);
+            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
+            return $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
+        }
+        return '';
+    }
+
+    public function getText(): string
+    {
+        $text = $this->getFirstTextDecoded('plain');
+        return $text;
+    }
+
+    public function getTextRaw(): string
+    {
+        $text = $this->getFirstTextRaw('plain');
+        return $text;
+    }
+
+    public function getHtml(): string
+    {
+        $text = $this->getFirstTextDecoded('html');
+        return $text;
+    }
+
+    public function getHtmlRaw(): string
+    {
+        $text = $this->getFirstTextRaw('html');
+        return $text;
+    }
+
     /**
      * Returns the email message body in the specified format
      *

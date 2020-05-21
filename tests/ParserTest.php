@@ -1922,4 +1922,18 @@ mini plain body';
 
         $this->assertStringEqualsFile($file, $Parser->getData());
     }
+
+    public function testGetTextRaw()
+    {
+        $file = __DIR__.'/mails/issue230';
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertStringContainsString('=C2=A9 2019 Science', $Parser->getTextRaw());
+        $this->assertStringContainsString('© 2019 Science', $Parser->getText());
+
+        $this->assertStringContainsString('=C2=A9 2019 Science', $Parser->getHtmlRaw());
+        $this->assertStringContainsString('© 2019 Science', $Parser->getHtml());
+    }
 }
