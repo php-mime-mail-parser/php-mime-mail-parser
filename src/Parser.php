@@ -86,18 +86,33 @@ final class Parser implements ParserInterface
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(
-        CharsetManager $charset = null,
-        ContentTransferEncodingManager $ctDecoder = null,
-        MimeHeaderEncodingManager $headerDecoder = null,
-        AttachmentInterface $attachmentInterface = null
-    ) {
-        $this->charset = $charset ?? new Charset();
-        $this->ctDecoder = $ctDecoder ?? new ContentTransferDecoder();
-        $this->headerDecoder = $headerDecoder ?? new MimeHeaderDecoder($this->charset, $this->ctDecoder);
-        $this->attachmentInterface = $attachmentInterface ?? new Attachment();
+    public function __construct() {
+        $this->charset = new Charset();
+        $this->ctDecoder = new ContentTransferDecoder();
+        $this->headerDecoder = new MimeHeaderDecoder($this->charset, $this->ctDecoder);
+        $this->attachmentInterface = new Attachment();
 
         $this->middlewareStack = new MiddlewareStack();
+    }
+
+    public function setCharsetManager($charsetManager)
+    {
+        $this->charset = $charsetManager;
+    }
+
+    public function setContentTransferEncodingManager($contentTransferEncodingManager)
+    {
+        $this->ctDecoder = $contentTransferEncodingManager;
+    }
+
+    public function setMimeHeaderEncodingManager($mimeHeaderEncodingManager)
+    {
+        $this->headerDecoder = $mimeHeaderEncodingManager;
+    }
+
+    public function setAttachmentInterface($attachmentInterface)
+    {
+        $this->attachmentInterface = $attachmentInterface;
     }
 
     /**
@@ -537,28 +552,28 @@ final class Parser implements ParserInterface
             if ($this->isTextMessage($part, 'plain'))
             {
                 if (\in_array('text', $filters)){
-                    $filteredParts[] = $part;
+                    $filteredParts[$partId] = $part;
                     continue;
                 }
             }
             elseif ($this->isTextMessage($part, 'html'))
             {
                 if (\in_array('html', $filters)){
-                    $filteredParts[] = $part;
+                    $filteredParts[$partId] = $part;
                     continue;
                 }
             }
             elseif ($attachmentType == 'inline')
             {
                 if (\in_array('inline', $filters)){
-                    $filteredParts[] = $part;
+                    $filteredParts[$partId] = $part;
                     continue;
                 }
             }
             elseif ($attachmentType == 'attachment')
             {
                 if (\in_array('attachment', $filters)){
-                    $filteredParts[] = $part;
+                    $filteredParts[$partId] = $part;
                     continue;
                 }
             }
@@ -577,11 +592,9 @@ final class Parser implements ParserInterface
      */
     public function getAttachments($attachment_types = self::GA_INCLUDE_ALL)
     {
-        $includeSubParts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
-
         $attachments = [];
-        $nonameIter = 0;
 
+        $includeSubParts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
         $filters = ['attachment'];
         if ( $attachment_types & self::GA_INCLUDE_INLINE ) {
             $filters[] = 'inline';
@@ -589,29 +602,12 @@ final class Parser implements ParserInterface
 
         $parts = $this->filterParts($filters, $includeSubParts);
 
-        foreach ($parts as $part) {
-
-            $filename = $this->getPart('disposition-filename', $part) ?? $this->getPart('content-name', $part);
-
-            if (isset($filename))
-            {
-                $filename = $this->headerDecoder->decodeHeader($filename);
-                $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
-            }
-            else {
-                $nonameIter++;
-                $filename = 'noname'.$nonameIter;
-            }
+        foreach ($parts  as $partId => $part) {
 
             $attachments[] = $this->attachmentInterface::create(
-                $filename,
-                $this->getPart('content-type', $part),
                 $this->getAttachmentStream($part),
-                $this->getPart('content-disposition', $part),
-                $this->getPart('content-id', $part),
-                $this->getPart('headers', $part),
                 $this->getPartComplete($part),
-                new MimePart(1,$part)
+                new MimePart($partId,$part)
             );
         }
 

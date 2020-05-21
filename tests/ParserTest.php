@@ -614,7 +614,7 @@ final class ParserTest extends TestCase
                     array('COUNT',1,'<div dir="ltr"><br></div>'),
                     array(
                         array(
-                            'noname1',
+                            'noname',
                             817938,
                             'Suspendisse',
                             726,
@@ -886,7 +886,7 @@ final class ParserTest extends TestCase
                     array('COUNT',1,'<html>'),
                     array(
                         array(
-                            'noname1',
+                            'noname',
                             1432,
                             '',
                             0,

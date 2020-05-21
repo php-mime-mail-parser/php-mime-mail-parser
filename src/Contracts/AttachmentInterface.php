@@ -88,12 +88,7 @@ interface AttachmentInterface
      * @param string   $mimePartStr
      */
     public static function create(
-        $filename,
-        $contentType,
         $stream,
-        $contentDisposition = 'attachment',
-        $contentId = '',
-        $headers = [],
         $mimePartStr = '',
         MimePart $part
     );

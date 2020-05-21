@@ -153,7 +153,8 @@ final class AttachmentTest extends TestCase
     public function testUsingAnotherAttachmentClass()
     {
         $file = __DIR__ . '/mails/m0025';
-        $Parser = new Parser(null, null, null, new AnotherAttachment);
+        $Parser = new Parser();
+        $Parser->setAttachmentInterface(new AnotherAttachment);
         $Parser->setPath($file);
 
         $attachments = $Parser->getAttachments();
