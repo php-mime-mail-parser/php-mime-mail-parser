@@ -77,15 +77,13 @@ final class Attachment implements AttachmentInterface
         $attachment->content = null;
         $attachment->mimePartStr = $mimePartStr;
 
-        $mimeHeaderDecoder  = new MimeHeaderDecoder(new Charset(),new ContentTransferDecoder());
+        $mimeHeaderDecoder  = new MimeHeaderDecoder(new Charset(), new ContentTransferDecoder());
 
         $filename = $part->getDispositionFileName() ?? $part->getContentName();
 
-        if($filename)
-        {
+        if ($filename) {
             $filename = $mimeHeaderDecoder->decodeHeader($filename);
             $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
-
         } else {
             $filename = 'noname';
         }

@@ -25,7 +25,7 @@ final class MimePart implements \ArrayAccess
      *
      * @var array
      */
-    protected $part = array();
+    protected $part = [];
 
     /**
      * Immutable Part Id

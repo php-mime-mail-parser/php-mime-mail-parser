@@ -2,11 +2,11 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Contracts\CharsetManager;
-use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
-use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
-use PhpMimeMailParser\Contracts\ParserInterface;
 use PhpMimeMailParser\Contracts\AttachmentInterface;
+use PhpMimeMailParser\Contracts\CharsetManager;
+use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
+use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
+use PhpMimeMailParser\Contracts\ParserInterface;
 
 /**
  * Parser of php-mime-mail-parser
@@ -86,7 +86,8 @@ final class Parser implements ParserInterface
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->charset = new Charset();
         $this->ctDecoder = new ContentTransferDecoder();
         $this->headerDecoder = new MimeHeaderDecoder($this->charset, $this->ctDecoder);
@@ -394,10 +395,8 @@ final class Parser implements ParserInterface
         $type = ($subType == 'plain') ? 'text' : 'html';
         $parts = $this->filterParts([$type], false);
 
-        foreach ($parts as $part)
-        {
-            if(empty($part))
-            {
+        foreach ($parts as $part) {
+            if (empty($part)) {
                 return '';
             }
 
@@ -411,10 +410,8 @@ final class Parser implements ParserInterface
         $type = ($subType == 'plain') ? 'text' : 'html';
         $parts = $this->filterParts([$type], false);
 
-        foreach ($parts as $part)
-        {
-            if(empty($part))
-            {
+        foreach ($parts as $part) {
+            if (empty($part)) {
                 return '';
             }
 
@@ -562,10 +559,8 @@ final class Parser implements ParserInterface
         $disposition = $this->getPart('content-disposition', $part);
         $contentType = $this->getPart('content-type', $part);
 
-        if ($disposition == 'inline' || empty($disposition))
-        {
-            if ($contentType == 'text/'.$subType)
-            {
+        if ($disposition == 'inline' || empty($disposition)) {
+            if ($contentType == 'text/'.$subType) {
                 return true;
             }
         }
@@ -577,31 +572,24 @@ final class Parser implements ParserInterface
         $filteredParts = [];
 
         foreach ($this->parts as $partId => $part) {
-
             $disposition = $this->getPart('content-disposition', $part);
             $contentType = $this->getPart('content-type', $part);
             $attachmentType = null;
 
-            if (isset($disposition))
-            {
-                if ($disposition == 'inline' || $disposition == 'attachment')
-                {
+            if (isset($disposition)) {
+                if ($disposition == 'inline' || $disposition == 'attachment') {
                     $attachmentType = $disposition;
-                }
-                else {
+                } else {
                     $attachmentType = 'attachment';
                 }
-                
-            }
-            else {
+            } else {
                 if (
-                    $contentType != 'text/plain' 
+                    $contentType != 'text/plain'
                     && $contentType != 'text/html'
                     && $contentType!= 'multipart/alternative'
                     && $contentType != 'multipart/related'
                     && $contentType != 'multipart/mixed'
-                    && $contentType != 'text/plain; (error)')
-                {
+                    && $contentType != 'text/plain; (error)') {
                     $attachmentType = 'attachment';
                 }
             }
@@ -609,36 +597,27 @@ final class Parser implements ParserInterface
                 continue;
             }
 
-            if ($this->isTextMessage($part, 'plain'))
-            {
-                if (\in_array('text', $filters)){
+            if ($this->isTextMessage($part, 'plain')) {
+                if (\in_array('text', $filters)) {
                     $filteredParts[$partId] = $part;
                     continue;
                 }
-            }
-            elseif ($this->isTextMessage($part, 'html'))
-            {
-                if (\in_array('html', $filters)){
+            } elseif ($this->isTextMessage($part, 'html')) {
+                if (\in_array('html', $filters)) {
                     $filteredParts[$partId] = $part;
                     continue;
                 }
-            }
-            elseif ($attachmentType == 'inline')
-            {
-                if (\in_array('inline', $filters)){
+            } elseif ($attachmentType == 'inline') {
+                if (\in_array('inline', $filters)) {
                     $filteredParts[$partId] = $part;
                     continue;
                 }
-            }
-            elseif ($attachmentType == 'attachment')
-            {
-                if (\in_array('attachment', $filters)){
+            } elseif ($attachmentType == 'attachment') {
+                if (\in_array('attachment', $filters)) {
                     $filteredParts[$partId] = $part;
                     continue;
                 }
-            }
-            elseif ($attachmentType == null)
-            {
+            } elseif ($attachmentType == null) {
                 continue;
             }
         }
@@ -656,18 +635,17 @@ final class Parser implements ParserInterface
 
         $includeSubParts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
         $filters = ['attachment'];
-        if ( $attachment_types & self::GA_INCLUDE_INLINE ) {
+        if ($attachment_types & self::GA_INCLUDE_INLINE) {
             $filters[] = 'inline';
         }
 
         $parts = $this->filterParts($filters, $includeSubParts);
 
         foreach ($parts  as $partId => $part) {
-
             $attachments[] = $this->attachmentInterface::create(
                 $this->getAttachmentStream($part),
                 $this->getPartComplete($part),
-                new MimePart($partId,$part)
+                new MimePart($partId, $part)
             );
         }
 

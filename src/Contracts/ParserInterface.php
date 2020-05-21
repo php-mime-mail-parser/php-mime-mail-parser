@@ -2,8 +2,8 @@
 
 namespace PhpMimeMailParser\Contracts;
 
-use PhpMimeMailParser\Exception;
 use PhpMimeMailParser\Attachment;
+use PhpMimeMailParser\Exception;
 
 interface ParserInterface
 {

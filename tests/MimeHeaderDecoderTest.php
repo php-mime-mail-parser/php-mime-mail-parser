@@ -1,9 +1,9 @@
 <?php
 namespace Tests\PhpMimeMailParser;
 
+use PhpMimeMailParser\Charset;
 use PhpMimeMailParser\ContentTransferDecoder;
 use PhpMimeMailParser\MimeHeaderDecoder;
-use PhpMimeMailParser\Charset;
 
 /**
  * @covers \PhpMimeMailParser\MimeHeaderDecoder

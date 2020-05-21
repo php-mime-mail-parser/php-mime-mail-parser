@@ -1,13 +1,12 @@
 <?php
 namespace Tests\PhpMimeMailParser;
 
-use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\Exception;
-use PhpMimeMailParser\MimePart;
+use PhpMimeMailParser\Contracts\CharsetManager;
 use PhpMimeMailParser\MiddleWare;
 use PhpMimeMailParser\MiddleWareStack;
-use PhpMimeMailParser\Contracts\CharsetManager;
+use PhpMimeMailParser\MimePart;
+use PhpMimeMailParser\Parser;
 
 /**
  * @covers \PhpMimeMailParser\Parser
@@ -250,8 +249,7 @@ final class ParserTest extends TestCase
 
     public function provideData()
     {
-
-        $data = array(
+        $data = [
             /*
             array(
                 // Mail ID
@@ -276,29 +274,29 @@ final class ParserTest extends TestCase
                 // Count of Embedded Attachments
                 0)
             */
-                array(
+                [
                     'm0001',
                     'Mail avec fichier attaché de 1ko',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach01',
                             2,
                             'a',
@@ -307,32 +305,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '04c1d5793efa97c956d011a8b3309f05',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0002',
                     'Mail avec fichier attaché de 3ko',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach02',
                             2229,
                             'Lorem ipsum',
@@ -341,32 +339,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '18f541cc6bf49209d2bf327ecb887355',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0003',
                     'Mail de 14 Ko',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach03',
                             13369,
                             'dolor sit amet',
@@ -375,32 +373,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '8734417734fabfa783df6fed0ccf7a4a',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0004',
                     'Mail de 800ko',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach04',
                             817938,
                             'Phasellus scelerisque',
@@ -409,32 +407,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             'c0b5348ef825bf62ba2d07d70d4b9560',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0005',
                     'Mail de 1500 Ko',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach05',
                             1635877,
                             'Aenean ultrices',
@@ -443,32 +441,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '1ced323befc39ebbc147e7588d11ab08',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0006',
                     'Mail de 3 196 Ko',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach06',
                             3271754,
                             'lectus ac leo ullamcorper',
@@ -477,32 +475,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '5dc6470ab63e86e8f68d88afb11556fe',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0007',
                     'Mail avec fichier attaché de 3ko',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach02',
                             2229,
                             'facilisis',
@@ -511,32 +509,32 @@ final class ParserTest extends TestCase
                             null,
                             '0e6d510323b009da939070faf72e521c',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0008',
                     'Testing MIME E-mail composing with cid',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company2.com>',
-                    array('COUNT',1,'Please use an HTML capable mail program to read'),
-                    array('COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>'),
-                    array(
-                        array(
+                    ['COUNT',1,'Please use an HTML capable mail program to read'],
+                    ['COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>'],
+                    [
+                        [
                             'logo.jpg',
                             2695,
                             '',
@@ -545,8 +543,8 @@ final class ParserTest extends TestCase
                             'inline',
                             '102aa12e16635bf2b0b39ef6a91aa95c',
                             '',
-                            ),
-                        array(
+                            ],
+                        [
                             'background.jpg',
                             18255,
                             '',
@@ -555,8 +553,8 @@ final class ParserTest extends TestCase
                             'inline',
                             '798f976a5834019d3f2dd087be5d5796',
                             '',
-                            ),
-                        array(
+                            ],
+                        [
                             'attachment.txt',
                             2229,
                             'Sed pulvinar',
@@ -565,55 +563,55 @@ final class ParserTest extends TestCase
                             'attachment',
                             '71fff85a7960460bdd3c4b8f1ee9279b',
                             '',
-                            )
-                        ),
-                    2),
-                array(
+                            ]
+                        ],
+                    2],
+                [
                     'm0009',
                     'Ogone NIEUWE order Maurits PAYID: 951597484 / orderID: 456123 / status: 5',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Ogone',
                             'address' => 'noreply@ogone.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     '"Ogone" <noreply@ogone.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'info@testsite.com',
                             'address' => 'info@testsite.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'info@testsite.com',
-                    array('COUNT',1,'951597484'),
-                    array('MATCH',''),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'951597484'],
+                    ['MATCH',''],
+                    [],
+                    0],
+                [
                     'm0010',
                     'Mail de 800ko without filename',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'noname',
                             817938,
                             'Suspendisse',
@@ -622,32 +620,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '8da4b0177297b1d7f061e44d64cc766f',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0011',
                     'Hello World !',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array('COUNT',1,'This is a text body'),
-                    array('MATCH',''),
-                    array(
-                        array(
+                    ['COUNT',1,'This is a text body'],
+                    ['MATCH',''],
+                    [
+                        [
                             'file.txt',
                             29,
                             'This is a file',
@@ -656,32 +654,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '839d0486dd1b91e520d456bb17c33148',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0012',
                     'Hello World !',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array('COUNT',1,'This is a text body'),
-                    array('MATCH',''),
-                    array(
-                        array(
+                    ['COUNT',1,'This is a text body'],
+                    ['MATCH',''],
+                    [
+                        [
                             'file.txt',
                             29,
                             'This is a file',
@@ -690,32 +688,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '839d0486dd1b91e520d456bb17c33148',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0013',
                     '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829. pdf',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'NAME Firstname',
                             'address' => 'firstname.name@groupe-company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'NAME Firstname <firstname.name@groupe-company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'paul.dupont@company.com',
                             'address' => 'paul.dupont@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     '"paul.dupont@company.com" <paul.dupont@company.com>',
-                    array('COUNT',1,'Superviseur de voitures'),
-                    array('MATCH',''),
-                    array(
-                        array(
+                    ['COUNT',1,'Superviseur de voitures'],
+                    ['MATCH',''],
+                    [
+                        [
                             '50032266 CAR 11_MNPA00A01_9PTX_H00 ATT N° 1467829.pdf',
                             10,
                             '',
@@ -724,101 +722,101 @@ final class ParserTest extends TestCase
                             'attachment',
                             'ffe2cb0f5df4e2cfffd3931b6566f3cb',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0014',
                     'Test message from Netscape Communicator 4.7',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Doug Sauder',
                             'address' => 'dwsauder@example.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Doug Sauder <dwsauder@example.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Joe Blow',
                             'address' => 'blow@example.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Joe Blow <blow@example.com>',
-                    array('COUNT',1,'Die Hasen und die'),
-                    array('MATCH',''),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'Die Hasen und die'],
+                    ['MATCH',''],
+                    [],
+                    0],
+                [
                     'm0015',
                     'Up to $30 Off Multivitamins!',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Vitamart.ca',
                             'address' => 'service@vitamart.ca',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     '"Vitamart.ca" <service@vitamart.ca>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'me@somewhere.com',
                             'address' => 'me@somewhere.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'me@somewhere.com',
-                    array('COUNT',1,'Hi,'),
-                    array('COUNT',1,'<strong>*How The Sale Works</strong>'),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'Hi,'],
+                    ['COUNT',1,'<strong>*How The Sale Works</strong>'],
+                    [],
+                    0],
+                [
                     'm0016',
                     'Test message with multiple From headers',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Doug Sauder',
                             'address' => 'dwsauder@example.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Doug Sauder <dwsauder@example.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Joe Blow',
                             'address' => 'blow@example.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Joe Blow <blow@example.com>',
-                    array('COUNT',1,'Die Hasen und die'),
-                    array('MATCH',''),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'Die Hasen und die'],
+                    ['MATCH',''],
+                    [],
+                    0],
+                [
                     'm0018',
                     '[Korea] Name',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company.com',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     '<name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     '"name@company2.com" <name@company2.com>',
-                    array('COUNT',1,'My traveling companions!'),
-                    array('MATCH',''),
-                    array(
-                        array(
+                    ['COUNT',1,'My traveling companions!'],
+                    ['MATCH',''],
+                    [
+                        [
                             '사진.JPG',
                             174,
                             '',
@@ -827,8 +825,8 @@ final class ParserTest extends TestCase
                             'attachment',
                             '567f29989506f21cea8ac992d81ce4c1',
                             '',
-                            ),
-                        array(
+                            ],
+                        [
                             'ATT00001.txt',
                             25,
                             'iPhone',
@@ -837,55 +835,55 @@ final class ParserTest extends TestCase
                             'attachment',
                             '095f96b9d5a25d051ad425356745334f',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0019',
                     'Re: Maya Ethnobotanicals - Emails',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'sendeär',
                             'address' => 'sender@test.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'sendeär <sender@test.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'test',
                             'address' => 'test@asdasd.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     '"test" <test@asdasd.com>',
-                    array('COUNT',1,'captured'),
-                    array('MATCH',''),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'captured'],
+                    ['MATCH',''],
+                    [],
+                    0],
+                [
                     'm0020',
                     '1',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Finntack Newsletter',
                             'address' => 'newsletter@finntack.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Finntack Newsletter <newsletter@finntack.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Clement Wong',
                             'address' => 'clement.wong@finntack.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Clement Wong <clement.wong@finntack.com>',
-                    array('MATCH',"1\r\n\r\n"),
-                    array('COUNT',1,'<html>'),
-                    array(
-                        array(
+                    ['MATCH',"1\r\n\r\n"],
+                    ['COUNT',1,'<html>'],
+                    [
+                        [
                             'noname',
                             1432,
                             '',
@@ -894,112 +892,112 @@ final class ParserTest extends TestCase
                             null,
                             'bf7bfb9b8dd11ff0c830b2388560d434',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0021',
                     'occurs when divided into an array, and the last e of the array! Путін хуйло!!!!!!',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'mail@exemple.com',
                             'address' => 'mail@exemple.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'mail@exemple.com',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'mail@exemple.com',
                             'address' => 'mail@exemple.com',
                             'is_group' => false
-                            ),
-                        array(
+                            ],
+                        [
                             'display' => 'mail2@exemple3.com',
                             'address' => 'mail2@exemple3.com',
                             'is_group' => false
-                            ),
-                        array(
+                            ],
+                        [
                             'display' => 'mail3@exemple2.com',
                             'address' => 'mail3@exemple2.com',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com',
-                    array('COUNT',1,'mini plain body'),
-                    array('MATCH',''),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'mini plain body'],
+                    ['MATCH',''],
+                    [],
+                    0],
+                [
                     'm0022',
                     '[PRJ-OTH] asdf  árvíztűrő tükörfúrógép',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'sendeär',
                             'address' => 'sender@test.com',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'sendeär <sender@test.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'test',
                             'address' => 'test@asdasd.com',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     '"test" <test@asdasd.com>',
-                    array('COUNT',1,'captured'),
-                    array('MATCH',''),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'captured'],
+                    ['MATCH',''],
+                    [],
+                    0],
+                [
                     'm0023',
                     'If you can read this you understand the example.',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Keith Moore',
                             'address' => 'moore@cs.utk.edu',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'Keith Moore <moore@cs.utk.edu>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Keld Jørn Simonsen',
                             'address' => 'keld@dkuug.dk',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'Keld Jørn Simonsen <keld@dkuug.dk>',
                 //CC = André Pirard <PIRARD@vm1.ulg.ac.be>
-                    array('COUNT',1,'captured'),
-                    array('MATCH',''),
-                    array(),
-                    0),
-                array(
+                    ['COUNT',1,'captured'],
+                    ['MATCH',''],
+                    [],
+                    0],
+                [
                     'm0024',
                     'Persil, abeilles ...',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'John DOE',
                             'address' => 'blablafakeemail@provider.fr',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'John DOE <blablafakeemail@provider.fr>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'list-name',
                             'address' => 'list-name@list-domain.org',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'list-name <list-name@list-domain.org>',
-                    array('MATCH',''),
-                    array('MATCH',''),
-                    array(
-                        array(
+                    ['MATCH',''],
+                    ['MATCH',''],
+                    [
+                        [
                             'Biodiversité de semaine en semaine.doc',
                             27648,
                             '',
@@ -1008,32 +1006,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '57e8a3cf9cc29d5cde7599299a853560',
                             '',
-                            )
-                        ),
-                    0),
-                array(
+                            ]
+                        ],
+                    0],
+                [
                     'm0025',
                     'Testing MIME E-mail composing with cid',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            ),
-                    ),
+                            ],
+                    ],
                     'Name <name@company2.com>',
-                    array('COUNT',1,'Please use an HTML capable mail program to read'),
-                    array('COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>'),
-                    array(
-                        array(
+                    ['COUNT',1,'Please use an HTML capable mail program to read'],
+                    ['COUNT',1,'<center><h1>Testing MIME E-mail composing with cid</h1></center>'],
+                    [
+                        [
                             'logo.jpg',
                             2695,
                             '',
@@ -1042,8 +1040,8 @@ final class ParserTest extends TestCase
                             'inline',
                             '0f65fd0831e68da313a2dcc58286d009',
                             'IZqShSiOcB213NOfRLezbJyBjy08zKMaNHpGo9nxc49ywafxGZ',
-                            ),
-                        array(
+                            ],
+                        [
                             'background.jpg',
                             18255,
                             '',
@@ -1052,8 +1050,8 @@ final class ParserTest extends TestCase
                             'inline',
                             '840bdde001a8c8f6fb49ee641a89cdd8',
                             'QISn7+8fXB0RCQB2cyf8AcIQq2SMSQnzL',
-                            ),
-                        array(
+                            ],
+                        [
                             'attachment.txt',
                             2229,
                             'Sed pulvinar',
@@ -1062,32 +1060,32 @@ final class ParserTest extends TestCase
                             'attachment',
                             '71fff85a7960460bdd3c4b8f1ee9279b',
                             '',
-                            )
-                        ),
-                    2),
-                array(
+                            ]
+                        ],
+                    2],
+                [
                     'issue149',
                     "מענה 'אני לא נמצא': Invoice 02722027",
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'Name',
                             'address' => 'name@company.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'Name <name@company.com>',
-                    array(
-                        array(
+                    [
+                        [
                             'display' => 'name@company2.com',
                             'address' => 'name@company2.com',
                             'is_group' => false
-                            )
-                    ),
+                            ]
+                    ],
                     'name@company2.com',
-                    array('MATCH',"\n"),
-                    array('COUNT',1,'<div dir="ltr"><br></div>'),
-                    array(
-                        array(
+                    ['MATCH',"\n"],
+                    ['COUNT',1,'<div dir="ltr"><br></div>'],
+                    [
+                        [
                             'attach01',
                             2,
                             'a',
@@ -1096,10 +1094,10 @@ final class ParserTest extends TestCase
                             'attachment',
                             '04c1d5793efa97c956d011a8b3309f05',
                             '',
-                            )
-                        ),
-                    0),
-                );
+                            ]
+                        ],
+                    0],
+                ];
         return $data;
     }
 
@@ -1167,7 +1165,7 @@ final class ParserTest extends TestCase
         $iterAttachments = 0;
 
         //Test Attachments
-        $attachmentsEmbeddedToCheck = array();
+        $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
             $Parser->saveAttachments($attach_dir);
@@ -1296,7 +1294,7 @@ final class ParserTest extends TestCase
         $iterAttachments = 0;
 
         //Test Attachments
-        $attachmentsEmbeddedToCheck = array();
+        $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
             $Parser->saveAttachments($attach_dir);
@@ -1427,7 +1425,7 @@ final class ParserTest extends TestCase
         $iterAttachments = 0;
 
         //Test Attachments
-        $attachmentsEmbeddedToCheck = array();
+        $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
             $Parser->saveAttachments($attach_dir);
@@ -1509,21 +1507,21 @@ final class ParserTest extends TestCase
 
     public function provideAttachmentsData()
     {
-        return array(
-            array(
+        return [
+            [
                 'm0001',
-                array(
+                [
                     'Content-Type: application/octet-stream; name=attach01
 Content-Disposition: attachment; filename=attach01
 Content-Transfer-Encoding: base64
 X-Attachment-Id: f_hi0eudw60
 
 YQo='
-                )
-            ),
-            array(
+                ]
+            ],
+            [
                 'm0002',
-                array(
+                [
                     'Content-Type: application/octet-stream; name=attach02
 Content-Disposition: attachment; filename=attach02
 Content-Transfer-Encoding: base64
@@ -1569,9 +1567,9 @@ Y29uc2VjdGV0dXIgZWxpdC4gTnVsbGEgZWxlbWVudHVtIGF1Y3RvciB1bHRyaWNlcy4gTnVuYyBm
 ZXJtZW50dW0gZGljdHVtIG9kaW8gdmVsIHRpbmNpZHVudC4gU2VkIGNvbnNlcXVhdCB2ZXN0aWJ1
 bHVtIHZlc3RpYnVsdW0uIFByb2luIHB1bHZpbmFyIGZlbGlzIHZpdGFlIGVsZW1lbnR1bSBzdXNj
 aXBpdC4K'
-                )
-            )
-        );
+                ]
+            ]
+        ];
     }
 
     /**
@@ -1701,7 +1699,6 @@ variances available &nbsp;</div></body></html>'
      */
     public function testMiddleware()
     {
-
         $middlewareCalled = false;
 
         //Init
@@ -1731,12 +1728,12 @@ variances available &nbsp;</div></body></html>'
 
         // run middlware in factory
         $middlewareCallCount = 0;
-        $mimePart = new MimePart('1', array());
+        $mimePart = new MimePart('1', []);
         $middleWare = new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
             $middlewareCallCount++;
             return $next($mimePart);
         });
-        $middlewareStack = MiddlewareStack::factory(array($middleWare, $middleWare));
+        $middlewareStack = MiddlewareStack::factory([$middleWare, $middleWare]);
 
         // executes the middleware
         $middlewareStack->parse($mimePart);
@@ -1750,8 +1747,8 @@ variances available &nbsp;</div></body></html>'
     public function testMimePart()
     {
         $id = '1';
-        $part = array('foo' => 'bar');
-        $part2 = array('fooz' => 'barz');
+        $part = ['foo' => 'bar'];
+        $part2 = ['fooz' => 'barz'];
         $mimePart = new MimePart($id, $part);
 
         // created
