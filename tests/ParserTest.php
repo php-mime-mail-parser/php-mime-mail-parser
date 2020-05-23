@@ -1933,4 +1933,41 @@ mini plain body';
         $this->assertStringContainsString('=C2=A9 2019 Science', $Parser->getHtmlRaw());
         $this->assertStringContainsString('© 2019 Science', $Parser->getHtml());
     }
+
+    public function testSetCharsetManager()
+    {
+        $file = __DIR__.'/mails/issue230';
+
+        $newCharset = $this->createMock(\PhpMimeMailParser\Contracts\CharsetManager::class);
+
+        $Parser = new Parser();
+        $Parser->setCharsetManager($newCharset);
+        $Parser->setText(file_get_contents($file));
+        $this->assertEmpty($Parser->getText());
+    }
+
+    public function testSetContentTransferEncodingManager()
+    {
+        $file = __DIR__.'/mails/issue230';
+
+        $newContentTransferEncoding = $this->createMock(\PhpMimeMailParser\Contracts\ContentTransferEncodingManager::class);
+
+        $Parser = new Parser();
+        $Parser->setContentTransferEncodingManager($newContentTransferEncoding);
+        $Parser->setText(file_get_contents($file));
+        $this->assertEmpty($Parser->getText());
+    }
+
+    public function testSetMimeHeaderEncodingManager()
+    {
+        $file = __DIR__.'/mails/issue212';
+
+        $newMimeHeaderEncoding = $this->createMock(\PhpMimeMailParser\Contracts\MimeHeaderEncodingManager::class);
+
+        $Parser = new Parser();
+        $Parser->setMimeHeaderEncodingManager($newMimeHeaderEncoding);
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertEmpty($Parser->getHeader('subject'));
+    }
 }

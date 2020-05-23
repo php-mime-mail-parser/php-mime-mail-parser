@@ -151,9 +151,4 @@ final class MimePart implements \ArrayAccess
     {
         return $this->getField('headers');
     }
-
-    public function getContentTransferEncoding()
-    {
-        return $this->getField('transfer-encoding');
-    }
 }
