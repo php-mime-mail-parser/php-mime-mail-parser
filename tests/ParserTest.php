@@ -1970,4 +1970,14 @@ mini plain body';
 
         $this->assertEmpty($Parser->getHeader('subject'));
     }
+
+    public function testNoPartFiltered()
+    {
+        $file = __DIR__.'/mails/m0014';
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertEmpty($Parser->getHtml());
+    }
 }
