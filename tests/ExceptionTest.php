@@ -3,7 +3,6 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
-use PhpMimeMailParser\Exception;
 
 /**
  * ExceptionTest of php-mime-mail-parser

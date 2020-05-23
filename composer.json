@@ -57,7 +57,7 @@
         "php-coveralls/php-coveralls": "^2.2",
         "phpunit/phpunit": "^8.0",
         "rregeer/phpunit-coverage-check": "^0.3.1",
-        "squizlabs/php_codesniffer": "^3.5",
+        "friendsofphp/php-cs-fixer": "^2.16",
         "symfony/filesystem": "^5.0"
     },
     "autoload": {
@@ -72,8 +72,11 @@
         }
     },
     "scripts": {
+        "format": [
+            "vendor/bin/php-cs-fixer fix"
+        ],
         "check-format": [
-            "vendor/bin/phpcs src tests --standard=psr2"
+            "vendor/bin/php-cs-fixer fix --verbose --dry-run"
         ],
         "test": [
             "vendor/bin/phpunit"

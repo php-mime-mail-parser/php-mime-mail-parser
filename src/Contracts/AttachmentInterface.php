@@ -2,6 +2,8 @@
 
 namespace PhpMimeMailParser\Contracts;
 
+use PhpMimeMailParser\MimePart;
+
 interface AttachmentInterface
 {
 
@@ -24,7 +26,7 @@ interface AttachmentInterface
      *
      * @return string
      */
-    public function getContentDisposition(): string;
+    public function getContentDisposition(): ?string;
 
     /**
      * Retrieve the Attachment Content-ID
@@ -86,12 +88,8 @@ interface AttachmentInterface
      * @param string   $mimePartStr
      */
     public static function create(
-        $filename,
-        $contentType,
         $stream,
-        $contentDisposition = 'attachment',
-        $contentId = '',
-        $headers = [],
-        $mimePartStr = ''
+        $mimePartStr = '',
+        MimePart $part
     );
 }

@@ -2,8 +2,8 @@
 
 namespace PhpMimeMailParser\Contracts;
 
-use PhpMimeMailParser\MimePart;
 use PhpMimeMailParser\MiddlewareStack;
+use PhpMimeMailParser\MimePart;
 
 /**
  * Process Mime parts by either:

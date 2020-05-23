@@ -2,11 +2,11 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Contracts\CharsetManager;
-use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
-use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
-use PhpMimeMailParser\Contracts\ParserInterface;
 use PhpMimeMailParser\Contracts\AttachmentInterface;
+use PhpMimeMailParser\Contracts\CharsetManager;
+use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
+use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
+use PhpMimeMailParser\Contracts\ParserInterface;
 
 /**
  * Parser of php-mime-mail-parser
@@ -86,18 +86,34 @@ final class Parser implements ParserInterface
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(
-        CharsetManager $charset = null,
-        ContentTransferEncodingManager $ctDecoder = null,
-        MimeHeaderEncodingManager $headerDecoder = null,
-        AttachmentInterface $attachmentInterface = null
-    ) {
-        $this->charset = $charset ?? new Charset();
-        $this->ctDecoder = $ctDecoder ?? new ContentTransferDecoder();
-        $this->headerDecoder = $headerDecoder ?? new MimeHeaderDecoder($this->charset, $this->ctDecoder);
-        $this->attachmentInterface = $attachmentInterface ?? new Attachment();
+    public function __construct()
+    {
+        $this->charset = new Charset();
+        $this->ctDecoder = new ContentTransferDecoder();
+        $this->headerDecoder = new MimeHeaderDecoder($this->charset, $this->ctDecoder);
+        $this->attachmentInterface = new Attachment();
 
         $this->middlewareStack = new MiddlewareStack();
+    }
+
+    public function setCharsetManager($charsetManager)
+    {
+        $this->charset = $charsetManager;
+    }
+
+    public function setContentTransferEncodingManager($contentTransferEncodingManager)
+    {
+        $this->ctDecoder = $contentTransferEncodingManager;
+    }
+
+    public function setMimeHeaderEncodingManager($mimeHeaderEncodingManager)
+    {
+        $this->headerDecoder = $mimeHeaderEncodingManager;
+    }
+
+    public function setAttachmentInterface($attachmentInterface)
+    {
+        $this->attachmentInterface = $attachmentInterface;
     }
 
     /**
@@ -374,6 +390,54 @@ final class Parser implements ParserInterface
         return false;
     }
 
+    private function getFirstTextRaw($subType)
+    {
+        $type = ($subType == 'plain') ? 'text' : 'html';
+        $parts = $this->filterParts([$type], false);
+
+        foreach ($parts as $part) {
+            return $this->getPartBody($part);
+        }
+        return '';
+    }
+
+    private function getFirstTextDecoded($subType)
+    {
+        $type = ($subType == 'plain') ? 'text' : 'html';
+        $parts = $this->filterParts([$type], false);
+
+        foreach ($parts as $part) {
+            $encodingType = $this->getPart('transfer-encoding', $part);
+            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
+            return $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
+        }
+        return '';
+    }
+
+    public function getText(): string
+    {
+        $text = $this->getFirstTextDecoded('plain');
+        return $text;
+    }
+
+    public function getTextRaw(): string
+    {
+        $text = $this->getFirstTextRaw('plain');
+        return $text;
+    }
+
+    public function getHtml(): string
+    {
+        $text = $this->getFirstTextDecoded('html');
+        return $text;
+    }
+
+    public function getHtmlRaw(): string
+    {
+        $text = $this->getFirstTextRaw('html');
+        return $text;
+    }
+
     /**
      * Returns the email message body in the specified format
      *
@@ -466,30 +530,90 @@ final class Parser implements ParserInterface
      */
     public function getInlineParts(string $type = 'text'): array
     {
-        $inline_parts = [];
-        $mime_types = [
-            'text'         => 'text/plain',
-            'html'         => 'text/html',
-        ];
-
-        if (!array_key_exists($type, $mime_types)) {
+        if ($type != 'text' && $type != 'html') {
             throw new Exception('Invalid type specified for getInlineParts(). "type" can either be text or html.');
         }
 
-        foreach ($this->parts as $partId => $part) {
-            if ($this->getPart('content-type', $part) == $mime_types[$type]
-                && $this->getPart('content-disposition', $part) != 'attachment'
-                && !$this->partIdIsChildOfAnAttachment($partId)
-            ) {
-                $headers = $this->getPart('headers', $part);
-                $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-                    $headers['content-transfer-encoding'] : '';
-                $undecoded_body = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-                $inline_parts[] = $this->charset->decodeCharset($undecoded_body, $this->getPartCharset($part));
-            }
+        $parts = $this->filterParts([$type], false);
+        $inline_parts = [];
+
+        foreach ($parts as $part) {
+            $encodingType = $this->getPart('transfer-encoding', $part);
+            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
+            $inline_parts[] = $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
         }
 
         return $inline_parts;
+    }
+
+    public function isTextMessage($part, $subType)
+    {
+        $disposition = $this->getPart('content-disposition', $part);
+        $contentType = $this->getPart('content-type', $part);
+
+        if ($disposition == 'inline' || empty($disposition)) {
+            if ($contentType == 'text/'.$subType) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function filterParts($filters, $includeSubParts = true)
+    {
+        $filteredParts = [];
+
+        foreach ($this->parts as $partId => $part) {
+            $disposition = $this->getPart('content-disposition', $part);
+            $contentType = $this->getPart('content-type', $part);
+            $attachmentType = null;
+
+            if (isset($disposition)) {
+                if ($disposition == 'inline' || $disposition == 'attachment') {
+                    $attachmentType = $disposition;
+                } else {
+                    $attachmentType = 'attachment';
+                }
+            } else {
+                if (
+                    $contentType != 'text/plain'
+                    && $contentType != 'text/html'
+                    && $contentType!= 'multipart/alternative'
+                    && $contentType != 'multipart/related'
+                    && $contentType != 'multipart/mixed'
+                    && $contentType != 'text/plain; (error)') {
+                    $attachmentType = 'attachment';
+                }
+            }
+            if ($this->partIdIsChildOfAnAttachment($partId) && !$includeSubParts) {
+                continue;
+            }
+
+            if ($this->isTextMessage($part, 'plain')) {
+                if (\in_array('text', $filters)) {
+                    $filteredParts[$partId] = $part;
+                    continue;
+                }
+            } elseif ($this->isTextMessage($part, 'html')) {
+                if (\in_array('html', $filters)) {
+                    $filteredParts[$partId] = $part;
+                    continue;
+                }
+            } elseif ($attachmentType == 'inline') {
+                if (\in_array('inline', $filters)) {
+                    $filteredParts[$partId] = $part;
+                    continue;
+                }
+            } elseif ($attachmentType == 'attachment') {
+                if (\in_array('attachment', $filters)) {
+                    $filteredParts[$partId] = $part;
+                    continue;
+                }
+            } elseif ($attachmentType == null) {
+                continue;
+            }
+        }
+        return $filteredParts;
     }
 
     /**
@@ -499,66 +623,22 @@ final class Parser implements ParserInterface
      */
     public function getAttachments($attachment_types = self::GA_INCLUDE_ALL)
     {
-        $include_inline = $attachment_types & self::GA_INCLUDE_INLINE;
-        $include_subparts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
-
         $attachments = [];
-        $dispositions = $include_inline ? ['attachment', 'inline'] : ['attachment'];
-        $non_attachment_types = ['text/plain', 'text/html'];
-        $nonameIter = 0;
 
-        foreach ($this->parts as $partId => $part) {
-            $disposition = $this->getPart('content-disposition', $part);
-            $filename = 'noname';
+        $includeSubParts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
+        $filters = ['attachment'];
+        if ($attachment_types & self::GA_INCLUDE_INLINE) {
+            $filters[] = 'inline';
+        }
 
-            if (isset($part['disposition-filename'])) {
-                $filename = $this->headerDecoder->decodeHeader($part['disposition-filename']);
-            } elseif (isset($part['content-name'])) {
-                // if we have no disposition but we have a content-name, it's a valid attachment.
-                // we simulate the presence of an attachment disposition with a disposition filename
-                $filename = $this->headerDecoder->decodeHeader($part['content-name']);
-                $disposition = 'attachment';
-            } elseif (in_array($part['content-type'], $non_attachment_types, true)
-                && $disposition !== 'attachment') {
-                // it is a message body, no attachment
-                continue;
-            } elseif (substr($part['content-type'], 0, 10) !== 'multipart/'
-                && $part['content-type'] !== 'text/plain; (error)') {
-                // if we cannot get it by getMessageBody(), we assume it is an attachment
-                $disposition = 'attachment';
-            }
-            if (in_array($disposition, ['attachment', 'inline']) === false && !empty($disposition)) {
-                $disposition = 'attachment';
-            }
+        $parts = $this->filterParts($filters, $includeSubParts);
 
-            if (in_array($disposition, $dispositions) === true) {
-                if (!$include_subparts && $this->partIdIsChildOfAnAttachment($partId)) {
-                    continue;
-                }
-                if ($filename == 'noname') {
-                    $nonameIter++;
-                    $filename = 'noname'.$nonameIter;
-                } else {
-                    // Escape all potentially unsafe characters from the filename
-                    $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
-                }
-
-                $headersAttachments = $this->getPart('headers', $part);
-                $contentidAttachments = $this->getPart('content-id', $part);
-
-                $attachmentStream = $this->getAttachmentStream($part);
-                $mimePartStr = $this->getPartComplete($part);
-
-                $attachments[] = $this->attachmentInterface::create(
-                    $filename,
-                    $this->getPart('content-type', $part),
-                    $attachmentStream,
-                    $disposition,
-                    $contentidAttachments,
-                    $headersAttachments,
-                    $mimePartStr
-                );
-            }
+        foreach ($parts  as $partId => $part) {
+            $attachments[] = $this->attachmentInterface::create(
+                $this->getAttachmentStream($part),
+                $this->getPartComplete($part),
+                new MimePart($partId, $part)
+            );
         }
 
         return $attachments;

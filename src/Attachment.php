@@ -67,23 +67,32 @@ final class Attachment implements AttachmentInterface
      * @param string   $mimePartStr
      */
     public static function create(
-        $filename,
-        $contentType,
         $stream,
-        $contentDisposition = 'attachment',
-        $contentId = '',
-        $headers = [],
-        $mimePartStr = ''
+        $mimePartStr = '',
+        MimePart $part
     ) {
         $attachment = new self();
-        $attachment->filename = $filename;
-        $attachment->contentType = $contentType;
+        
         $attachment->stream = $stream;
         $attachment->content = null;
-        $attachment->contentDisposition = $contentDisposition;
-        $attachment->contentId = $contentId;
-        $attachment->headers = $headers;
         $attachment->mimePartStr = $mimePartStr;
+
+        $mimeHeaderDecoder  = new MimeHeaderDecoder(new Charset(), new ContentTransferDecoder());
+
+        $filename = $part->getDispositionFileName() ?? $part->getContentName();
+
+        if ($filename) {
+            $filename = $mimeHeaderDecoder->decodeHeader($filename);
+            $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
+        } else {
+            $filename = 'noname';
+        }
+        $attachment->filename =  $filename;
+        $attachment->contentType = $part->getContentType();
+        $attachment->contentDisposition = $part->getContentDisposition();
+        $attachment->contentId = $part->getContentId();
+        $attachment->headers = $part->getHeaders();
+        
 
         return $attachment;
     }
@@ -113,7 +122,7 @@ final class Attachment implements AttachmentInterface
      *
      * @return string
      */
-    public function getContentDisposition(): string
+    public function getContentDisposition(): ?string
     {
         return $this->contentDisposition;
     }

@@ -57,7 +57,7 @@ final class MiddlewareStack
         if (!$this->middleware) {
             return $part;
         }
-        $part = call_user_func(array($this->middleware, 'parse'), $part, $this->next);
+        $part = call_user_func([$this->middleware, 'parse'], $part, $this->next);
         return $part;
     }
 
@@ -67,7 +67,7 @@ final class MiddlewareStack
      * @param Middleware[] $middlewares
      * @return MiddlewareStack
      */
-    public static function factory(array $middlewares = array())
+    public static function factory(array $middlewares = [])
     {
         $stack = new static;
         foreach ($middlewares as $middleware) {

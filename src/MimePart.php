@@ -25,7 +25,7 @@ final class MimePart implements \ArrayAccess
      *
      * @var array
      */
-    protected $part = array();
+    protected $part = [];
 
     /**
      * Immutable Part Id
@@ -111,5 +111,44 @@ final class MimePart implements \ArrayAccess
     public function offsetGet($offset)
     {
         return isset($this->part[$offset]) ? $this->part[$offset] : null;
+    }
+
+    private function getField($type)
+    {
+        if (array_key_exists($type, $this->part)) {
+            return $this->part[$type];
+        }
+
+        return null;
+    }
+
+    public function getDispositionFileName()
+    {
+        return $this->getField('disposition-filename');
+    }
+
+    public function getContentName()
+    {
+        return $this->getField('content-name');
+    }
+
+    public function getContentType()
+    {
+        return $this->getField('content-type');
+    }
+
+    public function getContentDisposition()
+    {
+        return $this->getField('content-disposition');
+    }
+
+    public function getContentId()
+    {
+        return $this->getField('content-id');
+    }
+
+    public function getHeaders()
+    {
+        return $this->getField('headers');
     }
 }
