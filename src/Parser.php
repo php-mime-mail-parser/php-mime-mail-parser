@@ -396,10 +396,6 @@ final class Parser implements ParserInterface
         $parts = $this->filterParts([$type], false);
 
         foreach ($parts as $part) {
-            if (empty($part)) {
-                return '';
-            }
-
             return $this->getPartBody($part);
         }
         return '';
@@ -411,10 +407,6 @@ final class Parser implements ParserInterface
         $parts = $this->filterParts([$type], false);
 
         foreach ($parts as $part) {
-            if (empty($part)) {
-                return '';
-            }
-
             $encodingType = $this->getPart('transfer-encoding', $part);
             $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
             return $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));

@@ -1973,11 +1973,14 @@ mini plain body';
 
     public function testNoPartFiltered()
     {
-        $file = __DIR__.'/mails/m0014';
+        $file = __DIR__.'/mails/m0124';
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
 
+        $this->assertEmpty($Parser->getTextRaw());
+        $this->assertEmpty($Parser->getHtmlRaw());
+        $this->assertEmpty($Parser->getText());
         $this->assertEmpty($Parser->getHtml());
     }
 }
