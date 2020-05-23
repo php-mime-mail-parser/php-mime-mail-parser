@@ -84,10 +84,17 @@ final class Attachment implements AttachmentInterface
         if ($filename) {
             $filename = $mimeHeaderDecoder->decodeHeader($filename);
             $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
-        } else {
-            $filename = 'noname';
+        } elseif (mb_strpos($part->getContentType(), 'message/') !== false) {
+            $Parser = new Parser();
+            $Parser->setStream($attachment->stream);
+
+            if ($Parser->getHeader('subject')) {
+                $filename = $Parser->getHeader('subject').'.eml';
+                $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
+            }
         }
-        $attachment->filename =  $filename;
+
+        $attachment->filename =  $filename ?? 'noname';
         $attachment->contentType = $part->getContentType();
         $attachment->contentDisposition = $part->getContentDisposition();
         $attachment->contentId = $part->getContentId();

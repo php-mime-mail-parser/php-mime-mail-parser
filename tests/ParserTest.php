@@ -1983,4 +1983,22 @@ mini plain body';
         $this->assertEmpty($Parser->getText());
         $this->assertEmpty($Parser->getHtml());
     }
+
+
+
+    public function testIssue269()
+    {
+        $file = __DIR__.'/mails/issue158a';
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertEmpty($Parser->getText());
+        $this->assertStringContainsString('An RFC 822 forward', $Parser->getHtml());
+
+        $attachments = $Parser->getAttachments();
+        $this->assertCount(1, $attachments);
+        $this->assertEquals('message/rfc822', $attachments[0]->getContentType());
+        $this->assertEquals('Test 5.eml', $attachments[0]->getFilename());
+    }
 }
