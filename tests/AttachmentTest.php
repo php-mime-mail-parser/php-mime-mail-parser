@@ -161,4 +161,52 @@ final class AttachmentTest extends TestCase
 
         $this->assertInstanceOf(AnotherAttachment::class, $attachments[0]);
     }
+
+    public function testIssue236a()
+    {
+        $file = __DIR__.'/mails/issue236a';
+        $attachDir = $this->tempdir('issue236a_attachments');
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertStringContainsString('在庫データを添付いたします。', $Parser->getText());
+        $this->assertEmpty($Parser->getHtml());
+
+        $attachments = $Parser->getAttachments();
+        $this->assertCount(1, $attachments);
+        $this->assertEquals('application/octet-stream', $attachments[0]->getContentType());
+        $this->assertEquals('ZAIKO.CSV', $attachments[0]->getFilename());
+        $attachments[0]->save($attachDir);
+        $csv = array_map('str_getcsv', file($attachDir.'ZAIKO.CSV'));
+        $this->assertEquals([
+            'AS-115',
+            '4580514230378',
+            '16'
+        ], $csv[1]);
+    }
+
+    public function testIssue236b()
+    {
+        $file = __DIR__.'/mails/issue236b';
+        $attachDir = $this->tempdir('issue236b_attachments');
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertStringContainsString(PHP_EOL, $Parser->getText());
+        $this->assertEmpty($Parser->getHtml());
+
+        $attachments = $Parser->getAttachments();
+        $this->assertCount(1, $attachments);
+        $this->assertEquals('application/vnd.ms-excel', $attachments[0]->getContentType());
+        $this->assertEquals('ZAIKO.CSV', $attachments[0]->getFilename());
+        $attachments[0]->save($attachDir);
+        $csv = array_map('str_getcsv', file($attachDir.'ZAIKO.CSV'));
+        $this->assertEquals([
+            'AS-115',
+            '4580514230378 ',
+            '0'
+        ], $csv[1]);
+    }
 }

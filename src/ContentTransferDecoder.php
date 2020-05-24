@@ -9,7 +9,7 @@ final class ContentTransferDecoder implements Contracts\ContentTransferEncodingM
 {
     public function decodeContentTransfer(string $encodedString, string $encodingType): string
     {
-        $encodingType = strtolower($encodingType);
+        $encodingType = trim(strtolower($encodingType));
 
         if (self::ENCODING_BASE64 === $encodingType) {
             return base64_decode($encodedString);
