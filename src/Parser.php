@@ -644,6 +644,23 @@ final class Parser implements ParserInterface
         return $attachments;
     }
 
+    public function getAttachments2()
+    {
+        $attachments = [];
+
+        $parts = $this->filterParts(['attachment'], false);
+
+        foreach ($parts  as $partId => $part) {
+            $attachments[] = $this->attachmentInterface::create(
+                $this->getAttachmentStream($part),
+                $this->getPartComplete($part),
+                new MimePart($partId, $part)
+            );
+        }
+
+        return $attachments;
+    }
+
     /**
      * Save attachments in a folder
      *

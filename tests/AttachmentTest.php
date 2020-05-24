@@ -209,4 +209,39 @@ final class AttachmentTest extends TestCase
             '0'
         ], $csv[1]);
     }
+
+    public function testIssue194()
+    {
+        $file = __DIR__.'/mails/issue194a';
+        $attachDir = $this->tempdir('issue194a_attachments');
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertStringContainsString('Test now', $Parser->getText());
+        $this->assertStringContainsString('Test now', $Parser->getHtml());
+
+        $attachments = $Parser->getAttachments(Parser::GA_TOPLEVEL);
+        $this->assertEquals('esate.eml', $attachments[0]->getFilename());
+        $this->assertEquals('belangrijk.jpg', $attachments[1]->getFilename());
+
+        $this->assertCount(2, $attachments);
+
+
+        $file = __DIR__.'/mails/issue194b';
+        $attachDir = $this->tempdir('issue194b_attachments');
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $this->assertStringContainsString('Met vriendelijke groet', $Parser->getText());
+        $this->assertStringContainsString('Keizersgracht 15', $Parser->getHtml());
+
+        $attachments = $Parser->getAttachments(Parser::GA_TOPLEVEL);
+        $this->assertEquals('belangrijk.jpg', $attachments[0]->getFilename());
+        $this->assertEquals('afsdwer.eml', $attachments[1]->getFilename());
+        $this->assertEquals('Test a2134.eml', $attachments[2]->getFilename());
+
+        $this->assertCount(3, $attachments);
+    }
 }
