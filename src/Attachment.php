@@ -8,7 +8,7 @@ use PhpMimeMailParser\Contracts\AttachmentInterface;
  * Attachment of php-mime-mail-parser
  *
  */
-final class Attachment implements AttachmentInterface
+final class Attachment extends \SplFileInfo implements AttachmentInterface
 {
     /**
      * @var string $filename Filename
@@ -55,6 +55,11 @@ final class Attachment implements AttachmentInterface
      */
     public $maxDuplicateNumber = 100;
 
+    public function __construct(string $file_name = '')
+    {
+        parent::__construct($file_name);
+    }
+
     /**
      * Create Attachment.
      *
@@ -71,11 +76,6 @@ final class Attachment implements AttachmentInterface
         $mimePartStr = '',
         MimePart $part
     ) {
-        $attachment = new self();
-        
-        $attachment->stream = $stream;
-        $attachment->content = null;
-        $attachment->mimePartStr = $mimePartStr;
 
         $mimeHeaderDecoder  = new MimeHeaderDecoder(new Charset(), new ContentTransferDecoder());
 
@@ -86,13 +86,19 @@ final class Attachment implements AttachmentInterface
             $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
         } elseif (mb_strpos($part->getContentType(), 'message/') !== false) {
             $Parser = new Parser();
-            $Parser->setStream($attachment->stream);
+            $Parser->setStream($stream);
 
             if ($Parser->getHeader('subject')) {
                 $filename = $Parser->getHeader('subject').'.eml';
                 $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
             }
         }
+
+        $attachment = new self($filename ?? 'noname');
+        
+        $attachment->stream = $stream;
+        $attachment->content = null;
+        $attachment->mimePartStr = $mimePartStr;
 
         $attachment->filename =  $filename ?? 'noname';
         $attachment->contentType = $part->getContentType();
@@ -109,10 +115,10 @@ final class Attachment implements AttachmentInterface
      *
      * @return string
      */
-    public function getFilename(): string
-    {
-        return $this->filename;
-    }
+    // public function getFilename(): string
+    // {
+    //     return $this->filename;
+    // }
 
     /**
      * Retrieve the Attachment Content-Type

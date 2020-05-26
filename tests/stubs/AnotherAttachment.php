@@ -7,9 +7,9 @@ use \PhpMimeMailParser\MimePart;
 
 class AnotherAttachment implements AttachmentInterface
 {
-    public function getFilename(): string
-    {
-    }
+    // public function getFilename(): string
+    // {
+    // }
 
     public function getContentType(): string
     {

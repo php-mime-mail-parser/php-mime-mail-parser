@@ -12,7 +12,7 @@ interface AttachmentInterface
      *
      * @return string
      */
-    public function getFilename(): string;
+    // public function getFilename(): string;
 
     /**
      * Retrieve the Attachment Content-Type
