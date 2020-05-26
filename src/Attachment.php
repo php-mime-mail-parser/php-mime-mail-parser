@@ -76,7 +76,6 @@ final class Attachment extends \SplFileInfo implements AttachmentInterface
         $mimePartStr = '',
         MimePart $part
     ) {
-
         $mimeHeaderDecoder  = new MimeHeaderDecoder(new Charset(), new ContentTransferDecoder());
 
         $filename = $part->getDispositionFileName() ?? $part->getContentName();
