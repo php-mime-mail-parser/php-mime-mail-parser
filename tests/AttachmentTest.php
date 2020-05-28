@@ -244,4 +244,20 @@ final class AttachmentTest extends TestCase
 
         $this->assertCount(3, $attachments);
     }
+
+    public function testIssue125()
+    {
+        $file = __DIR__.'/mails/issue125';
+
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_INLINE);
+
+        $this->assertCount(2, $attachments);
+
+        $this->assertEquals('inline', $attachments[0]->getContentDisposition());
+        $this->assertEquals('image/png', $attachments[0]->getContentType());
+        $this->assertEquals('attachment', $attachments[1]->getContentDisposition());
+        $this->assertEquals('message/rfc822', $attachments[1]->getContentType());
+    }
 }
