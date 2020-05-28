@@ -644,6 +644,74 @@ final class Parser implements ParserInterface
         return $attachments;
     }
 
+    public function getAttachments2()
+    {
+        $attachments = [];
+
+        $parts = $this->filterParts(['attachment'], false);
+
+        foreach ($parts  as $partId => $part) {
+            $attachments[] = $this->attachmentInterface::create(
+                $this->getAttachmentStream($part),
+                $this->getPartComplete($part),
+                new MimePart($partId, $part)
+            );
+        }
+
+        return $attachments;
+    }
+
+    public function getInlineAttachments2()
+    {
+        $attachments = [];
+
+        $parts = $this->filterParts(['inline'], false);
+
+        foreach ($parts  as $partId => $part) {
+            $attachments[] = $this->attachmentInterface::create(
+                $this->getAttachmentStream($part),
+                $this->getPartComplete($part),
+                new MimePart($partId, $part)
+            );
+        }
+
+        return $attachments;
+    }
+
+    public function getTopLevelAttachments2($contentDisposition)
+    {
+        $attachments = [];
+
+        $parts = $this->filterParts($contentDisposition, false);
+
+        foreach ($parts  as $partId => $part) {
+            $attachments[] = $this->attachmentInterface::create(
+                $this->getAttachmentStream($part),
+                $this->getPartComplete($part),
+                new MimePart($partId, $part)
+            );
+        }
+
+        return $attachments;
+    }
+
+    public function getNestedAttachments2($contentDisposition)
+    {
+        $attachments = [];
+
+        $parts = $this->filterParts($contentDisposition, true);
+
+        foreach ($parts  as $partId => $part) {
+            $attachments[] = $this->attachmentInterface::create(
+                $this->getAttachmentStream($part),
+                $this->getPartComplete($part),
+                new MimePart($partId, $part)
+            );
+        }
+
+        return $attachments;
+    }
+
     /**
      * Save attachments in a folder
      *
