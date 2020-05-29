@@ -45,7 +45,7 @@ final class ParserTest extends TestCase
         });
 
         //Test Nb Attachments (ignoring inline attachments)
-        $attachments = $Parser->getNestedAttachments2(['attachment']);
+        $attachments = $Parser->getNestedAttachments(['attachment']);
         $this->assertEquals(count($attachmentsExpected), count($attachments));
         $iterAttachments = 0;
 
@@ -95,7 +95,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/issue133';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $attachments = $Parser->getNestedAttachments2(['attachment']);
+        $attachments = $Parser->getNestedAttachments(['attachment']);
 
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
@@ -132,7 +132,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/m0027';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $attachments = $Parser->getNestedAttachments2(['attachment']);
+        $attachments = $Parser->getNestedAttachments(['attachment']);
 
         $this->assertEquals("1234_.._.._1234.txt", $attachments[0]->getFilename());
     }
@@ -142,7 +142,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/issue250';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $attachments = $Parser->getNestedAttachments2(['attachment']);
+        $attachments = $Parser->getNestedAttachments(['attachment']);
         $this->assertEquals("Kontoutskrift for 1506.14.90466_Bedriftskonto.pdf", $attachments[0]->getFilename());
     }
 
@@ -184,7 +184,7 @@ final class ParserTest extends TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
         $Parser->getMessageBody('text');
-        $Parser->getAttachments2();
+        $Parser->getAttachments();
         $this->assertTrue(true);
     }
 
@@ -242,8 +242,8 @@ final class ParserTest extends TestCase
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
         
-        $this->assertCount(1, $Parser->getAttachments2());
-        $this->assertCount(1, $Parser->getNestedAttachments2(['inline', 'attachment']));
+        $this->assertCount(1, $Parser->getAttachments());
+        $this->assertCount(1, $Parser->getNestedAttachments(['inline', 'attachment']));
     }
 
     public function provideData()
@@ -1159,7 +1159,7 @@ final class ParserTest extends TestCase
         }
 
         //Test Nb Attachments
-        $attachments = $Parser->getNestedAttachments2(['inline', 'attachment']);
+        $attachments = $Parser->getNestedAttachments(['inline', 'attachment']);
         $this->assertEquals(count($attachmentsExpected), count($attachments));
         $iterAttachments = 0;
 
@@ -1288,7 +1288,7 @@ final class ParserTest extends TestCase
         }
 
         //Test Nb Attachments
-        $attachments = $Parser->getNestedAttachments2(['inline', 'attachment']);
+        $attachments = $Parser->getNestedAttachments(['inline', 'attachment']);
         $this->assertEquals(count($attachmentsExpected), count($attachments));
         $iterAttachments = 0;
 
@@ -1419,7 +1419,7 @@ final class ParserTest extends TestCase
         }
 
         //Test Nb Attachments
-        $attachments = $Parser->getNestedAttachments2(['inline', 'attachment']);
+        $attachments = $Parser->getNestedAttachments(['inline', 'attachment']);
         $this->assertEquals(count($attachmentsExpected), count($attachments));
         $iterAttachments = 0;
 
@@ -1583,7 +1583,7 @@ aXBpdC4K'
         $Parser->setPath($file);
 
         $i = 0;
-        foreach ($Parser->getAttachments2() as $attachment) {
+        foreach ($Parser->getAttachments() as $attachment) {
             $expectedMimePart = $attachmentMimeParts[$i];
             $this->assertEquals($expectedMimePart, $attachment->getMimePartStr());
             $i++;
@@ -1602,7 +1602,7 @@ aXBpdC4K'
         $Parser->setStream(fopen($file, 'r'));
 
         $i = 0;
-        foreach ($Parser->getAttachments2() as $attachment) {
+        foreach ($Parser->getAttachments() as $attachment) {
             $expectedMimePart = $attachmentMimeParts[$i];
             $this->assertEquals($expectedMimePart, $attachment->getMimePartStr());
             $i++;
@@ -1621,7 +1621,7 @@ aXBpdC4K'
         $Parser->setText(file_get_contents($file));
 
         $i = 0;
-        foreach ($Parser->getAttachments2() as $attachment) {
+        foreach ($Parser->getAttachments() as $attachment) {
             $expectedMimePart = $attachmentMimeParts[$i];
             $this->assertEquals($expectedMimePart, $attachment->getMimePartStr());
             $i++;
@@ -1878,7 +1878,7 @@ mini plain body';
         $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('text'));
         $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('html'));
 
-        $attachments = $Parser->getAttachments2();
+        $attachments = $Parser->getAttachments();
         $this->assertCount(5, $attachments);
 
         foreach ($attachments as $key => $attachment) {
@@ -1995,7 +1995,7 @@ mini plain body';
         $this->assertEmpty($Parser->getText());
         $this->assertStringContainsString('An RFC 822 forward', $Parser->getHtml());
 
-        $attachments = $Parser->getAttachments2();
+        $attachments = $Parser->getAttachments();
         $this->assertCount(1, $attachments);
         $this->assertEquals('message/rfc822', $attachments[0]->getContentType());
         $this->assertEquals('Test 5.eml', $attachments[0]->getFilename());

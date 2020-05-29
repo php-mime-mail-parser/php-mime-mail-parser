@@ -465,7 +465,7 @@ final class Parser implements ParserInterface
         $body = empty($inline_parts) ? '' : $inline_parts[0];
 
         if ($type == 'htmlEmbedded') {
-            $attachments = $this->getInlineAttachments2();
+            $attachments = $this->getInlineAttachments();
             foreach ($attachments as $attachment) {
                 if ($attachment->getContentID() != '') {
                     $body = str_replace(
@@ -616,35 +616,7 @@ final class Parser implements ParserInterface
         return $filteredParts;
     }
 
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getAttachments($attachment_types = self::GA_INCLUDE_ALL)
-    {
-        $attachments = [];
-
-        $includeSubParts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
-        $filters = ['attachment'];
-        if ($attachment_types & self::GA_INCLUDE_INLINE) {
-            $filters[] = 'inline';
-        }
-
-        $parts = $this->filterParts($filters, $includeSubParts);
-
-        foreach ($parts  as $partId => $part) {
-            $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($part),
-                $this->getPartComplete($part),
-                new MimePart($partId, $part)
-            );
-        }
-
-        return $attachments;
-    }
-
-    public function getAttachments2()
+    public function getAttachments()
     {
         $attachments = [];
 
@@ -661,7 +633,7 @@ final class Parser implements ParserInterface
         return $attachments;
     }
 
-    public function getInlineAttachments2()
+    public function getInlineAttachments()
     {
         $attachments = [];
 
@@ -678,7 +650,7 @@ final class Parser implements ParserInterface
         return $attachments;
     }
 
-    public function getTopLevelAttachments2($contentDisposition)
+    public function getTopLevelAttachments($contentDisposition)
     {
         $attachments = [];
 
@@ -695,7 +667,7 @@ final class Parser implements ParserInterface
         return $attachments;
     }
 
-    public function getNestedAttachments2($contentDisposition)
+    public function getNestedAttachments($contentDisposition)
     {
         $attachments = [];
 
@@ -728,9 +700,9 @@ final class Parser implements ParserInterface
         $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
         if ($include_inline) {
-            $attachments = $this->getNestedAttachments2(['attachment', 'inline']);
+            $attachments = $this->getNestedAttachments(['attachment', 'inline']);
         } else {
-            $attachments = $this->getNestedAttachments2(['attachment']);
+            $attachments = $this->getNestedAttachments(['attachment']);
         }
 
         $attachments_paths = [];
