@@ -616,7 +616,7 @@ final class Parser implements ParserInterface
         return $filteredParts;
     }
 
-    public function createAttachmentsFromParts($contentDispositions, $includeSubParts)
+    private function createAttachmentsFromParts($contentDispositions, $includeSubParts)
     {
         $attachments = [];
 
