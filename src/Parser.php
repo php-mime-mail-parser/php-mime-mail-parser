@@ -635,12 +635,12 @@ final class Parser implements ParserInterface
 
     public function getAttachments()
     {
-        return $this->createAttachmentsFromParts(['attachment'], false);
+        return $this->getTopLevelAttachments(['attachment']);
     }
 
     public function getInlineAttachments()
     {
-        return $this->createAttachmentsFromParts(['inline'], false);
+        return $this->getTopLevelAttachments(['inline']);
     }
 
     public function getTopLevelAttachments($contentDisposition)
