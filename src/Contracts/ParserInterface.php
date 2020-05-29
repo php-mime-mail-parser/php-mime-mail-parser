@@ -81,16 +81,6 @@ interface ParserInterface
     public function getHeadersRaw();
 
     /**
-     * Returns the email message body in the specified format
-     *
-     * @param string $type text, html or htmlEmbedded
-     *
-     * @return string Body
-     * @throws Exception
-     */
-    public function getMessageBody($type = 'text');
-
-    /**
      * Return an array with the following keys display, address, is_group
      *
      * @param string $name Header name (case-insensitive)

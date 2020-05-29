@@ -50,20 +50,6 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testgetMessageBody()
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage(
-            'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
-        );
-
-        $Parser->getMessageBody('azerty');
-    }
-
-    /**
-     */
     public function testgetInlineParts()
     {
         $Parser = new Parser();

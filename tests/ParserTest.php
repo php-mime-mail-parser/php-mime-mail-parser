@@ -206,7 +206,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/issue115';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $this->assertEquals(1, substr_count($Parser->getMessageBody('htmlEmbedded'), 'image/'));
+        $this->assertEquals(1, substr_count($Parser->getHtml(), 'image/'));
     }
 
     public function testGetAddressesWithQuot()
@@ -1149,9 +1149,9 @@ final class ParserTest extends TestCase
 
         //Test Body : html
         if ($htmlExpected[0] == 'COUNT') {
-            $this->assertEquals($htmlExpected[1], substr_count($Parser->getMessageBody('html'), $htmlExpected[2]));
+            $this->assertEquals($htmlExpected[1], substr_count($Parser->getHtmlNotEmbedded(), $htmlExpected[2]));
         } elseif ($htmlExpected[0] == 'MATCH') {
-            $this->assertEquals($htmlExpected[1], $Parser->getMessageBody('html'));
+            $this->assertEquals($htmlExpected[1], $Parser->getHtmlNotEmbedded());
         }
 
         //Test Nb Attachments
@@ -1215,7 +1215,7 @@ final class ParserTest extends TestCase
         }
 
         //Test embedded Attachments
-        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
         if (!empty($attachmentsEmbeddedToCheck)) {
@@ -1278,9 +1278,9 @@ final class ParserTest extends TestCase
 
         //Test Body : html
         if ($htmlExpected[0] == 'COUNT') {
-            $this->assertEquals($htmlExpected[1], substr_count($Parser->getMessageBody('html'), $htmlExpected[2]));
+            $this->assertEquals($htmlExpected[1], substr_count($Parser->getHtmlNotEmbedded(), $htmlExpected[2]));
         } elseif ($htmlExpected[0] == 'MATCH') {
-            $this->assertEquals($htmlExpected[1], $Parser->getMessageBody('html'));
+            $this->assertEquals($htmlExpected[1], $Parser->getHtmlNotEmbedded());
         }
 
         //Test Nb Attachments
@@ -1344,7 +1344,7 @@ final class ParserTest extends TestCase
         }
 
         //Test embedded Attachments
-        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
         if (!empty($attachmentsEmbeddedToCheck)) {
@@ -1409,9 +1409,9 @@ final class ParserTest extends TestCase
 
         //Test Body : html
         if ($htmlExpected[0] == 'COUNT') {
-            $this->assertEquals($htmlExpected[1], substr_count($Parser->getMessageBody('html'), $htmlExpected[2]));
+            $this->assertEquals($htmlExpected[1], substr_count($Parser->getHtmlNotEmbedded(), $htmlExpected[2]));
         } elseif ($htmlExpected[0] == 'MATCH') {
-            $this->assertEquals($htmlExpected[1], $Parser->getMessageBody('html'));
+            $this->assertEquals($htmlExpected[1], $Parser->getHtmlNotEmbedded());
         }
 
         //Test Nb Attachments
@@ -1475,7 +1475,7 @@ final class ParserTest extends TestCase
         }
 
         //Test embedded Attachments
-        $htmlEmbedded = $Parser->getMessageBody('htmlEmbedded');
+        $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
         if (!empty($attachmentsEmbeddedToCheck)) {
@@ -1635,7 +1635,7 @@ aXBpdC4K'
     {
         $Parser = new Parser();
         $Parser->setPath($file);
-        $this->assertEquals($expected, $Parser->getMessageBody($getType));
+        $this->assertEquals($expected, $Parser->$getType());
     }
 
     public function providerRFC822AttachmentsWithDifferentTextTypes()
@@ -1643,22 +1643,22 @@ aXBpdC4K'
         return [
             'HTML-only message, with text-only RFC822 attachment, message should have empty text body' => [
                 __DIR__.'/mails/issue158a',
-                'text',
+                'getText',
                 ''
             ],
             'HTML-only message, with text-only RFC822 attachment, message should have HTML body' => [
                 __DIR__.'/mails/issue158a',
-                'html',
+                'getHtmlNotEmbedded',
                 "<html><body>An RFC 822 forward with a <em>HTML</em> body</body></html>\n"
             ],
             'Text-only message, with HTML-only RFC822 attachment, message should have empty HTML body' => [
                 __DIR__.'/mails/issue158b',
-                'html',
+                'getHtmlNotEmbedded',
                 ''
             ],
             'Text-only message, with HTML-only RFC822 attachment, message should have text body' => [
                 __DIR__.'/mails/issue158b',
-                'text',
+                'getText',
                 "A text/plain response to an REC822 message, with content filler to get it past the
 200 character lower-limit in order to avoid preferring future HTML versions of the
 body... filler filler filler filler filler filler filler filler filler.\n"
@@ -1666,22 +1666,22 @@ body... filler filler filler filler filler filler filler filler filler.\n"
             'Text-only message, with text-only RFC822 attachment,
             should have text body but not include attachment part' => [
                 __DIR__.'/mails/issue158c',
-                'text',
+                'getText',
                 "An RFC822 forward of a PLAIN TEXT message with a plain-text body.\n"
             ],
             'Text-only message, with a text-only RFC822 attachment, message should have an empty HTML body' => [
                 __DIR__.'/mails/issue158c',
-                'html',
+                'getHtmlNotEmbedded',
                 ''
             ],
             'Multipart email with both text and html body, with RFC822 attachment also with a text and html body' => [
                 __DIR__.'/mails/issue158d',
-                'text',
+                'getText',
                 "This is the forward email send both emails will have both text and html variances available\n"
             ],
             'Multipart with both text and html body, RFC822 attachment also with text and html' => [
                 __DIR__.'/mails/issue158d',
-                'html',
+                'getHtmlNotEmbedded',
                 '<html><body><div>This is the forward email send both
 emails will have both text and html
 variances available &nbsp;</div></body></html>'
@@ -1872,7 +1872,7 @@ mini plain body';
 
         $this->assertEquals('guest@localhost', $Parser->getRawHeader('from')[0]);
         $this->assertStringContainsString('ligne 1', $Parser->getText());
-        $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('html'));
+        $this->assertStringContainsString('ligne 1', $Parser->getHtmlNotEmbedded());
 
         $attachments = $Parser->getAttachments();
         $this->assertCount(5, $attachments);

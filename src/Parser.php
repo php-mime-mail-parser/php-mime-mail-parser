@@ -426,9 +426,27 @@ final class Parser implements ParserInterface
         return $text;
     }
 
-    public function getHtml(): string
+    public function getHtmlNotEmbedded(): string
     {
         $text = $this->getFirstTextDecoded('html');
+
+        return $text;
+    }
+
+    public function getHtml(): string
+    {
+        $text = $this->getHtmlNotEmbedded();
+
+        $attachments = $this->getInlineAttachments();
+        foreach ($attachments as $attachment) {
+            if (!empty($attachment->getContentID())) {
+                $text = str_replace(
+                    '"cid:'.$attachment->getContentID().'"',
+                    '"'.$this->getEmbeddedData($attachment->getContentID()).'"',
+                    $text
+                );
+            }
+        }
         return $text;
     }
 
@@ -436,48 +454,6 @@ final class Parser implements ParserInterface
     {
         $text = $this->getFirstTextRaw('html');
         return $text;
-    }
-
-    /**
-     * Returns the email message body in the specified format
-     *
-     * @param string $type text, html or htmlEmbedded
-     *
-     * @return string Body
-     * @throws Exception
-     */
-    public function getMessageBody($type = 'text')
-    {
-        $mime_types = [
-            'text'         => 'text/plain',
-            'html'         => 'text/html',
-            'htmlEmbedded' => 'text/html',
-        ];
-
-        if (!array_key_exists($type, $mime_types)) {
-            throw new Exception(
-                'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
-            );
-        }
-
-        $part_type = $type === 'htmlEmbedded' ? 'html' : $type;
-        $inline_parts = $this->getInlineParts($part_type);
-        $body = empty($inline_parts) ? '' : $inline_parts[0];
-
-        if ($type == 'htmlEmbedded') {
-            $attachments = $this->getInlineAttachments();
-            foreach ($attachments as $attachment) {
-                if ($attachment->getContentID() != '') {
-                    $body = str_replace(
-                        '"cid:'.$attachment->getContentID().'"',
-                        '"'.$this->getEmbeddedData($attachment->getContentID()).'"',
-                        $body
-                    );
-                }
-            }
-        }
-
-        return $body;
     }
 
     /**
