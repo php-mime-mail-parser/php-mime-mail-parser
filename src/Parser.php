@@ -727,11 +727,9 @@ final class Parser implements ParserInterface
         $include_inline = true,
         $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
-        if ($include_inline)
-        {
+        if ($include_inline) {
             $attachments = $this->getNestedAttachments2(['attachment', 'inline']);
-        }
-        else {
+        } else {
             $attachments = $this->getNestedAttachments2(['attachment']);
         }
 
