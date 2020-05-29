@@ -465,7 +465,7 @@ final class Parser implements ParserInterface
         $body = empty($inline_parts) ? '' : $inline_parts[0];
 
         if ($type == 'htmlEmbedded') {
-            $attachments = $this->getAttachments();
+            $attachments = $this->getInlineAttachments2();
             foreach ($attachments as $attachment) {
                 if ($attachment->getContentID() != '') {
                     $body = str_replace(
@@ -727,7 +727,13 @@ final class Parser implements ParserInterface
         $include_inline = true,
         $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
     ) {
-        $attachments = $this->getAttachments($include_inline);
+        if ($include_inline)
+        {
+            $attachments = $this->getNestedAttachments2(['attachment', 'inline']);
+        }
+        else {
+            $attachments = $this->getNestedAttachments2(['attachment']);
+        }
 
         $attachments_paths = [];
         foreach ($attachments as $attachment) {

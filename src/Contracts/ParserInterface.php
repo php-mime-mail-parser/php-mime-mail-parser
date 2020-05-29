@@ -107,13 +107,6 @@ interface ParserInterface
     public function getInlineParts(string $type = 'text'): array;
 
     /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getAttachments($include_inline = true);
-
-    /**
      * Save attachments in a folder
      *
      * @param string $attach_dir directory
