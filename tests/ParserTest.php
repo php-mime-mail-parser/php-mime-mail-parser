@@ -107,8 +107,7 @@ final class ParserTest extends TestCase
         $Parser->setText(file_get_contents($file));
 
         $this->assertEquals('Scientific conferences, Bulgaria 2019', $Parser->getHeader('subject'));
-        $body = $Parser->getMessageBody('text');
-        $this->assertEquals(is_string($body), true);
+        $this->assertIsString($Parser->getText());
     }
 
     /**
@@ -122,9 +121,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ .'/mails/m0028';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $body = $Parser->getMessageBody('text');
-        $this->assertEquals(is_string($body), true);
-        $this->assertEquals($body, "This is the plain text content of the email");
+        $this->assertEquals($Parser->getText(), "This is the plain text content of the email");
     }
 
     public function testIlligalAttachmentFilenameForContentName()
@@ -183,7 +180,7 @@ final class ParserTest extends TestCase
         $file = __DIR__.'/mails/issue126';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $Parser->getMessageBody('text');
+        $Parser->getText();
         $Parser->getAttachments();
         $this->assertTrue(true);
     }
@@ -191,8 +188,8 @@ final class ParserTest extends TestCase
     public function testCreatingMoreThanOneInstanceOfParser()
     {
         $file = __DIR__.'/mails/issue84';
-        (new Parser())->setPath($file)->getMessageBody();
-        (new Parser())->setPath($file)->getMessageBody();
+        (new Parser())->setPath($file)->getText();
+        (new Parser())->setPath($file)->getText();
         $this->assertTrue(true);
     }
 
@@ -232,8 +229,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/m0124';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $body = $Parser->getMessageBody();
-        $this->assertEmpty($body);
+        $this->assertEmpty($Parser->getText());
     }
 
     public function testUnknownContentDisposition()
@@ -1146,9 +1142,9 @@ final class ParserTest extends TestCase
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
-            $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));
+            $this->assertEquals($textExpected[1], substr_count($Parser->getText(), $textExpected[2]));
         } elseif ($textExpected[0] == 'MATCH') {
-            $this->assertEquals($textExpected[1], $Parser->getMessageBody('text'));
+            $this->assertEquals($textExpected[1], $Parser->getText());
         }
 
         //Test Body : html
@@ -1275,9 +1271,9 @@ final class ParserTest extends TestCase
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
-            $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));
+            $this->assertEquals($textExpected[1], substr_count($Parser->getText(), $textExpected[2]));
         } elseif ($textExpected[0] == 'MATCH') {
-            $this->assertEquals($textExpected[1], $Parser->getMessageBody('text'));
+            $this->assertEquals($textExpected[1], $Parser->getText());
         }
 
         //Test Body : html
@@ -1406,9 +1402,9 @@ final class ParserTest extends TestCase
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
-            $this->assertEquals($textExpected[1], substr_count($Parser->getMessageBody('text'), $textExpected[2]));
+            $this->assertEquals($textExpected[1], substr_count($Parser->getText(), $textExpected[2]));
         } elseif ($textExpected[0] == 'MATCH') {
-            $this->assertEquals($textExpected[1], $Parser->getMessageBody('text'));
+            $this->assertEquals($textExpected[1], $Parser->getText());
         }
 
         //Test Body : html
@@ -1789,7 +1785,7 @@ mini plain body';
 
         $ParserByText = new Parser();
         $ParserByText->setText($file);
-        $this->assertStringContainsString('mini plain body', $ParserByText->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByText->getText());
 
         $ParserByPath = new Parser();
         $temp = tmpfile();
@@ -1798,7 +1794,7 @@ mini plain body';
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
         $ParserByPath->setPath($tmpFilename);
-        $this->assertStringContainsString('mini plain body', $ParserByPath->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByPath->getText());
     }
 
     public function testParsingFileWithoutEndOfLineFromPath()
@@ -1821,7 +1817,7 @@ mini plain body';
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
         $ParserByPath->setPath($tmpFilename);
-        $this->assertStringContainsString('mini plain body', $ParserByPath->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByPath->getText());
     }
 
     public function testParsingFileWithoutEndOfLineFromStream()
@@ -1842,7 +1838,7 @@ mini plain body';
         fwrite($temp, $file);
         rewind($temp);
         $ParserByStream->setStream($temp);
-        $this->assertStringContainsString('mini plain body', $ParserByStream->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByStream->getText());
     }
 
     public function testCharsetSupportedAsAnAlias()
@@ -1853,7 +1849,7 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setPath($file);
         $this->assertEquals('<foo@bar.de>', $Parser->getHeader('from'));
-        $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getMessageBody('text'));
+        $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getText());
     }
 
     public function testCharsetNotSupportedByMBString()
@@ -1875,7 +1871,7 @@ mini plain body';
         $Parser->setPath(__DIR__.'/mails/issue274.eml');
 
         $this->assertEquals('guest@localhost', $Parser->getRawHeader('from')[0]);
-        $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('text'));
+        $this->assertStringContainsString('ligne 1', $Parser->getText());
         $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('html'));
 
         $attachments = $Parser->getAttachments();
