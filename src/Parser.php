@@ -616,11 +616,11 @@ final class Parser implements ParserInterface
         return $filteredParts;
     }
 
-    public function getAttachments()
+    public function createAttachmentsFromParts($contentDispositions, $includeSubParts)
     {
         $attachments = [];
 
-        $parts = $this->filterParts(['attachment'], false);
+        $parts = $this->filterParts($contentDispositions, $includeSubParts);
 
         foreach ($parts  as $partId => $part) {
             $attachments[] = $this->attachmentInterface::create(
@@ -631,57 +631,26 @@ final class Parser implements ParserInterface
         }
 
         return $attachments;
+    }
+
+    public function getAttachments()
+    {
+        return $this->createAttachmentsFromParts(['attachment'], false);
     }
 
     public function getInlineAttachments()
     {
-        $attachments = [];
-
-        $parts = $this->filterParts(['inline'], false);
-
-        foreach ($parts  as $partId => $part) {
-            $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($part),
-                $this->getPartComplete($part),
-                new MimePart($partId, $part)
-            );
-        }
-
-        return $attachments;
+        return $this->createAttachmentsFromParts(['inline'], false);
     }
 
     public function getTopLevelAttachments($contentDisposition)
     {
-        $attachments = [];
-
-        $parts = $this->filterParts($contentDisposition, false);
-
-        foreach ($parts  as $partId => $part) {
-            $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($part),
-                $this->getPartComplete($part),
-                new MimePart($partId, $part)
-            );
-        }
-
-        return $attachments;
+        return $this->createAttachmentsFromParts($contentDisposition, false);
     }
 
     public function getNestedAttachments($contentDisposition)
     {
-        $attachments = [];
-
-        $parts = $this->filterParts($contentDisposition, true);
-
-        foreach ($parts  as $partId => $part) {
-            $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($part),
-                $this->getPartComplete($part),
-                new MimePart($partId, $part)
-            );
-        }
-
-        return $attachments;
+        return $this->createAttachmentsFromParts($contentDisposition, true);
     }
 
     /**
