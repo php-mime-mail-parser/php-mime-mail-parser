@@ -146,7 +146,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not write attachments. Your directory may be unwritable by PHP.');
 
-        $Parser->saveAttachments($attach_dir);
+        $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
     }
 
     /**
@@ -163,7 +163,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
 
-        $Parser->saveAttachments($attach_dir, false, Parser::ATTACHMENT_DUPLICATE_THROW);
+        $Parser->saveNestedAttachments($attach_dir, ['attachment'], Parser::ATTACHMENT_DUPLICATE_THROW);
     }
 
     /**
@@ -178,6 +178,6 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Invalid filename strategy argument provided.');
 
-        $Parser->saveAttachments('dir', false, 'InvalidValue');
+        $Parser->saveNestedAttachments('dir', ['attachment'], 'InvalidValue');
     }
 }

@@ -653,30 +653,12 @@ final class Parser implements ParserInterface
         return $this->createAttachmentsFromParts($contentDisposition, true);
     }
 
-    /**
-     * Save attachments in a folder
-     *
-     * @param string $attach_dir directory
-     * @param bool $include_inline
-     * @param string $filenameStrategy How to generate attachment filenames
-     *
-     * @return array Saved attachments paths
-     * @throws Exception
-     */
-    public function saveAttachments(
-        $attach_dir,
-        $include_inline = true,
-        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
-    ) {
-        if ($include_inline) {
-            $attachments = $this->getNestedAttachments(['attachment', 'inline']);
-        } else {
-            $attachments = $this->getNestedAttachments(['attachment']);
-        }
-
+    public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX)
+    {
         $attachments_paths = [];
-        foreach ($attachments as $attachment) {
-            $attachments_paths[] = $attachment->save($attach_dir, $filenameStrategy);
+
+        foreach ($this->getNestedAttachments($contentDisposition) as $attachment) {
+            $attachments_paths[] = $attachment->save($directory, $filenameStrategy);
         }
 
         return $attachments_paths;

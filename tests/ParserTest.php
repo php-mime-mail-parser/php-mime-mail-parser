@@ -153,7 +153,7 @@ final class ParserTest extends TestCase
         $Parser->setText(file_get_contents($file));
 
         $attachDir = $this->tempdir('m0002_attachments');
-        $Parser->saveAttachments($attachDir, false);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
         $attachmentFiles = glob($attachDir . '*');
 
@@ -170,7 +170,7 @@ final class ParserTest extends TestCase
         $Parser->setText(file_get_contents($file));
 
         $attachDir = $this->tempdir('m0026_attachments');
-        $Parser->saveAttachments($attachDir, false, Parser::ATTACHMENT_RANDOM_FILENAME);
+        $Parser->saveNestedAttachments($attachDir, ['attachment'], Parser::ATTACHMENT_RANDOM_FILENAME);
 
         $attachmentFiles = glob($attachDir . '*');
 
@@ -1167,7 +1167,7 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveAttachments($attach_dir);
+            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
@@ -1215,7 +1215,7 @@ final class ParserTest extends TestCase
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveAttachments($attach_dir));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments
@@ -1296,7 +1296,7 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveAttachments($attach_dir);
+            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
@@ -1344,7 +1344,7 @@ final class ParserTest extends TestCase
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveAttachments($attach_dir));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments
@@ -1427,7 +1427,7 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveAttachments($attach_dir);
+            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
@@ -1475,7 +1475,7 @@ final class ParserTest extends TestCase
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveAttachments($attach_dir));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments

@@ -21,7 +21,7 @@ final class AttachmentTest extends TestCase
         $attachDir = $this->tempdir('m0002_attachments');
         $attachDir .= 'not-yet-existing-directory';
 
-        $Parser->saveAttachments($attachDir);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
         $attachmentFiles = glob($attachDir . '*');
         $this->assertCount(1, $attachmentFiles);
@@ -162,7 +162,7 @@ final class AttachmentTest extends TestCase
 
         $attachDir = $this->tempdir('m0025_attachments');
 
-        $Parser->saveAttachments($attachDir, true, $Parser::ATTACHMENT_RANDOM_FILENAME);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline'], $Parser::ATTACHMENT_RANDOM_FILENAME);
 
         $attachmentFiles = glob($attachDir . '*');
         $attachmentJpgFiles = glob($attachDir . '*.jpg');

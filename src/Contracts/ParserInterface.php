@@ -107,22 +107,6 @@ interface ParserInterface
     public function getInlineParts(string $type = 'text'): array;
 
     /**
-     * Save attachments in a folder
-     *
-     * @param string $attach_dir directory
-     * @param bool $include_inline
-     * @param string $filenameStrategy How to generate attachment filenames
-     *
-     * @return array Saved attachments paths
-     * @throws Exception
-     */
-    public function saveAttachments(
-        $attach_dir,
-        $include_inline = true,
-        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
-    );
-
-    /**
      * Retrieve the resource
      *
      * @return resource resource
