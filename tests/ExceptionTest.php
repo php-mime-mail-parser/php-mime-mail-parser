@@ -48,20 +48,6 @@ final class ExceptionTest extends TestCase
         $Parser->getHeadersRaw();
     }
 
-    /**
-     */
-    public function testgetInlineParts()
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage(
-            'Invalid type specified for getInlineParts(). "type" can either be text or html.'
-        );
-
-        $Parser->getInlineParts('azerty');
-    }
-
 
     /**
      */

@@ -90,13 +90,6 @@ interface ParserInterface
     public function getAddresses($name);
 
     /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getInlineParts(string $type = 'text'): array;
-
-    /**
      * Retrieve the resource
      *
      * @return resource resource

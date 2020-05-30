@@ -494,29 +494,6 @@ final class Parser implements ParserInterface
         return $addresses;
     }
 
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getInlineParts(string $type = 'text'): array
-    {
-        if ($type != 'text' && $type != 'html') {
-            throw new Exception('Invalid type specified for getInlineParts(). "type" can either be text or html.');
-        }
-
-        $parts = $this->filterParts([$type], false);
-        $inline_parts = [];
-
-        foreach ($parts as $part) {
-            $encodingType = $this->getPart('transfer-encoding', $part);
-            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-            $inline_parts[] = $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
-        }
-
-        return $inline_parts;
-    }
-
     public function isTextMessage($part, $subType)
     {
         $disposition = $this->getPart('content-disposition', $part);

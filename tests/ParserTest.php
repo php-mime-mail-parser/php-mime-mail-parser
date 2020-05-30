@@ -83,7 +83,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ .'/mails/issue163';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $inline_parts = $Parser->getInlineParts('text');
+        $inline_parts = $Parser->getMessageBodies(['text']);
         $this->assertEquals(is_array($inline_parts), true);
         $this->assertEquals(count($inline_parts), 2);
         $this->assertEquals($inline_parts[0], "First we have a text block, then we insert an image:\r\n\r\n");
