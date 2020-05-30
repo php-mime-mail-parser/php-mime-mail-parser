@@ -390,47 +390,43 @@ final class Parser implements ParserInterface
         return false;
     }
 
-    private function getFirstTextRaw($subType)
+    public function getMessageBodies($subTypes)
     {
-        $type = ($subType == 'plain') ? 'text' : 'html';
-        $parts = $this->filterParts([$type], false);
+        $parts = $this->filterParts($subTypes, false);
 
-        foreach ($parts as $part) {
-            return $this->getPartBody($part);
-        }
-        return '';
-    }
-
-    private function getFirstTextDecoded($subType)
-    {
-        $type = ($subType == 'plain') ? 'text' : 'html';
-        $parts = $this->filterParts([$type], false);
-
+        $bodies = [];
         foreach ($parts as $part) {
             $encodingType = $this->getPart('transfer-encoding', $part);
             $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-            return $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
+            $bodies[] = $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
         }
-        return '';
+        return $bodies;
+    }
+
+    public function getMessageBodiesRaw($subTypes)
+    {
+        $parts = $this->filterParts($subTypes, false);
+
+        $bodies = [];
+        foreach ($parts as $part) {
+            $bodies[] = $this->getPartBody($part);
+        }
+        return $bodies;
     }
 
     public function getText(): string
     {
-        $text = $this->getFirstTextDecoded('plain');
-        return $text;
+        return $this->getMessageBodies(['text'])[0] ?? '';
     }
 
     public function getTextRaw(): string
     {
-        $text = $this->getFirstTextRaw('plain');
-        return $text;
+        return $this->getMessageBodiesRaw(['text'])[0] ?? '';
     }
 
     public function getHtmlNotEmbedded(): string
     {
-        $text = $this->getFirstTextDecoded('html');
-
-        return $text;
+        return $this->getMessageBodies(['html'])[0] ?? '';
     }
 
     public function getHtml(): string
@@ -452,8 +448,7 @@ final class Parser implements ParserInterface
 
     public function getHtmlRaw(): string
     {
-        $text = $this->getFirstTextRaw('html');
-        return $text;
+        return $this->getMessageBodiesRaw(['html'])[0] ?? '';
     }
 
     /**
