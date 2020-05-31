@@ -33,6 +33,8 @@ final class MimePart implements \ArrayAccess
      * @var string
      */
     private $id;
+    private $stream;
+    private $data;
 
     /**
      * Create a mime part
@@ -40,10 +42,13 @@ final class MimePart implements \ArrayAccess
      * @param array $part
      * @param string $id
      */
-    public function __construct($id, array $part)
+    public function __construct($id, array $part, $stream = null, $data = null)
     {
         $this->part = $part;
         $this->id = $id;
+        $this->stream = $stream;
+        $this->data = $data;
+        $this->charset = new Charset();
     }
 
     /**
@@ -147,8 +152,88 @@ final class MimePart implements \ArrayAccess
         return $this->getField('content-id');
     }
 
+    public function getContentTransferEncoding()
+    {
+        return $this->getField('transfer-encoding');
+    }
+
     public function getHeaders()
     {
         return $this->getField('headers');
+    }
+
+    public function getStartingPositionBody()
+    {
+        return $this->getField('starting-pos-body');
+    }
+
+    public function getEndingPositionBody()
+    {
+        return $this->getField('ending-pos-body');
+    }
+
+    public function getStartingPosition()
+    {
+        return $this->getField('starting-pos');
+    }
+
+    public function getEndingPosition()
+    {
+        return $this->getField('ending-pos');
+    }
+
+    public function getCharset()
+    {
+        return $this->getField('charset');
+    }
+
+
+    public function getCompleteBody()
+    {
+        $start = $this->getStartingPosition();
+        $end = $this->getEndingPosition();
+
+        if ($start >= $end) {
+            return '';
+        }
+
+        if ($this->stream) {
+            fseek($this->stream, $start, SEEK_SET);
+
+            return fread($this->stream, $end - $start);
+        }
+
+        return substr($this->data, $start, $end - $start);
+    }
+
+    public function getBody()
+    {
+        $start = $this->getStartingPositionBody();
+        $end = $this->getEndingPositionBody();
+
+        if ($start >= $end) {
+            return '';
+        }
+
+        if ($this->stream) {
+            fseek($this->stream, $start, SEEK_SET);
+
+            return fread($this->stream, $end - $start);
+        }
+
+        return substr($this->data, $start, $end - $start);
+    }
+
+    public function isTextMessage($subType)
+    {
+        $disposition = $this->getContentDisposition();
+        $contentType = $this->getContentType();
+
+        if ($disposition == 'inline' || empty($disposition)) {
+            if ($contentType == 'text/'.$subType) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -111,13 +111,6 @@ interface ParserInterface
     public function getData();
 
     /**
-     * Retrieve the parts of an email
-     *
-     * @return array parts
-     */
-    public function getParts();
-
-    /**
      * Retrieve the charset manager object
      *
      * @return CharsetManager charset

@@ -43,6 +43,7 @@ final class Parser implements ParserInterface
      * @var array $parts
      */
     protected $parts;
+    protected $entities;
 
     /**
      * @var CharsetManager object
@@ -251,14 +252,18 @@ final class Parser implements ParserInterface
     private function parse()
     {
         $structure = mailparse_msg_get_structure($this->resource);
-        $this->parts = [];
+        $this->entities = [];
         foreach ($structure as $part_id) {
             $part = mailparse_msg_get_part($this->resource, $part_id);
             $part_data = mailparse_msg_get_part_data($part);
-            $mimePart = new MimePart($part_id, $part_data);
-            // let each middleware parse the part before saving
-            $this->parts[$part_id] = $this->middlewareStack->parse($mimePart)->getPart();
+            $mimePart = new MimePart($part_id, $part_data, $this->stream, $this->data);
+            $this->entities[$part_id] = $this->middlewareStack->parse($mimePart);
         }
+    }
+
+    public function getEntities()
+    {
+        return $this->entities;
     }
 
     /**
@@ -271,13 +276,13 @@ final class Parser implements ParserInterface
      */
     public function getRawHeader($name): ?array
     {
-        if (!isset($this->parts[1])) {
+        if (!isset($this->entities[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
 
-        $headers = $this->getPart('headers', $this->parts[1]);
+        $headers = $this->entities[1]->getHeaders();
         $name = strtolower($name);
 
         if (array_key_exists($name, $headers)) {
@@ -314,13 +319,13 @@ final class Parser implements ParserInterface
      */
     public function getHeaders(): array
     {
-        if (!isset($this->parts[1])) {
+        if (!isset($this->entities[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
 
-        $headers = $this->getPart('headers', $this->parts[1]);
+        $headers = $this->entities[1]->getHeaders();
 
         array_walk_recursive($headers, function (&$value) {
             $value = $this->headerDecoder->decodeHeader($value);
@@ -337,25 +342,13 @@ final class Parser implements ParserInterface
      */
     public function getHeadersRaw()
     {
-        if (!isset($this->parts[1])) {
+        if (!isset($this->entities[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
 
-        return $this->getPartHeader($this->parts[1]);
-    }
-
-    /**
-     * Retrieve the raw Header of a MIME part
-     *
-     * @return String
-     * @param $part Object
-     * @throws Exception
-     */
-    private function getPartHeader(&$part)
-    {
-        return $this->getSection($part['starting-pos'], $part['starting-pos-body']);
+        return $this->entities[1]->getBody();
     }
 
     /**
@@ -380,8 +373,8 @@ final class Parser implements ParserInterface
      */
     private function partIdIsChildOfAnAttachment($checkPartId)
     {
-        foreach ($this->parts as $partId => $part) {
-            if ($this->getPart('content-disposition', $part) == 'attachment') {
+        foreach ($this->entities as $partId => $entity) {
+            if ($entity->getContentDisposition() == 'attachment') {
                 if ($this->partIdIsChildOfPart($checkPartId, $partId)) {
                     return true;
                 }
@@ -395,10 +388,10 @@ final class Parser implements ParserInterface
         $parts = $this->filterParts($subTypes, false);
 
         $bodies = [];
-        foreach ($parts as $part) {
-            $encodingType = $this->getPart('transfer-encoding', $part);
-            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-            $bodies[] = $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
+        foreach ($parts as $entity) {
+            $encodingType = $entity->getContentTransferEncoding();
+            $undecodedBody = $this->ctDecoder->decodeContentTransfer($entity->getBody(), $encodingType);
+            $bodies[] = $this->charset->decodeCharset($undecodedBody, $entity->getCharset());
         }
         return $bodies;
     }
@@ -408,8 +401,8 @@ final class Parser implements ParserInterface
         $parts = $this->filterParts($subTypes, false);
 
         $bodies = [];
-        foreach ($parts as $part) {
-            $bodies[] = $this->getPartBody($part);
+        foreach ($parts as $entity) {
+            $bodies[] = $entity->getBody();
         }
         return $bodies;
     }
@@ -462,15 +455,14 @@ final class Parser implements ParserInterface
     {
         $embeddedData = 'data:';
 
-        foreach ($this->parts as $part) {
-            if ($this->getPart('content-id', $part) == $contentId) {
-                $embeddedData .= $this->getPart('content-type', $part);
-                $embeddedData .= ';'.$this->getPart('transfer-encoding', $part);
-                $embeddedData .= ','.$this->getPartBody($part);
+        foreach ($this->entities as $entity) {
+            if ($entity->getContentId() == $contentId) {
+                $embeddedData .= $entity->getContentType();
+                $embeddedData .= ';'.$entity->getContentTransferEncoding();
+                $embeddedData .= ','.$entity->getBody();
                 break;
             }
         }
-
         return $embeddedData;
     }
 
@@ -494,26 +486,13 @@ final class Parser implements ParserInterface
         return $addresses;
     }
 
-    public function isTextMessage($part, $subType)
-    {
-        $disposition = $this->getPart('content-disposition', $part);
-        $contentType = $this->getPart('content-type', $part);
-
-        if ($disposition == 'inline' || empty($disposition)) {
-            if ($contentType == 'text/'.$subType) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public function filterParts($filters, $includeSubParts = true)
     {
         $filteredParts = [];
 
-        foreach ($this->parts as $partId => $part) {
-            $disposition = $this->getPart('content-disposition', $part);
-            $contentType = $this->getPart('content-type', $part);
+        foreach ($this->entities as $partId => $entity) {
+            $disposition = $entity->getContentDisposition();
+            $contentType = $entity->getContentType();
             $attachmentType = null;
 
             if (isset($disposition)) {
@@ -537,24 +516,24 @@ final class Parser implements ParserInterface
                 continue;
             }
 
-            if ($this->isTextMessage($part, 'plain')) {
+            if ($entity->isTextMessage('plain')) {
                 if (\in_array('text', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredParts[$partId] = $entity;
                     continue;
                 }
-            } elseif ($this->isTextMessage($part, 'html')) {
+            } elseif ($entity->isTextMessage('html')) {
                 if (\in_array('html', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredParts[$partId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == 'inline') {
                 if (\in_array('inline', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredParts[$partId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == 'attachment') {
                 if (\in_array('attachment', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredParts[$partId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == null) {
@@ -570,11 +549,11 @@ final class Parser implements ParserInterface
 
         $parts = $this->filterParts($contentDispositions, $includeSubParts);
 
-        foreach ($parts  as $partId => $part) {
+        foreach ($parts  as $partId => $entity) {
             $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($part),
-                $this->getPartComplete($part),
-                new MimePart($partId, $part)
+                $this->getAttachmentStream($entity->getPart()),
+                $entity->getCompleteBody(),
+                $entity
             );
         }
 
@@ -620,7 +599,7 @@ final class Parser implements ParserInterface
      * @return resource Mime Body Part
      * @throws Exception
      */
-    private function getAttachmentStream(&$part)
+    private function getAttachmentStream($part)
     {
         $temp_fp = self::tmpfile();
 
@@ -637,18 +616,6 @@ final class Parser implements ParserInterface
         fseek($temp_fp, 0, SEEK_SET);
 
         return $temp_fp;
-    }
-
-    /**
-     * Return the charset of the MIME part
-     *
-     * @param array $part
-     *
-     * @return string
-     */
-    private function getPartCharset($part)
-    {
-        return $this->charset->getCharsetAlias($part['charset']);
     }
 
     /**
@@ -680,17 +647,6 @@ final class Parser implements ParserInterface
         return $this->getSection($part['starting-pos-body'], $part['ending-pos-body']);
     }
 
-    /**
-     * Retrieve the content of a MIME part
-     *
-     * @param array $part
-     *
-     * @return string
-     */
-    private function getPartComplete(&$part)
-    {
-        return $this->getSection($part['starting-pos'], $part['ending-pos']);
-    }
 
     private function getSection($start, $end): string
     {
@@ -735,16 +691,6 @@ final class Parser implements ParserInterface
     public function getData()
     {
         return $this->data;
-    }
-
-    /**
-     * Retrieve the parts of an email
-     *
-     * @return array parts
-     */
-    public function getParts()
-    {
-        return $this->parts;
     }
 
     /**

@@ -1899,7 +1899,7 @@ mini plain body';
 
         $this->assertIsResource($Parser->getResource());
         $this->assertIsResource($Parser->getStream());
-        $this->assertIsArray($Parser->getParts());
+        $this->assertIsArray($Parser->getEntities());
         $this->assertInstanceOf(CharsetManager::class, $Parser->getCharset());
 
         $this->assertNull($Parser->getData());
