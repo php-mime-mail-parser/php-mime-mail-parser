@@ -38,11 +38,10 @@ final class Parser implements ParserInterface
     protected $data;
 
     /**
-     * Parts of an email
+     * Entities of an email
      *
-     * @var array $parts
+     * @var array $entities
      */
-    protected $parts;
     protected $entities;
 
     /**
@@ -245,7 +244,7 @@ final class Parser implements ParserInterface
     }
 
     /**
-     * Parse the Message into parts
+     * Parse the Message into entities
      *
      * @return void
      */
@@ -257,6 +256,8 @@ final class Parser implements ParserInterface
             $part = mailparse_msg_get_part($this->resource, $part_id);
             $part_data = mailparse_msg_get_part_data($part);
             $mimePart = new MimePart($part_id, $part_data, $this->stream, $this->data);
+            $mimePart->setCharsetManager($this->charset);
+            $mimePart->setContentTransferEncodingManager($this->ctDecoder);
             $this->entities[$part_id] = $this->middlewareStack->parse($mimePart);
         }
     }
@@ -352,30 +353,30 @@ final class Parser implements ParserInterface
     }
 
     /**
-     * Checks whether a given part ID is a child of another part
-     * eg. an RFC822 attachment may have one or more text parts
+     * Checks whether a given entity ID is a child of another entity
+     * eg. an RFC822 attachment may have one or more text entity
      *
-     * @param string $partId
-     * @param string $parentPartId
+     * @param string $entityId
+     * @param string $parentEntityId
      * @return bool
      */
-    private function partIdIsChildOfPart($partId, $parentPartId)
+    private function entityIdIsChildOfEntity($entityId, $parentEntityId)
     {
-        $parentPartId = $parentPartId.'.';
-        return substr($partId, 0, strlen($parentPartId)) == $parentPartId;
+        $parentEntityId = $parentEntityId.'.';
+        return substr($entityId, 0, strlen($parentEntityId)) == $parentEntityId;
     }
 
     /**
-     * Whether the given part ID is a child of any attachment part in the message.
+     * Whether the given entity ID is a child of any attachment entity in the message.
      *
-     * @param string $checkPartId
+     * @param string $checkEntityId
      * @return bool
      */
-    private function partIdIsChildOfAnAttachment($checkPartId)
+    private function entityIdIsChildOfAnAttachment($checkEntityId)
     {
-        foreach ($this->entities as $partId => $entity) {
+        foreach ($this->entities as $entityId => $entity) {
             if ($entity->getContentDisposition() == 'attachment') {
-                if ($this->partIdIsChildOfPart($checkPartId, $partId)) {
+                if ($this->entityIdIsChildOfEntity($checkEntityId, $entityId)) {
                     return true;
                 }
             }
@@ -385,23 +386,21 @@ final class Parser implements ParserInterface
 
     public function getMessageBodies($subTypes)
     {
-        $parts = $this->filterParts($subTypes, false);
+        $entities = $this->filterEntities($subTypes, false);
 
         $bodies = [];
-        foreach ($parts as $entity) {
-            $encodingType = $entity->getContentTransferEncoding();
-            $undecodedBody = $this->ctDecoder->decodeContentTransfer($entity->getBody(), $encodingType);
-            $bodies[] = $this->charset->decodeCharset($undecodedBody, $entity->getCharset());
+        foreach ($entities as $entity) {
+            $bodies[] = $entity->decoded();
         }
         return $bodies;
     }
 
     public function getMessageBodiesRaw($subTypes)
     {
-        $parts = $this->filterParts($subTypes, false);
+        $entities = $this->filterEntities($subTypes, false);
 
         $bodies = [];
-        foreach ($parts as $entity) {
+        foreach ($entities as $entity) {
             $bodies[] = $entity->getBody();
         }
         return $bodies;
@@ -486,11 +485,11 @@ final class Parser implements ParserInterface
         return $addresses;
     }
 
-    public function filterParts($filters, $includeSubParts = true)
+    public function filterEntities($filters, $includeSubEntities = true)
     {
-        $filteredParts = [];
+        $filteredEntities = [];
 
-        foreach ($this->entities as $partId => $entity) {
+        foreach ($this->entities as $entityId => $entity) {
             $disposition = $entity->getContentDisposition();
             $contentType = $entity->getContentType();
             $attachmentType = null;
@@ -512,44 +511,44 @@ final class Parser implements ParserInterface
                     $attachmentType = 'attachment';
                 }
             }
-            if ($this->partIdIsChildOfAnAttachment($partId) && !$includeSubParts) {
+            if ($this->entityIdIsChildOfAnAttachment($entityId) && !$includeSubEntities) {
                 continue;
             }
 
             if ($entity->isTextMessage('plain')) {
                 if (\in_array('text', $filters)) {
-                    $filteredParts[$partId] = $entity;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
             } elseif ($entity->isTextMessage('html')) {
                 if (\in_array('html', $filters)) {
-                    $filteredParts[$partId] = $entity;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == 'inline') {
                 if (\in_array('inline', $filters)) {
-                    $filteredParts[$partId] = $entity;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == 'attachment') {
                 if (\in_array('attachment', $filters)) {
-                    $filteredParts[$partId] = $entity;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == null) {
                 continue;
             }
         }
-        return $filteredParts;
+        return $filteredEntities;
     }
 
-    private function createAttachmentsFromParts($contentDispositions, $includeSubParts)
+    private function createAttachmentsFromEntities($contentDispositions, $includeSubEntities)
     {
         $attachments = [];
 
-        $parts = $this->filterParts($contentDispositions, $includeSubParts);
+        $entities = $this->filterEntities($contentDispositions, $includeSubEntities);
 
-        foreach ($parts  as $partId => $entity) {
+        foreach ($entities  as $entityId => $entity) {
             $attachments[] = $this->attachmentInterface::create(
                 $this->getAttachmentStream($entity->getPart()),
                 $entity->getCompleteBody(),
@@ -572,12 +571,12 @@ final class Parser implements ParserInterface
 
     public function getTopLevelAttachments($contentDisposition)
     {
-        return $this->createAttachmentsFromParts($contentDisposition, false);
+        return $this->createAttachmentsFromEntities($contentDisposition, false);
     }
 
     public function getNestedAttachments($contentDisposition)
     {
-        return $this->createAttachmentsFromParts($contentDisposition, true);
+        return $this->createAttachmentsFromEntities($contentDisposition, true);
     }
 
     public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX)
@@ -599,11 +598,11 @@ final class Parser implements ParserInterface
      * @return resource Mime Body Part
      * @throws Exception
      */
-    private function getAttachmentStream($part)
+    private function getAttachmentStream($entity)
     {
         $temp_fp = self::tmpfile();
 
-        $headers = $this->getPart('headers', $part);
+        $headers = $this->getEntity('headers', $entity);
         $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
             $headers['content-transfer-encoding'] : '';
 
@@ -612,24 +611,24 @@ final class Parser implements ParserInterface
             $encodingType = $encodingType[0];
         }
 
-        fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType));
+        fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($this->getPartBody($entity), $encodingType));
         fseek($temp_fp, 0, SEEK_SET);
 
         return $temp_fp;
     }
 
     /**
-     * Retrieve a specified MIME part
+     * Retrieve a specified MIME entity
      *
      * @param string $type
-     * @param array  $parts
+     * @param array  $entities
      *
      * @return string|array|null
      */
-    private function getPart($type, &$parts)
+    private function getEntity($type, &$entities)
     {
-        if (array_key_exists($type, $parts)) {
-            return $parts[$type];
+        if (array_key_exists($type, $entities)) {
+            return $entities[$type];
         }
 
         return null;

@@ -49,6 +49,7 @@ final class MimePart implements \ArrayAccess
         $this->stream = $stream;
         $this->data = $data;
         $this->charset = new Charset();
+        $this->ctDecoder = new ContentTransferDecoder();
     }
 
     /**
@@ -187,6 +188,16 @@ final class MimePart implements \ArrayAccess
         return $this->getField('charset');
     }
 
+    public function setCharsetManager($charsetManager)
+    {
+        $this->charset = $charsetManager;
+    }
+
+    public function setContentTransferEncodingManager($contentTransferEncodingManager)
+    {
+        $this->ctDecoder = $contentTransferEncodingManager;
+    }
+
 
     public function getCompleteBody()
     {
@@ -235,5 +246,14 @@ final class MimePart implements \ArrayAccess
             }
         }
         return false;
+    }
+
+    public function decoded()
+    {
+        $undecodedBody = $this->ctDecoder->decodeContentTransfer(
+            $this->getBody(),
+            $this->getContentTransferEncoding()
+        );
+        return $this->charset->decodeCharset($undecodedBody, $this->getCharset());
     }
 }
