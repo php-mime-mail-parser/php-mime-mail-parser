@@ -85,8 +85,8 @@ final class Attachment implements AttachmentInterface
             $Parser = new Parser();
             $Parser->setStream($attachment->stream);
 
-            if ($Parser->getHeader('subject')) {
-                $filename = $Parser->getHeader('subject').'.eml';
+            if ($Parser->getSubject()) {
+                $filename = $Parser->getSubject().'.eml';
                 $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
             }
         }

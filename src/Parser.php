@@ -252,6 +252,7 @@ final class Parser implements ParserInterface
     {
         $structure = mailparse_msg_get_structure($this->resource);
         $this->entities = [];
+
         foreach ($structure as $entityId) {
             $part = mailparse_msg_get_part($this->resource, $entityId);
             $partData = mailparse_msg_get_part_data($part);
