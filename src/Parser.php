@@ -377,6 +377,37 @@ final class Parser implements ParserInterface
         return $this->getHeaderRaw('from');
     }
 
+    public function getAddressesFrom()
+    {
+        return $this->entities[1]->getAddresses('from');
+    }
+
+    public function getAddressesFromRaw()
+    {
+        return $this->entities[1]->getAddresses('from');
+    }
+
+    public function getAddressesTo()
+    {
+        return $this->entities[1]->getAddresses('to');
+    }
+    
+    public function getAddressesToRaw()
+    {
+        return $this->entities[1]->getAddresses('to');
+    }
+
+    public function getAddresses($name)
+    {
+        return $this->entities[1]->getAddresses($name);
+    }
+
+    public function getAddressesRaw($name)
+    {
+        return $this->entities[1]->getAddresses($name);
+    }
+
+
     public function getMessageBodies($subTypes)
     {
         $entities = $this->filterEntities($subTypes, false);
@@ -456,26 +487,6 @@ final class Parser implements ParserInterface
             }
         }
         return $embeddedData;
-    }
-
-    /**
-     * Return an array with the following keys display, address, is_group
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return array
-     */
-    public function getAddresses($name)
-    {
-        $value = $this->getHeaderRaw($name);
-
-        $addresses = mailparse_rfc822_parse_addresses($value);
-
-        foreach ($addresses as $i => $item) {
-            $addresses[$i]['display'] = $this->headerDecoder->decodeHeader($item['display']);
-        }
-
-        return $addresses;
     }
 
     public function filterEntities($filters, $includeSubEntities = true)

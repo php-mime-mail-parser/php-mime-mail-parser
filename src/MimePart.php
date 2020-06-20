@@ -198,6 +198,24 @@ final class MimePart implements \ArrayAccess
         return $headers[$name];
     }
 
+    public function getAddressesRaw($name)
+    {
+        $raw = $this->getHeaderRaw($name);
+
+        return mailparse_rfc822_parse_addresses($raw);
+    }
+
+    public function getAddresses($name)
+    {
+        $addresses = $this->getAddressesRaw($name);
+
+        foreach ($addresses as $i => $item) {
+            $addresses[$i]['display'] = $this->headerDecoder->decodeHeader($item['display']);
+        }
+
+        return $addresses;
+    }
+
     public function getStartingPositionBody()
     {
         return $this->getField('starting-pos-body');
