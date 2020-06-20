@@ -252,13 +252,13 @@ final class Parser implements ParserInterface
     {
         $structure = mailparse_msg_get_structure($this->resource);
         $this->entities = [];
-        foreach ($structure as $part_id) {
-            $part = mailparse_msg_get_part($this->resource, $part_id);
-            $part_data = mailparse_msg_get_part_data($part);
-            $mimePart = new MimePart($part_id, $part_data, $this->stream, $this->data);
+        foreach ($structure as $entityId) {
+            $part = mailparse_msg_get_part($this->resource, $entityId);
+            $partData = mailparse_msg_get_part_data($part);
+            $mimePart = new MimePart($entityId, $partData, $this->stream, $this->data);
             $mimePart->setCharsetManager($this->charset);
             $mimePart->setContentTransferEncodingManager($this->ctDecoder);
-            $this->entities[$part_id] = $this->middlewareStack->parse($mimePart);
+            $this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
         }
     }
 
@@ -550,8 +550,6 @@ final class Parser implements ParserInterface
 
         foreach ($entities  as $entityId => $entity) {
             $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($entity),
-                $entity->getCompleteBody(),
                 $entity
             );
         }
@@ -588,33 +586,6 @@ final class Parser implements ParserInterface
         }
 
         return $attachments_paths;
-    }
-
-    /**
-     * Read the attachment Body and save temporary file resource
-     *
-     * @param array $part
-     *
-     * @return resource Mime Body Part
-     * @throws Exception
-     */
-    private function getAttachmentStream($entity)
-    {
-        $temp_fp = self::tmpfile();
-        $entityPart = $entity->getPart();
-        $headers = $this->getEntity('headers', $entityPart);
-        $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-            $headers['content-transfer-encoding'] : '';
-
-        // There could be multiple Content-Transfer-Encoding headers, we need only one
-        if (is_array($encodingType)) {
-            $encodingType = $encodingType[0];
-        }
-
-        fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($entity->getBody(), $encodingType));
-        fseek($temp_fp, 0, SEEK_SET);
-
-        return $temp_fp;
     }
 
     /**
