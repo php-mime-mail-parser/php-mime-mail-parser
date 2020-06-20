@@ -1120,7 +1120,7 @@ final class ParserTest extends TestCase
         $Parser->setPath($file);
 
         //Test Header : subject
-        $this->assertEquals($subjectExpected, $Parser->getHeader('subject'));
+        $this->assertEquals($subjectExpected, $Parser->getSubject());
         $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
@@ -1134,7 +1134,7 @@ final class ParserTest extends TestCase
         $this->assertArrayHasKey('to', $Parser->getHeaders());
 
         //Test Invalid Header
-        $this->assertFalse($Parser->getHeader('azerty'));
+        $this->assertNull($Parser->getHeader('azerty'));
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
@@ -1263,7 +1263,7 @@ final class ParserTest extends TestCase
         $this->assertArrayHasKey('to', $Parser->getHeaders());
 
         //Test Invalid Header
-        $this->assertFalse($Parser->getHeader('azerty'));
+        $this->assertNull($Parser->getHeader('azerty'));
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
@@ -1394,7 +1394,7 @@ final class ParserTest extends TestCase
         $this->assertArrayHasKey('to', $Parser->getHeaders());
 
         //Test Invalid Header
-        $this->assertFalse($Parser->getHeader('azerty'));
+        $this->assertNull($Parser->getHeader('azerty'));
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
@@ -1494,7 +1494,7 @@ final class ParserTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $this->assertEquals($Parser->getRawHeader('From'), $Parser->getRawHeader('from'));
+        $this->assertEquals($Parser->getHeaderRaw('From'), $Parser->getHeaderRaw('from'));
         $this->assertEquals($Parser->getHeader('From'), $Parser->getHeader('from'));
         $this->assertEquals($Parser->getAddresses('To'), $Parser->getAddresses('to'));
     }
@@ -1870,7 +1870,7 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setPath(__DIR__.'/mails/issue274.eml');
 
-        $this->assertEquals('guest@localhost', $Parser->getRawHeader('from')[0]);
+        $this->assertEquals('guest@localhost', $Parser->getHeaderRaw('from'));
         $this->assertStringContainsString('ligne 1', $Parser->getText());
         $this->assertStringContainsString('ligne 1', $Parser->getHtmlNotEmbedded());
 

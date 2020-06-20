@@ -258,6 +258,7 @@ final class Parser implements ParserInterface
             $mimePart = new MimePart($entityId, $partData, $this->stream, $this->data);
             $mimePart->setCharsetManager($this->charset);
             $mimePart->setContentTransferEncodingManager($this->ctDecoder);
+            $mimePart->setMimeHeaderEncodingManager($this->headerDecoder);
             $this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
         }
     }
@@ -265,51 +266,6 @@ final class Parser implements ParserInterface
     public function getEntities()
     {
         return $this->entities;
-    }
-
-    /**
-     * Retrieve a specific Email Header, without charset conversion.
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return string[]|null
-     * @throws Exception
-     */
-    public function getRawHeader($name): ?array
-    {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
-        $headers = $this->entities[1]->getHeaders();
-        $name = strtolower($name);
-
-        if (array_key_exists($name, $headers)) {
-            return (array) $headers[$name];
-        }
-
-        return null;
-    }
-
-    /**
-     * Retrieve a specific Email Header
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return string|array|bool
-     */
-    public function getHeader($name)
-    {
-        $rawHeader = $this->getRawHeader($name);
-
-        if ($rawHeader === null) {
-            // TODO This should be returning null if we want to have this function to return an optional value
-            return false;
-        }
-
-        return $this->headerDecoder->decodeHeader($rawHeader[0]);
     }
 
     /**
@@ -382,6 +338,48 @@ final class Parser implements ParserInterface
             }
         }
         return false;
+    }
+
+    public function getHeader($name)
+    {
+        if (!isset($this->entities[1])) {
+            throw new Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
+        }
+        
+        return $this->entities[1]->getHeader($name);
+    }
+
+    public function getHeaderRaw($name)
+    {
+        if (!isset($this->entities[1])) {
+            throw new Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
+        }
+
+        return $this->entities[1]->getHeaderRaw($name);
+    }
+
+    public function getSubject()
+    {
+        return $this->getHeader('subject');
+    }
+
+    public function getSubjectRaw()
+    {
+        return $this->getHeaderRaw('subject');
+    }
+
+    public function getFrom()
+    {
+        return $this->getHeader('from');
+    }
+
+    public function getFromRaw()
+    {
+        return $this->getHeaderRaw('from');
     }
 
     public function getMessageBodies($subTypes)
@@ -474,7 +472,7 @@ final class Parser implements ParserInterface
      */
     public function getAddresses($name)
     {
-        $value = $this->getRawHeader($name)[0];
+        $value = $this->getHeaderRaw($name);
 
         $addresses = mailparse_rfc822_parse_addresses($value);
 

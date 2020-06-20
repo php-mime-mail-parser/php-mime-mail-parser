@@ -53,7 +53,7 @@ interface ParserInterface
      * @return string[]|null
      * @throws Exception
      */
-    public function getRawHeader($name): ?array;
+    public function getHeaderRaw($name);
 
     /**
      * Retrieve a specific Email Header

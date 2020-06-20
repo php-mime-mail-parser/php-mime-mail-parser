@@ -50,6 +50,7 @@ final class MimePart implements \ArrayAccess
         $this->data = $data;
         $this->charset = new Charset();
         $this->ctDecoder = new ContentTransferDecoder();
+        $this->headerDecoder = new MimeHeaderDecoder($this->charset, $this->ctDecoder);
     }
 
     /**
@@ -163,6 +164,31 @@ final class MimePart implements \ArrayAccess
         return $this->getField('headers');
     }
 
+    public function getHeader($name)
+    {
+        $raw = $this->getHeaderRaw($name);
+        if ($raw == null) {
+            return null;
+        }
+        return $this->headerDecoder->decodeHeader($raw);
+    }
+
+    public function getHeaderRaw($name)
+    {
+        $name = strtolower($name);
+        $headers = $this->getField('headers');
+
+        if (!array_key_exists($name, $headers)) {
+            return null;
+        }
+
+        if (\is_array($headers[$name])) {
+            return $headers[$name][0];
+        }
+
+        return $headers[$name];
+    }
+
     public function getStartingPositionBody()
     {
         return $this->getField('starting-pos-body');
@@ -196,6 +222,11 @@ final class MimePart implements \ArrayAccess
     public function setContentTransferEncodingManager($contentTransferEncodingManager)
     {
         $this->ctDecoder = $contentTransferEncodingManager;
+    }
+
+    public function setMimeHeaderEncodingManager($mimeHeaderEncodingManager)
+    {
+        $this->headerDecoder = $mimeHeaderEncodingManager;
     }
 
 
