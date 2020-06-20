@@ -550,7 +550,7 @@ final class Parser implements ParserInterface
 
         foreach ($entities  as $entityId => $entity) {
             $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($entity->getPart()),
+                $this->getAttachmentStream($entity),
                 $entity->getCompleteBody(),
                 $entity
             );
@@ -601,8 +601,8 @@ final class Parser implements ParserInterface
     private function getAttachmentStream($entity)
     {
         $temp_fp = self::tmpfile();
-
-        $headers = $this->getEntity('headers', $entity);
+        $entityPart = $entity->getPart();
+        $headers = $this->getEntity('headers', $entityPart);
         $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
             $headers['content-transfer-encoding'] : '';
 
@@ -611,7 +611,7 @@ final class Parser implements ParserInterface
             $encodingType = $encodingType[0];
         }
 
-        fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($this->getPartBody($entity), $encodingType));
+        fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($entity->getBody(), $encodingType));
         fseek($temp_fp, 0, SEEK_SET);
 
         return $temp_fp;
@@ -632,34 +632,6 @@ final class Parser implements ParserInterface
         }
 
         return null;
-    }
-
-    /**
-     * Retrieve the Body of a MIME part
-     *
-     * @param array $part
-     *
-     * @return string
-     */
-    private function getPartBody(&$part)
-    {
-        return $this->getSection($part['starting-pos-body'], $part['ending-pos-body']);
-    }
-
-
-    private function getSection($start, $end): string
-    {
-        if ($start >= $end) {
-            return '';
-        }
-
-        if ($this->stream) {
-            fseek($this->stream, $start, SEEK_SET);
-
-            return fread($this->stream, $end - $start);
-        }
-
-        return substr($this->data, $start, $end - $start);
     }
 
     /**
