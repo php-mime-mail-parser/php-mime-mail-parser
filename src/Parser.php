@@ -589,23 +589,6 @@ final class Parser implements ParserInterface
     }
 
     /**
-     * Retrieve a specified MIME entity
-     *
-     * @param string $type
-     * @param array  $entities
-     *
-     * @return string|array|null
-     */
-    private function getEntity($type, &$entities)
-    {
-        if (array_key_exists($type, $entities)) {
-            return $entities[$type];
-        }
-
-        return null;
-    }
-
-    /**
      * Retrieve the resource
      *
      * @return resource resource
