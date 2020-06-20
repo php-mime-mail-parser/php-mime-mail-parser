@@ -161,6 +161,15 @@ final class MimePart implements \ArrayAccess
 
     public function getHeaders()
     {
+        $headers = $this->getHeadersRaw();
+        array_walk_recursive($headers, function (&$value) {
+            $value = $this->headerDecoder->decodeHeader($value);
+        });
+        return $headers;
+    }
+
+    public function getHeadersRaw()
+    {
         return $this->getField('headers');
     }
 

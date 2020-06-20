@@ -1138,7 +1138,7 @@ final class ParserTest extends TestCase
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
-        $this->assertIsString($Parser->getHeadersRaw());
+        $this->assertIsArray($Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
@@ -1267,7 +1267,7 @@ final class ParserTest extends TestCase
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
-        $this->assertIsString($Parser->getHeadersRaw());
+        $this->assertIsArray($Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
@@ -1398,7 +1398,7 @@ final class ParserTest extends TestCase
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
-        $this->assertIsString($Parser->getHeadersRaw());
+        $this->assertIsArray($Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {

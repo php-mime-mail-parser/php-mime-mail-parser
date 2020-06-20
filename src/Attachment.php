@@ -95,7 +95,7 @@ final class Attachment implements AttachmentInterface
         $attachment->contentType = $part->getContentType();
         $attachment->contentDisposition = $part->getContentDisposition();
         $attachment->contentId = $part->getContentId();
-        $attachment->headers = $part->getHeaders();
+        $attachment->headers = $part->getHeadersRaw();
         
 
         return $attachment;

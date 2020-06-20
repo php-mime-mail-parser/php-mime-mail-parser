@@ -282,13 +282,7 @@ final class Parser implements ParserInterface
             );
         }
 
-        $headers = $this->entities[1]->getHeaders();
-
-        array_walk_recursive($headers, function (&$value) {
-            $value = $this->headerDecoder->decodeHeader($value);
-        });
-
-        return $headers;
+        return $this->entities[1]->getHeaders();
     }
 
     /**
@@ -305,7 +299,7 @@ final class Parser implements ParserInterface
             );
         }
 
-        return $this->entities[1]->getBody();
+        return $this->entities[1]->getHeadersRaw();
     }
 
     /**
@@ -347,7 +341,7 @@ final class Parser implements ParserInterface
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
-        
+
         return $this->entities[1]->getHeader($name);
     }
 
