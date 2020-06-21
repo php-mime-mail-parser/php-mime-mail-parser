@@ -38,11 +38,11 @@ final class Parser implements ParserInterface
     protected $data;
 
     /**
-     * Parts of an email
+     * Entities of an email
      *
-     * @var array $parts
+     * @var array $entities
      */
-    protected $parts;
+    protected $entities;
 
     /**
      * @var CharsetManager object
@@ -244,66 +244,29 @@ final class Parser implements ParserInterface
     }
 
     /**
-     * Parse the Message into parts
+     * Parse the Message into entities
      *
      * @return void
      */
     private function parse()
     {
         $structure = mailparse_msg_get_structure($this->resource);
-        $this->parts = [];
-        foreach ($structure as $part_id) {
-            $part = mailparse_msg_get_part($this->resource, $part_id);
-            $part_data = mailparse_msg_get_part_data($part);
-            $mimePart = new MimePart($part_id, $part_data);
-            // let each middleware parse the part before saving
-            $this->parts[$part_id] = $this->middlewareStack->parse($mimePart)->getPart();
+        $this->entities = [];
+
+        foreach ($structure as $entityId) {
+            $part = mailparse_msg_get_part($this->resource, $entityId);
+            $partData = mailparse_msg_get_part_data($part);
+            $mimePart = new MimePart($entityId, $partData, $this->stream, $this->data);
+            $mimePart->setCharsetManager($this->charset);
+            $mimePart->setContentTransferEncodingManager($this->ctDecoder);
+            $mimePart->setMimeHeaderEncodingManager($this->headerDecoder);
+            $this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
         }
     }
 
-    /**
-     * Retrieve a specific Email Header, without charset conversion.
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return string[]|null
-     * @throws Exception
-     */
-    public function getRawHeader($name): ?array
+    public function getEntities()
     {
-        if (!isset($this->parts[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
-        $headers = $this->getPart('headers', $this->parts[1]);
-        $name = strtolower($name);
-
-        if (array_key_exists($name, $headers)) {
-            return (array) $headers[$name];
-        }
-
-        return null;
-    }
-
-    /**
-     * Retrieve a specific Email Header
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return string|array|bool
-     */
-    public function getHeader($name)
-    {
-        $rawHeader = $this->getRawHeader($name);
-
-        if ($rawHeader === null) {
-            // TODO This should be returning null if we want to have this function to return an optional value
-            return false;
-        }
-
-        return $this->headerDecoder->decodeHeader($rawHeader[0]);
+        return $this->entities;
     }
 
     /**
@@ -314,19 +277,13 @@ final class Parser implements ParserInterface
      */
     public function getHeaders(): array
     {
-        if (!isset($this->parts[1])) {
+        if (!isset($this->entities[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
 
-        $headers = $this->getPart('headers', $this->parts[1]);
-
-        array_walk_recursive($headers, function (&$value) {
-            $value = $this->headerDecoder->decodeHeader($value);
-        });
-
-        return $headers;
+        return $this->entities[1]->getHeaders();
     }
 
     /**
@@ -337,52 +294,40 @@ final class Parser implements ParserInterface
      */
     public function getHeadersRaw()
     {
-        if (!isset($this->parts[1])) {
+        if (!isset($this->entities[1])) {
             throw new Exception(
                 'setPath() or setText() or setStream() must be called before retrieving email headers.'
             );
         }
 
-        return $this->getPartHeader($this->parts[1]);
+        return $this->entities[1]->getHeadersRaw();
     }
 
     /**
-     * Retrieve the raw Header of a MIME part
+     * Checks whether a given entity ID is a child of another entity
+     * eg. an RFC822 attachment may have one or more text entity
      *
-     * @return String
-     * @param $part Object
-     * @throws Exception
-     */
-    private function getPartHeader(&$part)
-    {
-        return $this->getSection($part['starting-pos'], $part['starting-pos-body']);
-    }
-
-    /**
-     * Checks whether a given part ID is a child of another part
-     * eg. an RFC822 attachment may have one or more text parts
-     *
-     * @param string $partId
-     * @param string $parentPartId
+     * @param string $entityId
+     * @param string $parentEntityId
      * @return bool
      */
-    private function partIdIsChildOfPart($partId, $parentPartId)
+    private function entityIdIsChildOfEntity($entityId, $parentEntityId)
     {
-        $parentPartId = $parentPartId.'.';
-        return substr($partId, 0, strlen($parentPartId)) == $parentPartId;
+        $parentEntityId = $parentEntityId.'.';
+        return substr($entityId, 0, strlen($parentEntityId)) == $parentEntityId;
     }
 
     /**
-     * Whether the given part ID is a child of any attachment part in the message.
+     * Whether the given entity ID is a child of any attachment entity in the message.
      *
-     * @param string $checkPartId
+     * @param string $checkEntityId
      * @return bool
      */
-    private function partIdIsChildOfAnAttachment($checkPartId)
+    private function entityIdIsChildOfAnAttachment($checkEntityId)
     {
-        foreach ($this->parts as $partId => $part) {
-            if ($this->getPart('content-disposition', $part) == 'attachment') {
-                if ($this->partIdIsChildOfPart($checkPartId, $partId)) {
+        foreach ($this->entities as $entityId => $entity) {
+            if ($entity->getContentDisposition() == 'attachment') {
+                if ($this->entityIdIsChildOfEntity($checkEntityId, $entityId)) {
                     return true;
                 }
             }
@@ -390,94 +335,136 @@ final class Parser implements ParserInterface
         return false;
     }
 
-    private function getFirstTextRaw($subType)
+    public function getHeader($name)
     {
-        $type = ($subType == 'plain') ? 'text' : 'html';
-        $parts = $this->filterParts([$type], false);
-
-        foreach ($parts as $part) {
-            return $this->getPartBody($part);
+        if (!isset($this->entities[1])) {
+            throw new Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
         }
-        return '';
+
+        return $this->entities[1]->getHeader($name);
     }
 
-    private function getFirstTextDecoded($subType)
+    public function getHeaderRaw($name)
     {
-        $type = ($subType == 'plain') ? 'text' : 'html';
-        $parts = $this->filterParts([$type], false);
-
-        foreach ($parts as $part) {
-            $encodingType = $this->getPart('transfer-encoding', $part);
-            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-            return $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
+        if (!isset($this->entities[1])) {
+            throw new Exception(
+                'setPath() or setText() or setStream() must be called before retrieving email headers.'
+            );
         }
-        return '';
+
+        return $this->entities[1]->getHeaderRaw($name);
+    }
+
+    public function getSubject()
+    {
+        return $this->getHeader('subject');
+    }
+
+    public function getSubjectRaw()
+    {
+        return $this->getHeaderRaw('subject');
+    }
+
+    public function getFrom()
+    {
+        return $this->getHeader('from');
+    }
+
+    public function getFromRaw()
+    {
+        return $this->getHeaderRaw('from');
+    }
+
+    public function getAddressesFrom()
+    {
+        return $this->entities[1]->getAddresses('from');
+    }
+
+    public function getAddressesFromRaw()
+    {
+        return $this->entities[1]->getAddresses('from');
+    }
+
+    public function getAddressesTo()
+    {
+        return $this->entities[1]->getAddresses('to');
+    }
+    
+    public function getAddressesToRaw()
+    {
+        return $this->entities[1]->getAddresses('to');
+    }
+
+    public function getAddresses($name)
+    {
+        return $this->entities[1]->getAddresses($name);
+    }
+
+    public function getAddressesRaw($name)
+    {
+        return $this->entities[1]->getAddresses($name);
+    }
+
+
+    public function getMessageBodies($subTypes)
+    {
+        $entities = $this->filterEntities($subTypes, false);
+
+        $bodies = [];
+        foreach ($entities as $entity) {
+            $bodies[] = $entity->decoded();
+        }
+        return $bodies;
+    }
+
+    public function getMessageBodiesRaw($subTypes)
+    {
+        $entities = $this->filterEntities($subTypes, false);
+
+        $bodies = [];
+        foreach ($entities as $entity) {
+            $bodies[] = $entity->getBody();
+        }
+        return $bodies;
     }
 
     public function getText(): string
     {
-        $text = $this->getFirstTextDecoded('plain');
-        return $text;
+        return $this->getMessageBodies(['text'])[0] ?? '';
     }
 
     public function getTextRaw(): string
     {
-        $text = $this->getFirstTextRaw('plain');
-        return $text;
+        return $this->getMessageBodiesRaw(['text'])[0] ?? '';
+    }
+
+    public function getHtmlNotEmbedded(): string
+    {
+        return $this->getMessageBodies(['html'])[0] ?? '';
     }
 
     public function getHtml(): string
     {
-        $text = $this->getFirstTextDecoded('html');
+        $text = $this->getHtmlNotEmbedded();
+
+        $attachments = $this->getInlineAttachments();
+        foreach ($attachments as $attachment) {
+            if (!empty($attachment->getContentID())) {
+                $text = str_replace(
+                    '"cid:'.$attachment->getContentID().'"',
+                    '"'.$this->getEmbeddedData($attachment->getContentID()).'"',
+                    $text
+                );
+            }
+        }
         return $text;
     }
 
     public function getHtmlRaw(): string
     {
-        $text = $this->getFirstTextRaw('html');
-        return $text;
-    }
-
-    /**
-     * Returns the email message body in the specified format
-     *
-     * @param string $type text, html or htmlEmbedded
-     *
-     * @return string Body
-     * @throws Exception
-     */
-    public function getMessageBody($type = 'text')
-    {
-        $mime_types = [
-            'text'         => 'text/plain',
-            'html'         => 'text/html',
-            'htmlEmbedded' => 'text/html',
-        ];
-
-        if (!array_key_exists($type, $mime_types)) {
-            throw new Exception(
-                'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
-            );
-        }
-
-        $part_type = $type === 'htmlEmbedded' ? 'html' : $type;
-        $inline_parts = $this->getInlineParts($part_type);
-        $body = empty($inline_parts) ? '' : $inline_parts[0];
-
-        if ($type == 'htmlEmbedded') {
-            $attachments = $this->getAttachments();
-            foreach ($attachments as $attachment) {
-                if ($attachment->getContentID() != '') {
-                    $body = str_replace(
-                        '"cid:'.$attachment->getContentID().'"',
-                        '"'.$this->getEmbeddedData($attachment->getContentID()).'"',
-                        $body
-                    );
-                }
-            }
-        }
-
-        return $body;
+        return $this->getMessageBodiesRaw(['html'])[0] ?? '';
     }
 
     /**
@@ -491,81 +478,24 @@ final class Parser implements ParserInterface
     {
         $embeddedData = 'data:';
 
-        foreach ($this->parts as $part) {
-            if ($this->getPart('content-id', $part) == $contentId) {
-                $embeddedData .= $this->getPart('content-type', $part);
-                $embeddedData .= ';'.$this->getPart('transfer-encoding', $part);
-                $embeddedData .= ','.$this->getPartBody($part);
+        foreach ($this->entities as $entity) {
+            if ($entity->getContentId() == $contentId) {
+                $embeddedData .= $entity->getContentType();
+                $embeddedData .= ';'.$entity->getContentTransferEncoding();
+                $embeddedData .= ','.$entity->getBody();
                 break;
             }
         }
-
         return $embeddedData;
     }
 
-    /**
-     * Return an array with the following keys display, address, is_group
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return array
-     */
-    public function getAddresses($name)
+    public function filterEntities($filters, $includeSubEntities = true)
     {
-        $value = $this->getRawHeader($name)[0];
+        $filteredEntities = [];
 
-        $addresses = mailparse_rfc822_parse_addresses($value);
-
-        foreach ($addresses as $i => $item) {
-            $addresses[$i]['display'] = $this->headerDecoder->decodeHeader($item['display']);
-        }
-
-        return $addresses;
-    }
-
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getInlineParts(string $type = 'text'): array
-    {
-        if ($type != 'text' && $type != 'html') {
-            throw new Exception('Invalid type specified for getInlineParts(). "type" can either be text or html.');
-        }
-
-        $parts = $this->filterParts([$type], false);
-        $inline_parts = [];
-
-        foreach ($parts as $part) {
-            $encodingType = $this->getPart('transfer-encoding', $part);
-            $undecodedBody = $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType);
-            $inline_parts[] = $this->charset->decodeCharset($undecodedBody, $this->getPartCharset($part));
-        }
-
-        return $inline_parts;
-    }
-
-    public function isTextMessage($part, $subType)
-    {
-        $disposition = $this->getPart('content-disposition', $part);
-        $contentType = $this->getPart('content-type', $part);
-
-        if ($disposition == 'inline' || empty($disposition)) {
-            if ($contentType == 'text/'.$subType) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function filterParts($filters, $includeSubParts = true)
-    {
-        $filteredParts = [];
-
-        foreach ($this->parts as $partId => $part) {
-            $disposition = $this->getPart('content-disposition', $part);
-            $contentType = $this->getPart('content-type', $part);
+        foreach ($this->entities as $entityId => $entity) {
+            $disposition = $entity->getContentDisposition();
+            $contentType = $entity->getContentType();
             $attachmentType = null;
 
             if (isset($disposition)) {
@@ -585,183 +515,79 @@ final class Parser implements ParserInterface
                     $attachmentType = 'attachment';
                 }
             }
-            if ($this->partIdIsChildOfAnAttachment($partId) && !$includeSubParts) {
+            if ($this->entityIdIsChildOfAnAttachment($entityId) && !$includeSubEntities) {
                 continue;
             }
 
-            if ($this->isTextMessage($part, 'plain')) {
+            if ($entity->isTextMessage('plain')) {
                 if (\in_array('text', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
-            } elseif ($this->isTextMessage($part, 'html')) {
+            } elseif ($entity->isTextMessage('html')) {
                 if (\in_array('html', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == 'inline') {
                 if (\in_array('inline', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == 'attachment') {
                 if (\in_array('attachment', $filters)) {
-                    $filteredParts[$partId] = $part;
+                    $filteredEntities[$entityId] = $entity;
                     continue;
                 }
             } elseif ($attachmentType == null) {
                 continue;
             }
         }
-        return $filteredParts;
+        return $filteredEntities;
     }
 
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getAttachments($attachment_types = self::GA_INCLUDE_ALL)
+    private function createAttachmentsFromEntities($contentDispositions, $includeSubEntities)
     {
         $attachments = [];
 
-        $includeSubParts = ($attachment_types & self::GA_INCLUDE_NESTED) || is_bool($attachment_types);
-        $filters = ['attachment'];
-        if ($attachment_types & self::GA_INCLUDE_INLINE) {
-            $filters[] = 'inline';
-        }
+        $entities = $this->filterEntities($contentDispositions, $includeSubEntities);
 
-        $parts = $this->filterParts($filters, $includeSubParts);
-
-        foreach ($parts  as $partId => $part) {
-            $attachments[] = $this->attachmentInterface::create(
-                $this->getAttachmentStream($part),
-                $this->getPartComplete($part),
-                new MimePart($partId, $part)
-            );
+        foreach ($entities  as $entityId => $entity) {
+            $attachments[] = $this->attachmentInterface::create($entity);
         }
 
         return $attachments;
     }
 
-    /**
-     * Save attachments in a folder
-     *
-     * @param string $attach_dir directory
-     * @param bool $include_inline
-     * @param string $filenameStrategy How to generate attachment filenames
-     *
-     * @return array Saved attachments paths
-     * @throws Exception
-     */
-    public function saveAttachments(
-        $attach_dir,
-        $include_inline = true,
-        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
-    ) {
-        $attachments = $this->getAttachments($include_inline);
+    public function getAttachments()
+    {
+        return $this->getTopLevelAttachments(['attachment']);
+    }
 
+    public function getInlineAttachments()
+    {
+        return $this->getTopLevelAttachments(['inline']);
+    }
+
+    public function getTopLevelAttachments($contentDisposition)
+    {
+        return $this->createAttachmentsFromEntities($contentDisposition, false);
+    }
+
+    public function getNestedAttachments($contentDisposition)
+    {
+        return $this->createAttachmentsFromEntities($contentDisposition, true);
+    }
+
+    public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX)
+    {
         $attachments_paths = [];
-        foreach ($attachments as $attachment) {
-            $attachments_paths[] = $attachment->save($attach_dir, $filenameStrategy);
+
+        foreach ($this->getNestedAttachments($contentDisposition) as $attachment) {
+            $attachments_paths[] = $attachment->save($directory, $filenameStrategy);
         }
 
         return $attachments_paths;
-    }
-
-    /**
-     * Read the attachment Body and save temporary file resource
-     *
-     * @param array $part
-     *
-     * @return resource Mime Body Part
-     * @throws Exception
-     */
-    private function getAttachmentStream(&$part)
-    {
-        $temp_fp = self::tmpfile();
-
-        $headers = $this->getPart('headers', $part);
-        $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-            $headers['content-transfer-encoding'] : '';
-
-        // There could be multiple Content-Transfer-Encoding headers, we need only one
-        if (is_array($encodingType)) {
-            $encodingType = $encodingType[0];
-        }
-
-        fwrite($temp_fp, $this->ctDecoder->decodeContentTransfer($this->getPartBody($part), $encodingType));
-        fseek($temp_fp, 0, SEEK_SET);
-
-        return $temp_fp;
-    }
-
-    /**
-     * Return the charset of the MIME part
-     *
-     * @param array $part
-     *
-     * @return string
-     */
-    private function getPartCharset($part)
-    {
-        return $this->charset->getCharsetAlias($part['charset']);
-    }
-
-    /**
-     * Retrieve a specified MIME part
-     *
-     * @param string $type
-     * @param array  $parts
-     *
-     * @return string|array|null
-     */
-    private function getPart($type, &$parts)
-    {
-        if (array_key_exists($type, $parts)) {
-            return $parts[$type];
-        }
-
-        return null;
-    }
-
-    /**
-     * Retrieve the Body of a MIME part
-     *
-     * @param array $part
-     *
-     * @return string
-     */
-    private function getPartBody(&$part)
-    {
-        return $this->getSection($part['starting-pos-body'], $part['ending-pos-body']);
-    }
-
-    /**
-     * Retrieve the content of a MIME part
-     *
-     * @param array $part
-     *
-     * @return string
-     */
-    private function getPartComplete(&$part)
-    {
-        return $this->getSection($part['starting-pos'], $part['ending-pos']);
-    }
-
-    private function getSection($start, $end): string
-    {
-        if ($start >= $end) {
-            return '';
-        }
-
-        if ($this->stream) {
-            fseek($this->stream, $start, SEEK_SET);
-
-            return fread($this->stream, $end - $start);
-        }
-
-        return substr($this->data, $start, $end - $start);
     }
 
     /**
@@ -792,16 +618,6 @@ final class Parser implements ParserInterface
     public function getData()
     {
         return $this->data;
-    }
-
-    /**
-     * Retrieve the parts of an email
-     *
-     * @return array parts
-     */
-    public function getParts()
-    {
-        return $this->parts;
     }
 
     /**

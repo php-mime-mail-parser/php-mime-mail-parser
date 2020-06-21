@@ -21,7 +21,7 @@ final class AttachmentTest extends TestCase
         $attachDir = $this->tempdir('m0002_attachments');
         $attachDir .= 'not-yet-existing-directory';
 
-        $Parser->saveAttachments($attachDir);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
         $attachmentFiles = glob($attachDir . '*');
         $this->assertCount(1, $attachmentFiles);
@@ -33,11 +33,13 @@ final class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $this->assertCount(1, $Parser->getAttachments());
+        $attachments = $Parser->getAttachments();
+
+        $this->assertCount(1, $attachments);
 
         $attachDir = $this->tempdir('m0002_attachments');
 
-        foreach ($Parser->getAttachments() as $attachment) {
+        foreach ($attachments as $attachment) {
             $attachment->save($attachDir);
         }
 
@@ -51,28 +53,49 @@ final class AttachmentTest extends TestCase
         $Parser = new Parser();
         $Parser->setPath($file);
 
-        $attachments = $Parser->getAttachments(); // Default is GA_INCLUDE_ALL
-        $this->assertCount(7, $attachments);
-       
-        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_ALL);
-        $this->assertCount(7, $attachments);
-
-        // Old version took a boolean - true should be equivalent of ALL
-        $attachments = $Parser->getAttachments(true);
-        $this->assertCount(7, $attachments);
-
-        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_NESTED);
-        $this->assertCount(6, $attachments);
-
-        // Old version took a boolean - false should be equivalent of NESTED (i.e., all attachments except inline)
-        $attachments = $Parser->getAttachments(false);
-        $this->assertCount(6, $attachments);
-
-        $attachments = $Parser->getAttachments(Parser::GA_TOPLEVEL);
+        $attachments = $Parser->getAttachments();
         $this->assertCount(1, $attachments);
+        $this->assertEquals('issue274.eml', $attachments[0]->getFilename());
 
-        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_INLINE);
+        $attachments = $Parser->getInlineAttachments();
+        $this->assertCount(1, $attachments);
+        $this->assertEquals('basn2c16.png', $attachments[0]->getFilename());
+
+        $attachments = $Parser->getNestedAttachments(['inline', 'attachment']);
+        $this->assertCount(7, $attachments);
+        $this->assertEquals('basn2c16.png', $attachments[0]->getFilename());
+        $this->assertEquals('issue274.eml', $attachments[1]->getFilename());
+        $this->assertEquals('Hello from SwiftMailer.docx', $attachments[2]->getFilename());
+        $this->assertEquals('Hello from SwiftMailer.pdf', $attachments[3]->getFilename());
+        $this->assertEquals('Hello from SwiftMailer.odt', $attachments[4]->getFilename());
+        $this->assertEquals('Cours-Tutoriels-Serge-Tahé-1568x268.png', $attachments[5]->getFilename());
+        $this->assertEquals('test-localhost.eml', $attachments[6]->getFilename());
+
+        $attachments = $Parser->getNestedAttachments(['attachment']);
+        $this->assertCount(6, $attachments);
+        $this->assertEquals('issue274.eml', $attachments[0]->getFilename());
+        $this->assertEquals('Hello from SwiftMailer.docx', $attachments[1]->getFilename());
+        $this->assertEquals('Hello from SwiftMailer.pdf', $attachments[2]->getFilename());
+        $this->assertEquals('Hello from SwiftMailer.odt', $attachments[3]->getFilename());
+        $this->assertEquals('Cours-Tutoriels-Serge-Tahé-1568x268.png', $attachments[4]->getFilename());
+        $this->assertEquals('test-localhost.eml', $attachments[5]->getFilename());
+        
+        $attachments = $Parser->getNestedAttachments(['inline']);
+        $this->assertCount(1, $attachments);
+        $this->assertEquals('basn2c16.png', $attachments[0]->getFilename());
+
+        $attachments = $Parser->getTopLevelAttachments(['inline', 'attachment']);
         $this->assertCount(2, $attachments);
+        $this->assertEquals('basn2c16.png', $attachments[0]->getFilename());
+        $this->assertEquals('issue274.eml', $attachments[1]->getFilename());
+
+        $attachments = $Parser->getTopLevelAttachments(['attachment']);
+        $this->assertCount(1, $attachments);
+        $this->assertEquals('issue274.eml', $attachments[0]->getFilename());
+
+        $attachments = $Parser->getTopLevelAttachments(['inline']);
+        $this->assertCount(1, $attachments);
+        $this->assertEquals('basn2c16.png', $attachments[0]->getFilename());
     }
 
     public function testGeneratingDuplicateSuffixWithoutExtension()
@@ -112,7 +135,7 @@ final class AttachmentTest extends TestCase
 
         $attachDir = $this->tempdir('issue115_attachments');
 
-        $attachments = $Parser->getAttachments();
+        $attachments = $Parser->getInlineAttachments();
 
         $attachments[0]->maxDuplicateNumber = 3;
 
@@ -139,7 +162,7 @@ final class AttachmentTest extends TestCase
 
         $attachDir = $this->tempdir('m0025_attachments');
 
-        $Parser->saveAttachments($attachDir, true, $Parser::ATTACHMENT_RANDOM_FILENAME);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline'], $Parser::ATTACHMENT_RANDOM_FILENAME);
 
         $attachmentFiles = glob($attachDir . '*');
         $attachmentJpgFiles = glob($attachDir . '*.jpg');
@@ -221,7 +244,7 @@ final class AttachmentTest extends TestCase
         $this->assertStringContainsString('Test now', $Parser->getText());
         $this->assertStringContainsString('Test now', $Parser->getHtml());
 
-        $attachments = $Parser->getAttachments(Parser::GA_TOPLEVEL);
+        $attachments = $Parser->getAttachments();
         $this->assertEquals('esate.eml', $attachments[0]->getFilename());
         $this->assertEquals('belangrijk.jpg', $attachments[1]->getFilename());
 
@@ -237,7 +260,7 @@ final class AttachmentTest extends TestCase
         $this->assertStringContainsString('Met vriendelijke groet', $Parser->getText());
         $this->assertStringContainsString('Keizersgracht 15', $Parser->getHtml());
 
-        $attachments = $Parser->getAttachments(Parser::GA_TOPLEVEL);
+        $attachments = $Parser->getAttachments();
         $this->assertEquals('belangrijk.jpg', $attachments[0]->getFilename());
         $this->assertEquals('afsdwer.eml', $attachments[1]->getFilename());
         $this->assertEquals('Test a2134.eml', $attachments[2]->getFilename());
@@ -251,13 +274,15 @@ final class AttachmentTest extends TestCase
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $attachments = $Parser->getAttachments(Parser::GA_INCLUDE_INLINE);
+        $attachments = $Parser->getAttachments();
+        $inlineAttachments = $Parser->getInlineAttachments();
 
-        $this->assertCount(2, $attachments);
+        $this->assertCount(1, $attachments);
+        $this->assertCount(1, $inlineAttachments);
 
-        $this->assertEquals('inline', $attachments[0]->getContentDisposition());
-        $this->assertEquals('image/png', $attachments[0]->getContentType());
-        $this->assertEquals('attachment', $attachments[1]->getContentDisposition());
-        $this->assertEquals('message/rfc822', $attachments[1]->getContentType());
+        $this->assertEquals('inline', $inlineAttachments[0]->getContentDisposition());
+        $this->assertEquals('image/png', $inlineAttachments[0]->getContentType());
+        $this->assertEquals('attachment', $attachments[0]->getContentDisposition());
+        $this->assertEquals('message/rfc822', $attachments[0]->getContentType());
     }
 }

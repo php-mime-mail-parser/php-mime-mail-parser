@@ -66,16 +66,13 @@ final class Attachment implements AttachmentInterface
      * @param array    $headers
      * @param string   $mimePartStr
      */
-    public static function create(
-        $stream,
-        $mimePartStr = '',
-        MimePart $part
-    ) {
+    public static function create(MimePart $part)
+    {
         $attachment = new self();
         
-        $attachment->stream = $stream;
+        $attachment->stream = $attachment->createStream($part);
         $attachment->content = null;
-        $attachment->mimePartStr = $mimePartStr;
+        $attachment->mimePartStr = $part->getCompleteBody();
 
         $mimeHeaderDecoder  = new MimeHeaderDecoder(new Charset(), new ContentTransferDecoder());
 
@@ -88,8 +85,8 @@ final class Attachment implements AttachmentInterface
             $Parser = new Parser();
             $Parser->setStream($attachment->stream);
 
-            if ($Parser->getHeader('subject')) {
-                $filename = $Parser->getHeader('subject').'.eml';
+            if ($Parser->getSubject()) {
+                $filename = $Parser->getSubject().'.eml';
                 $filename = preg_replace('((^\.)|\/|[\n|\r|\n\r]|(\.$))', '_', $filename);
             }
         }
@@ -98,10 +95,33 @@ final class Attachment implements AttachmentInterface
         $attachment->contentType = $part->getContentType();
         $attachment->contentDisposition = $part->getContentDisposition();
         $attachment->contentId = $part->getContentId();
-        $attachment->headers = $part->getHeaders();
+        $attachment->headers = $part->getHeadersRaw();
         
 
         return $attachment;
+    }
+
+    public function createStream($entity)
+    {
+        $temp_fp = tmpfile();
+        $entityPart = $entity->getPart();
+        if (array_key_exists('headers', $entityPart)) {
+            $headers =  $entityPart['headers'];
+        } else {
+            $headers = null;
+        }
+        $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
+            $headers['content-transfer-encoding'] : '';
+        
+        // There could be multiple Content-Transfer-Encoding headers, we need only one
+        if (is_array($encodingType)) {
+            $encodingType = $encodingType[0];
+        }
+        $ctDecoder = new ContentTransferDecoder();
+        fwrite($temp_fp, $ctDecoder->decodeContentTransfer($entity->getBody(), $encodingType));
+        fseek($temp_fp, 0, SEEK_SET);
+        
+        return $temp_fp;
     }
 
     /**
