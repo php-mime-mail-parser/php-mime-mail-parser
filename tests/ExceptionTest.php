@@ -48,34 +48,6 @@ final class ExceptionTest extends TestCase
         $Parser->getHeadersRaw();
     }
 
-    /**
-     */
-    public function testgetMessageBody()
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage(
-            'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
-        );
-
-        $Parser->getMessageBody('azerty');
-    }
-
-    /**
-     */
-    public function testgetInlineParts()
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage(
-            'Invalid type specified for getInlineParts(). "type" can either be text or html.'
-        );
-
-        $Parser->getInlineParts('azerty');
-    }
-
 
     /**
      */
@@ -146,7 +118,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not write attachments. Your directory may be unwritable by PHP.');
 
-        $Parser->saveAttachments($attach_dir);
+        $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
     }
 
     /**
@@ -163,7 +135,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
 
-        $Parser->saveAttachments($attach_dir, false, Parser::ATTACHMENT_DUPLICATE_THROW);
+        $Parser->saveNestedAttachments($attach_dir, ['attachment'], Parser::ATTACHMENT_DUPLICATE_THROW);
     }
 
     /**
@@ -178,6 +150,6 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Invalid filename strategy argument provided.');
 
-        $Parser->saveAttachments('dir', false, 'InvalidValue');
+        $Parser->saveNestedAttachments('dir', ['attachment'], 'InvalidValue');
     }
 }

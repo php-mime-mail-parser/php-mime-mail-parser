@@ -46,8 +46,6 @@ class AnotherAttachment implements AttachmentInterface
     }
 
     public static function create(
-        $stream,
-        $mimePartStr = '',
         MimePart $part
     ) {
         return new self();

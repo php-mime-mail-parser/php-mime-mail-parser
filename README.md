@@ -23,7 +23,7 @@ Yes. All known issues have been reproduced, fixed and tested.
 
 We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see real-time statistics below:
 
-![Build Status](https://github.com/php-mime-mail-parser/php-mime-mail-parser/workflows/CI/badge.svg?branch=master&event=push)
+![Build Status](https://github.com/php-mime-mail-parser/php-mime-mail-parser/workflows/CI/badge.svg?branch=release-6.0.0&event=push)
 [![Coverage](https://img.shields.io/codecov/c/gh/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
 [![Code Quality](https://img.shields.io/codacy/grade/4e0e44fee21147ddbdd18ff976251875?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
 
@@ -237,6 +237,12 @@ smtp      inet  n       -       -       -       -       smtpd
 The php script must use the fourth method to work with this configuration.
 
 And finally the easiest way is to use my SaaS https://mailcare.io
+
+
+
+## My sponsors
+
+Thanks to [Bertel Torp](https://github.com/berteltorp) who is my first sponsor.
 
 
 ## Can I contribute?

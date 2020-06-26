@@ -53,7 +53,7 @@ interface ParserInterface
      * @return string[]|null
      * @throws Exception
      */
-    public function getRawHeader($name): ?array;
+    public function getHeaderRaw($name);
 
     /**
      * Retrieve a specific Email Header
@@ -81,16 +81,6 @@ interface ParserInterface
     public function getHeadersRaw();
 
     /**
-     * Returns the email message body in the specified format
-     *
-     * @param string $type text, html or htmlEmbedded
-     *
-     * @return string Body
-     * @throws Exception
-     */
-    public function getMessageBody($type = 'text');
-
-    /**
      * Return an array with the following keys display, address, is_group
      *
      * @param string $name Header name (case-insensitive)
@@ -98,36 +88,6 @@ interface ParserInterface
      * @return array
      */
     public function getAddresses($name);
-
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getInlineParts(string $type = 'text'): array;
-
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
-    public function getAttachments($include_inline = true);
-
-    /**
-     * Save attachments in a folder
-     *
-     * @param string $attach_dir directory
-     * @param bool $include_inline
-     * @param string $filenameStrategy How to generate attachment filenames
-     *
-     * @return array Saved attachments paths
-     * @throws Exception
-     */
-    public function saveAttachments(
-        $attach_dir,
-        $include_inline = true,
-        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
-    );
 
     /**
      * Retrieve the resource
@@ -149,13 +109,6 @@ interface ParserInterface
      * @return string|null data
      */
     public function getData();
-
-    /**
-     * Retrieve the parts of an email
-     *
-     * @return array parts
-     */
-    public function getParts();
 
     /**
      * Retrieve the charset manager object

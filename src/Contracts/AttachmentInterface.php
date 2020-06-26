@@ -88,8 +88,6 @@ interface AttachmentInterface
      * @param string   $mimePartStr
      */
     public static function create(
-        $stream,
-        $mimePartStr = '',
         MimePart $part
     );
 }
