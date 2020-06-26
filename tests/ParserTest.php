@@ -50,16 +50,16 @@ final class ParserTest extends TestCase
 
         foreach ($attachmentsExpected as $attachmentExpected) {
             //Test Filename Attachment
-                $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
+            $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
 
             //Test ContentType Attachment
-                $this->assertEquals($attachmentExpected[4], $attachments[$iterAttachments]->getContentType());
+            $this->assertEquals($attachmentExpected[4], $attachments[$iterAttachments]->getContentType());
 
             //Test ContentDisposition Attachment
-                $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
+            $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
 
             //Test md5 of Headers Attachment
-                $this->assertEquals(
+            $this->assertEquals(
                 $attachmentExpected[6],
                 md5(serialize($attachments[$iterAttachments]->getHeaders()))
             );
