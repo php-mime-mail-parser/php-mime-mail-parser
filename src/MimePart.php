@@ -21,6 +21,10 @@ namespace PhpMimeMailParser;
 final class MimePart implements \ArrayAccess
 {
     /**
+     * @var \PhpMimeMailParser\ParserConfig|mixed
+     */
+    public $parserConfig;
+    /**
      * Internal mime part
      *
      * @var array
@@ -53,11 +57,7 @@ final class MimePart implements \ArrayAccess
 
     public function setParserConfig($parserConfig)
     {
-        if ($parserConfig == null) {
-            $this->parserConfig = new ParserConfig;
-        } else {
-            $this->parserConfig = $parserConfig;
-        }
+        $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
     }
 
     /**
@@ -289,10 +289,8 @@ final class MimePart implements \ArrayAccess
         $disposition = $this->getContentDisposition();
         $contentType = $this->getContentType();
 
-        if ($disposition == 'inline' || empty($disposition)) {
-            if ($contentType == 'text/'.$subType) {
-                return true;
-            }
+        if (($disposition == 'inline' || empty($disposition)) && $contentType == 'text/'.$subType) {
+            return true;
         }
         return false;
     }

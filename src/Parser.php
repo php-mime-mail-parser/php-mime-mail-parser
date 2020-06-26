@@ -66,11 +66,7 @@ final class Parser implements ParserInterface
      */
     public function __construct(ParserConfig $parserConfig = null)
     {
-        if ($parserConfig == null) {
-            $this->parserConfig = new ParserConfig;
-        } else {
-            $this->parserConfig = $parserConfig;
-        }
+        $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
 
         $this->middlewareStack = new MiddlewareStack();
     }
@@ -197,7 +193,7 @@ final class Parser implements ParserInterface
         }
 
         if (substr($data, -1) != "\n") {
-            $data = $data.PHP_EOL;
+            $data .= PHP_EOL;
         }
 
         $this->resource = mailparse_msg_create();
@@ -277,8 +273,8 @@ final class Parser implements ParserInterface
      */
     private function entityIdIsChildOfEntity($entityId, $parentEntityId)
     {
-        $parentEntityId = $parentEntityId.'.';
-        return substr($entityId, 0, strlen($parentEntityId)) == $parentEntityId;
+        $parentEntityId .= '.';
+        return substr($entityId, 0, strlen($parentEntityId)) === $parentEntityId;
     }
 
     /**
@@ -290,10 +286,8 @@ final class Parser implements ParserInterface
     private function entityIdIsChildOfAnAttachment($checkEntityId)
     {
         foreach ($this->entities as $entityId => $entity) {
-            if ($entity->getContentDisposition() == 'attachment') {
-                if ($this->entityIdIsChildOfEntity($checkEntityId, $entityId)) {
-                    return true;
-                }
+            if ($entity->getContentDisposition() == 'attachment' && $this->entityIdIsChildOfEntity($checkEntityId, $entityId)) {
+                return true;
             }
         }
         return false;
@@ -463,21 +457,14 @@ final class Parser implements ParserInterface
             $attachmentType = null;
 
             if (isset($disposition)) {
-                if ($disposition == 'inline' || $disposition == 'attachment') {
-                    $attachmentType = $disposition;
-                } else {
-                    $attachmentType = 'attachment';
-                }
-            } else {
-                if (
-                    $contentType != 'text/plain'
-                    && $contentType != 'text/html'
-                    && $contentType!= 'multipart/alternative'
-                    && $contentType != 'multipart/related'
-                    && $contentType != 'multipart/mixed'
-                    && $contentType != 'text/plain; (error)') {
-                    $attachmentType = 'attachment';
-                }
+                $attachmentType = $disposition == 'inline' || $disposition == 'attachment' ? $disposition : 'attachment';
+            } elseif ($contentType != 'text/plain'
+            && $contentType != 'text/html'
+            && $contentType!= 'multipart/alternative'
+            && $contentType != 'multipart/related'
+            && $contentType != 'multipart/mixed'
+            && $contentType != 'text/plain; (error)') {
+                $attachmentType = 'attachment';
             }
             if ($this->entityIdIsChildOfAnAttachment($entityId) && !$includeSubEntities) {
                 continue;

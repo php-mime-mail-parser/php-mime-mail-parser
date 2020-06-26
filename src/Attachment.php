@@ -105,13 +105,8 @@ final class Attachment implements AttachmentInterface
     {
         $temp_fp = tmpfile();
         $entityPart = $entity->getPart();
-        if (array_key_exists('headers', $entityPart)) {
-            $headers =  $entityPart['headers'];
-        } else {
-            $headers = null;
-        }
-        $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
-            $headers['content-transfer-encoding'] : '';
+        $headers = $entityPart['headers'] ?? null;
+        $encodingType = $headers['content-transfer-encoding'] ?? '';
         
         // There could be multiple Content-Transfer-Encoding headers, we need only one
         if (is_array($encodingType)) {
@@ -203,11 +198,7 @@ final class Attachment implements AttachmentInterface
         do {
             $i++;
 
-            if ($i > $this->maxDuplicateNumber) {
-                $duplicateExtension = uniqid();
-            } else {
-                $duplicateExtension = $i;
-            }
+            $duplicateExtension = $i > $this->maxDuplicateNumber ? uniqid() : $i;
 
             $resultName = $dirname.$filename."_$duplicateExtension".$extension;
         } while (file_exists($resultName));

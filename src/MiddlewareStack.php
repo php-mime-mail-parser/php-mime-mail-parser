@@ -57,8 +57,7 @@ final class MiddlewareStack
         if (!$this->middleware) {
             return $part;
         }
-        $part = call_user_func([$this->middleware, 'parse'], $part, $this->next);
-        return $part;
+        return call_user_func([$this->middleware, 'parse'], $part, $this->next);
     }
 
     /**
