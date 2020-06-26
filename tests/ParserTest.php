@@ -2,11 +2,11 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\Contracts\CharsetManager;
 use PhpMimeMailParser\MiddleWare;
 use PhpMimeMailParser\MiddleWareStack;
 use PhpMimeMailParser\MimePart;
 use PhpMimeMailParser\Parser;
+use PhpMimeMailParser\ParserConfig;
 
 /**
  * @covers \PhpMimeMailParser\Parser
@@ -1900,7 +1900,6 @@ mini plain body';
         $this->assertIsResource($Parser->getResource());
         $this->assertIsResource($Parser->getStream());
         $this->assertIsArray($Parser->getEntities());
-        $this->assertInstanceOf(CharsetManager::class, $Parser->getCharset());
 
         $this->assertNull($Parser->getData());
     }
@@ -1931,37 +1930,36 @@ mini plain body';
 
     public function testSetCharsetManager()
     {
-        $file = __DIR__.'/mails/issue230';
-
         $newCharset = $this->createMock(\PhpMimeMailParser\Contracts\CharsetManager::class);
 
-        $Parser = new Parser();
-        $Parser->setCharsetManager($newCharset);
-        $Parser->setText(file_get_contents($file));
+        $parserConfig = new ParserConfig();
+        $parserConfig->setCharsetManager($newCharset);
+
+        $Parser = Parser::fromPath(__DIR__.'/mails/issue230', $parserConfig);
+        
         $this->assertEmpty($Parser->getText());
     }
 
     public function testSetContentTransferEncodingManager()
     {
-        $file = __DIR__.'/mails/issue230';
-
         $newContentTransferEncoding = $this->createMock(\PhpMimeMailParser\Contracts\ContentTransferEncodingManager::class);
 
-        $Parser = new Parser();
-        $Parser->setContentTransferEncodingManager($newContentTransferEncoding);
-        $Parser->setText(file_get_contents($file));
+        $parserConfig = new ParserConfig();
+        $parserConfig->setContentTransferEncodingManager($newContentTransferEncoding);
+
+        $Parser = Parser::fromPath(__DIR__.'/mails/issue230', $parserConfig);
+
         $this->assertEmpty($Parser->getText());
     }
 
     public function testSetMimeHeaderEncodingManager()
     {
-        $file = __DIR__.'/mails/issue212';
-
         $newMimeHeaderEncoding = $this->createMock(\PhpMimeMailParser\Contracts\MimeHeaderEncodingManager::class);
 
-        $Parser = new Parser();
-        $Parser->setMimeHeaderEncodingManager($newMimeHeaderEncoding);
-        $Parser->setText(file_get_contents($file));
+        $parserConfig = new ParserConfig();
+        $parserConfig->setMimeHeaderEncodingManager($newMimeHeaderEncoding);
+
+        $Parser = Parser::fromPath(__DIR__.'/mails/issue212', $parserConfig);
 
         $this->assertEmpty($Parser->getHeader('subject'));
     }
@@ -1995,5 +1993,16 @@ mini plain body';
         $this->assertCount(1, $attachments);
         $this->assertEquals('message/rfc822', $attachments[0]->getContentType());
         $this->assertEquals('Test 5.eml', $attachments[0]->getFilename());
+    }
+
+
+
+
+    public function testParserConfig()
+    {
+        $parserConfig = new \PhpMimeMailParser\ParserConfig();
+
+        $parser = Parser::fromPath(__DIR__.'/mails/issue158a');
+        $this->assertStringContainsString('An RFC 822 forward', $parser->getHtml());
     }
 }

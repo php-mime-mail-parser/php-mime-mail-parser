@@ -2,10 +2,6 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Contracts\AttachmentInterface;
-use PhpMimeMailParser\Contracts\CharsetManager;
-use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
-use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
 use PhpMimeMailParser\Contracts\ParserInterface;
 
 /**
@@ -44,20 +40,7 @@ final class Parser implements ParserInterface
      */
     protected $entities;
 
-    /**
-     * @var CharsetManager object
-     */
-    protected $charset;
-
-    /**
-     * @var ContentTransferEncodingManager
-     */
-    private $ctDecoder;
-
-    /**
-     * @var MimeHeaderEncodingManager
-     */
-    private $headerDecoder;
+    protected $parserConfig;
 
     /**
      * Valid stream modes for reading
@@ -77,43 +60,26 @@ final class Parser implements ParserInterface
     protected $middlewareStack;
 
     /**
-     * @var AttachmentInterface
-     */
-    protected $attachmentInterface;
-
-    /**
      * Parser constructor.
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct()
+    public function __construct(ParserConfig $parserConfig = null)
     {
-        $this->charset = new Charset();
-        $this->ctDecoder = new ContentTransferDecoder();
-        $this->headerDecoder = new MimeHeaderDecoder($this->charset, $this->ctDecoder);
-        $this->attachmentInterface = new Attachment();
+        if ($parserConfig == null) {
+            $this->parserConfig = new ParserConfig;
+        } else {
+            $this->parserConfig = $parserConfig;
+        }
 
         $this->middlewareStack = new MiddlewareStack();
     }
 
-    public function setCharsetManager($charsetManager)
+    public static function fromPath(string $path, ParserConfig $config = null)
     {
-        $this->charset = $charsetManager;
-    }
-
-    public function setContentTransferEncodingManager($contentTransferEncodingManager)
-    {
-        $this->ctDecoder = $contentTransferEncodingManager;
-    }
-
-    public function setMimeHeaderEncodingManager($mimeHeaderEncodingManager)
-    {
-        $this->headerDecoder = $mimeHeaderEncodingManager;
-    }
-
-    public function setAttachmentInterface($attachmentInterface)
-    {
-        $this->attachmentInterface = $attachmentInterface;
+        $parser = new Parser($config);
+        $parser->setPath($path);
+        return $parser;
     }
 
     /**
@@ -257,9 +223,7 @@ final class Parser implements ParserInterface
             $part = mailparse_msg_get_part($this->resource, $entityId);
             $partData = mailparse_msg_get_part_data($part);
             $mimePart = new MimePart($entityId, $partData, $this->stream, $this->data);
-            $mimePart->setCharsetManager($this->charset);
-            $mimePart->setContentTransferEncodingManager($this->ctDecoder);
-            $mimePart->setMimeHeaderEncodingManager($this->headerDecoder);
+            $mimePart->setParserConfig($this->parserConfig);
             $this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
         }
     }
@@ -553,7 +517,8 @@ final class Parser implements ParserInterface
         $entities = $this->filterEntities($contentDispositions, $includeSubEntities);
 
         foreach ($entities  as $entityId => $entity) {
-            $attachments[] = $this->attachmentInterface::create($entity);
+            $a = $this->parserConfig->getAttachmentInterface();
+            $attachments[] = $a::create($entity);
         }
 
         return $attachments;
@@ -618,16 +583,6 @@ final class Parser implements ParserInterface
     public function getData()
     {
         return $this->data;
-    }
-
-    /**
-     * Retrieve the charset manager object
-     *
-     * @return CharsetManager charset
-     */
-    public function getCharset(): CharsetManager
-    {
-        return $this->charset;
     }
 
     /**

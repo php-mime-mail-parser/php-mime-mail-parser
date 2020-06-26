@@ -48,9 +48,16 @@ final class MimePart implements \ArrayAccess
         $this->id = $id;
         $this->stream = $stream;
         $this->data = $data;
-        $this->charset = new Charset();
-        $this->ctDecoder = new ContentTransferDecoder();
-        $this->headerDecoder = new MimeHeaderDecoder($this->charset, $this->ctDecoder);
+        $this->parserConfig = new ParserConfig;
+    }
+
+    public function setParserConfig($parserConfig)
+    {
+        if ($parserConfig == null) {
+            $this->parserConfig = new ParserConfig;
+        } else {
+            $this->parserConfig = $parserConfig;
+        }
     }
 
     /**
@@ -163,7 +170,7 @@ final class MimePart implements \ArrayAccess
     {
         $headers = $this->getHeadersRaw();
         array_walk_recursive($headers, function (&$value) {
-            $value = $this->headerDecoder->decodeHeader($value);
+            $value = $this->parserConfig->getMimeHeaderEncodingManager()->decodeHeader($value);
         });
         return $headers;
     }
@@ -179,7 +186,7 @@ final class MimePart implements \ArrayAccess
         if ($raw == null) {
             return null;
         }
-        return $this->headerDecoder->decodeHeader($raw);
+        return $this->parserConfig->getMimeHeaderEncodingManager()->decodeHeader($raw);
     }
 
     public function getHeaderRaw($name)
@@ -210,7 +217,7 @@ final class MimePart implements \ArrayAccess
         $addresses = $this->getAddressesRaw($name);
 
         foreach ($addresses as $i => $item) {
-            $addresses[$i]['display'] = $this->headerDecoder->decodeHeader($item['display']);
+            $addresses[$i]['display'] = $this->parserConfig->getMimeHeaderEncodingManager()->decodeHeader($item['display']);
         }
 
         return $addresses;
@@ -240,22 +247,6 @@ final class MimePart implements \ArrayAccess
     {
         return $this->getField('charset');
     }
-
-    public function setCharsetManager($charsetManager)
-    {
-        $this->charset = $charsetManager;
-    }
-
-    public function setContentTransferEncodingManager($contentTransferEncodingManager)
-    {
-        $this->ctDecoder = $contentTransferEncodingManager;
-    }
-
-    public function setMimeHeaderEncodingManager($mimeHeaderEncodingManager)
-    {
-        $this->headerDecoder = $mimeHeaderEncodingManager;
-    }
-
 
     public function getCompleteBody()
     {
@@ -308,10 +299,10 @@ final class MimePart implements \ArrayAccess
 
     public function decoded()
     {
-        $undecodedBody = $this->ctDecoder->decodeContentTransfer(
+        $undecodedBody = $this->parserConfig->getContentTransferEncodingManager()->decodeContentTransfer(
             $this->getBody(),
             $this->getContentTransferEncoding()
         );
-        return $this->charset->decodeCharset($undecodedBody, $this->getCharset());
+        return $this->parserConfig->getCharsetManager()->decodeCharset($undecodedBody, $this->getCharset());
     }
 }
