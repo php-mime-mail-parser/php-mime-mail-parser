@@ -11,10 +11,10 @@ use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
 
 final class ParserConfig
 {
-    private CharsetManager $charsetManager;
-    private ContentTransferEncodingManager $contentTransferEncodingManager;
-    private MimeHeaderEncodingManager $mimeHeaderEncodingManager;
-    private AttachmentInterface $attachmentInterface;
+    private $charsetManager;
+    private $contentTransferEncodingManager;
+    private $mimeHeaderEncodingManager;
+    private $attachmentInterface;
 
     public function __construct()
     {
