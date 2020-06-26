@@ -239,6 +239,12 @@ The php script must use the fourth method to work with this configuration.
 And finally the easiest way is to use my SaaS https://mailcare.io
 
 
+
+## My sponsors
+
+Thanks to [Bertel Torp](https://github.com/berteltorp) who is my first sponsor.
+
+
 ## Can I contribute?
 
 Feel free to contribute!
