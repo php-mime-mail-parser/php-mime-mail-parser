@@ -237,7 +237,7 @@ final class AttachmentTest extends TestCase
     public function testIssue194()
     {
         $file = __DIR__.'/mails/issue194a';
-        $attachDir = $this->tempdir('issue194a_attachments');
+        $this->tempdir('issue194a_attachments');
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
@@ -253,7 +253,7 @@ final class AttachmentTest extends TestCase
 
 
         $file = __DIR__.'/mails/issue194b';
-        $attachDir = $this->tempdir('issue194b_attachments');
+        $this->tempdir('issue194b_attachments');
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));

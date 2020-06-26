@@ -29,8 +29,7 @@ final class ParserTest extends TestCase
         $toExpected,
         $textExpected,
         $htmlExpected,
-        $attachmentsExpected,
-        $countEmbeddedExpected
+        $attachmentsExpected
     ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
@@ -49,28 +48,25 @@ final class ParserTest extends TestCase
         $this->assertEquals(count($attachmentsExpected), count($attachments));
         $iterAttachments = 0;
 
-        //Test Attachments
-        if (count($attachmentsExpected) > 0) {
-            foreach ($attachmentsExpected as $attachmentExpected) {
-                //Test Filename Attachment
+        foreach ($attachmentsExpected as $attachmentExpected) {
+            //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
 
-                //Test ContentType Attachment
+            //Test ContentType Attachment
                 $this->assertEquals($attachmentExpected[4], $attachments[$iterAttachments]->getContentType());
 
-                //Test ContentDisposition Attachment
+            //Test ContentDisposition Attachment
                 $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
 
-                //Test md5 of Headers Attachment
+            //Test md5 of Headers Attachment
                 $this->assertEquals(
-                    $attachmentExpected[6],
-                    md5(serialize($attachments[$iterAttachments]->getHeaders()))
-                );
+                $attachmentExpected[6],
+                md5(serialize($attachments[$iterAttachments]->getHeaders()))
+            );
 
-                $this->assertIsResource($attachments[$iterAttachments]->getStream());
+            $this->assertIsResource($attachments[$iterAttachments]->getStream());
 
-                $iterAttachments++;
-            }
+            $iterAttachments++;
         }
     }
 
@@ -1222,10 +1218,8 @@ final class ParserTest extends TestCase
         $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-        if (!empty($attachmentsEmbeddedToCheck)) {
-            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
-            }
+        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
         }
     }
 
@@ -1351,10 +1345,8 @@ final class ParserTest extends TestCase
         $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-        if (!empty($attachmentsEmbeddedToCheck)) {
-            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
-            }
+        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
         }
     }
 
@@ -1482,10 +1474,8 @@ final class ParserTest extends TestCase
         $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-        if (!empty($attachmentsEmbeddedToCheck)) {
-            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
-            }
+        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
         }
     }
 

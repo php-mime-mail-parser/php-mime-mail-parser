@@ -503,7 +503,7 @@ final class Parser implements ParserInterface
 
         $entities = $this->filterEntities($contentDispositions, $includeSubEntities);
 
-        foreach ($entities  as $entityId => $entity) {
+        foreach ($entities  as $entity) {
             $a = $this->parserConfig->getAttachmentInterface();
             $attachments[] = $a::create($entity);
         }

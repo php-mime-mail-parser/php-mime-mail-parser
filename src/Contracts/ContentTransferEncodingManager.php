@@ -7,12 +7,12 @@ interface ContentTransferEncodingManager
     /**
      * @var string
      */
-    const ENCODING_BASE64 = 'base64';
+    public const ENCODING_BASE64 = 'base64';
 
     /**
      * @var string
      */
-    const ENCODING_QUOTED_PRINTABLE = 'quoted-printable';
+    public const ENCODING_QUOTED_PRINTABLE = 'quoted-printable';
 
     /**
      * Decode the string from Content-Transfer-Encoding
