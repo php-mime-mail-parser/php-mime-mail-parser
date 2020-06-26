@@ -40,7 +40,7 @@ class AnotherAttachment implements AttachmentInterface
     }
 
     public function save(
-        $attach_dir,
+        $attachDir,
         $filenameStrategy = ParserInterface::ATTACHMENT_DUPLICATE_SUFFIX
     ): string {
     }

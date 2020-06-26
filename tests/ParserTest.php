@@ -83,11 +83,12 @@ final class ParserTest extends TestCase
         $file = __DIR__ .'/mails/issue163';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $inline_parts = $Parser->getMessageBodies(['text']);
-        $this->assertEquals(is_array($inline_parts), true);
-        $this->assertEquals(count($inline_parts), 2);
-        $this->assertEquals($inline_parts[0], "First we have a text block, then we insert an image:\r\n\r\n");
-        $this->assertEquals($inline_parts[1], "\r\n\r\nThen we have more text\r\n\r\n-- sent from my phone.");
+
+        $inlineParts = $Parser->getMessageBodies(['text']);
+        $this->assertEquals(is_array($inlineParts), true);
+        $this->assertEquals(count($inlineParts), 2);
+        $this->assertEquals($inlineParts[0], "First we have a text block, then we insert an image:\r\n\r\n");
+        $this->assertEquals($inlineParts[1], "\r\n\r\nThen we have more text\r\n\r\n-- sent from my phone.");
     }
 
     public function testIlligalAttachmentFilenameForDispositionFilename()
@@ -95,6 +96,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/issue133';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getNestedAttachments(['attachment']);
 
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
@@ -129,6 +131,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/m0027';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getNestedAttachments(['attachment']);
 
         $this->assertEquals("1234_.._.._1234.txt", $attachments[0]->getFilename());
@@ -139,6 +142,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/issue250';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getNestedAttachments(['attachment']);
         $this->assertEquals("Kontoutskrift for 1506.14.90466_Bedriftskonto.pdf", $attachments[0]->getFilename());
     }
@@ -214,6 +218,7 @@ final class ParserTest extends TestCase
         $file = __DIR__ . '/mails/m0124';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $from = $Parser->getAddresses('from');
         $this->assertEquals([
             [
@@ -1112,7 +1117,7 @@ final class ParserTest extends TestCase
     ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
+        $attachDir = $this->tempdir('attach_'.$mid);
 
         //Load From Path
         $Parser = new Parser();
@@ -1162,11 +1167,11 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+            $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
+                $this->assertFileExists($attachDir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1174,13 +1179,13 @@ final class ParserTest extends TestCase
                 //Test Size Attachment
                 $this->assertEquals(
                     $attachmentExpected[1],
-                    filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
+                    filesize($attachDir.$attachments[$iterAttachments]->getFilename())
                 );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
-                        $attach_dir.$attachments[$iterAttachments]->getFilename(),
+                        $attachDir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
@@ -1210,7 +1215,7 @@ final class ParserTest extends TestCase
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments
@@ -1241,7 +1246,7 @@ final class ParserTest extends TestCase
     ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
+        $attachDir = $this->tempdir('attach_'.$mid);
 
         //Load From Text
         $Parser = new Parser();
@@ -1291,11 +1296,11 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+            $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
+                $this->assertFileExists($attachDir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1303,13 +1308,13 @@ final class ParserTest extends TestCase
                 //Test Size Attachment
                 $this->assertEquals(
                     $attachmentExpected[1],
-                    filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
+                    filesize($attachDir.$attachments[$iterAttachments]->getFilename())
                 );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
-                        $attach_dir.$attachments[$iterAttachments]->getFilename(),
+                        $attachDir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
@@ -1339,7 +1344,7 @@ final class ParserTest extends TestCase
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments
@@ -1371,7 +1376,7 @@ final class ParserTest extends TestCase
     ) {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
+        $attachDir = $this->tempdir('attach_'.$mid);
 
 
         //Load From Path
@@ -1422,11 +1427,11 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+            $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
+                $this->assertFileExists($attachDir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1434,13 +1439,13 @@ final class ParserTest extends TestCase
                 //Test Size Attachment
                 $this->assertEquals(
                     $attachmentExpected[1],
-                    filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
+                    filesize($attachDir.$attachments[$iterAttachments]->getFilename())
                 );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
-                        $attach_dir.$attachments[$iterAttachments]->getFilename(),
+                        $attachDir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
@@ -1470,7 +1475,7 @@ final class ParserTest extends TestCase
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments

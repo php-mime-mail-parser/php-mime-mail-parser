@@ -109,8 +109,8 @@ final class ExceptionTest extends TestCase
     {
         $mid = 'm0001';
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
-        chmod($attach_dir, 0600);
+        $attachDir = $this->tempdir('attach_'.$mid);
+        chmod($attachDir, 0600);
 
         $Parser = new Parser();
         $Parser->setStream(fopen($file, 'r'));
@@ -118,7 +118,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not write attachments. Your directory may be unwritable by PHP.');
 
-        $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
     }
 
     /**
@@ -127,7 +127,7 @@ final class ExceptionTest extends TestCase
     {
         $mid = 'm0026';
         $file = __DIR__ . '/mails/' . $mid;
-        $attach_dir = $this->tempdir('attach_' . $mid);
+        $attachDir = $this->tempdir('attach_' . $mid);
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
@@ -135,7 +135,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
 
-        $Parser->saveNestedAttachments($attach_dir, ['attachment'], Parser::ATTACHMENT_DUPLICATE_THROW);
+        $Parser->saveNestedAttachments($attachDir, ['attachment'], Parser::ATTACHMENT_DUPLICATE_THROW);
     }
 
     /**

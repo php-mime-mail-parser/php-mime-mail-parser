@@ -9,17 +9,34 @@ interface ParserInterface
 {
     /**
      * Attachment filename argument option for ->saveAttachments().
+     * @var string
      */
     const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
+    /**
+     * @var string
+     */
     const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
+    /**
+     * @var string
+     */
     const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
 
     /**
      * Attachment types to include for ->getAttachment()
+     * @var int
      */
     const GA_INCLUDE_INLINE = 1; // include inline and top-level attachments
+    /**
+     * @var int
+     */
     const GA_INCLUDE_NESTED = 2; // all non-inline attachments, including nested
+    /**
+     * @var int
+     */
     const GA_INCLUDE_ALL = 3;    // inline and nested attachments
+    /**
+     * @var int
+     */
     const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
 
 

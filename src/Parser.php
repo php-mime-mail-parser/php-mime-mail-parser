@@ -38,7 +38,7 @@ final class Parser implements ParserInterface
      *
      * @var array $entities
      */
-    protected $entities;
+    protected $entities = [];
 
     protected $parserConfig;
 
@@ -139,18 +139,18 @@ final class Parser implements ParserInterface
             );
         }
 
-        $tmp_fp = self::tmpfile();
+        $tmpFp = self::tmpfile();
 
         while (!feof($stream)) {
-            fwrite($tmp_fp, fread($stream, 2028));
+            fwrite($tmpFp, fread($stream, 2028));
         }
 
-        if (fread($tmp_fp, 1) != "\n") {
-            fwrite($tmp_fp, PHP_EOL);
+        if (fread($tmpFp, 1) != "\n") {
+            fwrite($tmpFp, PHP_EOL);
         }
 
-        fseek($tmp_fp, 0);
-        $this->stream = &$tmp_fp;
+        fseek($tmpFp, 0);
+        $this->stream = &$tmpFp;
 
         fclose($stream);
 
@@ -170,8 +170,8 @@ final class Parser implements ParserInterface
      */
     private static function tmpfile()
     {
-        if ($tmp_fp = tmpfile()) {
-            return $tmp_fp;
+        if ($tmpFp = tmpfile()) {
+            return $tmpFp;
         }
 
         throw new Exception(
@@ -533,13 +533,13 @@ final class Parser implements ParserInterface
 
     public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX)
     {
-        $attachments_paths = [];
+        $attachmentsPaths = [];
 
         foreach ($this->getNestedAttachments($contentDisposition) as $attachment) {
-            $attachments_paths[] = $attachment->save($directory, $filenameStrategy);
+            $attachmentsPaths[] = $attachment->save($directory, $filenameStrategy);
         }
 
-        return $attachments_paths;
+        return $attachmentsPaths;
     }
 
     /**

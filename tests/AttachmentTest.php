@@ -178,6 +178,7 @@ final class AttachmentTest extends TestCase
     {
         $parserConfig = new ParserConfig();
         $parserConfig->setAttachmentInterface(new AnotherAttachment);
+
         $Parser = Parser::fromPath(__DIR__ . '/mails/m0025', $parserConfig);
 
         $attachments = $Parser->getAttachments();
@@ -274,6 +275,7 @@ final class AttachmentTest extends TestCase
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getAttachments();
         $inlineAttachments = $Parser->getInlineAttachments();
 

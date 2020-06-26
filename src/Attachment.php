@@ -38,7 +38,7 @@ final class Attachment implements AttachmentInterface
     /**
      * @var array $headers An Array of the attachment headers
      */
-    protected $headers;
+    protected $headers = [];
 
     /**
      * @var resource $stream
@@ -103,7 +103,7 @@ final class Attachment implements AttachmentInterface
 
     public function createStream($entity)
     {
-        $temp_fp = tmpfile();
+        $tempFp = tmpfile();
         $entityPart = $entity->getPart();
         $headers = $entityPart['headers'] ?? null;
         $encodingType = $headers['content-transfer-encoding'] ?? '';
@@ -113,10 +113,10 @@ final class Attachment implements AttachmentInterface
             $encodingType = $encodingType[0];
         }
         $ctDecoder = new ContentTransferDecoder();
-        fwrite($temp_fp, $ctDecoder->decodeContentTransfer($entity->getBody(), $encodingType));
-        fseek($temp_fp, 0, SEEK_SET);
+        fwrite($tempFp, $ctDecoder->decodeContentTransfer($entity->getBody(), $encodingType));
+        fseek($tempFp, 0, SEEK_SET);
         
-        return $temp_fp;
+        return $tempFp;
     }
 
     /**
@@ -200,7 +200,7 @@ final class Attachment implements AttachmentInterface
 
             $duplicateExtension = $i > $this->maxDuplicateNumber ? uniqid() : $i;
 
-            $resultName = $dirname.$filename."_$duplicateExtension".$extension;
+            $resultName = $dirname.$filename.sprintf('_%s', $duplicateExtension).$extension;
         } while (file_exists($resultName));
 
         return $resultName;
@@ -240,12 +240,12 @@ final class Attachment implements AttachmentInterface
      * @return string
      */
     public function save(
-        $attach_dir,
+        $attachDir,
         $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ): string {
-        $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-        if (!is_dir($attach_dir)) {
-            mkdir($attach_dir);
+        $attachDir = rtrim($attachDir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
+        if (!is_dir($attachDir)) {
+            mkdir($attachDir);
         }
 
         // Determine filename
@@ -253,35 +253,33 @@ final class Attachment implements AttachmentInterface
             case Parser::ATTACHMENT_RANDOM_FILENAME:
                 $fileInfo = pathinfo($this->getFilename());
                 $extension  = empty($fileInfo['extension']) ? '' : '.'.$fileInfo['extension'];
-                $attachment_path = $attach_dir.uniqid().$extension;
+                $attachmentPath = $attachDir.uniqid().$extension;
                 break;
             case Parser::ATTACHMENT_DUPLICATE_THROW:
             case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                $attachment_path = $attach_dir.$this->getFilename();
+                $attachmentPath = $attachDir.$this->getFilename();
                 break;
             default:
                 throw new Exception('Invalid filename strategy argument provided.');
         }
 
         // Handle duplicate filename
-        if (file_exists($attachment_path)) {
-            switch ($filenameStrategy) {
-                case Parser::ATTACHMENT_DUPLICATE_THROW:
-                    throw new Exception('Could not create file for attachment: duplicate filename.');
-                case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = $this->suffixFileName($attachment_path);
-                    break;
+        if (file_exists($attachmentPath)) {
+            if ($filenameStrategy == Parser::ATTACHMENT_DUPLICATE_THROW) {
+                throw new Exception('Could not create file for attachment: duplicate filename.');
+            } elseif ($filenameStrategy == Parser::ATTACHMENT_DUPLICATE_SUFFIX) {
+                $attachmentPath = $this->suffixFileName($attachmentPath);
             }
         }
 
         /** @var resource $fp */
-        if (!$fp = @fopen($attachment_path, 'w')) {
+        if (!$fp = @fopen($attachmentPath, 'w')) {
             throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
         }
 
         stream_copy_to_stream($this->stream, $fp);
         fclose($fp);
 
-        return realpath($attachment_path);
+        return realpath($attachmentPath);
     }
 }

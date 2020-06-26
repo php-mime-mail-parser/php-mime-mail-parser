@@ -12,7 +12,7 @@ final class CharsetTest extends TestCase
     /**
      * Follows MIME-encoded header order, for the ease of adding new test cases.
      *
-     * @var array
+     * @var string[][]
      */
     const DATA_QUOTED_PRINTABLE = [
         ['iso-8859-1', 'HasenundFr=F6sche=2Etxt', 'HasenundFrösche.txt'],
@@ -25,7 +25,7 @@ final class CharsetTest extends TestCase
     /**
      * Follows MIME-encoded header order, for the ease of adding new test cases.
      *
-     * @var array
+     * @var string[][]
      */
     const DATA_BASE64 = [
         ['UTF-8', '0LPQuNC90LAiIg==', 'гина""'],
@@ -122,13 +122,10 @@ final class CharsetTest extends TestCase
             array_unique(
                 array_merge(
                     $enc = mb_list_encodings(),
-                    call_user_func_array(
-                        'array_merge',
-                        array_map(
-                            "mb_encoding_aliases",
-                            $enc
-                        )
-                    )
+                    array_merge(...array_map(
+                        "mb_encoding_aliases",
+                        $enc
+                    ))
                 )
             )
         );

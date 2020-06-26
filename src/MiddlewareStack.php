@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Contracts\MiddleWare as MiddleWareContracts;
+use PhpMimeMailParser\Contracts\MiddleWare;
 
 /**
  * A stack of middleware chained together by (MiddlewareStack $next)
@@ -29,7 +29,7 @@ final class MiddlewareStack
      *
      * @param Middleware $middleware
      */
-    public function __construct(MiddleWareContracts $middleware = null)
+    public function __construct(MiddleWare $middleware = null)
     {
         $this->middleware = $middleware;
     }
@@ -40,7 +40,7 @@ final class MiddlewareStack
      * @param Middleware $middleware
      * @return MiddlewareStack Immutable MiddlewareStack
      */
-    public function add(MiddleWareContracts $middleware)
+    public function add(MiddleWare $middleware)
     {
         $stack = new static($middleware);
         $stack->next = $this;
