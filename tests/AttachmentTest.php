@@ -2,6 +2,7 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
+use PhpMimeMailParser\ParserConfig;
 use Tests\PhpMimeMailParser\Stubs\AnotherAttachment;
 
 /**
@@ -175,10 +176,9 @@ final class AttachmentTest extends TestCase
 
     public function testUsingAnotherAttachmentClass()
     {
-        $file = __DIR__ . '/mails/m0025';
-        $Parser = new Parser();
-        $Parser->setAttachmentInterface(new AnotherAttachment);
-        $Parser->setPath($file);
+        $parserConfig = new ParserConfig();
+        $parserConfig->setAttachmentInterface(new AnotherAttachment);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/m0025', $parserConfig);
 
         $attachments = $Parser->getAttachments();
 

@@ -111,13 +111,6 @@ interface ParserInterface
     public function getData();
 
     /**
-     * Retrieve the charset manager object
-     *
-     * @return CharsetManager charset
-     */
-    public function getCharset(): CharsetManager;
-
-    /**
      * Add a middleware to the parser MiddlewareStack
      * Each middleware is invoked when:
      *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse()
