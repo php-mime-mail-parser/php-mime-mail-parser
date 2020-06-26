@@ -244,7 +244,7 @@ final class ParserTest extends TestCase
 
     public function provideData()
     {
-        $data = [
+        return [
             /*
             array(
                 // Mail ID
@@ -1093,7 +1093,6 @@ final class ParserTest extends TestCase
                         ],
                     0],
                 ];
-        return $data;
     }
 
     /**
@@ -1205,7 +1204,7 @@ final class ParserTest extends TestCase
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
-                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                    $attachmentsEmbeddedToCheck[] = $attachmentExpected[7];
                 }
 
                 $iterAttachments++;
@@ -1334,7 +1333,7 @@ final class ParserTest extends TestCase
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
-                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                    $attachmentsEmbeddedToCheck[] = $attachmentExpected[7];
                 }
 
                 $iterAttachments++;
@@ -1465,7 +1464,7 @@ final class ParserTest extends TestCase
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
-                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                    $attachmentsEmbeddedToCheck[] = $attachmentExpected[7];
                 }
 
                 $iterAttachments++;
@@ -1766,8 +1765,8 @@ variances available &nbsp;</div></body></html>'
         $this->assertEquals($mimePart[0], 'indexedFoo');
         unset($mimePart['fooz']);
         unset($mimePart[0]);
-        $this->assertTrue(isset($mimePart['fooz']) === false);
-        $this->assertTrue(isset($mimePart[0]) === false);
+        $this->assertTrue(!isset($mimePart['fooz']));
+        $this->assertTrue(!isset($mimePart[0]));
     }
 
     public function testParsingFileWithoutEndOfLineFromText()
