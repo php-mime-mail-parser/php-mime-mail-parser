@@ -2,6 +2,9 @@
 
 use PhpMimeMailParser\Contracts\CharsetManager;
 
+/**
+ * @see \Tests\PhpMimeMailParser\CharsetTest
+ */
 final class Charset implements CharsetManager
 {
     /**

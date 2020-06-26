@@ -9,6 +9,7 @@ use PhpMimeMailParser\Contracts\ParserInterface;
  *
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
+ * @see \Tests\PhpMimeMailParser\ParserTest
  */
 final class Parser implements ParserInterface
 {

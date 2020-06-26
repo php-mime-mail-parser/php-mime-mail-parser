@@ -7,6 +7,7 @@ use PhpMimeMailParser\Contracts\AttachmentInterface;
 /**
  * Attachment of php-mime-mail-parser
  *
+ * @see \Tests\PhpMimeMailParser\AttachmentTest
  */
 final class Attachment implements AttachmentInterface
 {

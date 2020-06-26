@@ -7,6 +7,7 @@ use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 
 /**
  * Header decoder decodes MIME-encoded headers.
+ * @see \Tests\PhpMimeMailParser\MimeHeaderDecoderTest
  */
 final class MimeHeaderDecoder implements Contracts\MimeHeaderEncodingManager
 {
