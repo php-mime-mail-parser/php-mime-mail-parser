@@ -14,7 +14,7 @@ final class ExceptionTest extends TestCase
 {
     /**
      */
-    public function testGetHeader()
+    public function testGetHeader(): void
     {
         $Parser = new Parser();
 
@@ -26,7 +26,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testGetHeaders()
+    public function testGetHeaders(): void
     {
         $Parser = new Parser();
 
@@ -38,7 +38,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testGetHeadersRaw()
+    public function testGetHeadersRaw(): void
     {
         $Parser = new Parser();
 
@@ -51,7 +51,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSetText()
+    public function testSetText(): void
     {
         $Parser = new Parser();
 
@@ -63,7 +63,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSetStream()
+    public function testSetStream(): void
     {
         $Parser = new Parser();
 
@@ -77,7 +77,7 @@ final class ExceptionTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testSetStreamWithoutTmpPermissions()
+    public function testSetStreamWithoutTmpPermissions(): void
     {
         putenv('TMPDIR=/invalid');
 
@@ -92,7 +92,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSetStreamResource()
+    public function testSetStreamResource(): void
     {
         $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
         $Parser = new Parser();
@@ -105,12 +105,12 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSaveAttachmentsWithoutPermissions()
+    public function testSaveAttachmentsWithoutPermissions(): void
     {
         $mid = 'm0001';
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
-        chmod($attach_dir, 0600);
+        $attachDir = $this->tempdir('attach_'.$mid);
+        chmod($attachDir, 0600);
 
         $Parser = new Parser();
         $Parser->setStream(fopen($file, 'r'));
@@ -118,16 +118,16 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not write attachments. Your directory may be unwritable by PHP.');
 
-        $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
     }
 
     /**
      */
-    public function testSaveAttachmentsWithDuplicateNames()
+    public function testSaveAttachmentsWithDuplicateNames(): void
     {
         $mid = 'm0026';
         $file = __DIR__ . '/mails/' . $mid;
-        $attach_dir = $this->tempdir('attach_' . $mid);
+        $attachDir = $this->tempdir('attach_' . $mid);
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
@@ -135,12 +135,12 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
 
-        $Parser->saveNestedAttachments($attach_dir, ['attachment'], Parser::ATTACHMENT_DUPLICATE_THROW);
+        $Parser->saveNestedAttachments($attachDir, ['attachment'], Parser::ATTACHMENT_DUPLICATE_THROW);
     }
 
     /**
      */
-    public function testSaveAttachmentsInvalidStrategy()
+    public function testSaveAttachmentsInvalidStrategy(): void
     {
         $file = __DIR__ . '/mails/m0026';
 

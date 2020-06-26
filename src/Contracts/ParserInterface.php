@@ -9,18 +9,35 @@ interface ParserInterface
 {
     /**
      * Attachment filename argument option for ->saveAttachments().
+     * @var string
      */
-    const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
-    const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
-    const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
+    public const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
+    /**
+     * @var string
+     */
+    public const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
+    /**
+     * @var string
+     */
+    public const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
 
     /**
      * Attachment types to include for ->getAttachment()
+     * @var int
      */
-    const GA_INCLUDE_INLINE = 1; // include inline and top-level attachments
-    const GA_INCLUDE_NESTED = 2; // all non-inline attachments, including nested
-    const GA_INCLUDE_ALL = 3;    // inline and nested attachments
-    const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
+    public const GA_INCLUDE_INLINE = 1; // include inline and top-level attachments
+    /**
+     * @var int
+     */
+    public const GA_INCLUDE_NESTED = 2; // all non-inline attachments, including nested
+    /**
+     * @var int
+     */
+    public const GA_INCLUDE_ALL = 3;    // inline and nested attachments
+    /**
+     * @var int
+     */
+    public const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
 
 
     /**
@@ -43,17 +60,17 @@ interface ParserInterface
      *
      * @param string $data
      */
-    public function setText($data): ParserInterface;
+    public function setText(string $data): ParserInterface;
 
     /**
      * Retrieve a specific Email Header, without charset conversion.
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string[]|null
+     * @return string
      * @throws Exception
      */
-    public function getHeaderRaw($name);
+    public function getHeaderRaw(string $name): string;
 
     /**
      * Retrieve a specific Email Header
@@ -62,7 +79,7 @@ interface ParserInterface
      *
      * @return string|array|bool
      */
-    public function getHeader($name);
+    public function getHeader(string $name);
 
     /**
      * Retrieve all mail headers
@@ -75,19 +92,16 @@ interface ParserInterface
     /**
      * Retrieve the raw mail headers as a string
      *
-     * @return string
      * @throws Exception
      */
-    public function getHeadersRaw();
+    public function getHeadersRaw(): array;
 
     /**
      * Return an array with the following keys display, address, is_group
      *
      * @param string $name Header name (case-insensitive)
-     *
-     * @return array
      */
-    public function getAddresses($name);
+    public function getAddresses(string $name): array;
 
     /**
      * Retrieve the resource
@@ -108,7 +122,7 @@ interface ParserInterface
      *
      * @return string|null data
      */
-    public function getData();
+    public function getData(): ?string;
 
     /**
      * Add a middleware to the parser MiddlewareStack

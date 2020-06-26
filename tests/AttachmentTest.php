@@ -13,7 +13,7 @@ use Tests\PhpMimeMailParser\Stubs\AnotherAttachment;
  */
 final class AttachmentTest extends TestCase
 {
-    public function testSaveAttachmentsFromParser()
+    public function testSaveAttachmentsFromParser(): void
     {
         $file = __DIR__ . '/mails/m0002';
         $Parser = new Parser();
@@ -28,7 +28,7 @@ final class AttachmentTest extends TestCase
         $this->assertCount(1, $attachmentFiles);
     }
 
-    public function testSaveEachAttachment()
+    public function testSaveEachAttachment(): void
     {
         $file = __DIR__ . '/mails/m0002';
         $Parser = new Parser();
@@ -48,7 +48,7 @@ final class AttachmentTest extends TestCase
         $this->assertCount(1, $attachmentFiles);
     }
 
-    public function testNestedAttachment()
+    public function testNestedAttachment(): void
     {
         $file = __DIR__ . '/mails/issue270';
         $Parser = new Parser();
@@ -99,7 +99,7 @@ final class AttachmentTest extends TestCase
         $this->assertEquals('basn2c16.png', $attachments[0]->getFilename());
     }
 
-    public function testGeneratingDuplicateSuffixWithoutExtension()
+    public function testGeneratingDuplicateSuffixWithoutExtension(): void
     {
         $file = __DIR__ . '/mails/m0002';
         $Parser = new Parser();
@@ -128,7 +128,7 @@ final class AttachmentTest extends TestCase
         $this->assertFileNotExists($attachDir . 'attach02_6');
     }
 
-    public function testGeneratingDuplicateSuffix()
+    public function testGeneratingDuplicateSuffix(): void
     {
         $file = __DIR__ . '/mails/issue115';
         $Parser = new Parser();
@@ -155,7 +155,7 @@ final class AttachmentTest extends TestCase
         $this->assertFileNotExists($attachDir . 'logo_4.jpg');
     }
 
-    public function testSavingWithRandomFilenameKeepExtension()
+    public function testSavingWithRandomFilenameKeepExtension(): void
     {
         $file = __DIR__ . '/mails/m0025';
         $Parser = new Parser();
@@ -174,10 +174,11 @@ final class AttachmentTest extends TestCase
         $this->assertCount(1, $attachmentTxtFiles);
     }
 
-    public function testUsingAnotherAttachmentClass()
+    public function testUsingAnotherAttachmentClass(): void
     {
         $parserConfig = new ParserConfig();
         $parserConfig->setAttachmentInterface(new AnotherAttachment);
+
         $Parser = Parser::fromPath(__DIR__ . '/mails/m0025', $parserConfig);
 
         $attachments = $Parser->getAttachments();
@@ -185,7 +186,7 @@ final class AttachmentTest extends TestCase
         $this->assertInstanceOf(AnotherAttachment::class, $attachments[0]);
     }
 
-    public function testIssue236a()
+    public function testIssue236a(): void
     {
         $file = __DIR__.'/mails/issue236a';
         $attachDir = $this->tempdir('issue236a_attachments');
@@ -209,7 +210,7 @@ final class AttachmentTest extends TestCase
         ], $csv[1]);
     }
 
-    public function testIssue236b()
+    public function testIssue236b(): void
     {
         $file = __DIR__.'/mails/issue236b';
         $attachDir = $this->tempdir('issue236b_attachments');
@@ -233,10 +234,10 @@ final class AttachmentTest extends TestCase
         ], $csv[1]);
     }
 
-    public function testIssue194()
+    public function testIssue194(): void
     {
         $file = __DIR__.'/mails/issue194a';
-        $attachDir = $this->tempdir('issue194a_attachments');
+        $this->tempdir('issue194a_attachments');
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
@@ -252,7 +253,7 @@ final class AttachmentTest extends TestCase
 
 
         $file = __DIR__.'/mails/issue194b';
-        $attachDir = $this->tempdir('issue194b_attachments');
+        $this->tempdir('issue194b_attachments');
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
@@ -268,12 +269,13 @@ final class AttachmentTest extends TestCase
         $this->assertCount(3, $attachments);
     }
 
-    public function testIssue125()
+    public function testIssue125(): void
     {
         $file = __DIR__.'/mails/issue125';
 
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getAttachments();
         $inlineAttachments = $Parser->getInlineAttachments();
 

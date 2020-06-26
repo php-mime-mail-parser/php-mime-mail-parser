@@ -11,9 +11,21 @@ use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
 
 final class ParserConfig
 {
+    /**
+     * @var \PhpMimeMailParser\Contracts\CharsetManager
+     */
     private $charsetManager;
+    /**
+     * @var \PhpMimeMailParser\Contracts\ContentTransferEncodingManager
+     */
     private $contentTransferEncodingManager;
+    /**
+     * @var \PhpMimeMailParser\Contracts\MimeHeaderEncodingManager
+     */
     private $mimeHeaderEncodingManager;
+    /**
+     * @var \PhpMimeMailParser\Contracts\AttachmentInterface
+     */
     private $attachmentInterface;
 
     public function __construct()

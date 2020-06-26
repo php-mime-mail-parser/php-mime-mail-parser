@@ -6,6 +6,7 @@ use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 
 /**
  * Content transfer decoder of php-mime-mail-parser
+ * @see \Tests\PhpMimeMailParser\ContentTransferDecoderTest
  */
 final class ContentTransferDecoder implements ContentTransferEncodingManager
 {

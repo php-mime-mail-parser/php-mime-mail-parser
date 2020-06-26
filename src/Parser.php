@@ -9,6 +9,7 @@ use PhpMimeMailParser\Contracts\ParserInterface;
  *
  * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
  *
+ * @see \Tests\PhpMimeMailParser\ParserTest
  */
 final class Parser implements ParserInterface
 {
@@ -38,8 +39,11 @@ final class Parser implements ParserInterface
      *
      * @var array $entities
      */
-    protected $entities;
+    protected $entities = [];
 
+    /**
+     * @var \PhpMimeMailParser\ParserConfig
+     */
     protected $parserConfig;
 
     /**
@@ -66,16 +70,12 @@ final class Parser implements ParserInterface
      */
     public function __construct(ParserConfig $parserConfig = null)
     {
-        if ($parserConfig == null) {
-            $this->parserConfig = new ParserConfig;
-        } else {
-            $this->parserConfig = $parserConfig;
-        }
+        $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
 
         $this->middlewareStack = new MiddlewareStack();
     }
 
-    public static function fromPath(string $path, ParserConfig $config = null)
+    public static function fromPath(string $path, ParserConfig $config = null): \PhpMimeMailParser\Parser
     {
         $parser = new Parser($config);
         $parser->setPath($path);
@@ -143,18 +143,18 @@ final class Parser implements ParserInterface
             );
         }
 
-        $tmp_fp = self::tmpfile();
+        $tmpFp = self::tmpfile();
 
         while (!feof($stream)) {
-            fwrite($tmp_fp, fread($stream, 2028));
+            fwrite($tmpFp, fread($stream, 2028));
         }
 
-        if (fread($tmp_fp, 1) != "\n") {
-            fwrite($tmp_fp, PHP_EOL);
+        if (fread($tmpFp, 1) != "\n") {
+            fwrite($tmpFp, PHP_EOL);
         }
 
-        fseek($tmp_fp, 0);
-        $this->stream = &$tmp_fp;
+        fseek($tmpFp, 0);
+        $this->stream = &$tmpFp;
 
         fclose($stream);
 
@@ -174,8 +174,8 @@ final class Parser implements ParserInterface
      */
     private static function tmpfile()
     {
-        if ($tmp_fp = tmpfile()) {
-            return $tmp_fp;
+        if ($tmpFp = tmpfile()) {
+            return $tmpFp;
         }
 
         throw new Exception(
@@ -190,14 +190,14 @@ final class Parser implements ParserInterface
      *
      * @return Parser MimeMailParser Instance
      */
-    public function setText($data): ParserInterface
+    public function setText(string $data): ParserInterface
     {
         if (empty($data)) {
             throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
         }
 
         if (substr($data, -1) != "\n") {
-            $data = $data.PHP_EOL;
+            $data .= PHP_EOL;
         }
 
         $this->resource = mailparse_msg_create();
@@ -211,10 +211,8 @@ final class Parser implements ParserInterface
 
     /**
      * Parse the Message into entities
-     *
-     * @return void
      */
-    private function parse()
+    private function parse(): void
     {
         $structure = mailparse_msg_get_structure($this->resource);
         $this->entities = [];
@@ -228,7 +226,10 @@ final class Parser implements ParserInterface
         }
     }
 
-    public function getEntities()
+    /**
+     * @return mixed[]
+     */
+    public function getEntities(): array
     {
         return $this->entities;
     }
@@ -253,10 +254,10 @@ final class Parser implements ParserInterface
     /**
      * Retrieve the raw mail headers as a string
      *
-     * @return string
+     * @return array
      * @throws Exception
      */
-    public function getHeadersRaw()
+    public function getHeadersRaw(): array
     {
         if (!isset($this->entities[1])) {
             throw new Exception(
@@ -273,33 +274,29 @@ final class Parser implements ParserInterface
      *
      * @param string $entityId
      * @param string $parentEntityId
-     * @return bool
      */
-    private function entityIdIsChildOfEntity($entityId, $parentEntityId)
+    private function entityIdIsChildOfEntity(string $entityId, string $parentEntityId): bool
     {
-        $parentEntityId = $parentEntityId.'.';
-        return substr($entityId, 0, strlen($parentEntityId)) == $parentEntityId;
+        $parentEntityId .= '.';
+        return substr($entityId, 0, strlen($parentEntityId)) === $parentEntityId;
     }
 
     /**
      * Whether the given entity ID is a child of any attachment entity in the message.
      *
      * @param string $checkEntityId
-     * @return bool
      */
-    private function entityIdIsChildOfAnAttachment($checkEntityId)
+    private function entityIdIsChildOfAnAttachment(string $checkEntityId): bool
     {
         foreach ($this->entities as $entityId => $entity) {
-            if ($entity->getContentDisposition() == 'attachment') {
-                if ($this->entityIdIsChildOfEntity($checkEntityId, $entityId)) {
-                    return true;
-                }
+            if ($entity->getContentDisposition() == 'attachment' && $this->entityIdIsChildOfEntity($checkEntityId, $entityId)) {
+                return true;
             }
         }
         return false;
     }
 
-    public function getHeader($name)
+    public function getHeader(string $name)
     {
         if (!isset($this->entities[1])) {
             throw new Exception(
@@ -310,7 +307,7 @@ final class Parser implements ParserInterface
         return $this->entities[1]->getHeader($name);
     }
 
-    public function getHeaderRaw($name)
+    public function getHeaderRaw(string $name): string
     {
         if (!isset($this->entities[1])) {
             throw new Exception(
@@ -321,22 +318,28 @@ final class Parser implements ParserInterface
         return $this->entities[1]->getHeaderRaw($name);
     }
 
+    /**
+     * @return mixed[]|bool|string
+     */
     public function getSubject()
     {
         return $this->getHeader('subject');
     }
 
-    public function getSubjectRaw()
+    public function getSubjectRaw(): ?array
     {
         return $this->getHeaderRaw('subject');
     }
 
+    /**
+     * @return mixed[]|bool|string
+     */
     public function getFrom()
     {
         return $this->getHeader('from');
     }
 
-    public function getFromRaw()
+    public function getFromRaw(): ?array
     {
         return $this->getHeaderRaw('from');
     }
@@ -361,7 +364,7 @@ final class Parser implements ParserInterface
         return $this->entities[1]->getAddresses('to');
     }
 
-    public function getAddresses($name)
+    public function getAddresses(string $name): array
     {
         return $this->entities[1]->getAddresses($name);
     }
@@ -372,7 +375,10 @@ final class Parser implements ParserInterface
     }
 
 
-    public function getMessageBodies($subTypes)
+    /**
+     * @return mixed[]
+     */
+    public function getMessageBodies($subTypes): array
     {
         $entities = $this->filterEntities($subTypes, false);
 
@@ -383,7 +389,10 @@ final class Parser implements ParserInterface
         return $bodies;
     }
 
-    public function getMessageBodiesRaw($subTypes)
+    /**
+     * @return mixed[]
+     */
+    public function getMessageBodiesRaw($subTypes): array
     {
         $entities = $this->filterEntities($subTypes, false);
 
@@ -435,10 +444,8 @@ final class Parser implements ParserInterface
      * Returns the embedded data structure
      *
      * @param string $contentId Content-Id
-     *
-     * @return string
      */
-    private function getEmbeddedData(string $contentId)
+    private function getEmbeddedData(string $contentId): string
     {
         $embeddedData = 'data:';
 
@@ -453,7 +460,10 @@ final class Parser implements ParserInterface
         return $embeddedData;
     }
 
-    public function filterEntities($filters, $includeSubEntities = true)
+    /**
+     * @return mixed[]
+     */
+    public function filterEntities($filters, $includeSubEntities = true): array
     {
         $filteredEntities = [];
 
@@ -463,21 +473,14 @@ final class Parser implements ParserInterface
             $attachmentType = null;
 
             if (isset($disposition)) {
-                if ($disposition == 'inline' || $disposition == 'attachment') {
-                    $attachmentType = $disposition;
-                } else {
-                    $attachmentType = 'attachment';
-                }
-            } else {
-                if (
-                    $contentType != 'text/plain'
-                    && $contentType != 'text/html'
-                    && $contentType!= 'multipart/alternative'
-                    && $contentType != 'multipart/related'
-                    && $contentType != 'multipart/mixed'
-                    && $contentType != 'text/plain; (error)') {
-                    $attachmentType = 'attachment';
-                }
+                $attachmentType = $disposition == 'inline' || $disposition == 'attachment' ? $disposition : 'attachment';
+            } elseif ($contentType != 'text/plain'
+            && $contentType != 'text/html'
+            && $contentType!= 'multipart/alternative'
+            && $contentType != 'multipart/related'
+            && $contentType != 'multipart/mixed'
+            && $contentType != 'text/plain; (error)') {
+                $attachmentType = 'attachment';
             }
             if ($this->entityIdIsChildOfAnAttachment($entityId) && !$includeSubEntities) {
                 continue;
@@ -510,13 +513,16 @@ final class Parser implements ParserInterface
         return $filteredEntities;
     }
 
-    private function createAttachmentsFromEntities($contentDispositions, $includeSubEntities)
+    /**
+     * @return mixed[]
+     */
+    private function createAttachmentsFromEntities($contentDispositions, $includeSubEntities): array
     {
         $attachments = [];
 
         $entities = $this->filterEntities($contentDispositions, $includeSubEntities);
 
-        foreach ($entities  as $entityId => $entity) {
+        foreach ($entities  as $entity) {
             $a = $this->parserConfig->getAttachmentInterface();
             $attachments[] = $a::create($entity);
         }
@@ -544,15 +550,18 @@ final class Parser implements ParserInterface
         return $this->createAttachmentsFromEntities($contentDisposition, true);
     }
 
-    public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX)
+    /**
+     * @return mixed[]
+     */
+    public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX): array
     {
-        $attachments_paths = [];
+        $attachmentsPaths = [];
 
         foreach ($this->getNestedAttachments($contentDisposition) as $attachment) {
-            $attachments_paths[] = $attachment->save($directory, $filenameStrategy);
+            $attachmentsPaths[] = $attachment->save($directory, $filenameStrategy);
         }
 
-        return $attachments_paths;
+        return $attachmentsPaths;
     }
 
     /**
@@ -580,7 +589,7 @@ final class Parser implements ParserInterface
      *
      * @return string|null data
      */
-    public function getData()
+    public function getData(): ?string
     {
         return $this->data;
     }

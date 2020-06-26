@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Contracts\MiddleWare as MiddleWareContracts;
+use PhpMimeMailParser\Contracts\MiddleWare;
 
 /**
  * A stack of middleware chained together by (MiddlewareStack $next)
@@ -29,7 +29,7 @@ final class MiddlewareStack
      *
      * @param Middleware $middleware
      */
-    public function __construct(MiddleWareContracts $middleware = null)
+    public function __construct(MiddleWare $middleware = null)
     {
         $this->middleware = $middleware;
     }
@@ -40,7 +40,7 @@ final class MiddlewareStack
      * @param Middleware $middleware
      * @return MiddlewareStack Immutable MiddlewareStack
      */
-    public function add(MiddleWareContracts $middleware)
+    public function add(MiddleWare $middleware)
     {
         $stack = new static($middleware);
         $stack->next = $this;
@@ -50,24 +50,22 @@ final class MiddlewareStack
     /**
      * Parses the MimePart by passing it through the Middleware
      * @param MimePart $part
-     * @return MimePart
+     * @return \PhpMimeMailParser\MimePart|mixed
      */
     public function parse(MimePart $part)
     {
         if (!$this->middleware) {
             return $part;
         }
-        $part = call_user_func([$this->middleware, 'parse'], $part, $this->next);
-        return $part;
+        return call_user_func([$this->middleware, 'parse'], $part, $this->next);
     }
 
     /**
      * Creates a MiddlewareStack based on an array of middleware
      *
      * @param Middleware[] $middlewares
-     * @return MiddlewareStack
      */
-    public static function factory(array $middlewares = [])
+    public static function factory(array $middlewares = []): \PhpMimeMailParser\MiddlewareStack
     {
         $stack = new static;
         foreach ($middlewares as $middleware) {
@@ -80,9 +78,8 @@ final class MiddlewareStack
      * Allow calling MiddlewareStack instance directly to invoke parse()
      *
      * @param MimePart $part
-     * @return MimePart
      */
-    public function __invoke(MimePart $part)
+    public function __invoke(MimePart $part): \PhpMimeMailParser\MimePart
     {
         return $this->parse($part);
     }

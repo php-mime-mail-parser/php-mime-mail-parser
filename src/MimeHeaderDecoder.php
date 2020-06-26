@@ -7,6 +7,7 @@ use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 
 /**
  * Header decoder decodes MIME-encoded headers.
+ * @see \Tests\PhpMimeMailParser\MimeHeaderDecoderTest
  */
 final class MimeHeaderDecoder implements Contracts\MimeHeaderEncodingManager
 {
@@ -49,7 +50,7 @@ final class MimeHeaderDecoder implements Contracts\MimeHeaderEncodingManager
         }
 
         // For each encoded-word...
-        while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)((\s+)=\?)?/i', $input, $matches)) {
+        while (preg_match('#(=\?([^?]+)\?(q|b)\?([^?]*)\?=)((\s+)=\?)?#i', $input, $matches)) {
             $encoded = $matches[1];
             $charset = $matches[2];
             $encoding = $matches[3];

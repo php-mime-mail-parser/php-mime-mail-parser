@@ -19,7 +19,7 @@ class AnotherAttachment implements AttachmentInterface
     {
     }
 
-    public function getContentID(): ?string
+    public function getContentID(): string
     {
     }
 
@@ -27,7 +27,7 @@ class AnotherAttachment implements AttachmentInterface
     {
     }
 
-    public function getStream()
+    public function getStream(): void
     {
     }
 
@@ -40,14 +40,14 @@ class AnotherAttachment implements AttachmentInterface
     }
 
     public function save(
-        $attach_dir,
+        $attachDir,
         $filenameStrategy = ParserInterface::ATTACHMENT_DUPLICATE_SUFFIX
     ): string {
     }
 
     public static function create(
         MimePart $part
-    ) {
+    ): \Tests\PhpMimeMailParser\Stubs\AnotherAttachment {
         return new self();
     }
 }

@@ -29,9 +29,8 @@ final class ParserTest extends TestCase
         $toExpected,
         $textExpected,
         $htmlExpected,
-        $attachmentsExpected,
-        $countEmbeddedExpected
-    ) {
+        $attachmentsExpected
+    ): void {
         //Init
         $file = __DIR__.'/mails/'.$mid;
 
@@ -40,7 +39,7 @@ final class ParserTest extends TestCase
         $Parser->setPath($file);
 
         // Remove inline attachments from array
-        $attachmentsExpected = array_filter($attachmentsExpected, function ($attachment) {
+        $attachmentsExpected = array_filter($attachmentsExpected, function ($attachment): bool {
             return ($attachment[5] != 'inline');
         });
 
@@ -49,28 +48,25 @@ final class ParserTest extends TestCase
         $this->assertEquals(count($attachmentsExpected), count($attachments));
         $iterAttachments = 0;
 
-        //Test Attachments
-        if (count($attachmentsExpected) > 0) {
-            foreach ($attachmentsExpected as $attachmentExpected) {
-                //Test Filename Attachment
-                $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
+        foreach ($attachmentsExpected as $attachmentExpected) {
+            //Test Filename Attachment
+            $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
 
-                //Test ContentType Attachment
-                $this->assertEquals($attachmentExpected[4], $attachments[$iterAttachments]->getContentType());
+            //Test ContentType Attachment
+            $this->assertEquals($attachmentExpected[4], $attachments[$iterAttachments]->getContentType());
 
-                //Test ContentDisposition Attachment
-                $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
+            //Test ContentDisposition Attachment
+            $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
 
-                //Test md5 of Headers Attachment
-                $this->assertEquals(
-                    $attachmentExpected[6],
-                    md5(serialize($attachments[$iterAttachments]->getHeaders()))
-                );
+            //Test md5 of Headers Attachment
+            $this->assertEquals(
+                $attachmentExpected[6],
+                md5(serialize($attachments[$iterAttachments]->getHeaders()))
+            );
 
-                $this->assertIsResource($attachments[$iterAttachments]->getStream());
+            $this->assertIsResource($attachments[$iterAttachments]->getStream());
 
-                $iterAttachments++;
-            }
+            $iterAttachments++;
         }
     }
 
@@ -78,29 +74,31 @@ final class ParserTest extends TestCase
      * test for being able to extract multiple inline text/plain & text/html parts
      * related to issue #163
      */
-    public function testMultiPartInline()
+    public function testMultiPartInline(): void
     {
         $file = __DIR__ .'/mails/issue163';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
-        $inline_parts = $Parser->getMessageBodies(['text']);
-        $this->assertEquals(is_array($inline_parts), true);
-        $this->assertEquals(count($inline_parts), 2);
-        $this->assertEquals($inline_parts[0], "First we have a text block, then we insert an image:\r\n\r\n");
-        $this->assertEquals($inline_parts[1], "\r\n\r\nThen we have more text\r\n\r\n-- sent from my phone.");
+
+        $inlineParts = $Parser->getMessageBodies(['text']);
+        $this->assertEquals(is_array($inlineParts), true);
+        $this->assertEquals(count($inlineParts), 2);
+        $this->assertEquals($inlineParts[0], "First we have a text block, then we insert an image:\r\n\r\n");
+        $this->assertEquals($inlineParts[1], "\r\n\r\nThen we have more text\r\n\r\n-- sent from my phone.");
     }
 
-    public function testIlligalAttachmentFilenameForDispositionFilename()
+    public function testIlligalAttachmentFilenameForDispositionFilename(): void
     {
         $file = __DIR__ . '/mails/issue133';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getNestedAttachments(['attachment']);
 
         $this->assertEquals("attach_01", $attachments[0]->getFilename());
     }
 
-    public function testCharsetMacCyrillic()
+    public function testCharsetMacCyrillic(): void
     {
         $file = __DIR__ . '/mails/issue230';
         $Parser = new Parser();
@@ -113,10 +111,8 @@ final class ParserTest extends TestCase
     /**
      * Test for being able to extract a text/plain part from an email with 10 attachments.
      * Related to pr #172.
-     *
-     * @return void
      */
-    public function testMultiPartWithAttachments()
+    public function testMultiPartWithAttachments(): void
     {
         $file = __DIR__ .'/mails/m0028';
         $Parser = new Parser();
@@ -124,26 +120,28 @@ final class ParserTest extends TestCase
         $this->assertEquals($Parser->getText(), "This is the plain text content of the email");
     }
 
-    public function testIlligalAttachmentFilenameForContentName()
+    public function testIlligalAttachmentFilenameForContentName(): void
     {
         $file = __DIR__ . '/mails/m0027';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getNestedAttachments(['attachment']);
 
         $this->assertEquals("1234_.._.._1234.txt", $attachments[0]->getFilename());
     }
 
-    public function testAttachmentFilenameWithLineBreaksForContentName()
+    public function testAttachmentFilenameWithLineBreaksForContentName(): void
     {
         $file = __DIR__ . '/mails/issue250';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $attachments = $Parser->getNestedAttachments(['attachment']);
         $this->assertEquals("Kontoutskrift for 1506.14.90466_Bedriftskonto.pdf", $attachments[0]->getFilename());
     }
 
-    public function testAttachmentsWithDuplicatesSuffix()
+    public function testAttachmentsWithDuplicatesSuffix(): void
     {
         $file = __DIR__ . '/mails/m0026';
         $Parser = new Parser();
@@ -160,7 +158,7 @@ final class ParserTest extends TestCase
         $this->assertEquals($attachDir . 'ATT00001_1.txt', $attachmentFiles[1]);
     }
 
-    public function testAttachmentsWithDuplicatesRandom()
+    public function testAttachmentsWithDuplicatesRandom(): void
     {
         $file = __DIR__ . '/mails/m0026';
         $Parser = new Parser();
@@ -175,7 +173,7 @@ final class ParserTest extends TestCase
         $this->assertCount(2, $attachmentFiles);
     }
 
-    public function testMultipleContentTransferEncodingHeader()
+    public function testMultipleContentTransferEncodingHeader(): void
     {
         $file = __DIR__.'/mails/issue126';
         $Parser = new Parser();
@@ -185,7 +183,7 @@ final class ParserTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testCreatingMoreThanOneInstanceOfParser()
+    public function testCreatingMoreThanOneInstanceOfParser(): void
     {
         $file = __DIR__.'/mails/issue84';
         (new Parser())->setPath($file)->getText();
@@ -193,7 +191,7 @@ final class ParserTest extends TestCase
         $this->assertTrue(true);
     }
 
-    public function testDecodeCharsetFailedIsIgnored()
+    public function testDecodeCharsetFailedIsIgnored(): void
     {
         $file = __DIR__ . '/mails/issue116';
         $Parser = new Parser();
@@ -201,7 +199,7 @@ final class ParserTest extends TestCase
         $this->assertEquals("ЖД№41 от 28.09.2016", $Parser->getHeader('subject'));
     }
 
-    public function testEmbeddedDataReturnTheFirstContentWhenContentIdIsNotUnique()
+    public function testEmbeddedDataReturnTheFirstContentWhenContentIdIsNotUnique(): void
     {
         $file = __DIR__ . '/mails/issue115';
         $Parser = new Parser();
@@ -209,11 +207,12 @@ final class ParserTest extends TestCase
         $this->assertEquals(1, substr_count($Parser->getHtml(), 'image/'));
     }
 
-    public function testGetAddressesWithQuot()
+    public function testGetAddressesWithQuot(): void
     {
         $file = __DIR__ . '/mails/m0124';
         $Parser = new Parser();
         $Parser->setText(file_get_contents($file));
+
         $from = $Parser->getAddresses('from');
         $this->assertEquals([
             [
@@ -224,7 +223,7 @@ final class ParserTest extends TestCase
             ], $from);
     }
 
-    public function testGetMessageBodyNotFound()
+    public function testGetMessageBodyNotFound(): void
     {
         $file = __DIR__ . '/mails/m0124';
         $Parser = new Parser();
@@ -232,7 +231,7 @@ final class ParserTest extends TestCase
         $this->assertEmpty($Parser->getText());
     }
 
-    public function testUnknownContentDisposition()
+    public function testUnknownContentDisposition(): void
     {
         $file = __DIR__ . '/mails/issue182';
         $Parser = new Parser();
@@ -242,9 +241,9 @@ final class ParserTest extends TestCase
         $this->assertCount(1, $Parser->getNestedAttachments(['inline', 'attachment']));
     }
 
-    public function provideData()
+    public function provideData(): array
     {
-        $data = [
+        return [
             /*
             array(
                 // Mail ID
@@ -1093,7 +1092,6 @@ final class ParserTest extends TestCase
                         ],
                     0],
                 ];
-        return $data;
     }
 
     /**
@@ -1110,10 +1108,10 @@ final class ParserTest extends TestCase
         $htmlExpected,
         $attachmentsExpected,
         $countEmbeddedExpected
-    ) {
+    ): void {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
+        $attachDir = $this->tempdir('attach_'.$mid);
 
         //Load From Path
         $Parser = new Parser();
@@ -1163,11 +1161,11 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+            $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
+                $this->assertFileExists($attachDir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1175,13 +1173,13 @@ final class ParserTest extends TestCase
                 //Test Size Attachment
                 $this->assertEquals(
                     $attachmentExpected[1],
-                    filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
+                    filesize($attachDir.$attachments[$iterAttachments]->getFilename())
                 );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
-                        $attach_dir.$attachments[$iterAttachments]->getFilename(),
+                        $attachDir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
@@ -1205,23 +1203,21 @@ final class ParserTest extends TestCase
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
-                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                    $attachmentsEmbeddedToCheck[] = $attachmentExpected[7];
                 }
 
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-        if (!empty($attachmentsEmbeddedToCheck)) {
-            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
-            }
+        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
         }
     }
 
@@ -1239,10 +1235,10 @@ final class ParserTest extends TestCase
         $htmlExpected,
         $attachmentsExpected,
         $countEmbeddedExpected
-    ) {
+    ): void {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
+        $attachDir = $this->tempdir('attach_'.$mid);
 
         //Load From Text
         $Parser = new Parser();
@@ -1292,11 +1288,11 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+            $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
+                $this->assertFileExists($attachDir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1304,13 +1300,13 @@ final class ParserTest extends TestCase
                 //Test Size Attachment
                 $this->assertEquals(
                     $attachmentExpected[1],
-                    filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
+                    filesize($attachDir.$attachments[$iterAttachments]->getFilename())
                 );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
-                        $attach_dir.$attachments[$iterAttachments]->getFilename(),
+                        $attachDir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
@@ -1334,23 +1330,21 @@ final class ParserTest extends TestCase
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
-                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                    $attachmentsEmbeddedToCheck[] = $attachmentExpected[7];
                 }
 
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-        if (!empty($attachmentsEmbeddedToCheck)) {
-            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
-            }
+        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
         }
     }
 
@@ -1369,10 +1363,10 @@ final class ParserTest extends TestCase
         $htmlExpected,
         $attachmentsExpected,
         $countEmbeddedExpected
-    ) {
+    ): void {
         //Init
         $file = __DIR__.'/mails/'.$mid;
-        $attach_dir = $this->tempdir('attach_'.$mid);
+        $attachDir = $this->tempdir('attach_'.$mid);
 
 
         //Load From Path
@@ -1423,11 +1417,11 @@ final class ParserTest extends TestCase
         $attachmentsEmbeddedToCheck = [];
         if (count($attachmentsExpected) > 0) {
             //Save attachments
-            $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']);
+            $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
             foreach ($attachmentsExpected as $attachmentExpected) {
                 //Test Exist Attachment
-                $this->assertFileExists($attach_dir.$attachmentExpected[0]);
+                $this->assertFileExists($attachDir.$attachmentExpected[0]);
 
                 //Test Filename Attachment
                 $this->assertEquals($attachmentExpected[0], $attachments[$iterAttachments]->getFilename());
@@ -1435,13 +1429,13 @@ final class ParserTest extends TestCase
                 //Test Size Attachment
                 $this->assertEquals(
                     $attachmentExpected[1],
-                    filesize($attach_dir.$attachments[$iterAttachments]->getFilename())
+                    filesize($attachDir.$attachments[$iterAttachments]->getFilename())
                 );
 
                 //Test Inside Attachment
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
-                        $attach_dir.$attachments[$iterAttachments]->getFilename(),
+                        $attachDir.$attachments[$iterAttachments]->getFilename(),
                         FILE_USE_INCLUDE_PATH
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
@@ -1465,27 +1459,25 @@ final class ParserTest extends TestCase
 
                 //Save embedded Attachments to check
                 if ($attachmentExpected[7] != '') {
-                    array_push($attachmentsEmbeddedToCheck, $attachmentExpected[7]);
+                    $attachmentsEmbeddedToCheck[] = $attachmentExpected[7];
                 }
 
                 $iterAttachments++;
             }
         } else {
-            $this->assertEquals([], $Parser->saveNestedAttachments($attach_dir, ['attachment', 'inline']));
+            $this->assertEquals([], $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']));
         }
 
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getHtml();
         $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
 
-        if (!empty($attachmentsEmbeddedToCheck)) {
-            foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
-                $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
-            }
+        foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
+            $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
         }
     }
 
-    public function testHeaderRetrievalIsCaseInsensitive()
+    public function testHeaderRetrievalIsCaseInsensitive(): void
     {
         //Init
         $file = __DIR__.'/mails/m0001';
@@ -1500,7 +1492,10 @@ final class ParserTest extends TestCase
     }
 
 
-    public function provideAttachmentsData()
+    /**
+     * @return string[][]|string[][][]
+     */
+    public function provideAttachmentsData(): array
     {
         return [
             [
@@ -1570,7 +1565,7 @@ aXBpdC4K'
     /**
      * @dataProvider provideAttachmentsData
      */
-    public function testAttachmentGetMimePartStrFromPath($mid, $attachmentMimeParts)
+    public function testAttachmentGetMimePartStrFromPath($mid, $attachmentMimeParts): void
     {
         // Init
         $file = __DIR__ . '/mails/' . $mid;
@@ -1589,7 +1584,7 @@ aXBpdC4K'
     /**
      * @dataProvider provideAttachmentsData
      */
-    public function testAttachmentGetMimePartStrFromStream($mid, $attachmentMimeParts)
+    public function testAttachmentGetMimePartStrFromStream($mid, $attachmentMimeParts): void
     {
         // Init
         $file = __DIR__ . '/mails/' . $mid;
@@ -1608,7 +1603,7 @@ aXBpdC4K'
     /**
      * @dataProvider provideAttachmentsData
      */
-    public function testAttachmentGetMimePartStrFromText($mid, $attachmentMimeParts)
+    public function testAttachmentGetMimePartStrFromText($mid, $attachmentMimeParts): void
     {
         // Init
         $file = __DIR__ . '/mails/' . $mid;
@@ -1631,14 +1626,17 @@ aXBpdC4K'
      * @param string $getType The type to give to getMessageBody
      * @param string $expected
      */
-    public function testRFC822AttachmentPartsShouldNotBeIncludedInGetMessageBody($file, $getType, $expected)
+    public function testRFC822AttachmentPartsShouldNotBeIncludedInGetMessageBody(string $file, string $getType, string $expected): void
     {
         $Parser = new Parser();
         $Parser->setPath($file);
         $this->assertEquals($expected, $Parser->$getType());
     }
 
-    public function providerRFC822AttachmentsWithDifferentTextTypes()
+    /**
+     * @return string[][]
+     */
+    public function providerRFC822AttachmentsWithDifferentTextTypes(): array
     {
         return [
             'HTML-only message, with text-only RFC822 attachment, message should have empty text body' => [
@@ -1692,7 +1690,7 @@ variances available &nbsp;</div></body></html>'
     /**
      * Ensure the middleware can modify mime part data
      */
-    public function testMiddleware()
+    public function testMiddleware(): void
     {
         $middlewareCalled = false;
 
@@ -1739,7 +1737,7 @@ variances available &nbsp;</div></body></html>'
     /**
      * Ensure MimePart has ArrayAccess
      */
-    public function testMimePart()
+    public function testMimePart(): void
     {
         $id = '1';
         $part = ['foo' => 'bar'];
@@ -1766,11 +1764,11 @@ variances available &nbsp;</div></body></html>'
         $this->assertEquals($mimePart[0], 'indexedFoo');
         unset($mimePart['fooz']);
         unset($mimePart[0]);
-        $this->assertTrue(isset($mimePart['fooz']) === false);
-        $this->assertTrue(isset($mimePart[0]) === false);
+        $this->assertTrue(!isset($mimePart['fooz']));
+        $this->assertTrue(!isset($mimePart[0]));
     }
 
-    public function testParsingFileWithoutEndOfLineFromText()
+    public function testParsingFileWithoutEndOfLineFromText(): void
     {
         $file = 'From: mail@exemple.com
 To: mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com
@@ -1797,7 +1795,7 @@ mini plain body';
         $this->assertStringContainsString('mini plain body', $ParserByPath->getText());
     }
 
-    public function testParsingFileWithoutEndOfLineFromPath()
+    public function testParsingFileWithoutEndOfLineFromPath(): void
     {
         $file = 'From: mail@exemple.com
 To: mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com
@@ -1820,7 +1818,7 @@ mini plain body';
         $this->assertStringContainsString('mini plain body', $ParserByPath->getText());
     }
 
-    public function testParsingFileWithoutEndOfLineFromStream()
+    public function testParsingFileWithoutEndOfLineFromStream(): void
     {
         $file = 'From: mail@exemple.com
 To: mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com
@@ -1841,7 +1839,7 @@ mini plain body';
         $this->assertStringContainsString('mini plain body', $ParserByStream->getText());
     }
 
-    public function testCharsetSupportedAsAnAlias()
+    public function testCharsetSupportedAsAnAlias(): void
     {
         // Init
         $file = __DIR__ . '/mails/failure.eml';
@@ -1852,7 +1850,7 @@ mini plain body';
         $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getText());
     }
 
-    public function testCharsetNotSupportedByMBString()
+    public function testCharsetNotSupportedByMBString(): void
     {
         // Init
         $file = __DIR__ . '/mails/issue212';
@@ -1865,7 +1863,7 @@ mini plain body';
         );
     }
 
-    public function testRecursiveMessageThatReturnContentTypeError()
+    public function testRecursiveMessageThatReturnContentTypeError(): void
     {
         $Parser = new Parser();
         $Parser->setPath(__DIR__.'/mails/issue274.eml');
@@ -1890,7 +1888,7 @@ mini plain body';
         }
     }
 
-    public function testGetterMethods()
+    public function testGetterMethods(): void
     {
         $file = __DIR__.'/mails/m0001';
 
@@ -1904,7 +1902,7 @@ mini plain body';
         $this->assertNull($Parser->getData());
     }
 
-    public function testTextGetter()
+    public function testTextGetter(): void
     {
         $file = __DIR__.'/mails/m0001';
 
@@ -1914,7 +1912,7 @@ mini plain body';
         $this->assertStringEqualsFile($file, $Parser->getData());
     }
 
-    public function testGetTextRaw()
+    public function testGetTextRaw(): void
     {
         $file = __DIR__.'/mails/issue230';
 
@@ -1928,7 +1926,7 @@ mini plain body';
         $this->assertStringContainsString('© 2019 Science', $Parser->getHtml());
     }
 
-    public function testSetCharsetManager()
+    public function testSetCharsetManager(): void
     {
         $newCharset = $this->createMock(\PhpMimeMailParser\Contracts\CharsetManager::class);
 
@@ -1940,7 +1938,7 @@ mini plain body';
         $this->assertEmpty($Parser->getText());
     }
 
-    public function testSetContentTransferEncodingManager()
+    public function testSetContentTransferEncodingManager(): void
     {
         $newContentTransferEncoding = $this->createMock(\PhpMimeMailParser\Contracts\ContentTransferEncodingManager::class);
 
@@ -1952,7 +1950,7 @@ mini plain body';
         $this->assertEmpty($Parser->getText());
     }
 
-    public function testSetMimeHeaderEncodingManager()
+    public function testSetMimeHeaderEncodingManager(): void
     {
         $newMimeHeaderEncoding = $this->createMock(\PhpMimeMailParser\Contracts\MimeHeaderEncodingManager::class);
 
@@ -1964,7 +1962,7 @@ mini plain body';
         $this->assertEmpty($Parser->getHeader('subject'));
     }
 
-    public function testNoPartFiltered()
+    public function testNoPartFiltered(): void
     {
         $file = __DIR__.'/mails/m0124';
 
@@ -1979,7 +1977,7 @@ mini plain body';
 
 
 
-    public function testIssue269()
+    public function testIssue269(): void
     {
         $file = __DIR__.'/mails/issue158a';
 
@@ -1998,7 +1996,7 @@ mini plain body';
 
 
 
-    public function testParserConfig()
+    public function testParserConfig(): void
     {
         $parserConfig = new \PhpMimeMailParser\ParserConfig();
 
