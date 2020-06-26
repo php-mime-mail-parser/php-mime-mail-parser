@@ -29,7 +29,7 @@ final class MimeHeaderDecoderTest extends TestCase
     /**
      * @dataProvider provideData
      */
-    public function testDecode($input, $expected)
+    public function testDecode($input, $expected): void
     {
         $decoder = new MimeHeaderDecoder(new Charset(), new ContentTransferDecoder());
 
@@ -38,7 +38,10 @@ final class MimeHeaderDecoderTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function provideData()
+    /**
+     * @return string[][]
+     */
+    public function provideData(): array
     {
         return self::DATA;
     }

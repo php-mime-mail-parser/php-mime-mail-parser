@@ -50,7 +50,7 @@ final class MiddlewareStack
     /**
      * Parses the MimePart by passing it through the Middleware
      * @param MimePart $part
-     * @return MimePart
+     * @return \PhpMimeMailParser\MimePart|mixed
      */
     public function parse(MimePart $part)
     {
@@ -64,9 +64,8 @@ final class MiddlewareStack
      * Creates a MiddlewareStack based on an array of middleware
      *
      * @param Middleware[] $middlewares
-     * @return MiddlewareStack
      */
-    public static function factory(array $middlewares = [])
+    public static function factory(array $middlewares = []): \PhpMimeMailParser\MiddlewareStack
     {
         $stack = new static;
         foreach ($middlewares as $middleware) {
@@ -79,9 +78,8 @@ final class MiddlewareStack
      * Allow calling MiddlewareStack instance directly to invoke parse()
      *
      * @param MimePart $part
-     * @return MimePart
      */
-    public function __invoke(MimePart $part)
+    public function __invoke(MimePart $part): \PhpMimeMailParser\MimePart
     {
         return $this->parse($part);
     }

@@ -14,7 +14,7 @@ final class ExceptionTest extends TestCase
 {
     /**
      */
-    public function testGetHeader()
+    public function testGetHeader(): void
     {
         $Parser = new Parser();
 
@@ -26,7 +26,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testGetHeaders()
+    public function testGetHeaders(): void
     {
         $Parser = new Parser();
 
@@ -38,7 +38,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testGetHeadersRaw()
+    public function testGetHeadersRaw(): void
     {
         $Parser = new Parser();
 
@@ -51,7 +51,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSetText()
+    public function testSetText(): void
     {
         $Parser = new Parser();
 
@@ -63,7 +63,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSetStream()
+    public function testSetStream(): void
     {
         $Parser = new Parser();
 
@@ -77,7 +77,7 @@ final class ExceptionTest extends TestCase
      * @runInSeparateProcess
      * @preserveGlobalState disabled
      */
-    public function testSetStreamWithoutTmpPermissions()
+    public function testSetStreamWithoutTmpPermissions(): void
     {
         putenv('TMPDIR=/invalid');
 
@@ -92,7 +92,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSetStreamResource()
+    public function testSetStreamResource(): void
     {
         $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
         $Parser = new Parser();
@@ -105,7 +105,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSaveAttachmentsWithoutPermissions()
+    public function testSaveAttachmentsWithoutPermissions(): void
     {
         $mid = 'm0001';
         $file = __DIR__.'/mails/'.$mid;
@@ -123,7 +123,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSaveAttachmentsWithDuplicateNames()
+    public function testSaveAttachmentsWithDuplicateNames(): void
     {
         $mid = 'm0026';
         $file = __DIR__ . '/mails/' . $mid;
@@ -140,7 +140,7 @@ final class ExceptionTest extends TestCase
 
     /**
      */
-    public function testSaveAttachmentsInvalidStrategy()
+    public function testSaveAttachmentsInvalidStrategy(): void
     {
         $file = __DIR__ . '/mails/m0026';
 

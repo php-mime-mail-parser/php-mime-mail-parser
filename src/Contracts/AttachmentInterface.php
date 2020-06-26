@@ -23,17 +23,13 @@ interface AttachmentInterface
 
     /**
      * Retrieve the Attachment Content-Disposition
-     *
-     * @return string
      */
     public function getContentDisposition(): ?string;
 
     /**
      * Retrieve the Attachment Content-ID
-     *
-     * @return string
      */
-    public function getContentID(): ?string;
+    public function getContentID(): string;
 
     /**
      * Retrieve the Attachment Headers
@@ -73,7 +69,7 @@ interface AttachmentInterface
      */
     public function save(
         $attachDir,
-        $filenameStrategy = ParserInterface::ATTACHMENT_DUPLICATE_SUFFIX
+        string $filenameStrategy = ParserInterface::ATTACHMENT_DUPLICATE_SUFFIX
     ): string;
 
     /**

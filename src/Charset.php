@@ -9,6 +9,7 @@ final class Charset implements CharsetManager
 {
     /**
      * Charset Aliases
+     * @var string[]
      */
     private $charsetAlias = [
         'ascii'                    => 'us-ascii',
@@ -355,8 +356,14 @@ final class Charset implements CharsetManager
         return 'us-ascii';
     }
 
+    /**
+     * @var mixed[]|string[]
+     */
     private $encodings;
 
+    /**
+     * @return mixed|string[]
+     */
     private function getSupportedEncodings(): array
     {
         if (null !== $this->encodings) {

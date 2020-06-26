@@ -38,7 +38,7 @@ final class CharsetTest extends TestCase
     /**
      * @dataProvider provideData
      */
-    public function testDecode($charset, $input, $expected)
+    public function testDecode($charset, $input, $expected): void
     {
         $decoder = new Charset();
         $actual = $decoder->decodeCharset($input, $charset);
@@ -46,7 +46,10 @@ final class CharsetTest extends TestCase
         $this->assertSame($expected, $actual);
     }
 
-    public function provideData()
+    /**
+     * @return string[][]
+     */
+    public function provideData(): iterable
     {
         $ctDecoder = new ContentTransferDecoder();
 
@@ -63,7 +66,7 @@ final class CharsetTest extends TestCase
         }
     }
 
-    public function testNoErrorOnUnknownEncoding()
+    public function testNoErrorOnUnknownEncoding(): void
     {
         $decoder = new Charset();
         $actual = $decoder->decodeCharset('unintelligible', 'plain wrong');
@@ -71,7 +74,7 @@ final class CharsetTest extends TestCase
         $this->assertSame('unintelligible', $actual);
     }
 
-    public function testGetCharsetAlias()
+    public function testGetCharsetAlias(): void
     {
         $decoder = new Charset();
 
@@ -83,7 +86,7 @@ final class CharsetTest extends TestCase
     /**
      * @requires extension mbstring
      */
-    public function testSupportedEncodingsCache()
+    public function testSupportedEncodingsCache(): void
     {
         $decoder = new Charset();
 
@@ -96,11 +99,11 @@ final class CharsetTest extends TestCase
     /**
      * @requires extension mbstring
      */
-    public function testSupportedEncodings()
+    public function testSupportedEncodings(): void
     {
         $decoder = new Charset();
 
-        $supportedEncodings = (function () {
+        $supportedEncodings = (function (): array {
             return $this->getSupportedEncodings();
         })->call($decoder);
         sort($supportedEncodings);
@@ -113,8 +116,9 @@ final class CharsetTest extends TestCase
 
     /**
      * @see Charset::getSupportedEncodings()
+     * @return string[]
      */
-    private function getSupportedEncodingsLegacy()
+    private function getSupportedEncodingsLegacy(): array
     {
         return
         array_map(

@@ -67,7 +67,7 @@ final class Attachment implements AttachmentInterface
      * @param array    $headers
      * @param string   $mimePartStr
      */
-    public static function create(MimePart $part)
+    public static function create(MimePart $part): \PhpMimeMailParser\Attachment
     {
         $attachment = new self();
         
@@ -102,6 +102,9 @@ final class Attachment implements AttachmentInterface
         return $attachment;
     }
 
+    /**
+     * @return resource|bool
+     */
     public function createStream($entity)
     {
         $tempFp = tmpfile();
@@ -155,7 +158,7 @@ final class Attachment implements AttachmentInterface
      *
      * @return string
      */
-    public function getContentID(): ?string
+    public function getContentID(): string
     {
         return $this->contentId;
     }
@@ -242,7 +245,7 @@ final class Attachment implements AttachmentInterface
      */
     public function save(
         $attachDir,
-        $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
+        string $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ): string {
         $attachDir = rtrim($attachDir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         if (!is_dir($attachDir)) {

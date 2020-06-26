@@ -8,7 +8,7 @@ use PhpMimeMailParser\ContentTransferDecoder;
  */
 final class ContentTransferDecoderTest extends TestCase
 {
-    public function testDecodeUnknownEncoding()
+    public function testDecodeUnknownEncoding(): void
     {
         $decoder = new ContentTransferDecoder();
 
@@ -16,7 +16,7 @@ final class ContentTransferDecoderTest extends TestCase
         $this->assertSame('testing', $decoder->decodeContentTransfer('testing', ''));
     }
 
-    public function testDecodeQuotedPrintable()
+    public function testDecodeQuotedPrintable(): void
     {
         $decoder = new ContentTransferDecoder();
         $decoded = $decoder->decodeContentTransfer(
@@ -27,7 +27,7 @@ final class ContentTransferDecoderTest extends TestCase
         $this->assertSame('Проверка', $decoded);
     }
 
-    public function testDecodeBase64()
+    public function testDecodeBase64(): void
     {
         $decoder = new ContentTransferDecoder();
         $decoded = $decoder->decodeContentTransfer('YW55IGNhcm5hbCBwbGVhc3VyZQ==', $decoder::ENCODING_BASE64);
@@ -35,7 +35,7 @@ final class ContentTransferDecoderTest extends TestCase
         $this->assertSame('any carnal pleasure', $decoded);
     }
 
-    public function testDecodeCaseInsensitive()
+    public function testDecodeCaseInsensitive(): void
     {
         $decoder = new ContentTransferDecoder();
         $decoded = $decoder->decodeContentTransfer(

@@ -60,17 +60,17 @@ interface ParserInterface
      *
      * @param string $data
      */
-    public function setText($data): ParserInterface;
+    public function setText(string $data): ParserInterface;
 
     /**
      * Retrieve a specific Email Header, without charset conversion.
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string[]|null
+     * @return string
      * @throws Exception
      */
-    public function getHeaderRaw($name);
+    public function getHeaderRaw(string $name): string;
 
     /**
      * Retrieve a specific Email Header
@@ -79,7 +79,7 @@ interface ParserInterface
      *
      * @return string|array|bool
      */
-    public function getHeader($name);
+    public function getHeader(string $name);
 
     /**
      * Retrieve all mail headers
@@ -92,19 +92,16 @@ interface ParserInterface
     /**
      * Retrieve the raw mail headers as a string
      *
-     * @return string
      * @throws Exception
      */
-    public function getHeadersRaw();
+    public function getHeadersRaw(): array;
 
     /**
      * Return an array with the following keys display, address, is_group
      *
      * @param string $name Header name (case-insensitive)
-     *
-     * @return array
      */
-    public function getAddresses($name);
+    public function getAddresses(string $name): array;
 
     /**
      * Retrieve the resource
@@ -125,7 +122,7 @@ interface ParserInterface
      *
      * @return string|null data
      */
-    public function getData();
+    public function getData(): ?string;
 
     /**
      * Add a middleware to the parser MiddlewareStack

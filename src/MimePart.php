@@ -46,7 +46,7 @@ final class MimePart implements \ArrayAccess
      * @param array $part
      * @param string $id
      */
-    public function __construct($id, array $part, $stream = null, $data = null)
+    public function __construct(string $id, array $part, $stream = null, $data = null)
     {
         $this->part = $part;
         $this->id = $id;
@@ -55,17 +55,15 @@ final class MimePart implements \ArrayAccess
         $this->parserConfig = new ParserConfig;
     }
 
-    public function setParserConfig($parserConfig)
+    public function setParserConfig($parserConfig): void
     {
         $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
     }
 
     /**
      * Retrieve the part Id
-     *
-     * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -73,9 +71,9 @@ final class MimePart implements \ArrayAccess
     /**
      * Retrieve the part data
      *
-     * @return array
+     * @return mixed[]
      */
-    public function getPart()
+    public function getPart(): array
     {
         return $this->part;
     }
@@ -83,10 +81,9 @@ final class MimePart implements \ArrayAccess
     /**
      * Set the mime part data
      *
-     * @param array $part
-     * @return void
+     * @param mixed[] $part
      */
-    public function setPart(array $part)
+    public function setPart(array $part): void
     {
         $this->part = $part;
     }
@@ -94,7 +91,7 @@ final class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         if (is_null($offset)) {
             $this->part[] = $value;
@@ -106,7 +103,7 @@ final class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->part[$offset]);
     }
@@ -114,7 +111,7 @@ final class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->part[$offset]);
     }
@@ -127,6 +124,9 @@ final class MimePart implements \ArrayAccess
         return isset($this->part[$offset]) ? $this->part[$offset] : null;
     }
 
+    /**
+     * @return mixed|null
+     */
     private function getField($type)
     {
         if (array_key_exists($type, $this->part)) {
@@ -169,7 +169,7 @@ final class MimePart implements \ArrayAccess
     public function getHeaders()
     {
         $headers = $this->getHeadersRaw();
-        array_walk_recursive($headers, function (&$value) {
+        array_walk_recursive($headers, function (&$value): void {
             $value = $this->parserConfig->getMimeHeaderEncodingManager()->decodeHeader($value);
         });
         return $headers;
@@ -180,6 +180,9 @@ final class MimePart implements \ArrayAccess
         return $this->getField('headers');
     }
 
+    /**
+     * @return null|mixed
+     */
     public function getHeader($name)
     {
         $raw = $this->getHeaderRaw($name);
@@ -189,6 +192,9 @@ final class MimePart implements \ArrayAccess
         return $this->parserConfig->getMimeHeaderEncodingManager()->decodeHeader($raw);
     }
 
+    /**
+     * @return null|mixed
+     */
     public function getHeaderRaw($name)
     {
         $name = strtolower($name);
@@ -205,7 +211,10 @@ final class MimePart implements \ArrayAccess
         return $headers[$name];
     }
 
-    public function getAddressesRaw($name)
+    /**
+     * @return mixed[]
+     */
+    public function getAddressesRaw($name): array
     {
         $raw = $this->getHeaderRaw($name);
 
@@ -248,6 +257,9 @@ final class MimePart implements \ArrayAccess
         return $this->getField('charset');
     }
 
+    /**
+     * @return string|bool
+     */
     public function getCompleteBody()
     {
         $start = $this->getStartingPosition();
@@ -266,6 +278,9 @@ final class MimePart implements \ArrayAccess
         return substr($this->data, $start, $end - $start);
     }
 
+    /**
+     * @return string|bool
+     */
     public function getBody()
     {
         $start = $this->getStartingPositionBody();
@@ -284,7 +299,7 @@ final class MimePart implements \ArrayAccess
         return substr($this->data, $start, $end - $start);
     }
 
-    public function isTextMessage($subType)
+    public function isTextMessage($subType): bool
     {
         $disposition = $this->getContentDisposition();
         $contentType = $this->getContentType();

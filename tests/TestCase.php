@@ -8,6 +8,9 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
+    /**
+     * @var mixed[]
+     */
     private $pathsToRemove = [];
 
     protected function setUp(): void
