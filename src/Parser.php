@@ -68,8 +68,20 @@ final class Parser implements ParserInterface
 
     public static function fromPath(string $path, ParserConfig $config = null): \PhpMimeMailParser\Parser
     {
-        $parser = new Parser($config);
-        $parser->setPath($path);
+        $parser = new self($config);
+        if (is_writable($path)) {
+            $file = fopen($path, 'a+');
+            fseek($file, -1, SEEK_END);
+            if (fread($file, 1) != "\n") {
+                fwrite($file, PHP_EOL);
+            }
+            fclose($file);
+        }
+
+        // should parse message incrementally from file
+        $parser->resource = mailparse_msg_parse_file($path);
+        $parser->stream = fopen($path, 'r');
+        $parser->parse();
         return $parser;
     }
 
@@ -88,32 +100,6 @@ final class Parser implements ParserInterface
         if (is_resource($this->resource)) {
             mailparse_msg_free($this->resource);
         }
-    }
-
-    /**
-     * Set the file path we use to get the email text
-     *
-     * @param string $path File path to the MIME mail
-     *
-     * @return Parser MimeMailParser Instance
-     */
-    private function setPath(string $path): ParserInterface
-    {
-        if (is_writable($path)) {
-            $file = fopen($path, 'a+');
-            fseek($file, -1, SEEK_END);
-            if (fread($file, 1) != "\n") {
-                fwrite($file, PHP_EOL);
-            }
-            fclose($file);
-        }
-
-        // should parse message incrementally from file
-        $this->resource = mailparse_msg_parse_file($path);
-        $this->stream = fopen($path, 'r');
-        $this->parse();
-
-        return $this;
     }
 
     /**
