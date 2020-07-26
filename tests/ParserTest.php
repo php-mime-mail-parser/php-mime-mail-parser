@@ -31,12 +31,7 @@ final class ParserTest extends TestCase
         $htmlExpected,
         $attachmentsExpected
     ): void {
-        //Init
-        $file = __DIR__.'/mails/'.$mid;
-
-        //Load From Path
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__.'/mails/'.$mid);
 
         // Remove inline attachments from array
         $attachmentsExpected = array_filter($attachmentsExpected, function ($attachment): bool {
@@ -186,8 +181,8 @@ final class ParserTest extends TestCase
     public function testCreatingMoreThanOneInstanceOfParser(): void
     {
         $file = __DIR__.'/mails/issue84';
-        (new Parser())->setPath($file)->getText();
-        (new Parser())->setPath($file)->getText();
+        Parser::fromPath($file)->getText();
+        Parser::fromPath($file)->getText();
         $this->assertTrue(true);
     }
 
@@ -1113,9 +1108,7 @@ final class ParserTest extends TestCase
         $file = __DIR__.'/mails/'.$mid;
         $attachDir = $this->tempdir('attach_'.$mid);
 
-        //Load From Path
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath($file);
 
         //Test Header : subject
         $this->assertEquals($subjectExpected, $Parser->getSubject());
@@ -1479,12 +1472,7 @@ final class ParserTest extends TestCase
 
     public function testHeaderRetrievalIsCaseInsensitive(): void
     {
-        //Init
-        $file = __DIR__.'/mails/m0001';
-
-        //Load From Path
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__.'/mails/m0001');
 
         $this->assertEquals($Parser->getHeaderRaw('From'), $Parser->getHeaderRaw('from'));
         $this->assertEquals($Parser->getHeader('From'), $Parser->getHeader('from'));
@@ -1567,11 +1555,7 @@ aXBpdC4K'
      */
     public function testAttachmentGetMimePartStrFromPath($mid, $attachmentMimeParts): void
     {
-        // Init
-        $file = __DIR__ . '/mails/' . $mid;
-
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/' . $mid);
 
         $i = 0;
         foreach ($Parser->getAttachments() as $attachment) {
@@ -1628,8 +1612,7 @@ aXBpdC4K'
      */
     public function testRFC822AttachmentPartsShouldNotBeIncludedInGetMessageBody(string $file, string $getType, string $expected): void
     {
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath($file);
         $this->assertEquals($expected, $Parser->$getType());
     }
 
@@ -1694,14 +1677,8 @@ variances available &nbsp;</div></body></html>'
     {
         $middlewareCalled = false;
 
-        //Init
-        $file = __DIR__.'/mails/m0001';
-
-        //Load From Path
-        $Parser = new Parser();
-
-        // add literal function middleware
-        $Parser->addMiddleware(function ($mimePart, $next) use (&$middlewareCalled) {
+        $parserConfig = new ParserConfig();
+        $parserConfig->addMiddleware(function ($mimePart, $next) use (&$middlewareCalled) {
             $middlewareCalled = true;
             $part = $mimePart->getPart();
 
@@ -1713,8 +1690,7 @@ variances available &nbsp;</div></body></html>'
             return $next($mimePart);
         });
 
-        // executes the middleware
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__.'/mails/m0001', $parserConfig);
 
         $this->assertTrue($middlewareCalled, 'Middleware was was not called.');
         $this->assertEquals($Parser->getHeader('from'), 'Middleware', 'From header modification failed');
@@ -1785,13 +1761,13 @@ mini plain body';
         $ParserByText->setText($file);
         $this->assertStringContainsString('mini plain body', $ParserByText->getText());
 
-        $ParserByPath = new Parser();
         $temp = tmpfile();
         fwrite($temp, $file);
         rewind($temp);
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
-        $ParserByPath->setPath($tmpFilename);
+        $ParserByPath = Parser::fromPath($tmpFilename);
+
         $this->assertStringContainsString('mini plain body', $ParserByPath->getText());
     }
 
@@ -1808,13 +1784,12 @@ Content-Transfer-Encoding: 7bit
 
 mini plain body';
 
-        $ParserByPath = new Parser();
         $temp = tmpfile();
         fwrite($temp, $file);
         rewind($temp);
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
-        $ParserByPath->setPath($tmpFilename);
+        $ParserByPath = Parser::fromPath($tmpFilename);
         $this->assertStringContainsString('mini plain body', $ParserByPath->getText());
     }
 
@@ -1841,22 +1816,14 @@ mini plain body';
 
     public function testCharsetSupportedAsAnAlias(): void
     {
-        // Init
-        $file = __DIR__ . '/mails/failure.eml';
-
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/failure.eml');
         $this->assertEquals('<foo@bar.de>', $Parser->getHeader('from'));
         $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getText());
     }
 
     public function testCharsetNotSupportedByMBString(): void
     {
-        // Init
-        $file = __DIR__ . '/mails/issue212';
-
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/issue212');
         $this->assertEquals(
             'Automatyczna odpowiedź: Piotrze, test z 6 miesięcy nauki ciągle na Ciebie czeka',
             $Parser->getHeader('subject')
@@ -1865,8 +1832,7 @@ mini plain body';
 
     public function testRecursiveMessageThatReturnContentTypeError(): void
     {
-        $Parser = new Parser();
-        $Parser->setPath(__DIR__.'/mails/issue274.eml');
+        $Parser = Parser::fromPath(__DIR__ . '/mails/issue274.eml');
 
         $this->assertEquals('guest@localhost', $Parser->getHeaderRaw('from'));
         $this->assertStringContainsString('ligne 1', $Parser->getText());

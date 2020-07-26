@@ -318,4 +318,9 @@ final class MimePart implements \ArrayAccess
         );
         return $this->parserConfig->getCharsetManager()->decodeCharset($undecodedBody, $this->getCharset());
     }
+
+    public function parse()
+    {
+        return $this->parserConfig->middlewareStack->parse($this);
+    }
 }

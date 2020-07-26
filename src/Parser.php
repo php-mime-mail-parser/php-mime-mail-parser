@@ -57,13 +57,6 @@ final class Parser implements ParserInterface
     ];
 
     /**
-     * Stack of middleware registered to process data
-     *
-     * @var MiddlewareStack
-     */
-    protected $middlewareStack;
-
-    /**
      * Parser constructor.
      *
      * @param CharsetManager|null $charset
@@ -71,8 +64,6 @@ final class Parser implements ParserInterface
     public function __construct(ParserConfig $parserConfig = null)
     {
         $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
-
-        $this->middlewareStack = new MiddlewareStack();
     }
 
     public static function fromPath(string $path, ParserConfig $config = null): \PhpMimeMailParser\Parser
@@ -106,7 +97,7 @@ final class Parser implements ParserInterface
      *
      * @return Parser MimeMailParser Instance
      */
-    public function setPath(string $path): ParserInterface
+    private function setPath(string $path): ParserInterface
     {
         if (is_writable($path)) {
             $file = fopen($path, 'a+');
@@ -222,7 +213,8 @@ final class Parser implements ParserInterface
             $partData = mailparse_msg_get_part_data($part);
             $mimePart = new MimePart($entityId, $partData, $this->stream, $this->data);
             $mimePart->setParserConfig($this->parserConfig);
-            $this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
+            $this->entities[$entityId] = $mimePart->parse();
+            //$this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
         }
     }
 
@@ -592,29 +584,5 @@ final class Parser implements ParserInterface
     public function getData(): ?string
     {
         return $this->data;
-    }
-
-    /**
-     * Add a middleware to the parser MiddlewareStack
-     * Each middleware is invoked when:
-     *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse()
-     * The middleware will receive MimePart $part and the next MiddlewareStack $next
-     *
-     * Eg:
-     *
-     * $Parser->addMiddleware(function(MimePart $part, MiddlewareStack $next) {
-     *      // do something with the $part
-     *      return $next($part);
-     * });
-     *
-     * @param callable $middleware Plain Function or Middleware Instance to execute
-     * @return void
-     */
-    public function addMiddleware(callable $middleware): void
-    {
-        if (!$middleware instanceof Middleware) {
-            $middleware = new Middleware($middleware);
-        }
-        $this->middlewareStack = $this->middlewareStack->add($middleware);
     }
 }

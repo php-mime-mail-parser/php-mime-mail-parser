@@ -39,14 +39,6 @@ interface ParserInterface
      */
     public const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
 
-
-    /**
-     * Set the file path we use to get the email text
-     *
-     * @param string $path File path to the MIME mail
-     */
-    public function setPath(string $path): ParserInterface;
-
     /**
      * Set the Stream resource we use to get the email text
      *
@@ -123,22 +115,4 @@ interface ParserInterface
      * @return string|null data
      */
     public function getData(): ?string;
-
-    /**
-     * Add a middleware to the parser MiddlewareStack
-     * Each middleware is invoked when:
-     *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse()
-     * The middleware will receive MimePart $part and the next MiddlewareStack $next
-     *
-     * Eg:
-     *
-     * $Parser->addMiddleware(function(MimePart $part, MiddlewareStack $next) {
-     *      // do something with the $part
-     *      return $next($part);
-     * });
-     *
-     * @param callable $middleware Plain Function or Middleware Instance to execute
-     * @return void
-     */
-    public function addMiddleware(callable $middleware): void;
 }

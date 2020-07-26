@@ -15,9 +15,7 @@ final class AttachmentTest extends TestCase
 {
     public function testSaveAttachmentsFromParser(): void
     {
-        $file = __DIR__ . '/mails/m0002';
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/m0002');
 
         $attachDir = $this->tempdir('m0002_attachments');
         $attachDir .= 'not-yet-existing-directory';
@@ -30,9 +28,7 @@ final class AttachmentTest extends TestCase
 
     public function testSaveEachAttachment(): void
     {
-        $file = __DIR__ . '/mails/m0002';
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/m0002');
 
         $attachments = $Parser->getAttachments();
 
@@ -50,9 +46,7 @@ final class AttachmentTest extends TestCase
 
     public function testNestedAttachment(): void
     {
-        $file = __DIR__ . '/mails/issue270';
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/issue270');
 
         $attachments = $Parser->getAttachments();
         $this->assertCount(1, $attachments);
@@ -101,9 +95,7 @@ final class AttachmentTest extends TestCase
 
     public function testGeneratingDuplicateSuffixWithoutExtension(): void
     {
-        $file = __DIR__ . '/mails/m0002';
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/m0002');
 
         $attachDir = $this->tempdir('m0002_attachments');
 
@@ -130,9 +122,7 @@ final class AttachmentTest extends TestCase
 
     public function testGeneratingDuplicateSuffix(): void
     {
-        $file = __DIR__ . '/mails/issue115';
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/issue115');
 
         $attachDir = $this->tempdir('issue115_attachments');
 
@@ -157,9 +147,7 @@ final class AttachmentTest extends TestCase
 
     public function testSavingWithRandomFilenameKeepExtension(): void
     {
-        $file = __DIR__ . '/mails/m0025';
-        $Parser = new Parser();
-        $Parser->setPath($file);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/m0025');
 
         $attachDir = $this->tempdir('m0025_attachments');
 

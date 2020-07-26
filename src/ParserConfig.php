@@ -27,6 +27,12 @@ final class ParserConfig
      * @var \PhpMimeMailParser\Contracts\AttachmentInterface
      */
     private $attachmentInterface;
+    /**
+     * Stack of middleware registered to process data
+     *
+     * @var MiddlewareStack
+     */
+    public $middlewareStack;
 
     public function __construct()
     {
@@ -37,6 +43,8 @@ final class ParserConfig
             $this->getContentTransferEncodingManager()
         ));
         $this->setAttachmentInterface(new Attachment);
+
+        $this->middlewareStack = new MiddlewareStack();
     }
 
     public function setCharsetManager(CharsetManager $charsetManager): void
@@ -77,5 +85,29 @@ final class ParserConfig
     public function getAttachmentInterface(): AttachmentInterface
     {
         return $this->attachmentInterface;
+    }
+
+    /**
+     * Add a middleware to the parser MiddlewareStack
+     * Each middleware is invoked when:
+     *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse()
+     * The middleware will receive MimePart $part and the next MiddlewareStack $next
+     *
+     * Eg:
+     *
+     * $Parser->addMiddleware(function(MimePart $part, MiddlewareStack $next) {
+     *      // do something with the $part
+     *      return $next($part);
+     * });
+     *
+     * @param callable $middleware Plain Function or Middleware Instance to execute
+     * @return void
+     */
+    public function addMiddleware(callable $middleware): void
+    {
+        if (!$middleware instanceof Middleware) {
+            $middleware = new Middleware($middleware);
+        }
+        $this->middlewareStack = $this->middlewareStack->add($middleware);
     }
 }
