@@ -65,6 +65,17 @@ Make sure you have the mailparse extension (http://php.net/manual/en/book.mailpa
 sudo apt install php-cli php-mailparse
 ```
 
+#### Php docker image
+
+```
+# Example with an alpine distribution
+RUN apk update && apk add g++ autoconf make re2c && \
+    pecl install mailparse && \
+    docker-php-ext-enable mailparse && \
+    apk del g++ autoconf make re2c
+    
+```
+
 #### Others platforms
 ```
 sudo apt install php-cli php-pear php-dev php-mbstring
