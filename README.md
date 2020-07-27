@@ -55,7 +55,7 @@ Previous Versions:
 | PHP 7.0  | php-mime-mail-parser 3.0.4  |
 | PHP 7.1  | php-mime-mail-parser 5.0.5  |
 
-Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
+Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` needs to return "mailparse".
 
 
 ### Install mailparse extension
