@@ -120,6 +120,19 @@ final class ParserTest extends TestCase
         $this->assertEquals($Parser->getText(), "This is the plain text content of the email");
     }
 
+    /**
+     * Test for being able to extract attachments that don't have a content id.
+     */
+    public function testNullOnEmptyAttachmentId(): void
+    {
+        $file = __DIR__ .'/mails/noAttachmentContentId';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+        foreach ($Parser->getAttachments() as $attachment) {
+            $this->assertNull($attachment->getContentID());
+        }
+    }
+
     public function testIlligalAttachmentFilenameForContentName(): void
     {
         $file = __DIR__ . '/mails/m0027';
