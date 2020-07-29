@@ -104,7 +104,7 @@ You need to download mailparse DLL from http://pecl.php.net/package/mailparse an
 
 ### Loading an email
 
-You can load an email with 4 differents ways. You only need to use one of the following four.
+You can load an email in 4 different ways – choose one:
 
 ```php
 require_once __DIR__.'/vendor/autoload.php';
