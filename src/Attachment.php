@@ -32,7 +32,7 @@ final class Attachment implements AttachmentInterface
     protected $contentDisposition;
 
     /**
-     * @var string $contentId Content-ID
+     * @var string|null $contentId Content-ID
      */
     protected $contentId;
 
@@ -145,7 +145,7 @@ final class Attachment implements AttachmentInterface
     /**
      * Retrieve the Attachment Content-Disposition
      *
-     * @return string
+     * @return string|null
      */
     public function getContentDisposition(): ?string
     {
@@ -155,9 +155,9 @@ final class Attachment implements AttachmentInterface
     /**
      * Retrieve the Attachment Content-ID
      *
-     * @return string
+     * @return string|null
      */
-    public function getContentID(): string
+    public function getContentID(): ?string
     {
         return $this->contentId;
     }

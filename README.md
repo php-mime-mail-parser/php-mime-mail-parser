@@ -55,7 +55,7 @@ Previous Versions:
 | PHP 7.0  | php-mime-mail-parser 3.0.4  |
 | PHP 7.1  | php-mime-mail-parser 5.0.5  |
 
-Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
+Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` needs to return "mailparse".
 
 
 ### Install mailparse extension
@@ -63,6 +63,17 @@ Make sure you have the mailparse extension (http://php.net/manual/en/book.mailpa
 #### Ubuntu, Debian & derivatives
 ```
 sudo apt install php-cli php-mailparse
+```
+
+#### Php docker image
+
+```
+# Example with an alpine distribution
+RUN apk update && apk add g++ autoconf make re2c && \
+    pecl install mailparse && \
+    docker-php-ext-enable mailparse && \
+    apk del g++ autoconf make re2c
+    
 ```
 
 #### Others platforms
@@ -93,7 +104,7 @@ You need to download mailparse DLL from http://pecl.php.net/package/mailparse an
 
 ### Loading an email
 
-You can load an email with 4 differents ways. You only need to use one of the following four.
+You can load an email in 4 different ways – choose one:
 
 ```php
 require_once __DIR__.'/vendor/autoload.php';

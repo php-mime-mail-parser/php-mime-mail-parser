@@ -29,7 +29,7 @@ interface AttachmentInterface
     /**
      * Retrieve the Attachment Content-ID
      */
-    public function getContentID(): string;
+    public function getContentID(): ?string;
 
     /**
      * Retrieve the Attachment Headers

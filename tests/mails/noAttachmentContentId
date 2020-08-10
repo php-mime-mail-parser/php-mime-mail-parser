@@ -1,0 +1,24 @@
+Return-Path: <test@test.com>
+From: "Company Name" <test@test.com>
+To: "Company Name" <test@test.com>
+Subject: Email with one attachment without part-id and only plain text content part
+Date: Mon, 15 Jan 2018 17:45:00 +0000
+Message-Id: <em8c49ef0b-c760-42b2-bf4d-60efd9f36838@my-pc>
+Reply-To: "Company Name" <test@test.com>
+User-Agent: eM_Client/7.0
+Mime-Version: 1.0
+Content-Type: multipart/mixed; boundary="------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB"
+
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; format=flowed; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+This is the plain text content of the email
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB
+Content-Type: text/plain; name=63C34BC2-FBC9-4C47-88C7-78127DE61343.txt
+Content-Transfer-Encoding: base64
+Content-Disposition: attachment;
+ filename=63C34BC2-FBC9-4C47-88C7-78127DE61343.txt
+
+This is an attachment without a Part-ID
+--------=_MBB810AA79-F5A7-4F80-A000-3405DAF098DB--
