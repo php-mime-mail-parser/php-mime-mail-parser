@@ -117,8 +117,7 @@ final class ParserTest extends TestCase
     public function testNullOnEmptyAttachmentId(): void
     {
         $file = __DIR__ .'/mails/noAttachmentContentId';
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
         foreach ($Parser->getAttachments() as $attachment) {
             $this->assertNull($attachment->getContentID());
         }
