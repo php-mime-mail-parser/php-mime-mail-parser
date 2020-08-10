@@ -14,47 +14,10 @@ final class ExceptionTest extends TestCase
 {
     /**
      */
-    public function testGetHeader(): void
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
-
-        $Parser->getHeader('test');
-    }
-
-    /**
-     */
-    public function testGetHeaders(): void
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
-
-        $Parser->getHeaders();
-    }
-
-    /**
-     */
-    public function testGetHeadersRaw(): void
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
-
-        $Parser->getHeadersRaw();
-    }
-
-
-    /**
-     */
-    public function testSetText(): void
+    public function testFromText(): void
     {
         $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('You must not call MimeMailParser::setText with an empty string parameter');
+        $this->expectExceptionMessage('You must not call fromText with an empty string parameter');
 
         $Parser = Parser::fromText('');
     }
@@ -78,7 +41,6 @@ final class ExceptionTest extends TestCase
         putenv('TMPDIR=/invalid');
 
         $file = __DIR__.'/mails/m0001';
-        $Parser = new Parser();
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create temporary files for attachments.');

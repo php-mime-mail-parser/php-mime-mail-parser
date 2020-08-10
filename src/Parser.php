@@ -61,7 +61,7 @@ final class Parser implements ParserInterface
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(ParserConfig $parserConfig = null)
+    private function __construct(ParserConfig $parserConfig = null)
     {
         $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
     }
@@ -87,11 +87,11 @@ final class Parser implements ParserInterface
 
     public static function fromText(string $data, ParserConfig $config = null): \PhpMimeMailParser\Parser
     {
-        $parser = new self($config);
-
         if (empty($data)) {
-            throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
+            throw new Exception('You must not call fromText with an empty string parameter');
         }
+
+        $parser = new self($config);
 
         if (substr($data, -1) != "\n") {
             $data .= PHP_EOL;
@@ -207,12 +207,6 @@ final class Parser implements ParserInterface
      */
     public function getHeaders(): array
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeaders();
     }
 
@@ -224,12 +218,6 @@ final class Parser implements ParserInterface
      */
     public function getHeadersRaw(): array
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeadersRaw();
     }
 
@@ -263,23 +251,11 @@ final class Parser implements ParserInterface
 
     public function getHeader(string $name)
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeader($name);
     }
 
     public function getHeaderRaw(string $name): string
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeaderRaw($name);
     }
 
