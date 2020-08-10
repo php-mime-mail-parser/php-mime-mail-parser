@@ -57,28 +57,87 @@ final class Parser implements ParserInterface
     ];
 
     /**
-     * Stack of middleware registered to process data
-     *
-     * @var MiddlewareStack
-     */
-    protected $middlewareStack;
-
-    /**
      * Parser constructor.
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(ParserConfig $parserConfig = null)
+    private function __construct(ParserConfig $parserConfig = null)
     {
         $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
-
-        $this->middlewareStack = new MiddlewareStack();
     }
 
     public static function fromPath(string $path, ParserConfig $config = null): \PhpMimeMailParser\Parser
     {
-        $parser = new Parser($config);
-        $parser->setPath($path);
+        $parser = new self($config);
+        if (is_writable($path)) {
+            $file = fopen($path, 'a+');
+            fseek($file, -1, SEEK_END);
+            if (fread($file, 1) != "\n") {
+                fwrite($file, PHP_EOL);
+            }
+            fclose($file);
+        }
+
+        // should parse message incrementally from file
+        $parser->resource = mailparse_msg_parse_file($path);
+        $parser->stream = fopen($path, 'r');
+        $parser->parse();
+        return $parser;
+    }
+
+    public static function fromText(string $data, ParserConfig $config = null): \PhpMimeMailParser\Parser
+    {
+        if (empty($data)) {
+            throw new Exception('You must not call fromText with an empty string parameter');
+        }
+
+        $parser = new self($config);
+
+        if (substr($data, -1) != "\n") {
+            $data .= PHP_EOL;
+        }
+
+        $parser->resource = mailparse_msg_create();
+        // does not parse incrementally, fast memory hog might explode
+        mailparse_msg_parse($parser->resource, $data);
+        $parser->data = $data;
+        $parser->parse();
+
+        return $parser;
+    }
+
+    public static function fromStream($stream, ParserConfig $config = null): \PhpMimeMailParser\Parser
+    {
+        $parser = new self($config);
+        // streams have to be cached to file first
+        $meta = @stream_get_meta_data($stream);
+        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
+            throw new Exception(
+                'setStream() expects parameter stream to be readable stream resource.'
+            );
+        }
+
+        $tmpFp = self::tmpfile();
+
+        while (!feof($stream)) {
+            fwrite($tmpFp, fread($stream, 2028));
+        }
+
+        if (fread($tmpFp, 1) != "\n") {
+            fwrite($tmpFp, PHP_EOL);
+        }
+
+        fseek($tmpFp, 0);
+        $parser->stream = &$tmpFp;
+
+        fclose($stream);
+
+        $parser->resource = mailparse_msg_create();
+        // parses the message incrementally (low memory usage but slower)
+        while (!feof($parser->stream)) {
+            mailparse_msg_parse($parser->resource, fread($parser->stream, 2082));
+        }
+        $parser->parse();
         return $parser;
     }
 
@@ -100,75 +159,6 @@ final class Parser implements ParserInterface
     }
 
     /**
-     * Set the file path we use to get the email text
-     *
-     * @param string $path File path to the MIME mail
-     *
-     * @return Parser MimeMailParser Instance
-     */
-    public function setPath(string $path): ParserInterface
-    {
-        if (is_writable($path)) {
-            $file = fopen($path, 'a+');
-            fseek($file, -1, SEEK_END);
-            if (fread($file, 1) != "\n") {
-                fwrite($file, PHP_EOL);
-            }
-            fclose($file);
-        }
-
-        // should parse message incrementally from file
-        $this->resource = mailparse_msg_parse_file($path);
-        $this->stream = fopen($path, 'r');
-        $this->parse();
-
-        return $this;
-    }
-
-    /**
-     * Set the Stream resource we use to get the email text
-     *
-     * @param resource $stream
-     *
-     * @return Parser MimeMailParser Instance
-     * @throws Exception
-     */
-    public function setStream($stream): ParserInterface
-    {
-        // streams have to be cached to file first
-        $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
-            throw new Exception(
-                'setStream() expects parameter stream to be readable stream resource.'
-            );
-        }
-
-        $tmpFp = self::tmpfile();
-
-        while (!feof($stream)) {
-            fwrite($tmpFp, fread($stream, 2028));
-        }
-
-        if (fread($tmpFp, 1) != "\n") {
-            fwrite($tmpFp, PHP_EOL);
-        }
-
-        fseek($tmpFp, 0);
-        $this->stream = &$tmpFp;
-
-        fclose($stream);
-
-        $this->resource = mailparse_msg_create();
-        // parses the message incrementally (low memory usage but slower)
-        while (!feof($this->stream)) {
-            mailparse_msg_parse($this->resource, fread($this->stream, 2082));
-        }
-        $this->parse();
-
-        return $this;
-    }
-
-    /**
      * @return resource
      * @throws Exception
      */
@@ -184,32 +174,6 @@ final class Parser implements ParserInterface
     }
 
     /**
-     * Set the email text
-     *
-     * @param string $data
-     *
-     * @return Parser MimeMailParser Instance
-     */
-    public function setText(string $data): ParserInterface
-    {
-        if (empty($data)) {
-            throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
-        }
-
-        if (substr($data, -1) != "\n") {
-            $data .= PHP_EOL;
-        }
-
-        $this->resource = mailparse_msg_create();
-        // does not parse incrementally, fast memory hog might explode
-        mailparse_msg_parse($this->resource, $data);
-        $this->data = $data;
-        $this->parse();
-
-        return $this;
-    }
-
-    /**
      * Parse the Message into entities
      */
     private function parse(): void
@@ -222,7 +186,8 @@ final class Parser implements ParserInterface
             $partData = mailparse_msg_get_part_data($part);
             $mimePart = new MimePart($entityId, $partData, $this->stream, $this->data);
             $mimePart->setParserConfig($this->parserConfig);
-            $this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
+            $this->entities[$entityId] = $mimePart->parse();
+            //$this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
         }
     }
 
@@ -242,12 +207,6 @@ final class Parser implements ParserInterface
      */
     public function getHeaders(): array
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeaders();
     }
 
@@ -259,12 +218,6 @@ final class Parser implements ParserInterface
      */
     public function getHeadersRaw(): array
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeadersRaw();
     }
 
@@ -298,23 +251,11 @@ final class Parser implements ParserInterface
 
     public function getHeader(string $name)
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeader($name);
     }
 
     public function getHeaderRaw(string $name): string
     {
-        if (!isset($this->entities[1])) {
-            throw new Exception(
-                'setPath() or setText() or setStream() must be called before retrieving email headers.'
-            );
-        }
-
         return $this->entities[1]->getHeaderRaw($name);
     }
 
@@ -592,29 +533,5 @@ final class Parser implements ParserInterface
     public function getData(): ?string
     {
         return $this->data;
-    }
-
-    /**
-     * Add a middleware to the parser MiddlewareStack
-     * Each middleware is invoked when:
-     *   a MimePart is retrieved by mailparse_msg_get_part_data() during $this->parse()
-     * The middleware will receive MimePart $part and the next MiddlewareStack $next
-     *
-     * Eg:
-     *
-     * $Parser->addMiddleware(function(MimePart $part, MiddlewareStack $next) {
-     *      // do something with the $part
-     *      return $next($part);
-     * });
-     *
-     * @param callable $middleware Plain Function or Middleware Instance to execute
-     * @return void
-     */
-    public function addMiddleware(callable $middleware): void
-    {
-        if (!$middleware instanceof Middleware) {
-            $middleware = new Middleware($middleware);
-        }
-        $this->middlewareStack = $this->middlewareStack->add($middleware);
     }
 }

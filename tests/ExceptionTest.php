@@ -14,63 +14,22 @@ final class ExceptionTest extends TestCase
 {
     /**
      */
-    public function testGetHeader(): void
+    public function testFromText(): void
     {
-        $Parser = new Parser();
-
         $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
+        $this->expectExceptionMessage('You must not call fromText with an empty string parameter');
 
-        $Parser->getHeader('test');
-    }
-
-    /**
-     */
-    public function testGetHeaders(): void
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
-
-        $Parser->getHeaders();
-    }
-
-    /**
-     */
-    public function testGetHeadersRaw(): void
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setPath() or setText() or setStream() must be called before');
-
-        $Parser->getHeadersRaw();
-    }
-
-
-    /**
-     */
-    public function testSetText(): void
-    {
-        $Parser = new Parser();
-
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('You must not call MimeMailParser::setText with an empty string parameter');
-
-        $Parser->setText('');
+        $Parser = Parser::fromText('');
     }
 
     /**
      */
     public function testSetStream(): void
     {
-        $Parser = new Parser();
-
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
 
-        $Parser->setStream('azerty');
+        $Parser = Parser::fromStream('azerty');
     }
 
     /**
@@ -82,12 +41,11 @@ final class ExceptionTest extends TestCase
         putenv('TMPDIR=/invalid');
 
         $file = __DIR__.'/mails/m0001';
-        $Parser = new Parser();
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create temporary files for attachments.');
 
-        $Parser->setStream(fopen($file, 'r'));
+        $Parser = Parser::fromStream(fopen($file, 'r'));
     }
 
     /**
@@ -95,12 +53,11 @@ final class ExceptionTest extends TestCase
     public function testSetStreamResource(): void
     {
         $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
-        $Parser = new Parser();
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
 
-        $Parser->setStream($c);
+        $Parser = Parser::fromStream($c);
     }
 
     /**
@@ -112,8 +69,7 @@ final class ExceptionTest extends TestCase
         $attachDir = $this->tempdir('attach_'.$mid);
         chmod($attachDir, 0600);
 
-        $Parser = new Parser();
-        $Parser->setStream(fopen($file, 'r'));
+        $Parser = Parser::fromStream(fopen($file, 'r'));
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not write attachments. Your directory may be unwritable by PHP.');
@@ -129,8 +85,7 @@ final class ExceptionTest extends TestCase
         $file = __DIR__ . '/mails/' . $mid;
         $attachDir = $this->tempdir('attach_' . $mid);
 
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
@@ -143,9 +98,7 @@ final class ExceptionTest extends TestCase
     public function testSaveAttachmentsInvalidStrategy(): void
     {
         $file = __DIR__ . '/mails/m0026';
-
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Invalid filename strategy argument provided.');
