@@ -65,12 +65,10 @@ final class ExceptionTest extends TestCase
      */
     public function testSetStream(): void
     {
-        $Parser = new Parser();
-
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
 
-        $Parser->setStream('azerty');
+        $Parser = Parser::fromStream('azerty');
     }
 
     /**
@@ -87,7 +85,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create temporary files for attachments.');
 
-        $Parser->setStream(fopen($file, 'r'));
+        $Parser = Parser::fromStream(fopen($file, 'r'));
     }
 
     /**
@@ -95,12 +93,11 @@ final class ExceptionTest extends TestCase
     public function testSetStreamResource(): void
     {
         $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
-        $Parser = new Parser();
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
 
-        $Parser->setStream($c);
+        $Parser = Parser::fromStream($c);
     }
 
     /**
@@ -112,8 +109,7 @@ final class ExceptionTest extends TestCase
         $attachDir = $this->tempdir('attach_'.$mid);
         chmod($attachDir, 0600);
 
-        $Parser = new Parser();
-        $Parser->setStream(fopen($file, 'r'));
+        $Parser = Parser::fromStream(fopen($file, 'r'));
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not write attachments. Your directory may be unwritable by PHP.');

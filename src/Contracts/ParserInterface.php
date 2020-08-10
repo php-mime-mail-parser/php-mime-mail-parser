@@ -40,14 +40,6 @@ interface ParserInterface
     public const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
 
     /**
-     * Set the Stream resource we use to get the email text
-     *
-     * @param resource $stream
-     * @throws Exception
-     */
-    public function setStream($stream): ParserInterface;
-
-    /**
      * Set the email text
      *
      * @param string $data

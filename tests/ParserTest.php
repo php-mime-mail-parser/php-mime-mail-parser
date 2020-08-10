@@ -1362,9 +1362,8 @@ final class ParserTest extends TestCase
         $attachDir = $this->tempdir('attach_'.$mid);
 
 
-        //Load From Path
-        $Parser = new Parser();
-        $Parser->setStream(fopen($file, 'r'));
+        //Load From Stream
+        $Parser = Parser::fromStream(fopen($file, 'r'));
 
         //Test Header : subject
         $this->assertEquals($subjectExpected, $Parser->getHeader('subject'));
@@ -1572,9 +1571,7 @@ aXBpdC4K'
     {
         // Init
         $file = __DIR__ . '/mails/' . $mid;
-
-        $Parser = new Parser();
-        $Parser->setStream(fopen($file, 'r'));
+        $Parser = Parser::fromStream(fopen($file, 'r'));
 
         $i = 0;
         foreach ($Parser->getAttachments() as $attachment) {
@@ -1805,12 +1802,10 @@ Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 7bit
 
 mini plain body';
-
-        $ParserByStream = new Parser();
         $temp = tmpfile();
         fwrite($temp, $file);
         rewind($temp);
-        $ParserByStream->setStream($temp);
+        $ParserByStream = Parser::fromStream($temp);
         $this->assertStringContainsString('mini plain body', $ParserByStream->getText());
     }
 
@@ -1857,9 +1852,7 @@ mini plain body';
     public function testGetterMethods(): void
     {
         $file = __DIR__.'/mails/m0001';
-
-        $Parser = new Parser();
-        $Parser->setStream(fopen($file, 'r'));
+        $Parser = Parser::fromStream(fopen($file, 'r'));
 
         $this->assertIsResource($Parser->getResource());
         $this->assertIsResource($Parser->getStream());

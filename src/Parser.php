@@ -85,33 +85,9 @@ final class Parser implements ParserInterface
         return $parser;
     }
 
-    /**
-     * Free the held resources
-     *
-     * @return void
-     */
-    public function __destruct()
+    public static function fromStream($stream, ParserConfig $config = null): \PhpMimeMailParser\Parser
     {
-        // clear the email file resource
-        if (is_resource($this->stream)) {
-            fclose($this->stream);
-        }
-        // clear the MailParse resource
-        if (is_resource($this->resource)) {
-            mailparse_msg_free($this->resource);
-        }
-    }
-
-    /**
-     * Set the Stream resource we use to get the email text
-     *
-     * @param resource $stream
-     *
-     * @return Parser MimeMailParser Instance
-     * @throws Exception
-     */
-    public function setStream($stream): ParserInterface
-    {
+        $parser = new self($config);
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
         if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
@@ -131,18 +107,34 @@ final class Parser implements ParserInterface
         }
 
         fseek($tmpFp, 0);
-        $this->stream = &$tmpFp;
+        $parser->stream = &$tmpFp;
 
         fclose($stream);
 
-        $this->resource = mailparse_msg_create();
+        $parser->resource = mailparse_msg_create();
         // parses the message incrementally (low memory usage but slower)
-        while (!feof($this->stream)) {
-            mailparse_msg_parse($this->resource, fread($this->stream, 2082));
+        while (!feof($parser->stream)) {
+            mailparse_msg_parse($parser->resource, fread($parser->stream, 2082));
         }
-        $this->parse();
+        $parser->parse();
+        return $parser;
+    }
 
-        return $this;
+    /**
+     * Free the held resources
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        // clear the email file resource
+        if (is_resource($this->stream)) {
+            fclose($this->stream);
+        }
+        // clear the MailParse resource
+        if (is_resource($this->resource)) {
+            mailparse_msg_free($this->resource);
+        }
     }
 
     /**
