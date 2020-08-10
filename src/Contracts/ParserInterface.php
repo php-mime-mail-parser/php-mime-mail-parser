@@ -40,13 +40,6 @@ interface ParserInterface
     public const GA_TOPLEVEL = 0;       // only non-inline top-level attachments
 
     /**
-     * Set the email text
-     *
-     * @param string $data
-     */
-    public function setText(string $data): ParserInterface;
-
-    /**
      * Retrieve a specific Email Header, without charset conversion.
      *
      * @param string $name Header name (case-insensitive)

@@ -53,12 +53,10 @@ final class ExceptionTest extends TestCase
      */
     public function testSetText(): void
     {
-        $Parser = new Parser();
-
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('You must not call MimeMailParser::setText with an empty string parameter');
 
-        $Parser->setText('');
+        $Parser = Parser::fromText('');
     }
 
     /**
@@ -125,8 +123,7 @@ final class ExceptionTest extends TestCase
         $file = __DIR__ . '/mails/' . $mid;
         $attachDir = $this->tempdir('attach_' . $mid);
 
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
@@ -139,9 +136,7 @@ final class ExceptionTest extends TestCase
     public function testSaveAttachmentsInvalidStrategy(): void
     {
         $file = __DIR__ . '/mails/m0026';
-
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Invalid filename strategy argument provided.');

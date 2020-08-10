@@ -179,8 +179,7 @@ final class AttachmentTest extends TestCase
         $file = __DIR__.'/mails/issue236a';
         $attachDir = $this->tempdir('issue236a_attachments');
 
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->assertStringContainsString('在庫データを添付いたします。', $Parser->getText());
         $this->assertEmpty($Parser->getHtml());
@@ -203,8 +202,7 @@ final class AttachmentTest extends TestCase
         $file = __DIR__.'/mails/issue236b';
         $attachDir = $this->tempdir('issue236b_attachments');
 
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->assertStringContainsString(PHP_EOL, $Parser->getText());
         $this->assertEmpty($Parser->getHtml());
@@ -227,8 +225,7 @@ final class AttachmentTest extends TestCase
         $file = __DIR__.'/mails/issue194a';
         $this->tempdir('issue194a_attachments');
 
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->assertStringContainsString('Test now', $Parser->getText());
         $this->assertStringContainsString('Test now', $Parser->getHtml());
@@ -243,8 +240,7 @@ final class AttachmentTest extends TestCase
         $file = __DIR__.'/mails/issue194b';
         $this->tempdir('issue194b_attachments');
 
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $this->assertStringContainsString('Met vriendelijke groet', $Parser->getText());
         $this->assertStringContainsString('Keizersgracht 15', $Parser->getHtml());
@@ -261,8 +257,7 @@ final class AttachmentTest extends TestCase
     {
         $file = __DIR__.'/mails/issue125';
 
-        $Parser = new Parser();
-        $Parser->setText(file_get_contents($file));
+        $Parser = Parser::fromText(file_get_contents($file));
 
         $attachments = $Parser->getAttachments();
         $inlineAttachments = $Parser->getInlineAttachments();

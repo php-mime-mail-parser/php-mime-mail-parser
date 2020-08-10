@@ -85,6 +85,27 @@ final class Parser implements ParserInterface
         return $parser;
     }
 
+    public static function fromText(string $data, ParserConfig $config = null): \PhpMimeMailParser\Parser
+    {
+        $parser = new self($config);
+
+        if (empty($data)) {
+            throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
+        }
+
+        if (substr($data, -1) != "\n") {
+            $data .= PHP_EOL;
+        }
+
+        $parser->resource = mailparse_msg_create();
+        // does not parse incrementally, fast memory hog might explode
+        mailparse_msg_parse($parser->resource, $data);
+        $parser->data = $data;
+        $parser->parse();
+
+        return $parser;
+    }
+
     public static function fromStream($stream, ParserConfig $config = null): \PhpMimeMailParser\Parser
     {
         $parser = new self($config);
@@ -150,32 +171,6 @@ final class Parser implements ParserInterface
         throw new Exception(
             'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
         );
-    }
-
-    /**
-     * Set the email text
-     *
-     * @param string $data
-     *
-     * @return Parser MimeMailParser Instance
-     */
-    public function setText(string $data): ParserInterface
-    {
-        if (empty($data)) {
-            throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
-        }
-
-        if (substr($data, -1) != "\n") {
-            $data .= PHP_EOL;
-        }
-
-        $this->resource = mailparse_msg_create();
-        // does not parse incrementally, fast memory hog might explode
-        mailparse_msg_parse($this->resource, $data);
-        $this->data = $data;
-        $this->parse();
-
-        return $this;
     }
 
     /**
