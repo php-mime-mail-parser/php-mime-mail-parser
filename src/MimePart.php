@@ -257,14 +257,8 @@ final class MimePart implements \ArrayAccess
         return $this->getField('charset');
     }
 
-    /**
-     * @return string|bool
-     */
-    public function getCompleteBody()
+    public function getBodyData($start, $end)
     {
-        $start = $this->getStartingPosition();
-        $end = $this->getEndingPosition();
-
         if ($start >= $end) {
             return '';
         }
@@ -281,22 +275,23 @@ final class MimePart implements \ArrayAccess
     /**
      * @return string|bool
      */
+    public function getCompleteBody()
+    {
+        return $this->getBodyData(
+            $this->getStartingPosition(),
+            $this->getEndingPosition()
+        );
+    }
+
+    /**
+     * @return string|bool
+     */
     public function getBody()
     {
-        $start = $this->getStartingPositionBody();
-        $end = $this->getEndingPositionBody();
-
-        if ($start >= $end) {
-            return '';
-        }
-
-        if ($this->stream) {
-            fseek($this->stream, $start, SEEK_SET);
-
-            return fread($this->stream, $end - $start);
-        }
-
-        return substr($this->data, $start, $end - $start);
+        return $this->getBodyData(
+            $this->getStartingPositionBody(),
+            $this->getEndingPositionBody()
+        );
     }
 
     public function isTextMessage($subType): bool
