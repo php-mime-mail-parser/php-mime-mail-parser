@@ -1113,12 +1113,12 @@ final class ParserTest extends TestCase
         $this->assertArrayHasKey('subject', $Parser->getHeaders());
 
         //Test Header : from
-        $this->assertEquals($fromAddressesExpected, $Parser->getAddresses('from'));
-        $this->assertEquals($fromExpected, $Parser->getHeader('from'));
+        $this->assertEquals($fromAddressesExpected, $Parser->getAddressesFrom());
+        $this->assertEquals($fromExpected, $Parser->getFrom());
         $this->assertArrayHasKey('from', $Parser->getHeaders());
 
         //Test Header : to
-        $this->assertEquals($toAddressesExpected, $Parser->getAddresses('to'));
+        $this->assertEquals($toAddressesExpected, $Parser->getAddressesTo());
         $this->assertEquals($toExpected, $Parser->getHeader('to'));
         $this->assertArrayHasKey('to', $Parser->getHeaders());
 
@@ -1852,6 +1852,19 @@ mini plain body';
         $this->assertIsResource($Parser->getResource());
         $this->assertIsResource($Parser->getStream());
         $this->assertIsArray($Parser->getEntities());
+        $this->assertEquals('=?ISO-8859-1?Q?Mail_avec_fichier_attach=E9_de_1ko?=', $Parser->getSubjectRaw());
+        $this->assertEquals('Name <name@company.com>', $Parser->getFromRaw());
+        $this->assertEquals([[
+            'display' => 'Name',
+            'address' => 'name@company.com',
+            'is_group' => false,
+        ]], $Parser->getAddressesFromRaw());
+        $this->assertEquals([[
+            'display' => 'name@company2.com',
+            'address' => 'name@company2.com',
+            'is_group' => false,
+        ]], $Parser->getAddressesToRaw());
+        
 
         $this->assertNull($Parser->getData());
     }

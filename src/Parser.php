@@ -267,7 +267,7 @@ final class Parser implements ParserInterface
         return $this->getHeader('subject');
     }
 
-    public function getSubjectRaw(): ?array
+    public function getSubjectRaw()
     {
         return $this->getHeaderRaw('subject');
     }
@@ -280,7 +280,7 @@ final class Parser implements ParserInterface
         return $this->getHeader('from');
     }
 
-    public function getFromRaw(): ?array
+    public function getFromRaw()
     {
         return $this->getHeaderRaw('from');
     }
