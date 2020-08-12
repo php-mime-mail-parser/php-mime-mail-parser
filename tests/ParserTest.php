@@ -1859,11 +1859,13 @@ mini plain body';
             'address' => 'name@company.com',
             'is_group' => false,
         ]], $Parser->getAddressesFromRaw());
+        $this->assertEquals($Parser->getAddressesFromRaw(), $Parser->getAddressesRaw('from'));
         $this->assertEquals([[
             'display' => 'name@company2.com',
             'address' => 'name@company2.com',
             'is_group' => false,
         ]], $Parser->getAddressesToRaw());
+        $this->assertEquals($Parser->getAddressesToRaw(), $Parser->getAddressesRaw('to'));
         
 
         $this->assertNull($Parser->getData());
