@@ -1,14 +1,15 @@
-<?php
-
-declare(strict_types=1);
-
-namespace PhpMimeMailParser;
+<?php namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Contracts\AttachmentInterface;
 use PhpMimeMailParser\Contracts\CharsetManager;
 use PhpMimeMailParser\Contracts\ContentTransferEncodingManager;
 use PhpMimeMailParser\Contracts\MimeHeaderEncodingManager;
 
+/**
+ * Parser config
+ *
+ * @see \Tests\PhpMimeMailParser\ParserTest
+ */
 final class ParserConfig
 {
     /**
