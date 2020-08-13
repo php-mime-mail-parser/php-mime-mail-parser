@@ -14,6 +14,7 @@ use PhpMimeMailParser\ParserConfig;
  * @covers \PhpMimeMailParser\Attachment
  * @covers \PhpMimeMailParser\MiddleWareStack
  * @covers \PhpMimeMailParser\Middleware
+ * @covers \PhpMimeMailParser\ParserConfig
  */
 final class ParserTest extends TestCase
 {
