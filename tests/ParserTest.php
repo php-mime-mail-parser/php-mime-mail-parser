@@ -10,7 +10,7 @@ use PhpMimeMailParser\ParserConfig;
 
 /**
  * @covers \PhpMimeMailParser\Parser
- * @covers \PhpMimeMailParser\MimePart
+ * @covers \PhpMimeMailParser\Entity
  * @covers \PhpMimeMailParser\Attachment
  * @covers \PhpMimeMailParser\MiddleWareStack
  * @covers \PhpMimeMailParser\Middleware

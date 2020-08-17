@@ -50,7 +50,7 @@ final class MiddlewareStack
     /**
      * Parses the MimePart by passing it through the Middleware
      * @param MimePart $part
-     * @return \PhpMimeMailParser\MimePart|mixed
+     * @return \PhpMimeMailParser\Entity|mixed
      */
     public function parse(Entity $part)
     {
