@@ -46,6 +46,8 @@ final class Parser implements ParserInterface
      */
     protected $parserConfig;
 
+    protected $linebreakAdded = false;
+
     /**
      * Valid stream modes for reading
      *
@@ -93,8 +95,10 @@ final class Parser implements ParserInterface
 
         $parser = new self($config);
 
+        // Adding a trailing line break as a workaround for this bug in PHP mailparse: https://bugs.php.net/bug.php?id=75923
         if (substr($data, -1) != "\n") {
             $data .= PHP_EOL;
+            $parser->linebreakAdded = true;
         }
 
         $parser->resource = mailparse_msg_create();
@@ -299,7 +303,7 @@ final class Parser implements ParserInterface
     {
         return $this->entities[1]->getAddresses('to');
     }
-    
+
     public function getAddressesToRaw()
     {
         return $this->entities[1]->getAddresses('to');
