@@ -32,8 +32,9 @@ class AnotherAttachment implements AttachmentInterface
         return [];
     }
 
-    public function getStream(): void
+    public function getStream()
     {
+        return socket_create(AF_UNIX, SOCK_STREAM, 0);
     }
 
     public function getContent(): string

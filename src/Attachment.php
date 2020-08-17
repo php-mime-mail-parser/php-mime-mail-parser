@@ -22,7 +22,7 @@ final class Attachment implements AttachmentInterface
     protected $contentType;
 
     /**
-     * @var string $content File Content
+     * @var string|null $content File Content
      */
     protected $content;
 
