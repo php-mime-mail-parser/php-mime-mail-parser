@@ -1172,7 +1172,7 @@ final class ParserTest extends TestCase
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attachDir.$attachments[$iterAttachments]->getFilename(),
-                        FILE_USE_INCLUDE_PATH
+                        true
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
@@ -1298,7 +1298,7 @@ final class ParserTest extends TestCase
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attachDir.$attachments[$iterAttachments]->getFilename(),
-                        FILE_USE_INCLUDE_PATH
+                        true
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
@@ -1426,7 +1426,7 @@ final class ParserTest extends TestCase
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attachDir.$attachments[$iterAttachments]->getFilename(),
-                        FILE_USE_INCLUDE_PATH
+                        true
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
