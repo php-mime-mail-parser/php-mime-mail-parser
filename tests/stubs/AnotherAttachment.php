@@ -3,7 +3,7 @@ namespace Tests\PhpMimeMailParser\Stubs;
 
 use \PhpMimeMailParser\Contracts\AttachmentInterface;
 use \PhpMimeMailParser\Contracts\ParserInterface;
-use \PhpMimeMailParser\MimePart;
+use \PhpMimeMailParser\Entity;
 
 class AnotherAttachment implements AttachmentInterface
 {
@@ -46,7 +46,7 @@ class AnotherAttachment implements AttachmentInterface
     }
 
     public static function create(
-        MimePart $part
+        Entity $part
     ): \Tests\PhpMimeMailParser\Stubs\AnotherAttachment {
         return new self();
     }

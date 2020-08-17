@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser\Contracts;
 
-use PhpMimeMailParser\MimePart;
+use PhpMimeMailParser\Entity;
 
 interface AttachmentInterface
 {
@@ -84,6 +84,6 @@ interface AttachmentInterface
      * @param string   $mimePartStr
      */
     public static function create(
-        MimePart $part
+        Entity $part
     );
 }

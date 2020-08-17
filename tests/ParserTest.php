@@ -2,9 +2,9 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Attachment;
+use PhpMimeMailParser\Entity;
 use PhpMimeMailParser\MiddleWare;
 use PhpMimeMailParser\MiddleWareStack;
-use PhpMimeMailParser\MimePart;
 use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\ParserConfig;
 
@@ -1691,7 +1691,7 @@ variances available &nbsp;</div></body></html>'
 
         // run middlware in factory
         $middlewareCallCount = 0;
-        $mimePart = new MimePart('1', []);
+        $mimePart = new Entity('1', []);
         $middleWare = new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
             $middlewareCallCount++;
             return $next($mimePart);
@@ -1712,7 +1712,7 @@ variances available &nbsp;</div></body></html>'
         $id = '1';
         $part = ['foo' => 'bar'];
         $part2 = ['fooz' => 'barz'];
-        $mimePart = new MimePart($id, $part);
+        $mimePart = new Entity($id, $part);
 
         // created
         $this->assertEquals($mimePart->getId(), $id);

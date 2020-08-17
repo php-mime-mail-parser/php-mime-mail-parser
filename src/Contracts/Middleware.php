@@ -2,8 +2,8 @@
 
 namespace PhpMimeMailParser\Contracts;
 
+use PhpMimeMailParser\Entity;
 use PhpMimeMailParser\MiddlewareStack;
-use PhpMimeMailParser\MimePart;
 
 /**
  * Process Mime parts by either:
@@ -19,5 +19,5 @@ interface Middleware
      *
      * @return MimePart
      */
-    public function parse(MimePart $part, MiddlewareStack $next): MimePart;
+    public function parse(Entity $part, MiddlewareStack $next): Entity;
 }

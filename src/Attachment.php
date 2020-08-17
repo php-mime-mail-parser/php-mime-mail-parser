@@ -67,7 +67,7 @@ final class Attachment implements AttachmentInterface
      * @param array    $headers
      * @param string   $mimePartStr
      */
-    public static function create(MimePart $part): \PhpMimeMailParser\Attachment
+    public static function create(Entity $part): \PhpMimeMailParser\Attachment
     {
         $attachment = new self();
         

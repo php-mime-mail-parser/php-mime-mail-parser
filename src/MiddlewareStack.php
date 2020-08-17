@@ -52,7 +52,7 @@ final class MiddlewareStack
      * @param MimePart $part
      * @return \PhpMimeMailParser\MimePart|mixed
      */
-    public function parse(MimePart $part)
+    public function parse(Entity $part)
     {
         if (!$this->middleware) {
             return $part;
@@ -79,7 +79,7 @@ final class MiddlewareStack
      *
      * @param MimePart $part
      */
-    public function __invoke(MimePart $part): \PhpMimeMailParser\MimePart
+    public function __invoke(Entity $part): \PhpMimeMailParser\Entity
     {
         return $this->parse($part);
     }
