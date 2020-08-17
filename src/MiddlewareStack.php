@@ -49,7 +49,7 @@ final class MiddlewareStack
 
     public function parse(Entity $entity): Entity
     {
-        if (!$this->middleware) {
+        if (empty($this->middleware)) {
             return $entity;
         }
         return call_user_func([$this->middleware, 'process'], $entity, $this->next);
@@ -68,7 +68,7 @@ final class MiddlewareStack
         }
         return $stack;
     }
-
+    
     public function __invoke(Entity $entity): Entity
     {
         return $this->parse($entity);

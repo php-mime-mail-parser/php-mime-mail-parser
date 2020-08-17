@@ -106,7 +106,7 @@ final class Parser implements ParserInterface
         $parser = new self($config);
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
+        if (empty($meta) || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
