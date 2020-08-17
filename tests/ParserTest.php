@@ -3,8 +3,8 @@ namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Attachment;
 use PhpMimeMailParser\Entity;
-use PhpMimeMailParser\MiddleWare;
-use PhpMimeMailParser\MiddleWareStack;
+use PhpMimeMailParser\Middleware;
+use PhpMimeMailParser\MiddlewareStack;
 use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\ParserConfig;
 
@@ -1692,7 +1692,7 @@ variances available &nbsp;</div></body></html>'
         // run middlware in factory
         $middlewareCallCount = 0;
         $mimePart = new Entity('1', []);
-        $middleWare = new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
+        $middleWare = new Middleware(function ($mimePart, $next) use (&$middlewareCallCount) {
             $middlewareCallCount++;
             return $next($mimePart);
         });
