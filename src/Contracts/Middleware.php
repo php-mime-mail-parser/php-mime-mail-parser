@@ -11,13 +11,5 @@ use PhpMimeMailParser\MiddlewareStack;
  */
 interface Middleware
 {
-    /**
-     *  Process a mime part, optionally delegating parsing to the $next MiddlewareStack
-     *
-     * @param MimePart $part
-     * @param MiddlewareStack $next
-     *
-     * @return MimePart
-     */
-    public function parse(Entity $part, MiddlewareStack $next): Entity;
+    public function process(Entity $entity, MiddlewareStack $next): Entity;
 }

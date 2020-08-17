@@ -47,17 +47,12 @@ final class MiddlewareStack
         return $stack;
     }
 
-    /**
-     * Parses the MimePart by passing it through the Middleware
-     * @param MimePart $part
-     * @return \PhpMimeMailParser\Entity|mixed
-     */
-    public function parse(Entity $part)
+    public function parse(Entity $entity): Entity
     {
         if (!$this->middleware) {
-            return $part;
+            return $entity;
         }
-        return call_user_func([$this->middleware, 'parse'], $part, $this->next);
+        return call_user_func([$this->middleware, 'process'], $entity, $this->next);
     }
 
     /**
@@ -74,13 +69,8 @@ final class MiddlewareStack
         return $stack;
     }
 
-    /**
-     * Allow calling MiddlewareStack instance directly to invoke parse()
-     *
-     * @param MimePart $part
-     */
-    public function __invoke(Entity $part): \PhpMimeMailParser\Entity
+    public function __invoke(Entity $entity): Entity
     {
-        return $this->parse($part);
+        return $this->parse($entity);
     }
 }

@@ -56,11 +56,6 @@ final class Parser implements ParserInterface
         'x+b', 'c+b', 'rt', 'r+t', 'w+t', 'a+t', 'x+t', 'c+t'
     ];
 
-    /**
-     * Parser constructor.
-     *
-     * @param CharsetManager|null $charset
-     */
     private function __construct(ParserConfig $parserConfig = null)
     {
         $this->parserConfig = $parserConfig ?? new ParserConfig;

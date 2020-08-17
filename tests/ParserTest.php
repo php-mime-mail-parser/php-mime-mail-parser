@@ -1691,15 +1691,15 @@ variances available &nbsp;</div></body></html>'
 
         // run middlware in factory
         $middlewareCallCount = 0;
-        $mimePart = new Entity('1', []);
-        $middleWare = new Middleware(function ($mimePart, $next) use (&$middlewareCallCount) {
+        $entity = new Entity('1', []);
+        $middleWare = new Middleware(function ($entity, $next) use (&$middlewareCallCount) {
             $middlewareCallCount++;
-            return $next($mimePart);
+            return $next($entity);
         });
         $middlewareStack = MiddlewareStack::factory([$middleWare, $middleWare]);
 
         // executes the middleware
-        $middlewareStack->parse($mimePart);
+        $middlewareStack->parse($entity);
 
         $this->assertTrue($middlewareCallCount == 2, 'Middleware was was not called.');
     }

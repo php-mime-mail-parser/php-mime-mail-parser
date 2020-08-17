@@ -59,30 +59,11 @@ interface AttachmentInterface
      */
     public function getMimePartStr(): string;
 
-    /**
-     * Save the attachment individually
-     *
-     * @param string $attach_dir
-     * @param string $filenameStrategy
-     *
-     * @return string
-     */
     public function save(
-        $attachDir,
+        string $attachDir,
         string $filenameStrategy = ParserInterface::ATTACHMENT_DUPLICATE_SUFFIX
     ): string;
 
-    /**
-     * Get mime part string for this attachment
-     *
-     * @param string   $filename
-     * @param string   $contentType
-     * @param resource $stream
-     * @param string   $contentDisposition
-     * @param string   $contentId
-     * @param array    $headers
-     * @param string   $mimePartStr
-     */
     public static function create(
         Entity $part
     );
