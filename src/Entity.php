@@ -46,10 +46,10 @@ final class Entity implements \ArrayAccess
      * @param array $part
      * @param string $id
      */
-    public function __construct(string $id, array $part, $stream = null, $data = null, $parserConfig = null)
+    public function __construct(string $entityId, array $part, $stream = null, $data = null, $parserConfig = null)
     {
         $this->part = $part;
-        $this->id = $id;
+        $this->id = $entityId;
         $this->stream = $stream;
         $this->data = $data;
         $this->parserConfig = $parserConfig ?? new ParserConfig;
