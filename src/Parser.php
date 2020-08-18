@@ -487,12 +487,12 @@ final class Parser implements ParserInterface
     /**
      * @return mixed[]
      */
-    public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX): array
+    public function saveNestedAttachments($directory, $contentDisposition): array
     {
         $attachmentsPaths = [];
 
         foreach ($this->getNestedAttachments($contentDisposition) as $attachment) {
-            $attachmentsPaths[] = $attachment->save($directory, $filenameStrategy);
+            $attachmentsPaths[] = $attachment->save($directory, $this->parserConfig->getFilenameStrategy());
         }
 
         return $attachmentsPaths;

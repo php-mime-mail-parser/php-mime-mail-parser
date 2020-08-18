@@ -3,6 +3,7 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
+use PhpMimeMailParser\ParserConfig;
 
 /**
  * ExceptionTest of php-mime-mail-parser
@@ -85,12 +86,15 @@ final class ExceptionTest extends TestCase
         $file = __DIR__ . '/mails/' . $mid;
         $attachDir = $this->tempdir('attach_' . $mid);
 
-        $Parser = Parser::fromText(file_get_contents($file));
+        $parserConfig = new ParserConfig();
+        $parserConfig->setFilenameStrategy(Parser::ATTACHMENT_DUPLICATE_THROW);
+
+        $Parser = Parser::fromText(file_get_contents($file), $parserConfig);
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create file for attachment: duplicate filename.');
 
-        $Parser->saveNestedAttachments($attachDir, ['attachment'], Parser::ATTACHMENT_DUPLICATE_THROW);
+        $Parser->saveNestedAttachments($attachDir, ['attachment']);
     }
 
     /**
@@ -98,11 +102,14 @@ final class ExceptionTest extends TestCase
     public function testSaveAttachmentsInvalidStrategy(): void
     {
         $file = __DIR__ . '/mails/m0026';
-        $Parser = Parser::fromText(file_get_contents($file));
+
+        $parserConfig = new ParserConfig();
+        $parserConfig->setFilenameStrategy('InvalidValue');
+        $Parser = Parser::fromText(file_get_contents($file), $parserConfig);
 
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Invalid filename strategy argument provided.');
 
-        $Parser->saveNestedAttachments('dir', ['attachment'], 'InvalidValue');
+        $Parser->saveNestedAttachments('dir', ['attachment']);
     }
 }

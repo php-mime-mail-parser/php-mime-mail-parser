@@ -29,6 +29,10 @@ final class ParserConfig
      */
     private $attachmentInterface;
     /**
+     * @var string
+     */
+    private $filenameStrategy;
+    /**
      * Stack of middleware registered to process data
      *
      * @var MiddlewareStack
@@ -44,6 +48,7 @@ final class ParserConfig
             $this->getContentTransferEncodingManager()
         ));
         $this->setAttachmentInterface(new Attachment);
+        $this->setFilenameStrategy(Parser::ATTACHMENT_DUPLICATE_SUFFIX);
 
         $this->middlewareStack = new MiddlewareStack();
     }
@@ -68,6 +73,11 @@ final class ParserConfig
         $this->attachmentInterface = $attachmentInterface;
     }
 
+    public function setFilenameStrategy(string $filenameStrategy): void
+    {
+        $this->filenameStrategy = $filenameStrategy;
+    }
+
     public function getCharsetManager(): CharsetManager
     {
         return $this->charsetManager;
@@ -86,6 +96,11 @@ final class ParserConfig
     public function getAttachmentInterface(): AttachmentInterface
     {
         return $this->attachmentInterface;
+    }
+
+    public function getFilenameStrategy(): string
+    {
+        return $this->filenameStrategy;
     }
 
     /**

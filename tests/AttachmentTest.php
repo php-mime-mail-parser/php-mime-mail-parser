@@ -147,11 +147,13 @@ final class AttachmentTest extends TestCase
 
     public function testSavingWithRandomFilenameKeepExtension(): void
     {
-        $Parser = Parser::fromPath(__DIR__ . '/mails/m0025');
+        $parserConfig = new ParserConfig();
+        $parserConfig->setFilenameStrategy(Parser::ATTACHMENT_RANDOM_FILENAME);
+        $Parser = Parser::fromPath(__DIR__ . '/mails/m0025', $parserConfig);
 
         $attachDir = $this->tempdir('m0025_attachments');
 
-        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline'], $Parser::ATTACHMENT_RANDOM_FILENAME);
+        $Parser->saveNestedAttachments($attachDir, ['attachment', 'inline']);
 
         $attachmentFiles = glob($attachDir . '*');
         $attachmentJpgFiles = glob($attachDir . '*.jpg');
