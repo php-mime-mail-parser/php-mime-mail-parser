@@ -19,7 +19,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('You must not call fromText with an empty string parameter');
 
-        $Parser = Parser::fromText('');
+        Parser::fromText('');
     }
 
     /**
@@ -29,7 +29,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
 
-        $Parser = Parser::fromStream('azerty');
+        Parser::fromStream('azerty');
     }
 
     /**
@@ -45,7 +45,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('Could not create temporary files for attachments.');
 
-        $Parser = Parser::fromStream(fopen($file, 'r'));
+        Parser::fromStream(fopen($file, 'r'));
     }
 
     /**
@@ -57,7 +57,7 @@ final class ExceptionTest extends TestCase
         $this->expectException(\PhpMimeMailParser\Exception::class);
         $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
 
-        $Parser = Parser::fromStream($c);
+        Parser::fromStream($c);
     }
 
     /**
