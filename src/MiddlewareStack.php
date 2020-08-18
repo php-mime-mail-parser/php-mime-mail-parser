@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Contracts\MiddleWare;
+use PhpMimeMailParser\Contracts\Middleware;
 
 /**
  * A stack of middleware chained together by (MiddlewareStack $next)
@@ -40,24 +40,19 @@ final class MiddlewareStack
      * @param Middleware $middleware
      * @return MiddlewareStack Immutable MiddlewareStack
      */
-    public function add(MiddleWare $middleware)
+    public function add(Middleware $middleware)
     {
         $stack = new static($middleware);
         $stack->next = $this;
         return $stack;
     }
 
-    /**
-     * Parses the MimePart by passing it through the Middleware
-     * @param MimePart $part
-     * @return \PhpMimeMailParser\MimePart|mixed
-     */
-    public function parse(MimePart $part)
+    public function parse(Entity $entity): Entity
     {
-        if (!$this->middleware) {
-            return $part;
+        if (empty($this->middleware)) {
+            return $entity;
         }
-        return call_user_func([$this->middleware, 'parse'], $part, $this->next);
+        return call_user_func([$this->middleware, 'process'], $entity, $this->next);
     }
 
     /**
@@ -73,14 +68,9 @@ final class MiddlewareStack
         }
         return $stack;
     }
-
-    /**
-     * Allow calling MiddlewareStack instance directly to invoke parse()
-     *
-     * @param MimePart $part
-     */
-    public function __invoke(MimePart $part): \PhpMimeMailParser\MimePart
+    
+    public function __invoke(Entity $entity): Entity
     {
-        return $this->parse($part);
+        return $this->parse($entity);
     }
 }

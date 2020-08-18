@@ -22,7 +22,7 @@ final class Attachment implements AttachmentInterface
     protected $contentType;
 
     /**
-     * @var string $content File Content
+     * @var string|null $content File Content
      */
     protected $content;
 
@@ -56,18 +56,7 @@ final class Attachment implements AttachmentInterface
      */
     public $maxDuplicateNumber = 100;
 
-    /**
-     * Create Attachment.
-     *
-     * @param string   $filename
-     * @param string   $contentType
-     * @param resource $stream
-     * @param string   $contentDisposition
-     * @param string   $contentId
-     * @param array    $headers
-     * @param string   $mimePartStr
-     */
-    public static function create(MimePart $part): \PhpMimeMailParser\Attachment
+    public static function create(Entity $part): \PhpMimeMailParser\Attachment
     {
         $attachment = new self();
         
@@ -234,16 +223,8 @@ final class Attachment implements AttachmentInterface
         return $this->mimePartStr;
     }
 
-    /**
-     * Save the attachment individually
-     *
-     * @param string $attach_dir
-     * @param string $filenameStrategy
-     *
-     * @return string
-     */
     public function save(
-        $attachDir,
+        string $attachDir,
         string $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ): string {
         $attachDir = rtrim($attachDir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
@@ -275,7 +256,6 @@ final class Attachment implements AttachmentInterface
             }
         }
 
-        /** @var resource $fp */
         if (!$fp = @fopen($attachmentPath, 'w')) {
             throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
         }

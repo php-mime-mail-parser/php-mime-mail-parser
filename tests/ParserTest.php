@@ -2,15 +2,15 @@
 namespace Tests\PhpMimeMailParser;
 
 use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\MiddleWare;
-use PhpMimeMailParser\MiddleWareStack;
-use PhpMimeMailParser\MimePart;
+use PhpMimeMailParser\Entity;
+use PhpMimeMailParser\Middleware;
+use PhpMimeMailParser\MiddlewareStack;
 use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\ParserConfig;
 
 /**
  * @covers \PhpMimeMailParser\Parser
- * @covers \PhpMimeMailParser\MimePart
+ * @covers \PhpMimeMailParser\Entity
  * @covers \PhpMimeMailParser\Attachment
  * @covers \PhpMimeMailParser\MiddleWareStack
  * @covers \PhpMimeMailParser\Middleware
@@ -1172,7 +1172,7 @@ final class ParserTest extends TestCase
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attachDir.$attachments[$iterAttachments]->getFilename(),
-                        FILE_USE_INCLUDE_PATH
+                        true
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
@@ -1298,7 +1298,7 @@ final class ParserTest extends TestCase
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attachDir.$attachments[$iterAttachments]->getFilename(),
-                        FILE_USE_INCLUDE_PATH
+                        true
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
@@ -1426,7 +1426,7 @@ final class ParserTest extends TestCase
                 if ($attachmentExpected[2] != '' && $attachmentExpected[3] >0) {
                     $fileContent = file_get_contents(
                         $attachDir.$attachments[$iterAttachments]->getFilename(),
-                        FILE_USE_INCLUDE_PATH
+                        true
                     );
                     $this->assertEquals($attachmentExpected[3], substr_count($fileContent, $attachmentExpected[2]));
                     $this->assertEquals(
@@ -1691,15 +1691,15 @@ variances available &nbsp;</div></body></html>'
 
         // run middlware in factory
         $middlewareCallCount = 0;
-        $mimePart = new MimePart('1', []);
-        $middleWare = new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
+        $entity = new Entity('1', []);
+        $middleWare = new Middleware(function ($entity, $next) use (&$middlewareCallCount) {
             $middlewareCallCount++;
-            return $next($mimePart);
+            return $next($entity);
         });
         $middlewareStack = MiddlewareStack::factory([$middleWare, $middleWare]);
 
         // executes the middleware
-        $middlewareStack->parse($mimePart);
+        $middlewareStack->parse($entity);
 
         $this->assertTrue($middlewareCallCount == 2, 'Middleware was was not called.');
     }
@@ -1712,7 +1712,7 @@ variances available &nbsp;</div></body></html>'
         $id = '1';
         $part = ['foo' => 'bar'];
         $part2 = ['fooz' => 'barz'];
-        $mimePart = new MimePart($id, $part);
+        $mimePart = new Entity($id, $part);
 
         // created
         $this->assertEquals($mimePart->getId(), $id);

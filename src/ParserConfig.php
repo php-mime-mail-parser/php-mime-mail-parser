@@ -101,10 +101,10 @@ final class ParserConfig
      *      return $next($part);
      * });
      *
-     * @param callable $middleware Plain Function or Middleware Instance to execute
+     * @param callable|Middleware $middleware Plain Function or Middleware Instance to execute
      * @return void
      */
-    public function addMiddleware(callable $middleware): void
+    public function addMiddleware($middleware): void
     {
         if (!$middleware instanceof Middleware) {
             $middleware = new Middleware($middleware);
