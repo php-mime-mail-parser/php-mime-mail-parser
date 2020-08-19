@@ -10,6 +10,7 @@ use Tests\PhpMimeMailParser\Stubs\AnotherAttachment;
  *
  * @covers \PhpMimeMailParser\Parser
  * @covers \PhpMimeMailParser\Attachment
+ * @covers \PhpMimeMailParser\ContentTransferDecoder
  */
 final class AttachmentTest extends TestCase
 {
