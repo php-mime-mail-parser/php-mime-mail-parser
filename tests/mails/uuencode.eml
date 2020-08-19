@@ -1,0 +1,20 @@
+Date: Wed, 19 Aug 2020 15:37:00 +0100
+From: <foo@example.com>
+Content-Type: multipart/mixed;
+	boundary="_d3a8f7dc-6422-401e-b173-90d25e03c888_"
+
+--_d3a8f7dc-6422-401e-b173-90d25e03c888_
+Content-Type: text/plain
+
+foobar
+--_d3a8f7dc-6422-401e-b173-90d25e03c888_
+Content-Transfer-Encoding: uuencode
+Content-Disposition: attachment; filename="wikipedia-url.txt"
+Content-Type: application/octet-stream; name="wikipedia-url.txt"
+
+begin 644 wikipedia-url.txt
+::'1T<#HO+W=W=RYW:6MI<&5D:6$N;W)G#0H`
+`
+end
+
+--_d3a8f7dc-6422-401e-b173-90d25e03c888_--

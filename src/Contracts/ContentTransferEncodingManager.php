@@ -15,6 +15,11 @@ interface ContentTransferEncodingManager
     public const ENCODING_QUOTED_PRINTABLE = 'quoted-printable';
 
     /**
+     * @var string
+     */
+    public const ENCODING_UUENCODE = 'uuencode';
+
+    /**
      * Decode the string from Content-Transfer-Encoding
      *
      * @param string $encodedString The string in its original encoded state
