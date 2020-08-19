@@ -7,7 +7,7 @@ use PhpMimeMailParser\Contracts\ParserInterface;
 /**
  * Parser of php-mime-mail-parser
  *
- * Fully Tested Mailparse Extension Wrapper for PHP 7.2+
+ * A fully tested email parser for PHP 7.2+ (mailparse extension wrapper).
  *
  * @see \Tests\PhpMimeMailParser\ParserTest
  */
