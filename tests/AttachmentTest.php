@@ -10,6 +10,7 @@ use Tests\PhpMimeMailParser\Stubs\AnotherAttachment;
  *
  * @covers \PhpMimeMailParser\Parser
  * @covers \PhpMimeMailParser\Attachment
+ * @covers \PhpMimeMailParser\ContentTransferDecoder
  */
 final class AttachmentTest extends TestCase
 {
@@ -271,5 +272,20 @@ final class AttachmentTest extends TestCase
         $this->assertEquals('image/png', $inlineAttachments[0]->getContentType());
         $this->assertEquals('attachment', $attachments[0]->getContentDisposition());
         $this->assertEquals('message/rfc822', $attachments[0]->getContentType());
+    }
+
+    public function testUuencodingFile(): void
+    {
+        $parser = Parser::fromPath(__DIR__.'/mails/uuencode.eml');
+
+        $this->assertEquals('Wed, 19 Aug 2020 15:37:00 +0100', $parser->getHeader('date'));
+        $this->assertEquals('foobar', $parser->getText());
+
+        $attachDir = $this->tempdir('uuencode_attachments');
+        $parser->saveNestedAttachments($attachDir, ['attachment']);
+
+        $fileContent = file_get_contents($attachDir.'wikipedia-url.txt');
+
+        $this->assertStringContainsString('http://www.wikipedia.org', $fileContent);
     }
 }
