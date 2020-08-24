@@ -1968,4 +1968,13 @@ mini plain body';
         $parser = Parser::fromPath(__DIR__.'/mails/issue158a');
         $this->assertStringContainsString('An RFC 822 forward', $parser->getHtml());
     }
+
+    public function testIssue331(): void
+    {
+        $parser = Parser::fromPath(__DIR__.'/mails/issue331');
+
+        $this->assertEquals('<foo@example.com>', $parser->getFrom());
+        $this->assertEquals('Mon, 17 Sep 2018 22:59:30 +0600', $parser->getHeader('date'));
+        $this->assertCount(0, $parser->getAttachments());
+    }
 }
