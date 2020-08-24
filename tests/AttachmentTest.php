@@ -288,4 +288,13 @@ final class AttachmentTest extends TestCase
 
         $this->assertStringContainsString('http://www.wikipedia.org', $fileContent);
     }
+
+    public function testIssue337(): void
+    {
+        $parser = Parser::fromPath(__DIR__.'/mails/issue337');
+
+        $this->assertCount(1, $parser->getAttachments());
+        $this->assertStringContainsString('foobar', $parser->getText());
+        $this->assertCount(2, $parser->getNestedAttachments(['attachment', 'inline']));
+    }
 }
