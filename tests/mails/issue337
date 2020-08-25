@@ -1,0 +1,17 @@
+From: <foo@example.com>
+Date: Fri, 22 Dec 2017 06:34:08 +0100
+MIME-Version: 1.0
+Content-type: multipart/mixed; Boundary="0__=12345"
+Content-Disposition: inline
+
+--0__=12345
+Content-type: text/plain; charset=UTF-8
+
+foobar
+
+--0__=12345
+Content-type: image/jpeg; name="foobar.jpg"
+Content-Disposition: attachment; filename="foobar.jpg"
+Content-transfer-encoding: base64
+
+--0__=12345--

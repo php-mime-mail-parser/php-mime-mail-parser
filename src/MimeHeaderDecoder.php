@@ -21,11 +21,6 @@ final class MimeHeaderDecoder implements Contracts\MimeHeaderEncodingManager
      */
     private $decoder;
 
-    /**
-     * Parser constructor.
-     *
-     * @param CharsetManager|null $charset
-     */
     public function __construct(CharsetManager $charset, ContentTransferEncodingManager $decoder)
     {
         $this->charset = $charset;

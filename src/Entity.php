@@ -18,7 +18,7 @@ namespace PhpMimeMailParser;
  *     $part['headers']['from'] = 'modified@example.com';
  *     $MimePart->setPart($part);
  */
-final class MimePart implements \ArrayAccess
+final class Entity implements \ArrayAccess
 {
     /**
      * @var \PhpMimeMailParser\ParserConfig|mixed
@@ -46,18 +46,13 @@ final class MimePart implements \ArrayAccess
      * @param array $part
      * @param string $id
      */
-    public function __construct(string $id, array $part, $stream = null, $data = null)
+    public function __construct(string $entityId, array $part, $stream = null, $data = null, $parserConfig = null)
     {
         $this->part = $part;
-        $this->id = $id;
+        $this->id = $entityId;
         $this->stream = $stream;
         $this->data = $data;
-        $this->parserConfig = new ParserConfig;
-    }
-
-    public function setParserConfig($parserConfig): void
-    {
-        $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
+        $this->parserConfig = $parserConfig ?? new ParserConfig;
     }
 
     /**

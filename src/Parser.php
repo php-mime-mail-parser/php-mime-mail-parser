@@ -7,7 +7,7 @@ use PhpMimeMailParser\Contracts\ParserInterface;
 /**
  * Parser of php-mime-mail-parser
  *
- * Fully Tested Mailparse Extension Wrapper for PHP 7.2+
+ * A fully tested email parser for PHP 7.2+ (mailparse extension wrapper).
  *
  * @see \Tests\PhpMimeMailParser\ParserTest
  */
@@ -58,14 +58,9 @@ final class Parser implements ParserInterface
         'x+b', 'c+b', 'rt', 'r+t', 'w+t', 'a+t', 'x+t', 'c+t'
     ];
 
-    /**
-     * Parser constructor.
-     *
-     * @param CharsetManager|null $charset
-     */
     private function __construct(ParserConfig $parserConfig = null)
     {
-        $this->parserConfig = $parserConfig == null ? new ParserConfig : $parserConfig;
+        $this->parserConfig = $parserConfig ?? new ParserConfig;
     }
 
     public static function fromPath(string $path, ParserConfig $config = null): \PhpMimeMailParser\Parser
@@ -115,7 +110,7 @@ final class Parser implements ParserInterface
         $parser = new self($config);
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
+        if (empty($meta) || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
@@ -188,10 +183,8 @@ final class Parser implements ParserInterface
         foreach ($structure as $entityId) {
             $part = mailparse_msg_get_part($this->resource, $entityId);
             $partData = mailparse_msg_get_part_data($part);
-            $mimePart = new MimePart($entityId, $partData, $this->stream, $this->data);
-            $mimePart->setParserConfig($this->parserConfig);
-            $this->entities[$entityId] = $mimePart->parse();
-            //$this->entities[$entityId] = $this->middlewareStack->parse($mimePart);
+            $entity = new Entity($entityId, $partData, $this->stream, $this->data, $this->parserConfig);
+            $this->entities[$entityId] = $entity->parse();
         }
     }
 
@@ -498,12 +491,12 @@ final class Parser implements ParserInterface
     /**
      * @return mixed[]
      */
-    public function saveNestedAttachments($directory, $contentDisposition, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX): array
+    public function saveNestedAttachments($directory, $contentDisposition): array
     {
         $attachmentsPaths = [];
 
         foreach ($this->getNestedAttachments($contentDisposition) as $attachment) {
-            $attachmentsPaths[] = $attachment->save($directory, $filenameStrategy);
+            $attachmentsPaths[] = $attachment->save($directory, $this->parserConfig->getFilenameStrategy());
         }
 
         return $attachmentsPaths;

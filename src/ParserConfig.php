@@ -29,6 +29,10 @@ final class ParserConfig
      */
     private $attachmentInterface;
     /**
+     * @var string
+     */
+    private $filenameStrategy;
+    /**
      * Stack of middleware registered to process data
      *
      * @var MiddlewareStack
@@ -44,6 +48,7 @@ final class ParserConfig
             $this->getContentTransferEncodingManager()
         ));
         $this->setAttachmentInterface(new Attachment);
+        $this->setFilenameStrategy(Parser::ATTACHMENT_DUPLICATE_SUFFIX);
 
         $this->middlewareStack = new MiddlewareStack();
     }
@@ -68,6 +73,11 @@ final class ParserConfig
         $this->attachmentInterface = $attachmentInterface;
     }
 
+    public function setFilenameStrategy(string $filenameStrategy): void
+    {
+        $this->filenameStrategy = $filenameStrategy;
+    }
+
     public function getCharsetManager(): CharsetManager
     {
         return $this->charsetManager;
@@ -88,6 +98,11 @@ final class ParserConfig
         return $this->attachmentInterface;
     }
 
+    public function getFilenameStrategy(): string
+    {
+        return $this->filenameStrategy;
+    }
+
     /**
      * Add a middleware to the parser MiddlewareStack
      * Each middleware is invoked when:
@@ -101,10 +116,10 @@ final class ParserConfig
      *      return $next($part);
      * });
      *
-     * @param callable $middleware Plain Function or Middleware Instance to execute
+     * @param callable|Middleware $middleware Plain Function or Middleware Instance to execute
      * @return void
      */
-    public function addMiddleware(callable $middleware): void
+    public function addMiddleware($middleware): void
     {
         if (!$middleware instanceof Middleware) {
             $middleware = new Middleware($middleware);

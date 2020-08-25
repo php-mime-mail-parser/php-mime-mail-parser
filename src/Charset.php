@@ -361,9 +361,6 @@ final class Charset implements CharsetManager
      */
     private $encodings;
 
-    /**
-     * @return mixed|string[]
-     */
     private function getSupportedEncodings(): array
     {
         if (null !== $this->encodings) {

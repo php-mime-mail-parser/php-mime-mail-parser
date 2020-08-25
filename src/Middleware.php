@@ -22,11 +22,8 @@ final class Middleware implements Contracts\Middleware
         $this->parser = $fn;
     }
 
-    /**
-     * Process a mime part, optionally delegating parsing to the $next MiddlewareStack
-     */
-    public function parse(MimePart $part, MiddlewareStack $next): MimePart
+    public function process(Entity $entity, MiddlewareStack $next): Entity
     {
-        return call_user_func($this->parser, $part, $next);
+        return call_user_func($this->parser, $entity, $next);
     }
 }

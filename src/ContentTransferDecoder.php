@@ -22,6 +22,14 @@ final class ContentTransferDecoder implements ContentTransferEncodingManager
             return quoted_printable_decode($encodedString);
         }
 
+        if (self::ENCODING_UUENCODE === $encodingType) {
+            if (strpos($encodedString, "begin") === 0 && strpos($encodedString, "begin") < strpos($encodedString, PHP_EOL)) {
+                $encodedString = substr($encodedString, strpos($encodedString, PHP_EOL) + 1);
+            }
+            $encodedString = substr($encodedString, 0, strripos($encodedString, "end") - 1);
+            return convert_uudecode($encodedString);
+        }
+
         return $encodedString;
     }
 }
