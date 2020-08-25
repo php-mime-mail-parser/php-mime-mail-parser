@@ -174,11 +174,14 @@ final class Parser implements ParserInterface
     private function parse(): void
     {
         $structure = mailparse_msg_get_structure($this->resource);
+        var_dump($structure);
         $this->entities = [];
 
         foreach ($structure as $entityId) {
             $part = mailparse_msg_get_part($this->resource, $entityId);
+            var_dump($part);
             $partData = mailparse_msg_get_part_data($part);
+            var_dump($partData);
             $entity = new Entity($entityId, $partData, $this->stream, $this->data, $this->parserConfig);
             $this->entities[$entityId] = $entity->parse();
         }
