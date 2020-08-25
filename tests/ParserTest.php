@@ -1968,4 +1968,31 @@ mini plain body';
         $parser = Parser::fromPath(__DIR__.'/mails/issue158a');
         $this->assertStringContainsString('An RFC 822 forward', $parser->getHtml());
     }
+
+    public function testIssue332a(): void
+    {
+        $raw = <<<EOD
+        Date: Sat, 8 Aug 2020 18:36:05 +0100
+        From: <foo@example.com>
+
+        foobar
+        EOD;
+        $parser = Parser::fromText($raw);
+        $this->assertEquals('foobar', $parser->getText());
+        $this->assertEquals('foobar', $parser->getTextRaw());
+    }
+
+    public function testIssue332b(): void
+    {
+        $raw = <<<EOD
+        Date: Sat, 8 Aug 2020 18:36:05 +0100
+        From: <foo@example.com>
+
+        foobar
+
+        EOD;
+        $parser = Parser::fromText($raw);
+        $this->assertEquals('foobar'.PHP_EOL, $parser->getText());
+        $this->assertEquals('foobar'.PHP_EOL, $parser->getTextRaw());
+    }
 }
