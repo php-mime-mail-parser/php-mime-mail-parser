@@ -47,6 +47,7 @@ final class Parser implements ParserInterface
     protected $parserConfig;
 
     protected $linebreakAdded = false;
+    protected $linebreakToRemove = null;
 
     /**
      * Valid stream modes for reading
@@ -71,6 +72,7 @@ final class Parser implements ParserInterface
             fseek($file, -1, SEEK_END);
             if (fread($file, 1) != "\n") {
                 fwrite($file, PHP_EOL);
+                $parser->linebreakAdded = true;
             }
             fclose($file);
         }
@@ -124,6 +126,7 @@ final class Parser implements ParserInterface
 
         if (fread($tmpFp, 1) != "\n") {
             fwrite($tmpFp, PHP_EOL);
+            $parser->linebreakAdded = true;
         }
 
         fseek($tmpFp, 0);
@@ -321,8 +324,13 @@ final class Parser implements ParserInterface
         $entities = $this->filterEntities($subTypes, false);
 
         $bodies = [];
-        foreach ($entities as $entity) {
-            $bodies[] = $entity->decoded();
+        foreach ($entities as $entityId => $entity) {
+            if ($this->linebreakToRemove === $entityId) {
+                $text = $entity->decoded();
+                $bodies[] = substr($text, 0, -1);
+            } else {
+                $bodies[] = $entity->decoded();
+            }
         }
         return $bodies;
     }
@@ -335,8 +343,13 @@ final class Parser implements ParserInterface
         $entities = $this->filterEntities($subTypes, false);
 
         $bodies = [];
-        foreach ($entities as $entity) {
-            $bodies[] = $entity->getBody();
+        foreach ($entities as $entityId => $entity) {
+            if ($this->linebreakToRemove === $entityId) {
+                $text = $entity->getBody();
+                $bodies[] = substr($text, 0, -1);
+            } else {
+                $bodies[] = $entity->getBody();
+            }
         }
         return $bodies;
     }
@@ -426,6 +439,9 @@ final class Parser implements ParserInterface
 
             if ($entity->isTextMessage('plain')) {
                 if (\in_array('text', $filters)) {
+                    if ($this->linebreakAdded && array_key_last($this->entities) === $entityId) {
+                        $this->linebreakToRemove = $entityId;
+                    }
                     $filteredEntities[$entityId] = $entity;
                     continue;
                 }
