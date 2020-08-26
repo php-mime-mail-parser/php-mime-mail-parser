@@ -1968,4 +1968,18 @@ mini plain body';
         $parser = Parser::fromPath(__DIR__.'/mails/issue158a');
         $this->assertStringContainsString('An RFC 822 forward', $parser->getHtml());
     }
+
+    public function testIssue329(): void
+    {
+        $raw = <<<EOD
+        Content-Type: text/plain
+        Content-Transfer-Encoding: quoted-printable
+
+        f=FCr m=F6glich h=E4ufig
+
+        EOD;
+
+        $parser = Parser::fromText($raw);
+        $this->assertStringContainsString("für möglich häufig", $parser->getText());
+    }
 }

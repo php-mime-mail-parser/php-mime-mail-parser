@@ -327,7 +327,7 @@ final class Charset implements CharsetManager
         }
 
         if ($charset == 'us-ascii') {
-            return $encodedString;
+            return mb_check_encoding($encodedString, 'utf-8') ? $encodedString : utf8_encode($encodedString);
         }
 
         if ($charset == 'iso-2022-jp') {
