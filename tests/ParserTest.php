@@ -1958,14 +1958,17 @@ mini plain body';
         $this->assertEquals('Test 5.eml', $attachments[0]->getFilename());
     }
 
-
-
-
     public function testParserConfig(): void
     {
         $parserConfig = new \PhpMimeMailParser\ParserConfig();
 
         $parser = Parser::fromPath(__DIR__.'/mails/issue158a');
         $this->assertStringContainsString('An RFC 822 forward', $parser->getHtml());
+    }
+
+    public function testIssue329(): void
+    {
+        $parser = Parser::fromPath(__DIR__.'/mails/issue329');
+        $this->assertStringContainsString("für möglich häufig", $parser->getText());
     }
 }
