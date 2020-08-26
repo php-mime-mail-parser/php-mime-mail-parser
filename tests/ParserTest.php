@@ -1958,9 +1958,6 @@ mini plain body';
         $this->assertEquals('Test 5.eml', $attachments[0]->getFilename());
     }
 
-
-
-
     public function testParserConfig(): void
     {
         $parserConfig = new \PhpMimeMailParser\ParserConfig();
