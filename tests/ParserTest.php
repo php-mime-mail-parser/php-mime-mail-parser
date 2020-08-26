@@ -1968,15 +1968,7 @@ mini plain body';
 
     public function testIssue329(): void
     {
-        $raw = <<<EOD
-        Content-Type: text/plain
-        Content-Transfer-Encoding: quoted-printable
-
-        f=FCr m=F6glich h=E4ufig
-
-        EOD;
-
-        $parser = Parser::fromText($raw);
+        $parser = Parser::fromPath(__DIR__.'/mails/issue329');
         $this->assertStringContainsString("für möglich häufig", $parser->getText());
     }
 }
