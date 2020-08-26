@@ -1,6 +1,6 @@
 # php-mime-mail-parser
 
-A fully tested email parser for PHP 7.2+ ([mailparse extension](https://www.php.net/manual/book.mailparse.php) wrapper).
+A fully tested email parser for PHP 7.3+ ([mailparse extension](https://www.php.net/manual/book.mailparse.php) wrapper).
 
 It's the most effective php email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
 Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](https://tools.ietf.org/html/rfc2822), [5322](https://tools.ietf.org/html/rfc5322).
@@ -40,7 +40,6 @@ To install the latest version of PHP MIME Mail Parser, run the command below:
 
 The following versions of PHP are supported:
 
-* PHP 7.2
 * PHP 7.3
 * PHP 7.4
 
@@ -54,6 +53,7 @@ Previous Versions:
 | PHP 5.6  | php-mime-mail-parser 3.0.4  |
 | PHP 7.0  | php-mime-mail-parser 3.0.4  |
 | PHP 7.1  | php-mime-mail-parser 5.0.5  |
+| PHP 7.2  | php-mime-mail-parser 6.0.0  |
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` needs to return "mailparse".
 
@@ -104,25 +104,19 @@ You need to download mailparse DLL from http://pecl.php.net/package/mailparse an
 
 ### Loading an email
 
-You can load an email in 4 different ways – choose one:
+You can load an email in 3 different ways – choose one:
 
 ```php
 require_once __DIR__.'/vendor/autoload.php';
 
-$path = 'path/to/email.eml';
-$parser = new PhpMimeMailParser\Parser();
-
 // 1. Specify a file path (string)
-$parser->setPath($path); 
+$parser = PhpMimeMailParser\Parser::fromPath('path/to/email.eml'); 
 
 // 2. Specify the raw mime mail text (string)
-$parser->setText(file_get_contents($path));
+$parser = PhpMimeMailParser\Parser::fromText('... raw email ...');
 
-// 3. Specify a php file resource (stream)
-$parser->setStream(fopen($path, "r"));
-
-// 4.  Specify a stream to work with mail server (stream)
-$parser->setStream(fopen("php://stdin", "r"));
+// 3. Specify a stream to work with mail server (stream)
+$parser = PhpMimeMailParser\Parser::fromStream(fopen("php://stdin", "r"));
 ```
 
 ### Get the metadata of the message
