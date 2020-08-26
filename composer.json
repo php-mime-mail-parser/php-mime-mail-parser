@@ -55,7 +55,7 @@
     },
     "require-dev": {
         "php-coveralls/php-coveralls": "^2.2",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^9.2",
         "rregeer/phpunit-coverage-check": "^0.3.1",
         "friendsofphp/php-cs-fixer": "^2.16",
         "symfony/filesystem": "^5.0",
