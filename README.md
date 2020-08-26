@@ -23,7 +23,7 @@ Yes. All known issues have been reproduced, fixed and tested.
 
 We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see real-time statistics below:
 
-![Build Status](https://github.com/php-mime-mail-parser/php-mime-mail-parser/workflows/CI/badge.svg?branch=release-6.0.0&event=push)
+![Build Status](https://github.com/php-mime-mail-parser/php-mime-mail-parser/workflows/CI/badge.svg?branch=master&event=push)
 [![Coverage](https://img.shields.io/codecov/c/gh/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
 [![Code Quality](https://img.shields.io/codacy/grade/4e0e44fee21147ddbdd18ff976251875?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
 
@@ -119,7 +119,7 @@ $parser = PhpMimeMailParser\Parser::fromText('... raw email ...');
 $parser = PhpMimeMailParser\Parser::fromStream(fopen("php://stdin", "r"));
 ```
 
-### Get the metadata of the message
+### Get the headers of the message
 
 Get the sender and the receiver:
 
@@ -140,30 +140,30 @@ $arrayHeaderFrom = $parser->getAddresses('from');
 Get the subject:
 
 ```php
-$subject = $parser->getHeader('subject');
+$subject = $parser->getSubject();
 ```
 
 Get other headers:
 
 ```php
-$stringHeaders = $parser->getHeadersRaw();
-// return all headers as a string, no charset conversion
+$rawHeaders = $parser->getHeadersRaw();
+// return all headers as an array, no charset conversion
 
-$arrayHeaders = $parser->getHeaders();
+$headers = $parser->getHeaders();
 // return all headers as an array, with charset conversion
 ```
 
 ### Get the body of the message
 
 ```php
-$text = $parser->getMessageBody('text');
+$text = $parser->getText();
 // return the text version
 
-$html = $parser->getMessageBody('html');
-// return the html version
+$html = $parser->getHtml();
+// return the html version with embedded contents like inline images
 
-$htmlEmbedded = $parser->getMessageBody('htmlEmbedded');
-// return the html version with the embedded contents like images
+$html2 = $parser->getHtmlNotEmbedded();
+// return the html version without embedded contents
 
 ```
 
@@ -172,22 +172,25 @@ $htmlEmbedded = $parser->getMessageBody('htmlEmbedded');
 Save all attachments in a directory
 
 ```php
-$parser->saveAttachments('/path/to/save/attachments/');
+$parser->saveNestedAttachments('/path/to/save/attachments/', ['attachment', 'inline']);
 // return all attachments saved in the directory (include inline attachments)
 
-$parser->saveAttachments('/path/to/save/attachments/', false);
+$parser->saveNestedAttachments('/path/to/save/attachments/', ['attachment']);
 // return all attachments saved in the directory (exclude inline attachments)
 
-// Save all attachments with the strategy ATTACHMENT_DUPLICATE_SUFFIX (default)
-$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_DUPLICATE_SUFFIX);
-// return all attachments saved in the directory: logo.jpg, logo_1.jpg, ..., logo_100.jpg, YY34UFHBJ.jpg
+// by default, the duplicates attachments are saved like this: logo.jpg, logo_1.jpg, ..., logo_100.jpg, YY34UFHBJ.jpg
+// you can also change the strategy to handle duplicates filenames
 
-// Save all attachments with the strategy ATTACHMENT_RANDOM_FILENAME
-$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_RANDOM_FILENAME);
+$parserConfig = new ParserConfig();
+$parserConfig->setFilenameStrategy(Parser::ATTACHMENT_RANDOM_FILENAME);
+$parser = Parser::fromPath('path/to/email.eml', $parserConfig);
+$parser->saveNestedAttachments('/path/to/save/attachments/', ['attachment', 'inline']);
 // return all attachments saved in the directory: YY34UFHBJ.jpg and F98DBZ9FZF.jpg
 
-// Save all attachments with the strategy ATTACHMENT_DUPLICATE_THROW
-$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_DUPLICATE_THROW);
+$parserConfig = new ParserConfig();
+$parserConfig->setFilenameStrategy(Parser::ATTACHMENT_DUPLICATE_THROW);
+$parser = Parser::fromPath('path/to/email.eml', $parserConfig);
+$parser->saveNestedAttachments('/path/to/save/attachments/', ['attachment', 'inline']);
 // return an exception when there is attachments duplicate.
 
 ```
