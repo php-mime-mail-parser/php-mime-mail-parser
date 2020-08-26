@@ -1,7 +1,7 @@
 {
     "name": "php-mime-mail-parser/php-mime-mail-parser",
     "type": "library",
-    "description": "A fully tested email parser for PHP 7.2+ (mailparse extension wrapper).",
+    "description": "A fully tested email parser for PHP 7.3+ (mailparse extension wrapper).",
     "keywords": [
         "mime",
         "mail",
@@ -45,7 +45,7 @@
         }
     ],
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "ext-iconv": "*",
         "ext-mailparse": "*"
     },
@@ -55,7 +55,7 @@
     },
     "require-dev": {
         "php-coveralls/php-coveralls": "^2.2",
-        "phpunit/phpunit": "^8.0",
+        "phpunit/phpunit": "^9.2",
         "rregeer/phpunit-coverage-check": "^0.3.1",
         "friendsofphp/php-cs-fixer": "^2.16",
         "symfony/filesystem": "^5.0",
