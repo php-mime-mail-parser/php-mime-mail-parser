@@ -291,6 +291,15 @@ final class Parser implements ParserInterface
     {
         return $this->entities[1]->getAddresses('from');
     }
+    public function getTo()
+    {
+        return $this->getHeader('to');
+    }
+
+    public function getToRaw()
+    {
+        return $this->getHeaderRaw('to');
+    }
 
     public function getAddressesTo()
     {
