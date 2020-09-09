@@ -254,6 +254,7 @@ And finally the easiest way is to use my SaaS https://mailcare.io
 ## My sponsors
 
 Thanks to [Bertel Torp](https://github.com/berteltorp) who is my first sponsor.
+Thanks to [Will Browning](https://github.com/willbrowningme) who is my second sponsor.
 
 
 ## Can I contribute?
