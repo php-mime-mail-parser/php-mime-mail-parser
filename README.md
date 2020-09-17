@@ -84,7 +84,6 @@ pecl install mailparse
 
 #### From source
 
-AAAAMMDD should be `php-config --extension-dir`
 ```
 git clone https://github.com/php/pecl-mail-mailparse.git
 cd pecl-mail-mailparse
@@ -92,7 +91,7 @@ phpize
 ./configure
 sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
 make
-sudo mv modules/mailparse.so /usr/lib/php/AAAAMMDD/
+sudo mv modules/mailparse.so $(php-config --extension-dir)
 echo "extension=mailparse.so" | sudo tee /etc/php/7.1/mods-available/mailparse.ini
 sudo phpenmod mailparse
 ```
