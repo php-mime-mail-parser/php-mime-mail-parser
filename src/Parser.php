@@ -281,7 +281,7 @@ final class Parser implements ParserInterface
     {
         return $this->getHeaderRaw('from');
     }
-
+    
     public function getAddressesFrom()
     {
         return $this->entities[1]->getAddresses('from');
@@ -290,6 +290,15 @@ final class Parser implements ParserInterface
     public function getAddressesFromRaw()
     {
         return $this->entities[1]->getAddresses('from');
+    }
+    public function getTo()
+    {
+        return $this->getHeader('to');
+    }
+
+    public function getToRaw()
+    {
+        return $this->getHeaderRaw('to');
     }
 
     public function getAddressesTo()

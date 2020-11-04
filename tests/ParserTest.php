@@ -530,7 +530,7 @@ final class ParserTest extends TestCase
                             'image/gif',
                             'inline',
                             '102aa12e16635bf2b0b39ef6a91aa95c',
-                            '',
+                            'jRDTrOq6K1YUb35G6buFv5q919oxtqolxW+G2ssJEempexdy',
                             ],
                         [
                             'background.jpg',
@@ -540,7 +540,7 @@ final class ParserTest extends TestCase
                             'image/gif',
                             'inline',
                             '798f976a5834019d3f2dd087be5d5796',
-                            '',
+                            'EFBenQRYjVhYUalipKqETqIF6hClamCGGilLAAKY45a0x',
                             ],
                         [
                             'attachment.txt',
@@ -1100,8 +1100,7 @@ final class ParserTest extends TestCase
         $toExpected,
         $textExpected,
         $htmlExpected,
-        $attachmentsExpected,
-        $countEmbeddedExpected
+        $attachmentsExpected
     ): void {
         //Init
         $file = __DIR__.'/mails/'.$mid;
@@ -1206,7 +1205,7 @@ final class ParserTest extends TestCase
 
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getHtml();
-        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+        $this->assertEquals(count($attachmentsEmbeddedToCheck), substr_count($htmlEmbedded, "data:"));
 
         foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
             $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
@@ -1225,8 +1224,7 @@ final class ParserTest extends TestCase
         $toExpected,
         $textExpected,
         $htmlExpected,
-        $attachmentsExpected,
-        $countEmbeddedExpected
+        $attachmentsExpected
     ): void {
         //Init
         $file = __DIR__.'/mails/'.$mid;
@@ -1332,7 +1330,7 @@ final class ParserTest extends TestCase
 
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getHtml();
-        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+        $this->assertEquals(count($attachmentsEmbeddedToCheck), substr_count($htmlEmbedded, "data:"));
 
         foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
             $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
@@ -1352,8 +1350,7 @@ final class ParserTest extends TestCase
         $toExpected,
         $textExpected,
         $htmlExpected,
-        $attachmentsExpected,
-        $countEmbeddedExpected
+        $attachmentsExpected
     ): void {
         //Init
         $file = __DIR__.'/mails/'.$mid;
@@ -1460,7 +1457,7 @@ final class ParserTest extends TestCase
 
         //Test embedded Attachments
         $htmlEmbedded = $Parser->getHtml();
-        $this->assertEquals($countEmbeddedExpected, substr_count($htmlEmbedded, "data:"));
+        $this->assertEquals(count($attachmentsEmbeddedToCheck), substr_count($htmlEmbedded, "data:"));
 
         foreach ($attachmentsEmbeddedToCheck as $itemExpected) {
             $this->assertEquals(1, substr_count($htmlEmbedded, $itemExpected));
