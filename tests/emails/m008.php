@@ -9,13 +9,14 @@ return [
         "header_value" => "Name <name@company.com>",
         "raw" => "Name <name@company.com>"
     ],
-    "to" => [[
+    "to" => [
+        [
         "name" => "Name",
         "email" => "name@company2.com",
         "is_group" => false,
+        ],
         "header_value" => "Name <name@company2.com>",
-        "raw" => "Name <name@company2.com>"
-    ]],
+    ],
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "Please use an HTML capable mail program to read",

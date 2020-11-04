@@ -58,7 +58,7 @@ final class ParseHeaderTest extends TestCase
         $this->assertEquals($to[0]['name'], $parser->getAddressesTo()[0]['display']);
         $this->assertEquals($to[0]['email'], $parser->getAddressesTo()[0]['address']);
         $this->assertEquals($to[0]['is_group'], $parser->getAddressesTo()[0]['is_group']);
-        $this->assertEquals($to[0]['header_value'], $parser->getHeader('to'));
+        $this->assertEquals($to['header_value'], $parser->getHeader('to'));
         $this->assertArrayHasKey('to', $parser->getHeaders());
     }
 

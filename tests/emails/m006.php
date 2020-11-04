@@ -9,13 +9,14 @@ return [
         "header_value" => "Name <name@company.com>",
         "raw" => "Name <name@company.com>"
     ],
-    "to" => [[
+    "to" => [
+        [
         "name" => "name@company2.com",
         "email" => "name@company2.com",
         "is_group" => false,
+        ],
         "header_value" => "name@company2.com",
-        "raw" => "name@company2.com"
-    ]],
+    ],
     "textBody" => [
         "matchType" => "EXACT",
         "expectedValue" => "\n",

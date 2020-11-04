@@ -9,13 +9,14 @@ return [
         "header_value" => '"Ogone" <noreply@ogone.com>',
         "raw" => '"Ogone" <noreply@ogone.com>'
     ],
-    "to" => [[
+    "to" => [
+        [
         "name" => "info@testsite.com",
         "email" => "info@testsite.com",
         "is_group" => false,
+        ],
         "header_value" => "info@testsite.com",
-        "raw" => "info@testsite.com"
-    ]],
+    ],
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "951597484",
