@@ -55,9 +55,13 @@ final class ParseHeaderTest extends TestCase
         $this->assertArrayHasKey('from', $parser->getHeaders());
 
         //Test Header : to
-        $this->assertEquals($to[0]['name'], $parser->getAddressesTo()[0]['display']);
-        $this->assertEquals($to[0]['email'], $parser->getAddressesTo()[0]['address']);
-        $this->assertEquals($to[0]['is_group'], $parser->getAddressesTo()[0]['is_group']);
+        foreach ($to as $key => $inbox) {
+            if (is_array($inbox)) {
+                $this->assertEquals($inbox['name'], $parser->getAddressesTo()[$key]['display']);
+                $this->assertEquals($inbox['email'], $parser->getAddressesTo()[$key]['address']);
+                $this->assertEquals($inbox['is_group'], $parser->getAddressesTo()[$key]['is_group']);
+            }
+        }
         $this->assertEquals($to['header_value'], $parser->getHeader('to'));
         $this->assertArrayHasKey('to', $parser->getHeaders());
     }
