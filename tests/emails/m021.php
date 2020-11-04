@@ -26,6 +26,7 @@ return [
         ],
         "header_value" => 'mail@exemple.com, mail2@exemple3.com, mail3@exemple2.com',
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "mini plain body",

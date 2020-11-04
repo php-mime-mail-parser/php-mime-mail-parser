@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => 'Keld Jørn Simonsen <keld@dkuug.dk>',
     ],
+    "cc" => "André Pirard <PIRARD@vm1.ulg.ac.be>",
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "captured",

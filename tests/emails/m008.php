@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => "Name <name@company2.com>",
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "Please use an HTML capable mail program to read",

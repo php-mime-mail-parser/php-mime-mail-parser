@@ -12,34 +12,34 @@ final class ParseHeaderTest extends TestCase
     /**
      * @dataProvider provideEmails
      */
-    public function testFromPath($id, $subject, $from, $to, $textBody, $htmlBody, $attachments): void
+    public function testFromPath($id, $subject, $from, $to, $cc, $textBody, $htmlBody, $attachments): void
     {
         $parser = Parser::fromPath(__DIR__.'/emails/'.$id.'.eml');
 
-        $this->generic($parser, $id, $subject, $from, $to, $textBody, $htmlBody, $attachments);
+        $this->generic($parser, $id, $subject, $from, $to, $cc, $textBody, $htmlBody, $attachments);
     }
 
     /**
      * @dataProvider provideEmails
      */
-    public function testFromText($id, $subject, $from, $to, $textBody, $htmlBody, $attachments): void
+    public function testFromText($id, $subject, $from, $to, $cc, $textBody, $htmlBody, $attachments): void
     {
         $parser = Parser::fromText(file_get_contents(__DIR__.'/emails/'.$id.'.eml'));
 
-        $this->generic($parser, $id, $subject, $from, $to, $textBody, $htmlBody, $attachments);
+        $this->generic($parser, $id, $subject, $from, $to, $cc, $textBody, $htmlBody, $attachments);
     }
 
     /**
      * @dataProvider provideEmails
      */
-    public function testFromStream($id, $subject, $from, $to, $textBody, $htmlBody, $attachments): void
+    public function testFromStream($id, $subject, $from, $to, $cc, $textBody, $htmlBody, $attachments): void
     {
         $parser = Parser::fromStream(fopen(__DIR__.'/emails/'.$id.'.eml', 'r'));
 
-        $this->generic($parser, $id, $subject, $from, $to, $textBody, $htmlBody, $attachments);
+        $this->generic($parser, $id, $subject, $from, $to, $cc, $textBody, $htmlBody, $attachments);
     }
 
-    private function generic($parser, $id, $subject, $from, $to, $textBody, $htmlBody, $attachments): void
+    private function generic($parser, $id, $subject, $from, $to, $cc, $textBody, $htmlBody, $attachments): void
     {
         $attachDir = $this->tempdir("attachments_$id");
 
@@ -64,6 +64,11 @@ final class ParseHeaderTest extends TestCase
         }
         $this->assertEquals($to['header_value'], $parser->getHeader('to'));
         $this->assertArrayHasKey('to', $parser->getHeaders());
+
+        //Test Header : cc
+        if ($cc) {
+            $this->assertEquals($cc, $parser->getHeaders()['cc']);
+        }
     }
 
     public function testInvalidHeader()

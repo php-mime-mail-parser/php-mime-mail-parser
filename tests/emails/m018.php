@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => '"name@company2.com" <name@company2.com>',
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "My traveling companions!",

@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => '"paul.dupont@company.com" <paul.dupont@company.com>',
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "Superviseur de voitures",

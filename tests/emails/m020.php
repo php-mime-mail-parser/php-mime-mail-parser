@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => 'Clement Wong <clement.wong@finntack.com>',
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "EXACT",
         "expectedValue" => "1\r\n\r\n",

@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => '"test" <test@asdasd.com>',
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "captured",

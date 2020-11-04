@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => "info@testsite.com",
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "951597484",

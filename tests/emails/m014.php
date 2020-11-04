@@ -16,6 +16,7 @@ return [
         ],
         "header_value" => 'Joe Blow <blow@example.com>',
     ],
+    "cc" => null,
     "textBody" => [
         "matchType" => "PARTIAL",
         "expectedValue" => "Die Hasen und die",
