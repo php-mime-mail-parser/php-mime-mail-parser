@@ -7,7 +7,6 @@ return [
         "email" => "service@vitamart.ca",
         "is_group" => false,
         "header_value" => '"Vitamart.ca" <service@vitamart.ca>',
-        "raw" => '"Vitamart.ca" <service@vitamart.ca>'
     ],
     "to" => [
         [

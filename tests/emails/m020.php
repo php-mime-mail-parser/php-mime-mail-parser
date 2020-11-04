@@ -7,7 +7,6 @@ return [
         "email" => "newsletter@finntack.com",
         "is_group" => false,
         "header_value" => 'Finntack Newsletter <newsletter@finntack.com>',
-        "raw" => 'Finntack Newsletter <newsletter@finntack.com>'
     ],
     "to" => [
         [

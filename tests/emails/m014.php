@@ -7,7 +7,6 @@ return [
         "email" => "dwsauder@example.com",
         "is_group" => false,
         "header_value" => 'Doug Sauder <dwsauder@example.com>',
-        "raw" => 'Doug Sauder <dwsauder@example.com>'
     ],
     "to" => [
         [

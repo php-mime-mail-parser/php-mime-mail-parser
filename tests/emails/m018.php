@@ -7,7 +7,6 @@ return [
         "email" => "name@company.com",
         "is_group" => false,
         "header_value" => '<name@company.com>',
-        "raw" => '<name@company.com>'
     ],
     "to" => [
         [

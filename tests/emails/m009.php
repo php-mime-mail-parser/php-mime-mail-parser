@@ -7,7 +7,6 @@ return [
         "email" => "noreply@ogone.com",
         "is_group" => false,
         "header_value" => '"Ogone" <noreply@ogone.com>',
-        "raw" => '"Ogone" <noreply@ogone.com>'
     ],
     "to" => [
         [
