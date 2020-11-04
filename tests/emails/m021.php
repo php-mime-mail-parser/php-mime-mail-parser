@@ -32,7 +32,7 @@ return [
         "expectedValue" => "mini plain body",
     ],
     "htmlBody" => [
-        "matchType" => "EXATC",
+        "matchType" => "EXACT",
         "expectedValue" => '',
     ],
     "attachments" => []
