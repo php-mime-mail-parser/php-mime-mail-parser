@@ -40,17 +40,17 @@ final class ParseBodyTest extends TestCase
 
     private function generic($parser, $textBody, $htmlBody): void
     {
-        //Test  Body : text
+        //Test  Body : texts
         if ($textBody['matchType'] == 'PARTIAL') {
             $this->assertStringContainsString($textBody['expectedValue'], $parser->getText());
-        } elseif ($textBody['matchType'] == 'EXACT') {
+        } else {
             $this->assertEquals($textBody['expectedValue'], $parser->getText());
         }
 
         //Test Body : html
         if ($htmlBody['matchType'] == 'PARTIAL') {
             $this->assertStringContainsString($htmlBody['expectedValue'], $parser->getHtmlNotEmbedded());
-        } elseif ($htmlBody['matchType'] == 'EXACT') {
+        } else {
             $this->assertEquals($htmlBody['expectedValue'], $parser->getHtmlNotEmbedded());
         }
     }

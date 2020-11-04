@@ -76,7 +76,7 @@ final class ParseAttachmentTest extends TestCase
                     if ($attachment['fileContent']['matchType'] == 'PARTIAL') {
                         $this->assertStringContainsString($attachment['fileContent']['expectedValue'], $fileContent);
                         $this->assertStringContainsString($attachment['fileContent']['expectedValue'], $a[$iterAttachments]->getContent());
-                    } elseif ($attachment['fileContent']['matchType'] == 'EXACT') {
+                    } else {
                         $this->assertEquals($attachment['fileContent']['expectedValue'], $fileContent);
                         $this->assertEquals($attachment['fileContent']['expectedValue'], $a[$iterAttachments]->getContent());
                     }
