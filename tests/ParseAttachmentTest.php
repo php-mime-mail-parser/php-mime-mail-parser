@@ -44,7 +44,7 @@ final class ParseAttachmentTest extends TestCase
 
         //Test Nb Attachments
         $a = $parser->getNestedAttachments(['inline', 'attachment']);
-        $this->assertEquals(count($attachments), count($a));
+        $this->assertCount(count($attachments), $a);
         $iterAttachments = 0;
 
         //Test Attachments
