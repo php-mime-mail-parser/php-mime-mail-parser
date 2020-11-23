@@ -41,7 +41,7 @@ final class ParserTest extends TestCase
 
         //Test Nb Attachments (ignoring inline attachments)
         $attachments = $Parser->getNestedAttachments(['attachment']);
-        $this->assertEquals(count($attachmentsExpected), count($attachments));
+        $this->assertCount(count($attachmentsExpected), $attachments);
         $iterAttachments = 0;
 
         foreach ($attachmentsExpected as $attachmentExpected) {
@@ -76,8 +76,8 @@ final class ParserTest extends TestCase
         $Parser = Parser::fromText(file_get_contents($file));
 
         $inlineParts = $Parser->getMessageBodies(['text']);
-        $this->assertEquals(is_array($inlineParts), true);
-        $this->assertEquals(count($inlineParts), 2);
+        $this->assertIsArray($inlineParts);
+        $this->assertCount(2, $inlineParts);
         $this->assertEquals($inlineParts[0], "First we have a text block, then we insert an image:\r\n\r\n");
         $this->assertEquals($inlineParts[1], "\r\n\r\nThen we have more text\r\n\r\n-- sent from my phone.");
     }
@@ -230,7 +230,7 @@ final class ParserTest extends TestCase
     {
         $file = __DIR__ . '/mails/issue182';
         $Parser = Parser::fromText(file_get_contents($file));
-        
+
         $this->assertCount(1, $Parser->getAttachments());
         $this->assertCount(1, $Parser->getNestedAttachments(['inline', 'attachment']));
     }
@@ -1146,7 +1146,7 @@ final class ParserTest extends TestCase
 
         //Test Nb Attachments
         $attachments = $Parser->getNestedAttachments(['inline', 'attachment']);
-        $this->assertEquals(count($attachmentsExpected), count($attachments));
+        $this->assertCount(count($attachmentsExpected), $attachments);
         $iterAttachments = 0;
 
         //Test Attachments
@@ -1272,7 +1272,7 @@ final class ParserTest extends TestCase
 
         //Test Nb Attachments
         $attachments = $Parser->getNestedAttachments(['inline', 'attachment']);
-        $this->assertEquals(count($attachmentsExpected), count($attachments));
+        $this->assertCount(count($attachmentsExpected), $attachments);
         $iterAttachments = 0;
 
         //Test Attachments
@@ -1400,7 +1400,7 @@ final class ParserTest extends TestCase
 
         //Test Nb Attachments
         $attachments = $Parser->getNestedAttachments(['inline', 'attachment']);
-        $this->assertEquals(count($attachmentsExpected), count($attachments));
+        $this->assertCount(count($attachmentsExpected), $attachments);
         $iterAttachments = 0;
 
         //Test Attachments
@@ -1867,7 +1867,7 @@ mini plain body';
             'is_group' => false,
         ]], $Parser->getAddressesToRaw());
         $this->assertEquals($Parser->getAddressesToRaw(), $Parser->getAddressesRaw('to'));
-        
+
 
         $this->assertNull($Parser->getData());
     }
@@ -1901,7 +1901,7 @@ mini plain body';
         $parserConfig->setCharsetManager($newCharset);
 
         $Parser = Parser::fromPath(__DIR__.'/mails/issue230', $parserConfig);
-        
+
         $this->assertEmpty($Parser->getText());
     }
 
