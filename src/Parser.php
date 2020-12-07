@@ -107,6 +107,10 @@ final class Parser implements ParserInterface
 
     public static function fromStream($stream, ParserConfig $config = null): \PhpMimeMailParser\Parser
     {
+        if (! is_resource($stream)) {
+            throw new Exception('setStream() expects parameter stream to be readable stream resource.');
+        }
+
         $parser = new self($config);
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
