@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: php-mime-mail-parser Community Support
+    url: https://github.com/php-mime-mail-parser/php-mime-mail-parser/discussions
+    about: Please ask and answer questions here.
+  - name: php-mime-mail-parser Security Support
+    url: https://github.com/eXorus
+    about: Please report security vulnerabilities here.
