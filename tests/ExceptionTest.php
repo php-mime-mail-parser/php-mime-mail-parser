@@ -107,8 +107,8 @@ namespace PhpMimeMailParser {
 
         public function testSetStream()
         {
-            $this->expectException(Exception::class);
-            $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+            $this->expectException(TypeError::class);
+            $this->expectExceptionMessage('stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given');
 
             $Parser = new Parser();
             $Parser->setStream('azerty');
