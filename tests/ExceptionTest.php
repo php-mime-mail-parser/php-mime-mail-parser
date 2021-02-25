@@ -111,7 +111,7 @@ namespace PhpMimeMailParser {
 
         public function testSetStream()
         {
-            if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
+            if (version_compare(PHP_VERSION, '8.0') >= 0) {
                 $this->expectException(\TypeError::class);
                 $this->expectExceptionMessage(
                     'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given'
@@ -160,7 +160,7 @@ namespace PhpMimeMailParser {
 
         public function testSetStreamResource()
         {
-            if (version_compare(PHP_VERSION, '8.0.0') >= 0) {
+            if (version_compare(PHP_VERSION, '8.0') >= 0) {
                 $this->expectException(\TypeError::class);
                 $this->expectExceptionMessage(
                     'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given'
