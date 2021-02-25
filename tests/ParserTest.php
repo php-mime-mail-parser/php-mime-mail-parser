@@ -1171,7 +1171,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $this->assertArrayNotHasKey('azerty', $Parser->getHeaders());
 
         //Test Raw Headers
-        $this->assertIsString(Parser->getHeadersRaw());
+        $this->assertIsString($Parser->getHeadersRaw());
 
         //Test  Body : text
         if ($textExpected[0] == 'COUNT') {
