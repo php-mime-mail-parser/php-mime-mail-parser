@@ -114,7 +114,7 @@ namespace PhpMimeMailParser {
             if (version_compare(PHP_VERSION, '8.0') >= 0) {
                 $this->expectException(\TypeError::class);
                 $this->expectExceptionMessage(
-                    'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given'
+                    'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given'
                 );
             } else {
                 $this->expectException(Exception::class);
