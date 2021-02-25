@@ -121,7 +121,6 @@ namespace PhpMimeMailParser {
                 $this->expectExceptionMessage(
                     'setStream() expects parameter stream to be readable stream resource.'
                 );
-
             }
 
             $Parser = new Parser();
@@ -170,7 +169,6 @@ namespace PhpMimeMailParser {
                 $this->expectExceptionMessage(
                     'setStream() expects parameter stream to be readable stream resource.'
                 );
-
             }
 
             $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
