@@ -81,7 +81,9 @@ namespace PhpMimeMailParser {
         public function testgetMessageBody()
         {
             $this->expectException(Exception::class);
-            $this->expectExceptionMessage('Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.');
+            $this->expectExceptionMessage(
+                'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
+            );
 
             $Parser = new Parser();
             $Parser->getMessageBody('azerty');
@@ -90,7 +92,9 @@ namespace PhpMimeMailParser {
         public function testgetInlineParts()
         {
             $this->expectException(Exception::class);
-            $this->expectExceptionMessage('Invalid type specified for getInlineParts(). "type" can either be text or html.');
+            $this->expectExceptionMessage(
+                'Invalid type specified for getInlineParts(). "type" can either be text or html.'
+            );
 
             $Parser = new Parser();
             $Parser->getInlineParts('azerty');
@@ -108,7 +112,9 @@ namespace PhpMimeMailParser {
         public function testSetStream()
         {
             $this->expectException(\TypeError::class);
-            $this->expectExceptionMessage('stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given');
+            $this->expectExceptionMessage(
+                'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given'
+            );
 
             $Parser = new Parser();
             $Parser->setStream('azerty');
@@ -147,7 +153,9 @@ namespace PhpMimeMailParser {
         public function testSetStreamResource()
         {
             $this->expectException(\TypeError::class);
-            $this->expectExceptionMessage('stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given');
+            $this->expectExceptionMessage(
+                'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given'
+            );
 
             $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
             $Parser = new Parser();
