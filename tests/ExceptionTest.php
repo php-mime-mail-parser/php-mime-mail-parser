@@ -107,7 +107,7 @@ namespace PhpMimeMailParser {
 
         public function testSetStream()
         {
-            $this->expectException(TypeError::class);
+            $this->expectException(\TypeError::class);
             $this->expectExceptionMessage('stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given');
 
             $Parser = new Parser();
@@ -146,8 +146,8 @@ namespace PhpMimeMailParser {
 
         public function testSetStreamResource()
         {
-            $this->expectException(Exception::class);
-            $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+            $this->expectException(\TypeError::class);
+            $this->expectExceptionMessage('stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given');
 
             $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
             $Parser = new Parser();
