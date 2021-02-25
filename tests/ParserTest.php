@@ -1833,7 +1833,7 @@ mini plain body';
 
         $ParserByText = new Parser();
         $ParserByText->setText($file);
-        $this->assertContains('mini plain body', $ParserByText->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByText->getMessageBody('text'));
 
         $ParserByPath = new Parser();
         $temp = tmpfile();
@@ -1842,7 +1842,7 @@ mini plain body';
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
         $ParserByPath->setPath($tmpFilename);
-        $this->assertContains('mini plain body', $ParserByPath->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByPath->getMessageBody('text'));
     }
 
     public function testParsingFileWithoutEndOfLineFromPath()
@@ -1865,7 +1865,7 @@ mini plain body';
         $metaDatas = stream_get_meta_data($temp);
         $tmpFilename = $metaDatas['uri'];
         $ParserByPath->setPath($tmpFilename);
-        $this->assertContains('mini plain body', $ParserByPath->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByPath->getMessageBody('text'));
     }
 
     public function testParsingFileWithoutEndOfLineFromStream()
@@ -1886,7 +1886,7 @@ mini plain body';
         fwrite($temp, $file);
         rewind($temp);
         $ParserByStream->setStream($temp);
-        $this->assertContains('mini plain body', $ParserByStream->getMessageBody('text'));
+        $this->assertStringContainsString('mini plain body', $ParserByStream->getMessageBody('text'));
     }
 
     public function testCharsetSupportedAsAnAlias()
@@ -1897,7 +1897,7 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setPath($file);
         $this->assertEquals('<foo@bar.de>', $Parser->getHeader('from'));
-        $this->assertContains('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getMessageBody('text'));
+        $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getMessageBody('text'));
     }
 
     public function testCharsetNotSupportedByMBString()
@@ -1919,8 +1919,8 @@ mini plain body';
         $Parser->setPath(__DIR__.'/mails/issue274.eml');
 
         $this->assertEquals('guest@localhost', $Parser->getRawHeader('from'));
-        $this->assertContains('ligne 1', $Parser->getMessageBody('text'));
-        $this->assertContains('ligne 1', $Parser->getMessageBody('html'));
+        $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('text'));
+        $this->assertStringContainsString('ligne 1', $Parser->getMessageBody('html'));
 
         $attachments = $Parser->getAttachments();
         $this->assertEquals(5, count($attachments));
