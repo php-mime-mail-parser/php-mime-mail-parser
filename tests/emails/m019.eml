@@ -1,0 +1,46 @@
+Delivered-To: asdasd@gmail.com
+Received: by 10.152.1.193 with SMTP id 1csp311490lao;
+        Mon, 20 Oct 2014 05:33:31 -0700 (PDT)
+Return-Path: <sender@test.com>
+Received: from vps4596.inmotionhosting.com (vps4596.inmotionhosting.com. [74.124.217.238])
+        by mx.google.com with ESMTPS id fb7si7786786pab.30.2014.10.20.05.33.30
+        for <asdasd@gmail.com>
+        (version=TLSv1 cipher=RC4-SHA bits=128/128);
+        Mon, 20 Oct 2014 05:33:30 -0700 (PDT)
+Message-ID: <14FBD481E1074C79A706F0C071746F3D@acerDator>
+From: =?utf-8?Q?sende=C3=A4r?= <sender@test.com>
+To: "test" <test@asdasd.com>
+References: <CAEMnOreG=99=qx-ONib=g+32uBdSav5WP303BA@mail.gmail.com>
+Subject: Re: Maya Ethnobotanicals - Emails
+Date: Mon, 20 Oct 2014 14:33:24 +0200
+MIME-Version: 1.0
+Content-Type: multipart/alternative;
+    boundary="----=_NextPart_000_0018_01CFEC72.CE424470"
+X-Priority: 3
+X-MSMail-Priority: Normal
+Importance: Normal
+X-Mailer: Microsoft Windows Live Mail 14.0.8117.416
+X-MimeOLE: Produced By Microsoft MimeOLE V14.0.8117.416
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+
+Det här är ett flerdelat meddelande i MIME-format.
+
+------=_NextPart_000_0018_01CFEC72.CE424470
+Content-Type: text/plain;
+    charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+
+This email will not be captured correctly by php-mime-mail-parser.
+
+Mailparse is unable to handle poorly formed emails. For example ...
+
+    Det h=E4r =E4r ett flerdelat meddelande i MIME-format.
+
+... is directly above this quoted-printable wrapper, thanks to the =
+Swedish email client Microsoft Windows Live (circa 2009), adding UTF-8 =
+chars where there should only be ascii. At least, that's what I think =
+the problem is.
+
+------=_NextPart_000_0018_01CFEC72.CE424470--

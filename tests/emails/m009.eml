@@ -1,0 +1,66 @@
+From noreply@ogone.com Tue Oct 01 00:42:20 2013
+Received: from testsite.com ([255.255.255.255]:57350)
+        by testsite.com with esmtps (TLSv1:DHE-RSA-AES256-SHA:256)
+        (Exim 4.80.1)
+        (envelope-from <noreply@ogone.com>)
+        id 1VQmAV-0004gO-Su
+        for catchall@testsite.com; Tue, 01 Oct 2013 00:42:20 +0200
+Received: from ce-gw1.ogone.com ([255.255.255.255]:30117)
+        by testsite.com with esmtp (Exim 4.80.1)
+        (envelope-from <noreply@ogone.com>)
+        id 1VQmAU-00007t-DO
+        for info@testsite.com; Tue, 01 Oct 2013 00:42:18 +0200
+Received: from ([127.0.0.1]) with MailEnable ESMTP; Tue, 1 Oct 2013 00:42:18 +0200
+From: "Ogone" <noreply@ogone.com>
+Subject: Ogone NIEUWE order Maurits PAYID: 951597484 / orderID: 456123 /
+ status: 5
+To: info@testsite.com
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+Date: Tue, 1 Oct 2013 00:42:18 +0200
+X-Priority: 3
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - testsite.com
+X-AntiAbuse: Original Domain - testsite.com
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - ogone.com
+X-Get-Message-Sender-Via: testsite.com: mailgid no entry from get_relayhosts_entry
+X-Spam-Status: No, score=0.8
+X-Spam-Score: 8
+X-Spam-Bar: /
+X-Spam-Flag: NO
+
+
+
+************************************************************
+* Uw bestelgegevens: 
+************************************************************
+ 
+Besteldatum                           : 01/10/2013 0:39:43
+Referentie van de bestelling          : 456123
+Ogone Betaalreferentie                : 951597484
+
+Begunstigde                           : Test Site
+PSPID                                 : MyPSPID
+
+Status                                : 25 Geautoriseerd
+Autorisatiecode                       : 9873211
+UID                                   : 100105200333729841
+TID                                   : 95227541
+
+Totaal                                : 148.43 EUR
+
+Aanrekeningmethode                    : VISA XXXXXXXXXXXX1111
+Submerk                               : VISA
+Vervaldatum                           : 10/15
+
+Gegevens van de koper
+
+Klant                                 : First Last
+Adres                                 : 57 rue du Vignière
+Postcode                              : 12260
+Plaats                                : SelongeyCotedor
+Land                                  : FR
+Telefoonnummer                        : 0610132318
+
+Deze transactie moet manueel bevestigd worden in de beheer module voor een betaling te genereren.

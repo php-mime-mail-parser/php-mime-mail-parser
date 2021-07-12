@@ -1,0 +1,69 @@
+Return-Path: <name@company.com>
+Delivered-To: name@company2.com
+Received: from spool.mail.gandi.net (mspool3-d.mgt.gandi.net [10.0.21.134])
+    by nmboxes39-dc2.mgt.gandi.net (Postfix) with ESMTP id 40A5341A14
+    for <name@company2.com>; Mon, 20 Oct 2014 09:21:33 +0200 (CEST)
+Received: from mfilter41-d.gandi.net (mfilter41-d.gandi.net [217.70.178.173])
+    by spool.mail.gandi.net (Postfix) with ESMTP id 2391E116028
+    for <name@company2.com>; Mon, 20 Oct 2014 09:21:33 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at mfilter41-d.gandi.net
+Received: from spool.mail.gandi.net ([10.0.21.134])
+    by mfilter41-d.gandi.net (mfilter41-d.gandi.net [10.0.15.180]) (amavisd-new, port 10024)
+    with ESMTP id N0YY2h2Co5jP for <name@company2.com>;
+    Mon, 20 Oct 2014 09:21:30 +0200 (CEST)
+X-Policy: Greylisted 300 seconds
+Received: from SRKREX01.kr.company.com (unknown [121.135.255.230])
+    by spool.mail.gandi.net (Postfix) with ESMTPS id 8D33E11603E
+    for <name@company2.com>; Mon, 20 Oct 2014 09:21:04 +0200 (CEST)
+Received: from SRKREX01.kr.company.com ([::1]) by
+ SRKREX01.kr.company.com ([::1]) with mapi id 14.03.0123.003; Mon, 20 Oct
+ 2014 16:15:28 +0900
+From: <name@company.com>
+To: "name@company2.com" <name@company2.com>
+Subject: [Korea] Name
+Thread-Topic: [Korea] Name
+Thread-Index: Ac/sNZ9vB8OV+HYiT9e1JOdEtk0N6w==
+Date: Mon, 20 Oct 2014 07:15:27 +0000
+Message-ID: <7B2F0B04-7286-488B-990B-D2EE3759554D@company.com>
+Accept-Language: ko-KR, en-US
+Content-Language: ko-KR
+X-MS-Has-Attach: yes
+X-MS-TNEF-Correlator:
+Content-Type: multipart/mixed;
+    boundary="_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_"
+MIME-Version: 1.0
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_
+Content-Type: text/plain; charset="ks_c_5601-1987"
+Content-ID: <E31E4DF95743304BB1C77F55A2E0F9B7@company.com>
+Content-Transfer-Encoding: base64
+
+TXkgdHJhdmVsaW5nIGNvbXBhbmlvbnMhDQpNeSBmcmllbmQsIExlIFBsaWFnZSEgDQoNCg==
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_
+Content-Type: image/jpeg; name="=?ks_c_5601-1987?B?u+fB+C5KUEc=?="
+Content-Description: =?ks_c_5601-1987?B?u+fB+C5KUEc=?=
+Content-Disposition: attachment;
+    filename="=?ks_c_5601-1987?B?u+fB+C5KUEc=?="; size=431635;
+    creation-date="Mon, 20 Oct 2014 07:15:26 GMT";
+    modification-date="Mon, 20 Oct 2014 07:15:26 GMT"
+Content-ID: <59F871198EEDDE47B81E34849CB0ED6F@company.com>
+Content-Transfer-Encoding: base64
+
+/9J/4AAQSKZJRGABAQAAAQABAAD/2WBDAAKGBWGHBGKIBWGKCGKLDRYPDQWMDRSUFRAWIB0IIIAD
+HX8KKDQSJCYXJX8FLT0TMTU3OJO6IYS/RD84QZQ5OJF/2WBDAQOKCG0MDROPDXO3JR8LNZC3NZC3
+NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZC3NZF/WAARCABEAI0DASIA
+AHEBA
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_
+Content-Type: text/plain; name="ATT00001.txt"
+Content-Description: ATT00001.txt
+Content-Disposition: attachment; filename="ATT00001.txt"; size=25;
+    creation-date="Mon, 20 Oct 2014 07:15:27 GMT";
+    modification-date="Mon, 20 Oct 2014 07:15:27 GMT"
+Content-ID: <57BAB4E7BA79CB40B41CE0993FA444D4@company.com>
+Content-Transfer-Encoding: base64
+
+DQoNCg0Kc2VudCBmcm9tIG15IGlQaG9uZQ==
+
+--_003_7B2F0B047286488B990BD2EE3759554Dcompanykoreacokr_--
