@@ -134,7 +134,7 @@ $rawHeaderTo = $parser->getHeader('to');
 // return "test" <test@example.com>, "test2" <test2@example.com>
 
 $arrayHeaderTo = $parser->getAddresses('to');
-// return [["display"=>"test", "address"=>"test@example.com", false]]
+// return [["display"=>"test", "address"=>"test@example.com", "is_group"=>false]]
 
 $rawHeaderFrom = $parser->getHeader('from');
 // return "test" <test@example.com>
