@@ -27,8 +27,13 @@ final class ExceptionTest extends TestCase
      */
     public function testSetStream(): void
     {
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+        if (version_compare(PHP_VERSION, '8.0') >= 0) {
+            $this->expectException(\TypeError::class);
+            $this->expectExceptionMessage('stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given');
+        } else {
+            $this->expectException(\PhpMimeMailParser\Exception::class);
+            $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+        }
 
         Parser::fromStream('azerty');
     }
@@ -55,8 +60,13 @@ final class ExceptionTest extends TestCase
     {
         $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
 
-        $this->expectException(\PhpMimeMailParser\Exception::class);
-        $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+        if (version_compare(PHP_VERSION, '8.0') >= 0) {
+            $this->expectException(\TypeError::class);
+            $this->expectExceptionMessage('stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given');
+        } else {
+            $this->expectException(\PhpMimeMailParser\Exception::class);
+            $this->expectExceptionMessage('setStream() expects parameter stream to be readable stream resource.');
+        }
 
         Parser::fromStream($c);
     }
