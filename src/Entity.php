@@ -213,6 +213,10 @@ final class Entity implements \ArrayAccess
     {
         $raw = $this->getHeaderRaw($name);
 
+        if (is_null($raw)) {
+            return [];
+        }
+
         return mailparse_rfc822_parse_addresses($raw);
     }
 
