@@ -86,7 +86,7 @@ final class Entity implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->part[] = $value;
@@ -98,7 +98,7 @@ final class Entity implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetExists($offset): bool
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->part[$offset]);
     }
@@ -106,7 +106,7 @@ final class Entity implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->part[$offset]);
     }
@@ -114,7 +114,7 @@ final class Entity implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return isset($this->part[$offset]) ? $this->part[$offset] : null;
     }
