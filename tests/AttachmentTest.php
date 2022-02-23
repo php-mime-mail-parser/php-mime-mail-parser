@@ -76,7 +76,7 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         $this->assertFileExists($attachDir . 'attach02_3');
         $this->assertFileExists($attachDir . 'attach02_4');
         $this->assertFileExists($attachDir . 'attach02_5');
-        $this->assertFileNotExists($attachDir . 'attach02_6');
+        $this->assertFileDoesNotExist($attachDir . 'attach02_6');
 
         // Clean up attachments dir
         array_map('unlink', $attachmentFiles);
@@ -106,7 +106,7 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         $this->assertFileExists($attachDir . 'logo_1.jpg');
         $this->assertFileExists($attachDir . 'logo_2.jpg');
         $this->assertFileExists($attachDir . 'logo_3.jpg');
-        $this->assertFileNotExists($attachDir . 'logo_4.jpg');
+        $this->assertFileDoesNotExist($attachDir . 'logo_4.jpg');
 
         // Clean up attachments dir
         array_map('unlink', $attachmentFiles);
