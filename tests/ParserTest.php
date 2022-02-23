@@ -1897,7 +1897,7 @@ mini plain body';
         $Parser = new Parser();
         $Parser->setPath($file);
         $this->assertEquals('<foo@bar.de>', $Parser->getHeader('from'));
-        $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?·筏蓼筏?', $Parser->getMessageBody('text'));
+        $this->assertStringContainsString('次の受信者またはグル?プへの配信に失?', $Parser->getMessageBody('text'));
     }
 
     public function testCharsetNotSupportedByMBString()
