@@ -25,7 +25,7 @@ We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see 
 
 ![Build Status](https://github.com/php-mime-mail-parser/php-mime-mail-parser/workflows/CI/badge.svg?branch=release-6.0.0&event=push)
 [![Coverage](https://img.shields.io/codecov/c/gh/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
-[![Code Quality](https://img.shields.io/codacy/grade/4e0e44fee21147ddbdd18ff976251875?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
+[![Code Quality](https://img.shields.io/codacy/grade/8cbfe0fcd84c4b2b9282b9a0b4467607?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
 
 
 ## How do I install it?
