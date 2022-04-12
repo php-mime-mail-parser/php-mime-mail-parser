@@ -80,7 +80,7 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         if (is_null($offset)) {
             $this->part[] = $value;
@@ -92,7 +92,7 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return isset($this->part[$offset]);
     }
@@ -100,7 +100,7 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         unset($this->part[$offset]);
     }
@@ -108,7 +108,7 @@ class MimePart implements \ArrayAccess
     /**
      * ArrayAccess
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return isset($this->part[$offset]) ? $this->part[$offset] : null;
     }
