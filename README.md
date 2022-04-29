@@ -177,6 +177,11 @@ $htmlEmbedded = $parser->getMessageBody('htmlEmbedded');
 
 Save all attachments in a directory
 
+_In case you miss it, need to import **Parser** like this, to use **[Scope Resolution Operator](https://www.php.net/manual/en/language.oop5.paamayim-nekudotayim.php)**_
+```php
+use PhpMimeMailParser\Parser;
+```
+
 ```php
 $parser->saveAttachments('/path/to/save/attachments/');
 // return all attachments saved in the directory (include inline attachments)
