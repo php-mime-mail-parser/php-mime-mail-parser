@@ -177,6 +177,9 @@ final class Parser implements ParserInterface
      */
     private function parse(): void
     {
+        if (!$this->resource) {
+            return;
+        }
         $structure = mailparse_msg_get_structure($this->resource);
         $this->entities = [];
 
