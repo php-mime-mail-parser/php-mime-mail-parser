@@ -58,6 +58,9 @@ class ParserTest extends \PHPUnit\Framework\TestCase
                 //Test ContentDisposition Attachment
                 $this->assertEquals($attachmentExpected[5], $attachments[$iterAttachments]->getContentDisposition());
 
+                //Test Stream Attachment
+                $this->assertIsResource($attachments[$iterAttachments]->getStream());
+
                 //Test md5 of Headers Attachment
                 $this->assertEquals(
                     $attachmentExpected[6],
