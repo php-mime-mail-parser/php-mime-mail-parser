@@ -129,8 +129,6 @@ final class Parser implements ParserInterface
         fseek($tmpFp, 0);
         $parser->stream = &$tmpFp;
 
-        fclose($stream);
-
         $parser->resource = mailparse_msg_create();
         // parses the message incrementally (low memory usage but slower)
         while (!feof($parser->stream)) {
