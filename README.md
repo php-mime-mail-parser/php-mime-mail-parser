@@ -24,9 +24,8 @@ Yes. All known issues have been reproduced, fixed and tested.
 We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see real-time statistics below:
 
 [![CI](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml/badge.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml)
-[![Coverage](https://img.shields.io/codecov/c/gh/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
-[![Code Quality](https://img.shields.io/codacy/grade/4e0e44fee21147ddbdd18ff976251875?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
-
+[![Coverage](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser/branch/main/graph/badge.svg?token=wTSIbXJDL0)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
+[![Code Quality](https://app.codacy.com/project/badge/Grade/8cbfe0fcd84c4b2b9282b9a0b4467607)](https://www.codacy.com/gh/php-mime-mail-parser/php-mime-mail-parser/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=php-mime-mail-parser/php-mime-mail-parser&amp;utm_campaign=Badge_Grade)
 
 ## How do I install it?
 
