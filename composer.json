@@ -1,7 +1,7 @@
 {
     "name": "php-mime-mail-parser/php-mime-mail-parser",
     "type": "library",
-    "description": "A fully tested email parser for PHP 7.2+ (mailparse extension wrapper).",
+    "description": "A fully tested email parser for PHP 8.0+ (mailparse extension wrapper).",
     "keywords": ["mime", "mail", "mailparse", "MimeMailParser", "parser", "php"],
     "homepage": "https://github.com/php-mime-mail-parser/php-mime-mail-parser",
     "license": "MIT",
