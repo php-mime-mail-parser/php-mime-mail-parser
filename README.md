@@ -42,6 +42,7 @@ The following versions of PHP are supported:
 
 * PHP 8.0
 * PHP 8.1
+* PHP 8.2
 
 Previous Versions:
 
