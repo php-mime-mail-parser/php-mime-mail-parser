@@ -1,0 +1,52 @@
+From name@company.com  Sun Jun 16 17:50:14 2013
+Received: from mail-ie0-f173.google.com (mail-ie0-f173.google.com [209.85.223.173])
+	by company2.com (Postfix) with ESMTPS id 8025F4681306
+	for <name@company2.com>; Sun, 16 Jun 2013 17:50:14 +0200 (CEST)
+Received: by mail-ie0-f173.google.com with SMTP id k13so5038157iea.32
+        for <name@company2.com>; Sun, 16 Jun 2013 08:50:12 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20120113;
+        h=mime-version:x-originating-ip:date:message-id:subject:from:to
+         :content-type:x-gm-message-state;
+        bh=yZj7VZhlR/PC1Ppu6D0HAEDO6wGp8lIzn0x6tvCe3I0=;
+        b=jDV0df6Zqrc7DP43NsjWyCKGyr8fOtvZXb0Qn91R51Q8zoALJyjEn6RBmWnc7OONJz
+         asvLY+/JdPz8+z/TrK3x+0EHGMMSQb4vM6gtKVZc2b1M/EBt0vjyZw1d9DFhDgCQ8XnA
+         VHAHEW9LpA8GEXEJIJzLm/ALK08jvSas/Y7FLUnI5pfsuy5cqdupQO/krfmuHP1THRGG
+         RV/mPaLXXGmGjpmgbJGpiXwHdGvOgwXd0/beBWmNBp4DcXOocpy3Ugw64ocF35ryEmuE
+         jdtVB+JIcrsQWLueoB4lo4lkBfeej58pv0dH4WX/6T1fZXwbyAGtYgq4cPZ1OZKlQgPa
+         aChQ==
+MIME-Version: 1.0
+X-Received: by 10.50.129.4 with SMTP id ns4mr3026228igb.4.1371397812268; Sun,
+ 16 Jun 2013 08:50:12 -0700 (PDT)
+Received: by 10.50.60.1 with HTTP; Sun, 16 Jun 2013 08:50:12 -0700 (PDT)
+X-Originating-IP: [81.33.22.111]
+Date: Sun, 16 Jun 2013 17:50:12 +0200
+Message-ID: <CAH_ZkVmUSM8t2JxgqcuLCQ8d+R_hkKpNHTubJOQK07y=36+d4Q@mail.gmail.com>
+Subject: =?iso-8859-8-i?B?7vLw5CAn4PDpIOzgIPDu9uAnOiBJbnZvaWNlIDAyNzIyMDI3?=
+From: Name <name@company.com>
+To: name@company2.com
+Content-Type: multipart/mixed; boundary=047d7b1635f77236f404df476f85
+X-Gm-Message-State: ALoCoQnQSAw+kmVESrneMgv1tjuPZLL9itnGr0ueHbj8xt5Y1NkSMtHMT4mREA6HEEZO/aD18SJ2
+
+--047d7b1635f77236f404df476f85
+Content-Type: multipart/alternative; boundary=047d7b1635f77236f004df476f83
+
+--047d7b1635f77236f004df476f83
+Content-Type: text/plain; charset=ISO-8859-1
+
+
+
+--047d7b1635f77236f004df476f83
+Content-Type: text/html; charset=ISO-8859-1
+
+<div dir="ltr"><br></div>
+
+--047d7b1635f77236f004df476f83--
+--047d7b1635f77236f404df476f85
+Content-Type: application/octet-stream; name=attach01
+Content-Disposition: attachment; filename=attach01
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_hi0eudw60
+
+YQo=
+--047d7b1635f77236f404df476f85--

@@ -42,4 +42,70 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
         $this->pathsToRemove = [];
     }
+    public function provideEmails($here): array
+    {
+        $emailsFile = glob(__DIR__.'/emails/*.php');
+
+        $emails= [];
+        foreach ($emailsFile as $emailFile) {
+            $id = basename($emailFile, '.php');
+            $emails[$id] = array_merge_recursive(
+                ["id" => $id],
+                include $emailFile
+            )
+            ;
+        }
+        return $emails;
+    }
+    public function provideBodyEmails(): array
+    {
+        $emailsFile = glob(__DIR__.'/emails/*.php');
+
+        $emails= [];
+        foreach ($emailsFile as $emailFile) {
+            $id = basename($emailFile, '.php');
+            $emails[$id] = array_merge_recursive(
+                ["id" => $id],
+                include $emailFile
+            )
+            ;
+        }
+
+        $bodyEmails=[];
+
+        foreach ($emails as $email) {
+            $bodyEmails[$email['id']] = [
+                "id" => $email['id'],
+                "textBody" => $email['textBody'],
+                "htmlBody" => $email['htmlBody'],
+            ];
+        }
+
+        return $bodyEmails;
+    }
+    public function provideAttachmentEmails(): array
+    {
+        $emailsFile = glob(__DIR__.'/emails/*.php');
+
+        $emails= [];
+        foreach ($emailsFile as $emailFile) {
+            $id = basename($emailFile, '.php');
+            $emails[$id] = array_merge_recursive(
+                ["id" => $id],
+                include $emailFile
+            )
+            ;
+        }
+
+        $attachmentEmails=[];
+
+        foreach ($emails as $email) {
+            $attachmentEmails[$email['id']] = [
+                "id" => $email['id'],
+                "attachments" => $email['attachments'],
+            ];
+        }
+
+        return $attachmentEmails;
+    }
 }

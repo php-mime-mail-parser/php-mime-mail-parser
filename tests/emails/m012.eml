@@ -1,0 +1,27 @@
+                                                                                                                                                                                                                                                               
+MIME-Version: 1.0
+Received: by 10.51.219.5 with HTTP; Sun, 16 Mar 2014 07:11:45 -0700 (PDT)
+X-Originating-IP: [61.54.56.123]
+Date: Sun, 16 Mar 2014 15:11:45 +0100
+Delivered-To: name@company.com
+Message-ID: <CAH_ZkV=-31o34hfbOtyAcQCy-wgiGfaWgmH0tZ39UDCWKWSjBQ@mail.gmail.com>
+Subject: Hello World !
+From: Name <name@company.com>
+To: Name <name@company.com>
+Content-Type: multipart/mixed; boundary=047d7bd7682814b5c004f4b9e20c
+
+--047d7bd7682814b5c004f4b9e20c
+Content-Type: text/plain; charset=US-ASCII; name="file.txt"
+Content-Disposition: attachment; filename="file.txt"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_hsuejbpv0
+
+SGVsbG8gV29ybGQgIQpUaGlzIGlzIGEgZmlsZQo=
+
+--047d7bd7682814b5c004f4b9e20c
+Content-Type: text/plain; charset=ISO-8859-1
+
+Hello World !
+This is a text body
+
+--047d7bd7682814b5c004f4b9e20c--
