@@ -1,6 +1,6 @@
 # php-mime-mail-parser
 
-A fully tested email parser for PHP 7.2+ (mailparse extension wrapper).
+A fully tested email parser for PHP 8.0+ (mailparse extension wrapper).
 
 It's the most effective php email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
 Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](https://tools.ietf.org/html/rfc2822), [5322](https://tools.ietf.org/html/rfc5322).
@@ -23,7 +23,7 @@ Yes. All known issues have been reproduced, fixed and tested.
 
 We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see real-time statistics below:
 
-[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fphp-mime-mail-parser%2Fphp-mime-mail-parser%2Fbadge%3Fref%3Dmaster&style=flat-square)](https://actions-badge.atrox.dev/php-mime-mail-parser/php-mime-mail-parser/goto?ref=master)
+[![CI](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml/badge.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml)
 [![Coverage](https://img.shields.io/codecov/c/gh/php-mime-mail-parser/php-mime-mail-parser?style=flat-square)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
 [![Code Quality](https://img.shields.io/codacy/grade/4e0e44fee21147ddbdd18ff976251875?style=flat-square)](https://app.codacy.com/app/php-mime-mail-parser/php-mime-mail-parser)
 
@@ -40,20 +40,23 @@ To install the latest version of PHP MIME Mail Parser, run the command below:
 
 The following versions of PHP are supported:
 
-* PHP 7.2
-* PHP 7.3
-* PHP 7.4
+* PHP 8.0
+* PHP 8.1
+* PHP 8.2
 
 Previous Versions:
 
-| PHP Compatibility  | Version |
-| ------------- | ------------- |
-| HHVM  | php-mime-mail-parser 2.11.1    |
-| PHP 5.4  | php-mime-mail-parser 2.11.1 |
-| PHP 5.5  | php-mime-mail-parser 2.11.1 |
-| PHP 5.6  | php-mime-mail-parser 3.0.4  |
-| PHP 7.0  | php-mime-mail-parser 3.0.4  |
-| PHP 7.1  | php-mime-mail-parser 5.0.5  |
+| PHP Compatibility | Version                     |
+|-------------------|-----------------------------|
+| HHVM              | php-mime-mail-parser 2.11.1 |
+| PHP 5.4           | php-mime-mail-parser 2.11.1 |
+| PHP 5.5           | php-mime-mail-parser 2.11.1 |
+| PHP 5.6           | php-mime-mail-parser 3.0.4  |
+| PHP 7.0           | php-mime-mail-parser 3.0.4  |
+| PHP 7.1           | php-mime-mail-parser 5.0.5  |
+| PHP 7.2           | php-mime-mail-parser 7.1.2  |
+| PHP 7.3           | php-mime-mail-parser 7.1.2  |
+| PHP 7.4           | php-mime-mail-parser 7.1.2  |
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
 

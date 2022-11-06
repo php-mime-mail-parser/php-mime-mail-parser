@@ -42,7 +42,7 @@
         "url":"https://github.com/php-mime-mail-parser/php-mime-mail-parser.git"
     },
     "require": {
-        "php":           "^7.2|^8.0",
+        "php":           "^8.0",
         "ext-mailparse": "*"
     },
     "require-dev": {
