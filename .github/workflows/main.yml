@@ -13,7 +13,7 @@ jobs:
       matrix:
         php: [8.0, 8.1, 8.2]
         dependency-version: [prefer-lowest, prefer-stable]
-        fail-fast: false
+      fail-fast: false
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
