@@ -401,7 +401,7 @@ class Parser
         if (in_array($type, array_keys($mime_types))) {
             $part_type = $type === 'htmlEmbedded' ? 'html' : $type;
             $inline_parts = $this->getInlineParts($part_type);
-            $body = empty($inline_parts) ? '' : $inline_parts[0];
+            $body = empty($inline_parts) ? '' : $inline_parts;
         } else {
             throw new Exception(
                 'Invalid type specified for getMessageBody(). Expected: text, html or htmlEmbeded.'
@@ -421,7 +421,7 @@ class Parser
             }
         }
 
-        return $body;
+        return $body[0];
     }
 
     /**
