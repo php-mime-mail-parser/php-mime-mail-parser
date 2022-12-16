@@ -320,6 +320,23 @@ class Charset implements CharsetManager
         if ($charset == 'utf-8' || $charset == 'us-ascii') {
             return $encodedString;
         }
+        
+        // Handle gb2312 from Windows-based software products
+        if ($charset === 'gb2312') {
+            // Make possible E_NOTICE error triggered by iconv silent
+            $currentErrorReporting = error_reporting();
+            error_reporting($currentErrorReporting ^ E_NOTICE);
+            
+            $result = iconv($charset, 'utf-8', $encodedString);
+            
+            error_reporting($currentErrorReporting);
+            
+            if ($result) {
+                return $result;
+            }
+            
+            $charset = 'gbk'; // If decoding from gb2312 failed, use gbk instead
+        }
 
         if (function_exists('mb_convert_encoding')) {
             if ($charset == 'iso-2022-jp') {
