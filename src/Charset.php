@@ -323,9 +323,9 @@ class Charset implements CharsetManager
         
         // Handle gb2312 from Windows-based software products
         if ($charset === 'gb2312') {
-            // Make possible E_NOTICE error triggered by iconv silent
+            // Disable E_NOTICE errors to ignore E_NOTICE possibly triggered by iconv()
             $currentErrorReporting = error_reporting();
-            error_reporting($currentErrorReporting ^ E_NOTICE);
+            error_reporting($currentErrorReporting & ~E_NOTICE);
             
             $result = iconv($charset, 'utf-8', $encodedString);
             
