@@ -149,10 +149,7 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
             "c024cb5b0c6eaf060a837c53db9af39b5b564d3956b8d4223fbf308b11b4e79e",
             $attachments[0]->getContentID()
         );
-        //$this->assertEquals("inline", $attachments[0]->getContentDisposition());
-
-        var_dump($Parser->getInlineParts('text'));
-        var_dump($Parser->getInlineParts('html'));
+        $this->assertEquals("inline", $attachments[0]->getContentDisposition());
 
         $attachments = $Parser->getAttachments(false);
 
