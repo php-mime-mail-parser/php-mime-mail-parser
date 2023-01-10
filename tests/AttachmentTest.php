@@ -134,4 +134,21 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(2, $attachmentJpgFiles);
         $this->assertCount(1, $attachmentTxtFiles);
     }
+
+    public function testInlineContent()
+    {
+        $file = __DIR__ . '/mails/m0129';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachments = $Parser->getAttachments();
+
+        $this->assertCount(1, $attachments);
+
+        $this->assertEquals(
+            "c024cb5b0c6eaf060a837c53db9af39b5b564d3956b8d4223fbf308b11b4e79e",
+            $attachments[0]->getContentID()
+        );
+        $this->assertEquals("inline", $attachments[0]->getContentDisposition());
+    }
 }
