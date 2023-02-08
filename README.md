@@ -47,15 +47,15 @@ Previous Versions:
 
 | PHP Compatibility | Version                     |
 |-------------------|-----------------------------|
-| HHVM              | php-mime-mail-parser 2.11.1 |
-| PHP 5.4           | php-mime-mail-parser 2.11.1 |
-| PHP 5.5           | php-mime-mail-parser 2.11.1 |
-| PHP 5.6           | php-mime-mail-parser 3.0.4  |
-| PHP 7.0           | php-mime-mail-parser 3.0.4  |
-| PHP 7.1           | php-mime-mail-parser 5.0.5  |
-| PHP 7.2           | php-mime-mail-parser 7.1.2  |
-| PHP 7.3           | php-mime-mail-parser 7.1.2  |
-| PHP 7.4           | php-mime-mail-parser 7.1.2  |
+| HHVM              | [php-mime-mail-parser 2.11.1](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/2.11.1) |
+| PHP 5.4           | [php-mime-mail-parser 2.11.1](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/2.11.1) |
+| PHP 5.5           | [php-mime-mail-parser 2.11.1](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/2.11.1) |
+| PHP 5.6           | [php-mime-mail-parser 3.0.4](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/3.0.4)  |
+| PHP 7.0           | [php-mime-mail-parser 3.0.4](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/3.0.4)  |
+| PHP 7.1           | [php-mime-mail-parser 5.0.5](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/5.0.5)  |
+| PHP 7.2           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
+| PHP 7.3           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
+| PHP 7.4           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
 
