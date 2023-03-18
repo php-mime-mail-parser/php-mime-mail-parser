@@ -203,16 +203,16 @@ $attachments = $parser->getAttachments(false);
 Loop through all attachments
 ```php
 foreach ($attachments as $attachment) {
-    echo 'Filename : '.$attachment->getFilename().'<br />';
+    echo 'Filename : '.$attachment->getFilename().'<br>';
     // return logo.jpg
     
-    echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />';
+    echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br>';
     // return 1000
     
-    echo 'Filetype : '.$attachment->getContentType().'<br />';
+    echo 'Filetype : '.$attachment->getContentType().'<br>';
     // return image/jpeg
     
-    echo 'MIME part string : '.$attachment->getMimePartStr().'<br />';
+    echo 'MIME part string : '.$attachment->getMimePartStr().'<br>';
     // return the whole MIME part of the attachment
 
     $attachment->save('/path/to/save/myattachment/', Parser::ATTACHMENT_DUPLICATE_SUFFIX);
