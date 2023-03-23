@@ -2,7 +2,7 @@
 
 A fully tested email parser for PHP 8.0+ (mailparse extension wrapper).
 
-It's the most effective php email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
+It's the most effective PHP email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
 Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](https://tools.ietf.org/html/rfc2822), [5322](https://tools.ietf.org/html/rfc5322).
 
 [![Latest Version](https://img.shields.io/packagist/v/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases)
@@ -13,9 +13,9 @@ Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](ht
 
 This extension can be used to...
  * Parse and read email from Postfix
- * For reading messages (Filename extension: eml)
+ * Read messages (Filename extension: `.eml`)
  * Create webmail 
- * Store email information such a subject, HTML body, attachments, and etc. into a database
+ * Store email information such a subject, HTML body, attachments, etc. into a database
 
 ## Is it reliable?
 
@@ -57,17 +57,17 @@ Previous Versions:
 | PHP 7.3           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
 | PHP 7.4           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
 
-Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` need to return "mailparse".
+Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` needs to return "mailparse".
 
 
 ### Install mailparse extension
 
-#### Ubuntu, Debian & derivatives
+#### Debian, Ubuntu & derivatives
 ```
 sudo apt install php-cli php-mailparse
 ```
 
-#### Others platforms
+#### Other platforms
 ```
 sudo apt install php-cli php-pear php-dev php-mbstring
 pecl install mailparse
@@ -89,13 +89,13 @@ sudo phpenmod mailparse
 ```
 
 #### Windows
-You need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line "extension=php_mailparse.dll" to php.ini accordingly.
+You need to download mailparse DLL from http://pecl.php.net/package/mailparse and add the line `extension=php_mailparse.dll` to `php.ini` accordingly.
 
 ## How do I use it?
 
 ### Loading an email
 
-You can load an email with 4 differents ways. You only need to use one of the following four.
+You can load an email in 4 differents ways:
 
 ```php
 require_once __DIR__.'/vendor/autoload.php';
@@ -103,16 +103,16 @@ require_once __DIR__.'/vendor/autoload.php';
 $path = 'path/to/email.eml';
 $parser = new PhpMimeMailParser\Parser();
 
-// 1. Specify a file path (string)
+// 1. Either specify a file path (string)
 $parser->setPath($path); 
 
-// 2. Specify the raw mime mail text (string)
+// 2. or specify the raw mime mail text (string)
 $parser->setText(file_get_contents($path));
 
-// 3. Specify a php file resource (stream)
+// 3. or specify a php file resource (stream)
 $parser->setStream(fopen($path, "r"));
 
-// 4.  Specify a stream to work with mail server (stream)
+// 4. or specify a stream to work with a mail server (stream)
 $parser->setStream(fopen("php://stdin", "r"));
 ```
 
@@ -200,19 +200,19 @@ $attachments = $parser->getAttachments(false);
 ```
 
 
-Loop through all the Attachments
+Loop through all attachments
 ```php
 foreach ($attachments as $attachment) {
-    echo 'Filename : '.$attachment->getFilename().'<br />';
+    echo 'Filename : '.$attachment->getFilename().'<br>';
     // return logo.jpg
     
-    echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br />';
+    echo 'Filesize : '.filesize($attach_dir.$attachment->getFilename()).'<br>';
     // return 1000
     
-    echo 'Filetype : '.$attachment->getContentType().'<br />';
+    echo 'Filetype : '.$attachment->getContentType().'<br>';
     // return image/jpeg
     
-    echo 'MIME part string : '.$attachment->getMimePartStr().'<br />';
+    echo 'MIME part string : '.$attachment->getMimePartStr().'<br>';
     // return the whole MIME part of the attachment
 
     $attachment->save('/path/to/save/myattachment/', Parser::ATTACHMENT_DUPLICATE_SUFFIX);
@@ -222,9 +222,9 @@ foreach ($attachments as $attachment) {
 
 ## Postfix configuration to manage email from a mail server
 
-Next you need to forward emails to this script above. For that I'm using [Postfix](http://www.postfix.org/) like a mail server, you need to configure /etc/postfix/master.cf
+To forward mails from [Postfix](http://www.postfix.org/) to the PHP script above, add this line at the end of your `/etc/postfix/master.cf`
+(to specify myhook to send all emails to the script `test.php`):
 
-Add this line at the end of the file (specify myhook to send all emails to the script test.php)
 ```
 myhook unix - n n - - pipe
   				flags=F user=www-data argv=php -c /etc/php5/apache2/php.ini -f /var/www/test.php ${sender} ${size} ${recipient}
@@ -236,7 +236,7 @@ smtp      inet  n       -       -       -       -       smtpd
         			-o content_filter=myhook:dummy
 ```
 
-The php script must use the fourth method to work with this configuration.
+The PHP script must use the fourth method (see above) to work with this configuration.
 
 And finally the easiest way is to use my SaaS https://mailcare.io
 
