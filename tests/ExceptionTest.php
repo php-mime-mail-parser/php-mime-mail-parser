@@ -229,5 +229,16 @@ namespace PhpMimeMailParser {
 
             $Parser->saveAttachments('dir', false, 'InvalidValue');
         }
+
+        public function testMIMEMessageCannotBeParsed()
+        {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('MIME Message cannot be parsed');
+
+            $file = __DIR__ . '/mails/issue408.eml';
+
+            $Parser = new Parser();
+            $Parser->setPath($file);
+        }
     }
 }

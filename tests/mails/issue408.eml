@@ -1,0 +1,4621 @@
+Return-Path: <test@example.com>
+From: <test@example.com>
+To: <test2@example.com>
+Subject: test mail with more than 300 attachments
+Date: Wed, 4 Jan 2023 12:08:17 +0300
+Message-ID: <B89C615A253047D2A8B2BC5ADA8D0EF6@fw.example.com>
+MIME-Version: 1.0
+Content-Type: multipart/mixed;
+	boundary="----=_NextPart_000_04FE_01D92035.3AA90050"
+
+This is a multi-part message in MIME format.
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/html
+Content-Transfer-Encoding: 8bit
+Content-Description: body
+
+<html><body>test</body></html>
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6294736_18_01042023_1.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6294736_18_01042023_1.txt"
+
+:20:XYZ1801/04XXX
+:25:TR610006200001800006294736
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6294354_349_01042023_2.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6294354_349_01042023_2.txt"
+
+:20:XYZ34901/04XXX
+:25:TR280006200034900006294354
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6294593_702_01042023_3.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6294593_702_01042023_3.txt"
+
+:20:XYZ70201/04XXX
+:25:TR460006200070200006294593
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6295066_782_01042023_4.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6295066_782_01042023_4.txt"
+
+:20:XYZ78201/04XXX
+:25:TR460006200078200006295066
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2714962_910_01042023_5.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2714962_910_01042023_5.txt"
+
+:20:XYZ91001/04XXX
+:25:TR120006200091000002714962
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2795005_910_01042023_6.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2795005_910_01042023_6.txt"
+
+:20:XYZ91001/04XXX
+:25:TR110006200091000002795005
+:28C:13/1
+:60F:C230104XXX1121131,93
+:61:230104DL000000005015,00NCCPNONREF
+:86:1192756
+:62F:C230104XXX1125316,93
+:64:C230104XXX1125316,93
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2795006_910_01042023_7.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2795006_910_01042023_7.txt"
+
+:20:XYZ91001/04XXX
+:25:TR810006200091000002795006
+:28C:13/1
+:60F:C230104XXX3309295,10
+:61:230104DL000000015333,33NCCPNONREF
+:86:1192755
+:62F:C230104XXX3282373,49
+:64:C230104XXX3282373,49
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2889777_910_01042023_8.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2889777_910_01042023_8.txt"
+
+:20:XYZ91001/04XXX
+:25:TR270006200091000002889777
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2896355_910_01042023_9.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2896355_910_01042023_9.txt"
+
+:20:XYZ91001/04XXX
+:25:TR280006200091000002896355
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2939161_910_01042023_10.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2939161_910_01042023_10.txt"
+
+:20:XYZ91001/04XXX
+:25:TR210006200091000002939161
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2941237_910_01042023_11.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2941237_910_01042023_11.txt"
+
+:20:XYZ91001/04XXX
+:25:TR350006200091000002941237
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2941260_910_01042023_12.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2941260_910_01042023_12.txt"
+
+:20:XYZ91001/04XXX
+:25:TR930006200091000002941260
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2947822_910_01042023_13.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2947822_910_01042023_13.txt"
+
+:20:XYZ91001/04XXX
+:25:TR410006200091000002947822
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="2947823_910_01042023_14.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="2947823_910_01042023_14.txt"
+
+:20:XYZ91001/04XXX
+:25:TR140006200091000002947823
+:28C:13/1
+:60F:C230104XXX91134,36
+:62F:C230104XXX91134,36
+:64:C230104XXX91134,36
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6503868_910_01042023_15.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6503868_910_01042023_15.txt"
+
+:20:XYZ91001/04XXX
+:25:TR180006200091000006503868
+:28C:13/1
+:60F:C230104XXX357469,56
+:61:230104DL000000000263,67NCCPNONREF
+:86:1997792
+:62F:C230104XXX365499,33
+:64:C230104XXX365499,33
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6297990_1608_01042023_16.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6297990_1608_01042023_16.txt"
+
+:20:XYZ160801/04XXX
+:25:TR960006200160800006297990
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6297993_1608_01042023_17.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="6297993_1608_01042023_17.txt"
+
+:20:XYZ160801/04XXX
+:25:TR150006200160800006297993
+:28C:13/1
+:60F:C230104XXX63996,25
+:62F:C230104XXX81682,14
+:64:C230104XXX81682,14
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298148_1608_01042023_18.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298148_1608_01042023_18.txt"
+
+:20:XYZ160801/04XXX
+:25:TR980006200160800006298148
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298180_1608_01042023_19.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298180_1608_01042023_19.txt"
+
+:20:XYZ160801/04XXX
+:25:TR100006200160800006298180
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298225_1608_01042023_20.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298225_1608_01042023_20.txt"
+
+:20:XYZ160801/04XXX
+:25:TR560006200160800006298225
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298231_1608_01042023_21.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298231_1608_01042023_21.txt"
+
+:20:XYZ160801/04XXX
+:25:TR880006200160800006298231
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298237_1608_01042023_22.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298237_1608_01042023_22.txt"
+
+:20:XYZ160801/04XXX
+:25:TR230006200160800006298237
+:28C:13/1
+:60F:C230104XXX65127,94
+:62F:C230104XXX65127,94
+:64:C230104XXX65127,94
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298257_1608_01042023_23.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298257_1608_01042023_23.txt"
+
+:20:XYZ160801/04XXX
+:25:TR650006200160800006298257
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298295_1608_01042023_24.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298295_1608_01042023_24.txt"
+
+:20:XYZ160801/04XXX
+:25:TR090006200160800006298295
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298328_1608_01042023_25.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298328_1608_01042023_25.txt"
+
+:20:XYZ160801/04XXX
+:25:TR880006200160800006298328
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298341_1608_01042023_26.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298341_1608_01042023_26.txt"
+
+:20:XYZ160801/04XXX
+:25:TR280006200160800006298341
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298369_1608_01042023_27.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="6298369_1608_01042023_27.txt"
+
+:20:XYZ160801/04XXX
+:25:TR480006200160800006298369
+:28C:13/1
+:60F:C230104XXX41164,91
+:64:C230104XXX3149739,61
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298381_1608_01042023_28.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298381_1608_01042023_28.txt"
+
+:20:XYZ160801/04XXX
+:25:TR150006200160800006298381
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298384_1608_01042023_29.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298384_1608_01042023_29.txt"
+
+:20:XYZ160801/04XXX
+:25:TR310006200160800006298384
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298393_1608_01042023_30.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="6298393_1608_01042023_30.txt"
+
+:20:XYZ160801/04XXX
+:25:TR790006200160800006298393
+:28C:13/1
+:60F:C230104XXX60529,17
+:62F:C230104XXX3379568,96
+:64:C230104XXX3379568,96
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298403_1608_01042023_31.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298403_1608_01042023_31.txt"
+
+:20:XYZ160801/04XXX
+:25:TR030006200160800006298403
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298554_1608_01042023_32.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298554_1608_01042023_32.txt"
+
+:20:XYZ160801/04XXX
+:25:TR970006200160800006298554
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298721_1608_01042023_33.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298721_1608_01042023_33.txt"
+
+:20:XYZ160801/04XXX
+:25:TR500006200160800006298721
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298792_1608_01042023_34.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298792_1608_01042023_34.txt"
+
+:20:XYZ160801/04XXX
+:25:TR730006200160800006298792
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298919_1608_01042023_35.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298919_1608_01042023_35.txt"
+
+:20:XYZ160801/04XXX
+:25:TR390006200160800006298919
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298920_1608_01042023_36.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298920_1608_01042023_36.txt"
+
+:20:XYZ160801/04XXX
+:25:TR120006200160800006298920
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6298921_1608_01042023_37.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6298921_1608_01042023_37.txt"
+
+:20:XYZ160801/04XXX
+:25:TR820006200160800006298921
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6299401_1608_01042023_38.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="6299401_1608_01042023_38.txt"
+
+:20:XYZ160801/04XXX
+:25:TR230006200160800006299401
+:28C:13/1
+:62F:C230104XXX1333447,62
+:64:C230104XXX1333447,62
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6299409_1608_01042023_39.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6299409_1608_01042023_39.txt"
+
+:20:XYZ160801/04XXX
+:25:TR980006200160800006299409
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6391605_1608_01042023_40.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6391605_1608_01042023_40.txt"
+
+:20:XYZ160801/04XXX
+:25:TR200006200160800006391605
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6391630_1608_01042023_41.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6391630_1608_01042023_41.txt"
+
+:20:XYZ160801/04XXX
+:25:TR240006200160800006391630
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6391767_1608_01042023_42.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6391767_1608_01042023_42.txt"
+
+:20:XYZ160801/04XXX
+:25:TR110006200160800006391767
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6392349_1608_01042023_43.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6392349_1608_01042023_43.txt"
+
+:20:XYZ160801/04XXX
+:25:TR110006200160800006392349
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6392350_1608_01042023_44.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6392350_1608_01042023_44.txt"
+
+:20:XYZ160801/04XXX
+:25:TR810006200160800006392350
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6392489_1608_01042023_45.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6392489_1608_01042023_45.txt"
+
+:20:XYZ160801/04XXX
+:25:TR140006200160800006392489
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6392539_1608_01042023_46.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6392539_1608_01042023_46.txt"
+
+:20:XYZ160801/04XXX
+:25:TR220006200160800006392539
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6392569_1608_01042023_47.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6392569_1608_01042023_47.txt"
+
+:20:XYZ160801/04XXX
+:25:TR850006200160800006392569
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6392597_1608_01042023_48.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="6392597_1608_01042023_48.txt"
+
+:20:XYZ160801/04XXX
+:25:TR080006200160800006392597
+:28C:13/1
+:60F:C230104XXX2100000,00
+:61:230104DL000002100000,00NTDPNONREF
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6392990_1608_01042023_49.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6392990_1608_01042023_49.txt"
+
+:20:XYZ160801/04XXX
+:25:TR670006200160800006392990
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6393110_1608_01042023_50.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="6393110_1608_01042023_50.txt"
+
+:20:XYZ160801/04XXX
+:25:TR280006200160800006393110
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6393275_1608_01042023_51.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="6393275_1608_01042023_51.txt"
+
+:20:XYZ160801/04XXX
+:25:TR350006200160800006393275
+:28C:13/1
+:60F:C230104XXX2200000,00
+:61:230104DL000002200000,00NTDPNONREF
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="6395598_1608_01042023_52.txt"
+Content-Transfer-Encoding: quoted-printable
+Content-Disposition: attachment;
+	filename="6395598_1608_01042023_52.txt"
+
+:20:XYZ160801/04XXX
+:25:TR730006200160800006395598
+:28C:13/1
+:60F:C230104XXX700000,00
+:61:230104DL000000700000,00NTDPNONREF
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7835552_1608_01042023_53.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7835552_1608_01042023_53.txt"
+
+:20:XYZ160801/04XXX
+:25:TR790006200160800007835552
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7835553_1608_01042023_54.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7835553_1608_01042023_54.txt"
+
+:20:XYZ160801/04XXX
+:25:TR520006200160800007835553
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7835554_1608_01042023_55.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7835554_1608_01042023_55.txt"
+
+:20:XYZ160801/04XXX
+:25:TR250006200160800007835554
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7841786_1608_01042023_56.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7841786_1608_01042023_56.txt"
+
+:20:XYZ160801/04XXX
+:25:TR560006200160800007841786
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7841787_1608_01042023_57.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7841787_1608_01042023_57.txt"
+
+:20:XYZ160801/04XXX
+:25:TR290006200160800007841787
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7841788_1608_01042023_58.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7841788_1608_01042023_58.txt"
+
+:20:XYZ160801/04XXX
+:25:TR020006200160800007841788
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7842391_1608_01042023_59.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7842391_1608_01042023_59.txt"
+
+:20:XYZ160801/04XXX
+:25:TR170006200160800007842391
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7842392_1608_01042023_60.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7842392_1608_01042023_60.txt"
+
+:20:XYZ160801/04XXX
+:25:TR870006200160800007842392
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7842393_1608_01042023_61.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7842393_1608_01042023_61.txt"
+
+:20:XYZ160801/04XXX
+:25:TR600006200160800007842393
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7843473_1608_01042023_62.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7843473_1608_01042023_62.txt"
+
+:20:XYZ160801/04XXX
+:25:TR970006200160800007843473
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7843474_1608_01042023_63.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7843474_1608_01042023_63.txt"
+
+:20:XYZ160801/04XXX
+:25:TR700006200160800007843474
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7843475_1608_01042023_64.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7843475_1608_01042023_64.txt"
+
+:20:XYZ160801/04XXX
+:25:TR430006200160800007843475
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7843606_1608_01042023_65.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7843606_1608_01042023_65.txt"
+
+:20:XYZ160801/04XXX
+:25:TR950006200160800007843606
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7843607_1608_01042023_66.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7843607_1608_01042023_66.txt"
+
+:20:XYZ160801/04XXX
+:25:TR680006200160800007843607
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7843608_1608_01042023_67.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7843608_1608_01042023_67.txt"
+
+:20:XYZ160801/04XXX
+:25:TR410006200160800007843608
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7844156_1608_01042023_68.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7844156_1608_01042023_68.txt"
+
+:20:XYZ160801/04XXX
+:25:TR860006200160800007844156
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7844157_1608_01042023_69.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7844157_1608_01042023_69.txt"
+
+:20:XYZ160801/04XXX
+:25:TR590006200160800007844157
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7844158_1608_01042023_70.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7844158_1608_01042023_70.txt"
+
+:20:XYZ160801/04XXX
+:25:TR320006200160800007844158
+:28C:13/1
+:60F:C230104XXX0,00
+:61:230104DL000000000300,00NMSCNONREF
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7846646_1608_01042023_71.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7846646_1608_01042023_71.txt"
+
+:20:XYZ160801/04XXX
+:25:TR770006200160800007846646
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7846647_1608_01042023_72.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7846647_1608_01042023_72.txt"
+
+:20:XYZ160801/04XXX
+:25:TR500006200160800007846647
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7846648_1608_01042023_73.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7846648_1608_01042023_73.txt"
+
+:20:XYZ160801/04XXX
+:25:TR230006200160800007846648
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7847175_1608_01042023_74.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7847175_1608_01042023_74.txt"
+
+:20:XYZ160801/04XXX
+:25:TR530006200160800007847175
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7847176_1608_01042023_75.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7847176_1608_01042023_75.txt"
+
+:20:XYZ160801/04XXX
+:25:TR260006200160800007847176
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7847177_1608_01042023_76.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7847177_1608_01042023_76.txt"
+
+:20:XYZ160801/04XXX
+:25:TR960006200160800007847177
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848079_1608_01042023_77.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848079_1608_01042023_77.txt"
+
+:20:XYZ160801/04XXX
+:25:TR890006200160800007848079
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848080_1608_01042023_78.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848080_1608_01042023_78.txt"
+
+:20:XYZ160801/04XXX
+:25:TR620006200160800007848080
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848081_1608_01042023_79.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848081_1608_01042023_79.txt"
+
+:20:XYZ160801/04XXX
+:25:TR350006200160800007848081
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848817_1608_01042023_80.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848817_1608_01042023_80.txt"
+
+:20:XYZ160801/04XXX
+:25:TR480006200160800007848817
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848818_1608_01042023_81.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848818_1608_01042023_81.txt"
+
+:20:XYZ160801/04XXX
+:25:TR210006200160800007848818
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848819_1608_01042023_82.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848819_1608_01042023_82.txt"
+
+:20:XYZ160801/04XXX
+:25:TR910006200160800007848819
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848960_1608_01042023_83.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848960_1608_01042023_83.txt"
+
+:20:XYZ160801/04XXX
+:25:TR670006200160800007848960
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848961_1608_01042023_84.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848961_1608_01042023_84.txt"
+
+:20:XYZ160801/04XXX
+:25:TR400006200160800007848961
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7848962_1608_01042023_85.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7848962_1608_01042023_85.txt"
+
+:20:XYZ160801/04XXX
+:25:TR130006200160800007848962
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7849600_1608_01042023_86.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7849600_1608_01042023_86.txt"
+
+:20:XYZ160801/04XXX
+:25:TR530006200160800007849600
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7849601_1608_01042023_87.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7849601_1608_01042023_87.txt"
+
+:20:XYZ160801/04XXX
+:25:TR260006200160800007849601
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7849602_1608_01042023_88.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7849602_1608_01042023_88.txt"
+
+:20:XYZ160801/04XXX
+:25:TR960006200160800007849602
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7850058_1608_01042023_89.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7850058_1608_01042023_89.txt"
+
+:20:XYZ160801/04XXX
+:25:TR060006200160800007850058
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7850059_1608_01042023_90.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7850059_1608_01042023_90.txt"
+
+:20:XYZ160801/04XXX
+:25:TR760006200160800007850059
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7850060_1608_01042023_91.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7850060_1608_01042023_91.txt"
+
+:20:XYZ160801/04XXX
+:25:TR490006200160800007850060
+:28C:13/1
+:60F:C230104XXX0,00
+:61:230104DL000000000300,00NMSCNONREF
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7851022_1608_01042023_92.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7851022_1608_01042023_92.txt"
+
+:20:XYZ160801/04XXX
+:25:TR710006200160800007851022
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7851023_1608_01042023_93.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7851023_1608_01042023_93.txt"
+
+:20:XYZ160801/04XXX
+:25:TR440006200160800007851023
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7851024_1608_01042023_94.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7851024_1608_01042023_94.txt"
+
+:20:XYZ160801/04XXX
+:25:TR170006200160800007851024
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7851419_1608_01042023_95.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7851419_1608_01042023_95.txt"
+
+:20:XYZ160801/04XXX
+:25:TR220006200160800007851419
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7851420_1608_01042023_96.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7851420_1608_01042023_96.txt"
+
+:20:XYZ160801/04XXX
+:25:TR920006200160800007851420
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7851421_1608_01042023_97.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7851421_1608_01042023_97.txt"
+
+:20:XYZ160801/04XXX
+:25:TR650006200160800007851421
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852368_1608_01042023_98.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852368_1608_01042023_98.txt"
+
+:20:XYZ160801/04XXX
+:25:TR070006200160800007852368
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852369_1608_01042023_99.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852369_1608_01042023_99.txt"
+
+:20:XYZ160801/04XXX
+:25:TR770006200160800007852369
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852370_1608_01042023_100.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852370_1608_01042023_100.txt"
+
+:20:XYZ160801/04XXX
+:25:TR500006200160800007852370
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852493_1608_01042023_101.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852493_1608_01042023_101.txt"
+
+:20:XYZ160801/04XXX
+:25:TR270006200160800007852493
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852494_1608_01042023_102.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852494_1608_01042023_102.txt"
+
+:20:XYZ160801/04XXX
+:25:TR970006200160800007852494
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852495_1608_01042023_103.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852495_1608_01042023_103.txt"
+
+:20:XYZ160801/04XXX
+:25:TR700006200160800007852495
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852512_1608_01042023_104.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852512_1608_01042023_104.txt"
+
+:20:XYZ160801/04XXX
+:25:TR960006200160800007852512
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852513_1608_01042023_105.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852513_1608_01042023_105.txt"
+
+:20:XYZ160801/04XXX
+:25:TR690006200160800007852513
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7852514_1608_01042023_106.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7852514_1608_01042023_106.txt"
+
+:20:XYZ160801/04XXX
+:25:TR420006200160800007852514
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7853453_1608_01042023_107.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7853453_1608_01042023_107.txt"
+
+:20:XYZ160801/04XXX
+:25:TR060006200160800007853453
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7853454_1608_01042023_108.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7853454_1608_01042023_108.txt"
+
+:20:XYZ160801/04XXX
+:25:TR760006200160800007853454
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7853455_1608_01042023_109.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7853455_1608_01042023_109.txt"
+
+:20:XYZ160801/04XXX
+:25:TR490006200160800007853455
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7853823_1608_01042023_110.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7853823_1608_01042023_110.txt"
+
+:20:XYZ160801/04XXX
+:25:TR070006200160800007853823
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7853824_1608_01042023_111.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7853824_1608_01042023_111.txt"
+
+:20:XYZ160801/04XXX
+:25:TR770006200160800007853824
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7853825_1608_01042023_112.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7853825_1608_01042023_112.txt"
+
+:20:XYZ160801/04XXX
+:25:TR500006200160800007853825
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7855590_1608_01042023_113.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7855590_1608_01042023_113.txt"
+
+:20:XYZ160801/04XXX
+:25:TR220006200160800007855590
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7855591_1608_01042023_114.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7855591_1608_01042023_114.txt"
+
+:20:XYZ160801/04XXX
+:25:TR920006200160800007855591
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7855592_1608_01042023_115.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7855592_1608_01042023_115.txt"
+
+:20:XYZ160801/04XXX
+:25:TR650006200160800007855592
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7855803_1608_01042023_116.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7855803_1608_01042023_116.txt"
+
+:20:XYZ160801/04XXX
+:25:TR910006200160800007855803
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7855804_1608_01042023_117.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7855804_1608_01042023_117.txt"
+
+:20:XYZ160801/04XXX
+:25:TR640006200160800007855804
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7855805_1608_01042023_118.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7855805_1608_01042023_118.txt"
+
+:20:XYZ160801/04XXX
+:25:TR370006200160800007855805
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856836_1608_01042023_119.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856836_1608_01042023_119.txt"
+
+:20:XYZ160801/04XXX
+:25:TR390006200160800007856836
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856837_1608_01042023_120.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856837_1608_01042023_120.txt"
+
+:20:XYZ160801/04XXX
+:25:TR120006200160800007856837
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856838_1608_01042023_121.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856838_1608_01042023_121.txt"
+
+:20:XYZ160801/04XXX
+:25:TR820006200160800007856838
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856839_1608_01042023_122.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856839_1608_01042023_122.txt"
+
+:20:XYZ160801/04XXX
+:25:TR550006200160800007856839
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856840_1608_01042023_123.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856840_1608_01042023_123.txt"
+
+:20:XYZ160801/04XXX
+:25:TR280006200160800007856840
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856841_1608_01042023_124.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856841_1608_01042023_124.txt"
+
+:20:XYZ160801/04XXX
+:25:TR980006200160800007856841
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856869_1608_01042023_125.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856869_1608_01042023_125.txt"
+
+:20:XYZ160801/04XXX
+:25:TR210006200160800007856869
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856870_1608_01042023_126.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856870_1608_01042023_126.txt"
+
+:20:XYZ160801/04XXX
+:25:TR910006200160800007856870
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7856871_1608_01042023_127.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7856871_1608_01042023_127.txt"
+
+:20:XYZ160801/04XXX
+:25:TR640006200160800007856871
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858003_1608_01042023_128.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858003_1608_01042023_128.txt"
+
+:20:XYZ160801/04XXX
+:25:TR550006200160800007858003
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858004_1608_01042023_129.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858004_1608_01042023_129.txt"
+
+:20:XYZ160801/04XXX
+:25:TR280006200160800007858004
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858005_1608_01042023_130.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858005_1608_01042023_130.txt"
+
+:20:XYZ160801/04XXX
+:25:TR980006200160800007858005
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858653_1608_01042023_131.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858653_1608_01042023_131.txt"
+
+:20:XYZ160801/04XXX
+:25:TR620006200160800007858653
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858654_1608_01042023_132.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858654_1608_01042023_132.txt"
+
+:20:XYZ160801/04XXX
+:25:TR350006200160800007858654
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858655_1608_01042023_133.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858655_1608_01042023_133.txt"
+
+:20:XYZ160801/04XXX
+:25:TR080006200160800007858655
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858716_1608_01042023_134.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858716_1608_01042023_134.txt"
+
+:20:XYZ160801/04XXX
+:25:TR100006200160800007858716
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858717_1608_01042023_135.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858717_1608_01042023_135.txt"
+
+:20:XYZ160801/04XXX
+:25:TR800006200160800007858717
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858719_1608_01042023_136.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858719_1608_01042023_136.txt"
+
+:20:XYZ160801/04XXX
+:25:TR260006200160800007858719
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858745_1608_01042023_137.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858745_1608_01042023_137.txt"
+
+:20:XYZ160801/04XXX
+:25:TR030006200160800007858745
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858746_1608_01042023_138.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858746_1608_01042023_138.txt"
+
+:20:XYZ160801/04XXX
+:25:TR730006200160800007858746
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858748_1608_01042023_139.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858748_1608_01042023_139.txt"
+
+:20:XYZ160801/04XXX
+:25:TR190006200160800007858748
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858857_1608_01042023_140.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858857_1608_01042023_140.txt"
+
+:20:XYZ160801/04XXX
+:25:TR830006200160800007858857
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858859_1608_01042023_141.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858859_1608_01042023_141.txt"
+
+:20:XYZ160801/04XXX
+:25:TR290006200160800007858859
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858860_1608_01042023_142.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858860_1608_01042023_142.txt"
+
+:20:XYZ160801/04XXX
+:25:TR020006200160800007858860
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858906_1608_01042023_143.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858906_1608_01042023_143.txt"
+
+:20:XYZ160801/04XXX
+:25:TR210006200160800007858906
+:28C:13/1
+:60F:D230104XXX1335549,53
+:62F:D230104XXX1335549,53
+:64:D230104XXX1335549,53
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858907_1608_01042023_144.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858907_1608_01042023_144.txt"
+
+:20:XYZ160801/04XXX
+:25:TR910006200160800007858907
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858908_1608_01042023_145.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858908_1608_01042023_145.txt"
+
+:20:XYZ160801/04XXX
+:25:TR640006200160800007858908
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858916_1608_01042023_146.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858916_1608_01042023_146.txt"
+
+:20:XYZ160801/04XXX
+:25:TR420006200160800007858916
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858917_1608_01042023_147.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858917_1608_01042023_147.txt"
+
+:20:XYZ160801/04XXX
+:25:TR150006200160800007858917
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858918_1608_01042023_148.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858918_1608_01042023_148.txt"
+
+:20:XYZ160801/04XXX
+:25:TR850006200160800007858918
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858958_1608_01042023_149.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858958_1608_01042023_149.txt"
+
+:20:XYZ160801/04XXX
+:25:TR720006200160800007858958
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858959_1608_01042023_150.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858959_1608_01042023_150.txt"
+
+:20:XYZ160801/04XXX
+:25:TR450006200160800007858959
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7858960_1608_01042023_151.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7858960_1608_01042023_151.txt"
+
+:20:XYZ160801/04XXX
+:25:TR180006200160800007858960
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7860676_1608_01042023_152.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7860676_1608_01042023_152.txt"
+
+:20:XYZ160801/04XXX
+:25:TR520006200160800007860676
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7860677_1608_01042023_153.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7860677_1608_01042023_153.txt"
+
+:20:XYZ160801/04XXX
+:25:TR250006200160800007860677
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7860678_1608_01042023_154.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7860678_1608_01042023_154.txt"
+
+:20:XYZ160801/04XXX
+:25:TR950006200160800007860678
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7860949_1608_01042023_155.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7860949_1608_01042023_155.txt"
+
+:20:XYZ160801/04XXX
+:25:TR530006200160800007860949
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7860950_1608_01042023_156.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7860950_1608_01042023_156.txt"
+
+:20:XYZ160801/04XXX
+:25:TR260006200160800007860950
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7860951_1608_01042023_157.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7860951_1608_01042023_157.txt"
+
+:20:XYZ160801/04XXX
+:25:TR960006200160800007860951
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7867442_1608_01042023_158.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7867442_1608_01042023_158.txt"
+
+:20:XYZ160801/04XXX
+:25:TR210006200160800007867442
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7867443_1608_01042023_159.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7867443_1608_01042023_159.txt"
+
+:20:XYZ160801/04XXX
+:25:TR910006200160800007867443
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7867444_1608_01042023_160.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7867444_1608_01042023_160.txt"
+
+:20:XYZ160801/04XXX
+:25:TR640006200160800007867444
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869123_1608_01042023_161.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869123_1608_01042023_161.txt"
+
+:20:XYZ160801/04XXX
+:25:TR300006200160800007869123
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869124_1608_01042023_162.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869124_1608_01042023_162.txt"
+
+:20:XYZ160801/04XXX
+:25:TR030006200160800007869124
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869125_1608_01042023_163.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869125_1608_01042023_163.txt"
+
+:20:XYZ160801/04XXX
+:25:TR730006200160800007869125
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869242_1608_01042023_164.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869242_1608_01042023_164.txt"
+
+:20:XYZ160801/04XXX
+:25:TR180006200160800007869242
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869243_1608_01042023_165.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869243_1608_01042023_165.txt"
+
+:20:XYZ160801/04XXX
+:25:TR880006200160800007869243
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869244_1608_01042023_166.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869244_1608_01042023_166.txt"
+
+:20:XYZ160801/04XXX
+:25:TR610006200160800007869244
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869672_1608_01042023_167.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869672_1608_01042023_167.txt"
+
+:20:XYZ160801/04XXX
+:25:TR480006200160800007869672
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869673_1608_01042023_168.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869673_1608_01042023_168.txt"
+
+:20:XYZ160801/04XXX
+:25:TR210006200160800007869673
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869674_1608_01042023_169.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869674_1608_01042023_169.txt"
+
+:20:XYZ160801/04XXX
+:25:TR910006200160800007869674
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869675_1608_01042023_170.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869675_1608_01042023_170.txt"
+
+:20:XYZ160801/04XXX
+:25:TR640006200160800007869675
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869676_1608_01042023_171.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869676_1608_01042023_171.txt"
+
+:20:XYZ160801/04XXX
+:25:TR370006200160800007869676
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7869678_1608_01042023_172.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7869678_1608_01042023_172.txt"
+
+:20:XYZ160801/04XXX
+:25:TR800006200160800007869678
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870055_1608_01042023_173.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870055_1608_01042023_173.txt"
+
+:20:XYZ160801/04XXX
+:25:TR860006200160800007870055
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870056_1608_01042023_174.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870056_1608_01042023_174.txt"
+
+:20:XYZ160801/04XXX
+:25:TR590006200160800007870056
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870057_1608_01042023_175.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870057_1608_01042023_175.txt"
+
+:20:XYZ160801/04XXX
+:25:TR320006200160800007870057
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870209_1608_01042023_176.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870209_1608_01042023_176.txt"
+
+:20:XYZ160801/04XXX
+:25:TR020006200160800007870209
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870210_1608_01042023_177.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870210_1608_01042023_177.txt"
+
+:20:XYZ160801/04XXX
+:25:TR720006200160800007870210
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870211_1608_01042023_178.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870211_1608_01042023_178.txt"
+
+:20:XYZ160801/04XXX
+:25:TR450006200160800007870211
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870212_1608_01042023_179.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870212_1608_01042023_179.txt"
+
+:20:XYZ160801/04XXX
+:25:TR180006200160800007870212
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870213_1608_01042023_180.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870213_1608_01042023_180.txt"
+
+:20:XYZ160801/04XXX
+:25:TR880006200160800007870213
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870214_1608_01042023_181.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870214_1608_01042023_181.txt"
+
+:20:XYZ160801/04XXX
+:25:TR610006200160800007870214
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870294_1608_01042023_182.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870294_1608_01042023_182.txt"
+
+:20:XYZ160801/04XXX
+:25:TR350006200160800007870294
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870295_1608_01042023_183.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870295_1608_01042023_183.txt"
+
+:20:XYZ160801/04XXX
+:25:TR080006200160800007870295
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870296_1608_01042023_184.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870296_1608_01042023_184.txt"
+
+:20:XYZ160801/04XXX
+:25:TR780006200160800007870296
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870369_1608_01042023_185.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870369_1608_01042023_185.txt"
+
+:20:XYZ160801/04XXX
+:25:TR470006200160800007870369
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870370_1608_01042023_186.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870370_1608_01042023_186.txt"
+
+:20:XYZ160801/04XXX
+:25:TR200006200160800007870370
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870371_1608_01042023_187.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870371_1608_01042023_187.txt"
+
+:20:XYZ160801/04XXX
+:25:TR900006200160800007870371
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870517_1608_01042023_188.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870517_1608_01042023_188.txt"
+
+:20:XYZ160801/04XXX
+:25:TR280006200160800007870517
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870518_1608_01042023_189.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870518_1608_01042023_189.txt"
+
+:20:XYZ160801/04XXX
+:25:TR980006200160800007870518
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870519_1608_01042023_190.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870519_1608_01042023_190.txt"
+
+:20:XYZ160801/04XXX
+:25:TR710006200160800007870519
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870702_1608_01042023_191.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870702_1608_01042023_191.txt"
+
+:20:XYZ160801/04XXX
+:25:TR770006200160800007870702
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870703_1608_01042023_192.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870703_1608_01042023_192.txt"
+
+:20:XYZ160801/04XXX
+:25:TR500006200160800007870703
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870704_1608_01042023_193.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870704_1608_01042023_193.txt"
+
+:20:XYZ160801/04XXX
+:25:TR230006200160800007870704
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870705_1608_01042023_194.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870705_1608_01042023_194.txt"
+
+:20:XYZ160801/04XXX
+:25:TR930006200160800007870705
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870706_1608_01042023_195.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870706_1608_01042023_195.txt"
+
+:20:XYZ160801/04XXX
+:25:TR660006200160800007870706
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870707_1608_01042023_196.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870707_1608_01042023_196.txt"
+
+:20:XYZ160801/04XXX
+:25:TR390006200160800007870707
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870708_1608_01042023_197.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870708_1608_01042023_197.txt"
+
+:20:XYZ160801/04XXX
+:25:TR120006200160800007870708
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870709_1608_01042023_198.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870709_1608_01042023_198.txt"
+
+:20:XYZ160801/04XXX
+:25:TR820006200160800007870709
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870710_1608_01042023_199.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870710_1608_01042023_199.txt"
+
+:20:XYZ160801/04XXX
+:25:TR550006200160800007870710
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870711_1608_01042023_200.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870711_1608_01042023_200.txt"
+
+:20:XYZ160801/04XXX
+:25:TR280006200160800007870711
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870712_1608_01042023_201.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870712_1608_01042023_201.txt"
+
+:20:XYZ160801/04XXX
+:25:TR980006200160800007870712
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870713_1608_01042023_202.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870713_1608_01042023_202.txt"
+
+:20:XYZ160801/04XXX
+:25:TR710006200160800007870713
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870714_1608_01042023_203.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870714_1608_01042023_203.txt"
+
+:20:XYZ160801/04XXX
+:25:TR440006200160800007870714
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870715_1608_01042023_204.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870715_1608_01042023_204.txt"
+
+:20:XYZ160801/04XXX
+:25:TR170006200160800007870715
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870716_1608_01042023_205.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870716_1608_01042023_205.txt"
+
+:20:XYZ160801/04XXX
+:25:TR870006200160800007870716
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870717_1608_01042023_206.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870717_1608_01042023_206.txt"
+
+:20:XYZ160801/04XXX
+:25:TR600006200160800007870717
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870718_1608_01042023_207.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870718_1608_01042023_207.txt"
+
+:20:XYZ160801/04XXX
+:25:TR330006200160800007870718
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870719_1608_01042023_208.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870719_1608_01042023_208.txt"
+
+:20:XYZ160801/04XXX
+:25:TR060006200160800007870719
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870720_1608_01042023_209.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870720_1608_01042023_209.txt"
+
+:20:XYZ160801/04XXX
+:25:TR760006200160800007870720
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870721_1608_01042023_210.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870721_1608_01042023_210.txt"
+
+:20:XYZ160801/04XXX
+:25:TR490006200160800007870721
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870722_1608_01042023_211.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870722_1608_01042023_211.txt"
+
+:20:XYZ160801/04XXX
+:25:TR220006200160800007870722
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870723_1608_01042023_212.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870723_1608_01042023_212.txt"
+
+:20:XYZ160801/04XXX
+:25:TR920006200160800007870723
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870724_1608_01042023_213.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870724_1608_01042023_213.txt"
+
+:20:XYZ160801/04XXX
+:25:TR650006200160800007870724
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870725_1608_01042023_214.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870725_1608_01042023_214.txt"
+
+:20:XYZ160801/04XXX
+:25:TR380006200160800007870725
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870726_1608_01042023_215.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870726_1608_01042023_215.txt"
+
+:20:XYZ160801/04XXX
+:25:TR110006200160800007870726
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870727_1608_01042023_216.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870727_1608_01042023_216.txt"
+
+:20:XYZ160801/04XXX
+:25:TR810006200160800007870727
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870728_1608_01042023_217.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870728_1608_01042023_217.txt"
+
+:20:XYZ160801/04XXX
+:25:TR540006200160800007870728
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870729_1608_01042023_218.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870729_1608_01042023_218.txt"
+
+:20:XYZ160801/04XXX
+:25:TR270006200160800007870729
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870730_1608_01042023_219.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870730_1608_01042023_219.txt"
+
+:20:XYZ160801/04XXX
+:25:TR970006200160800007870730
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870731_1608_01042023_220.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870731_1608_01042023_220.txt"
+
+:20:XYZ160801/04XXX
+:25:TR700006200160800007870731
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870732_1608_01042023_221.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870732_1608_01042023_221.txt"
+
+:20:XYZ160801/04XXX
+:25:TR430006200160800007870732
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870733_1608_01042023_222.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870733_1608_01042023_222.txt"
+
+:20:XYZ160801/04XXX
+:25:TR160006200160800007870733
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870734_1608_01042023_223.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870734_1608_01042023_223.txt"
+
+:20:XYZ160801/04XXX
+:25:TR860006200160800007870734
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870735_1608_01042023_224.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870735_1608_01042023_224.txt"
+
+:20:XYZ160801/04XXX
+:25:TR590006200160800007870735
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870736_1608_01042023_225.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870736_1608_01042023_225.txt"
+
+:20:XYZ160801/04XXX
+:25:TR320006200160800007870736
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7870737_1608_01042023_226.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7870737_1608_01042023_226.txt"
+
+:20:XYZ160801/04XXX
+:25:TR050006200160800007870737
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871042_1608_01042023_227.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871042_1608_01042023_227.txt"
+
+:20:XYZ160801/04XXX
+:25:TR150006200160800007871042
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871043_1608_01042023_228.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871043_1608_01042023_228.txt"
+
+:20:XYZ160801/04XXX
+:25:TR850006200160800007871043
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871045_1608_01042023_229.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871045_1608_01042023_229.txt"
+
+:20:XYZ160801/04XXX
+:25:TR310006200160800007871045
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871147_1608_01042023_230.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871147_1608_01042023_230.txt"
+
+:20:XYZ160801/04XXX
+:25:TR900006200160800007871147
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871148_1608_01042023_231.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871148_1608_01042023_231.txt"
+
+:20:XYZ160801/04XXX
+:25:TR630006200160800007871148
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871149_1608_01042023_232.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871149_1608_01042023_232.txt"
+
+:20:XYZ160801/04XXX
+:25:TR360006200160800007871149
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871399_1608_01042023_233.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871399_1608_01042023_233.txt"
+
+:20:XYZ160801/04XXX
+:25:TR760006200160800007871399
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871400_1608_01042023_234.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871400_1608_01042023_234.txt"
+
+:20:XYZ160801/04XXX
+:25:TR490006200160800007871400
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871401_1608_01042023_235.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871401_1608_01042023_235.txt"
+
+:20:XYZ160801/04XXX
+:25:TR220006200160800007871401
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871472_1608_01042023_236.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871472_1608_01042023_236.txt"
+
+:20:XYZ160801/04XXX
+:25:TR450006200160800007871472
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871473_1608_01042023_237.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871473_1608_01042023_237.txt"
+
+:20:XYZ160801/04XXX
+:25:TR180006200160800007871473
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871474_1608_01042023_238.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871474_1608_01042023_238.txt"
+
+:20:XYZ160801/04XXX
+:25:TR880006200160800007871474
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871531_1608_01042023_239.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871531_1608_01042023_239.txt"
+
+:20:XYZ160801/04XXX
+:25:TR040006200160800007871531
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871533_1608_01042023_240.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871533_1608_01042023_240.txt"
+
+:20:XYZ160801/04XXX
+:25:TR470006200160800007871533
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871534_1608_01042023_241.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871534_1608_01042023_241.txt"
+
+:20:XYZ160801/04XXX
+:25:TR200006200160800007871534
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871644_1608_01042023_242.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871644_1608_01042023_242.txt"
+
+:20:XYZ160801/04XXX
+:25:TR570006200160800007871644
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871645_1608_01042023_243.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871645_1608_01042023_243.txt"
+
+:20:XYZ160801/04XXX
+:25:TR300006200160800007871645
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7871646_1608_01042023_244.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7871646_1608_01042023_244.txt"
+
+:20:XYZ160801/04XXX
+:25:TR030006200160800007871646
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872274_1608_01042023_245.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872274_1608_01042023_245.txt"
+
+:20:XYZ160801/04XXX
+:25:TR220006200160800007872274
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872275_1608_01042023_246.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872275_1608_01042023_246.txt"
+
+:20:XYZ160801/04XXX
+:25:TR920006200160800007872275
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872276_1608_01042023_247.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872276_1608_01042023_247.txt"
+
+:20:XYZ160801/04XXX
+:25:TR650006200160800007872276
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872448_1608_01042023_248.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872448_1608_01042023_248.txt"
+
+:20:XYZ160801/04XXX
+:25:TR770006200160800007872448
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872449_1608_01042023_249.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872449_1608_01042023_249.txt"
+
+:20:XYZ160801/04XXX
+:25:TR500006200160800007872449
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872450_1608_01042023_250.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872450_1608_01042023_250.txt"
+
+:20:XYZ160801/04XXX
+:25:TR230006200160800007872450
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872518_1608_01042023_251.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872518_1608_01042023_251.txt"
+
+:20:XYZ160801/04XXX
+:25:TR300006200160800007872518
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872519_1608_01042023_252.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872519_1608_01042023_252.txt"
+
+:20:XYZ160801/04XXX
+:25:TR030006200160800007872519
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872520_1608_01042023_253.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872520_1608_01042023_253.txt"
+
+:20:XYZ160801/04XXX
+:25:TR730006200160800007872520
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872571_1608_01042023_254.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872571_1608_01042023_254.txt"
+
+:20:XYZ160801/04XXX
+:25:TR540006200160800007872571
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872572_1608_01042023_255.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872572_1608_01042023_255.txt"
+
+:20:XYZ160801/04XXX
+:25:TR270006200160800007872572
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872573_1608_01042023_256.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872573_1608_01042023_256.txt"
+
+:20:XYZ160801/04XXX
+:25:TR970006200160800007872573
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872756_1608_01042023_257.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872756_1608_01042023_257.txt"
+
+:20:XYZ160801/04XXX
+:25:TR060006200160800007872756
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872757_1608_01042023_258.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872757_1608_01042023_258.txt"
+
+:20:XYZ160801/04XXX
+:25:TR760006200160800007872757
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872758_1608_01042023_259.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872758_1608_01042023_259.txt"
+
+:20:XYZ160801/04XXX
+:25:TR490006200160800007872758
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872984_1608_01042023_260.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872984_1608_01042023_260.txt"
+
+:20:XYZ160801/04XXX
+:25:TR580006200160800007872984
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872985_1608_01042023_261.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872985_1608_01042023_261.txt"
+
+:20:XYZ160801/04XXX
+:25:TR310006200160800007872985
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7872986_1608_01042023_262.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7872986_1608_01042023_262.txt"
+
+:20:XYZ160801/04XXX
+:25:TR040006200160800007872986
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873138_1608_01042023_263.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873138_1608_01042023_263.txt"
+
+:20:XYZ160801/04XXX
+:25:TR710006200160800007873138
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873139_1608_01042023_264.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873139_1608_01042023_264.txt"
+
+:20:XYZ160801/04XXX
+:25:TR440006200160800007873139
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873140_1608_01042023_265.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873140_1608_01042023_265.txt"
+
+:20:XYZ160801/04XXX
+:25:TR170006200160800007873140
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873173_1608_01042023_266.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873173_1608_01042023_266.txt"
+
+:20:XYZ160801/04XXX
+:25:TR960006200160800007873173
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873174_1608_01042023_267.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873174_1608_01042023_267.txt"
+
+:20:XYZ160801/04XXX
+:25:TR690006200160800007873174
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873175_1608_01042023_268.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873175_1608_01042023_268.txt"
+
+:20:XYZ160801/04XXX
+:25:TR420006200160800007873175
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873520_1608_01042023_269.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873520_1608_01042023_269.txt"
+
+:20:XYZ160801/04XXX
+:25:TR390006200160800007873520
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873521_1608_01042023_270.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873521_1608_01042023_270.txt"
+
+:20:XYZ160801/04XXX
+:25:TR120006200160800007873521
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7873522_1608_01042023_271.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7873522_1608_01042023_271.txt"
+
+:20:XYZ160801/04XXX
+:25:TR820006200160800007873522
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7874298_1608_01042023_272.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7874298_1608_01042023_272.txt"
+
+:20:XYZ160801/04XXX
+:25:TR820006200160800007874298
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7874299_1608_01042023_273.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7874299_1608_01042023_273.txt"
+
+:20:XYZ160801/04XXX
+:25:TR550006200160800007874299
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7874300_1608_01042023_274.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7874300_1608_01042023_274.txt"
+
+:20:XYZ160801/04XXX
+:25:TR280006200160800007874300
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7874495_1608_01042023_275.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7874495_1608_01042023_275.txt"
+
+:20:XYZ160801/04XXX
+:25:TR980006200160800007874495
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7874496_1608_01042023_276.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7874496_1608_01042023_276.txt"
+
+:20:XYZ160801/04XXX
+:25:TR710006200160800007874496
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7874497_1608_01042023_277.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7874497_1608_01042023_277.txt"
+
+:20:XYZ160801/04XXX
+:25:TR440006200160800007874497
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875288_1608_01042023_278.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875288_1608_01042023_278.txt"
+
+:20:XYZ160801/04XXX
+:25:TR270006200160800007875288
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875290_1608_01042023_279.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875290_1608_01042023_279.txt"
+
+:20:XYZ160801/04XXX
+:25:TR700006200160800007875290
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875291_1608_01042023_280.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875291_1608_01042023_280.txt"
+
+:20:XYZ160801/04XXX
+:25:TR430006200160800007875291
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875572_1608_01042023_281.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875572_1608_01042023_281.txt"
+
+:20:XYZ160801/04XXX
+:25:TR220006200160800007875572
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875573_1608_01042023_282.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875573_1608_01042023_282.txt"
+
+:20:XYZ160801/04XXX
+:25:TR920006200160800007875573
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875574_1608_01042023_283.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875574_1608_01042023_283.txt"
+
+:20:XYZ160801/04XXX
+:25:TR650006200160800007875574
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875640_1608_01042023_284.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875640_1608_01042023_284.txt"
+
+:20:XYZ160801/04XXX
+:25:TR290006200160800007875640
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875641_1608_01042023_285.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875641_1608_01042023_285.txt"
+
+:20:XYZ160801/04XXX
+:25:TR020006200160800007875641
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875642_1608_01042023_286.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875642_1608_01042023_286.txt"
+
+:20:XYZ160801/04XXX
+:25:TR720006200160800007875642
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875684_1608_01042023_287.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875684_1608_01042023_287.txt"
+
+:20:XYZ160801/04XXX
+:25:TR050006200160800007875684
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875685_1608_01042023_288.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875685_1608_01042023_288.txt"
+
+:20:XYZ160801/04XXX
+:25:TR750006200160800007875685
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875687_1608_01042023_289.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875687_1608_01042023_289.txt"
+
+:20:XYZ160801/04XXX
+:25:TR210006200160800007875687
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875697_1608_01042023_290.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875697_1608_01042023_290.txt"
+
+:20:XYZ160801/04XXX
+:25:TR420006200160800007875697
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875698_1608_01042023_291.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875698_1608_01042023_291.txt"
+
+:20:XYZ160801/04XXX
+:25:TR150006200160800007875698
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="7875699_1608_01042023_292.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="7875699_1608_01042023_292.txt"
+
+:20:XYZ160801/04XXX
+:25:TR850006200160800007875699
+:28C:13/1
+:60F:C230104XXX0,00
+:62F:C230104XXX0,00
+:64:C230104XXX0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098131_1608_01042023_293.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098131_1608_01042023_293.txt"
+
+:20:XYZ160801/04GBP
+:25:TR290006200160800009098131
+:28C:13/1
+:60F:C230104GBP0,00
+:62F:C230104GBP0,00
+:64:C230104GBP0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098191_1608_01042023_294.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098191_1608_01042023_294.txt"
+
+:20:XYZ160801/04GBP
+:25:TR580006200160800009098191
+:28C:13/1
+:60F:C230104GBP0,00
+:62F:C230104GBP0,00
+:64:C230104GBP0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098247_1608_01042023_295.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098247_1608_01042023_295.txt"
+
+:20:XYZ160801/04EUR
+:25:TR980006200160800009098247
+:28C:13/1
+:60F:C230104EUR310,00
+:62F:C230104EUR310,00
+:64:C230104EUR310,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098248_1608_01042023_296.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098248_1608_01042023_296.txt"
+
+:20:XYZ160801/04USD
+:25:TR710006200160800009098248
+:28C:13/1
+:60F:C230104USD200,00
+:62F:C230104USD200,00
+:64:C230104USD200,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098274_1608_01042023_297.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098274_1608_01042023_297.txt"
+
+:20:XYZ160801/04GBP
+:25:TR480006200160800009098274
+:28C:13/1
+:60F:C230104GBP0,00
+:62F:C230104GBP0,00
+:64:C230104GBP0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098365_1608_01042023_298.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098365_1608_01042023_298.txt"
+
+:20:XYZ160801/04USD
+:25:TR160006200160800009098365
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098366_1608_01042023_299.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098366_1608_01042023_299.txt"
+
+:20:XYZ160801/04EUR
+:25:TR860006200160800009098366
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098372_1608_01042023_300.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098372_1608_01042023_300.txt"
+
+:20:XYZ160801/04EUR
+:25:TR210006200160800009098372
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098374_1608_01042023_301.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098374_1608_01042023_301.txt"
+
+:20:XYZ160801/04USD
+:25:TR640006200160800009098374
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098437_1608_01042023_302.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098437_1608_01042023_302.txt"
+
+:20:XYZ160801/04EUR
+:25:TR120006200160800009098437
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098438_1608_01042023_303.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098438_1608_01042023_303.txt"
+
+:20:XYZ160801/04USD
+:25:TR820006200160800009098438
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098447_1608_01042023_304.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098447_1608_01042023_304.txt"
+
+:20:XYZ160801/04EUR
+:25:TR330006200160800009098447
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098448_1608_01042023_305.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098448_1608_01042023_305.txt"
+
+:20:XYZ160801/04USD
+:25:TR060006200160800009098448
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098458_1608_01042023_306.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098458_1608_01042023_306.txt"
+
+:20:XYZ160801/04EUR
+:25:TR270006200160800009098458
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098530_1608_01042023_307.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098530_1608_01042023_307.txt"
+
+:20:XYZ160801/04EUR
+:25:TR230006200160800009098530
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098531_1608_01042023_308.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098531_1608_01042023_308.txt"
+
+:20:XYZ160801/04USD
+:25:TR930006200160800009098531
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098585_1608_01042023_309.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098585_1608_01042023_309.txt"
+
+:20:XYZ160801/04USD
+:25:TR900006200160800009098585
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098586_1608_01042023_310.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098586_1608_01042023_310.txt"
+
+:20:XYZ160801/04EUR
+:25:TR630006200160800009098586
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098612_1608_01042023_311.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098612_1608_01042023_311.txt"
+
+:20:XYZ160801/04USD
+:25:TR400006200160800009098612
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098613_1608_01042023_312.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098613_1608_01042023_312.txt"
+
+:20:XYZ160801/04EUR
+:25:TR130006200160800009098613
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098634_1608_01042023_313.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098634_1608_01042023_313.txt"
+
+:20:XYZ160801/04EUR
+:25:TR280006200160800009098634
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098635_1608_01042023_314.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098635_1608_01042023_314.txt"
+
+:20:XYZ160801/04USD
+:25:TR980006200160800009098635
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098666_1608_01042023_315.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098666_1608_01042023_315.txt"
+
+:20:XYZ160801/04EUR
+:25:TR370006200160800009098666
+:28C:13/1
+:60F:C230104EUR3269,55
+:62F:C230104EUR3269,55
+:64:C230104EUR3269,55
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098667_1608_01042023_316.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098667_1608_01042023_316.txt"
+
+:20:XYZ160801/04USD
+:25:TR100006200160800009098667
+:28C:13/1
+:60F:C230104USD7770,15
+:62F:C230104USD7770,15
+:64:C230104USD7770,15
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098669_1608_01042023_317.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098669_1608_01042023_317.txt"
+
+:20:XYZ160801/04EUR
+:25:TR530006200160800009098669
+:28C:13/1
+:60F:C230104EUR11928,65
+:62F:C230104EUR11928,65
+:64:C230104EUR11928,65
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098670_1608_01042023_318.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098670_1608_01042023_318.txt"
+
+:20:XYZ160801/04USD
+:25:TR260006200160800009098670
+:28C:13/1
+:60F:C230104USD12017,57
+:62F:C230104USD12017,57
+:64:C230104USD12017,57
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098677_1608_01042023_319.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098677_1608_01042023_319.txt"
+
+:20:XYZ160801/04EUR
+:25:TR310006200160800009098677
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098678_1608_01042023_320.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098678_1608_01042023_320.txt"
+
+:20:XYZ160801/04USD
+:25:TR040006200160800009098678
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098748_1608_01042023_321.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098748_1608_01042023_321.txt"
+
+:20:XYZ160801/04EUR
+:25:TR540006200160800009098748
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098794_1608_01042023_322.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098794_1608_01042023_322.txt"
+
+:20:XYZ160801/04USD
+:25:TR730006200160800009098794
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098922_1608_01042023_323.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098922_1608_01042023_323.txt"
+
+:20:XYZ160801/04EUR
+:25:TR120006200160800009098922
+:28C:13/1
+:60F:C230104EUR0,00
+:62F:C230104EUR0,00
+:64:C230104EUR0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9098923_1608_01042023_324.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9098923_1608_01042023_324.txt"
+
+:20:XYZ160801/04USD
+:25:TR820006200160800009098923
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9099294_1608_01042023_325.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9099294_1608_01042023_325.txt"
+
+:20:XYZ160801/04USD
+:25:TR560006200160800009099294
+:28C:13/1
+:60F:C230104USD14785,66
+:62F:C230104USD14785,66
+:64:C230104USD14785,66
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9099295_1608_01042023_326.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9099295_1608_01042023_326.txt"
+
+:20:XYZ160801/04EUR
+:25:TR290006200160800009099295
+:28C:13/1
+:60F:C230104EUR5960,08
+:62F:C230104EUR5960,08
+:64:C230104EUR5960,08
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9198539_1608_01042023_327.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9198539_1608_01042023_327.txt"
+
+:20:XYZ160801/04USD
+:25:TR660006200160800009198539
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050
+Content-Type: text/plain;
+	name="9198540_1608_01042023_328.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment;
+	filename="9198540_1608_01042023_328.txt"
+
+:20:XYZ160801/04USD
+:25:TR390006200160800009198540
+:28C:13/1
+:60F:C230104USD0,00
+:62F:C230104USD0,00
+:64:C230104USD0,00
+
+------=_NextPart_000_04FE_01D92035.3AA90050--
+
