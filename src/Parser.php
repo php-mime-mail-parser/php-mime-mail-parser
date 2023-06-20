@@ -246,7 +246,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string|bool
+     * @return string|false
      */
     public function getHeader($name)
     {
