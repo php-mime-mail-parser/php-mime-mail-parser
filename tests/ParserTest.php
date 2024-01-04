@@ -1940,4 +1940,35 @@ mini plain body';
             $this->assertEquals($attachmentsName[$key], $attachment->getFilename());
         }
     }
+
+    public function testGetRawHeaderReturnArray()
+    {
+        $parser = new Parser();
+        $parser->setText(<<<MIME
+        From: expéditeur@example.com
+        To: destinataire@example.com
+        Subject: Exemple d'e-mail MIME avec en-tête Received
+        Received: from first line
+        Received: from second line
+
+        Content-Type: text/plain
+
+        hello world!
+        MIME
+        );
+        $subject = $parser->getHeader('Subject');
+        $this->assertEquals("Exemple d'e-mail MIME avec en-tête Received", $subject);
+
+        $received = $parser->getHeader('Received');
+        $this->assertEquals("from first line", $received);
+        $received_raw = $parser->getRawHeader('Received');
+        $this->assertEquals(["from first line", "from second line"], $received_raw);
+        $headers = $parser->getHeaders();
+        $this->assertEquals([
+            'from' => 'expéditeur@example.com',
+            'to' => 'destinataire@example.com',
+            'subject' => "Exemple d'e-mail MIME avec en-tête Received",
+            'received' => ["from first line", "from second line"],
+        ], $headers);
+    }
 }
