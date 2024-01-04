@@ -246,7 +246,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string|bool
+     * @return string|false
      */
     public function getHeader($name)
     {
@@ -446,11 +446,11 @@ class Parser
     }
 
     /**
-     * Return an array with the following keys display, address, is_group
+     * Return an array of associative arrays with the following keys `display`, `address`, `is_group`
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return array
+     * @return array<int, array{'display':string, 'address':string, 'is_group':bool}>
      */
     public function getAddresses($name)
     {

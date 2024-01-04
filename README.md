@@ -42,6 +42,7 @@ The following versions of PHP are supported:
 * PHP 8.0
 * PHP 8.1
 * PHP 8.2
+* PHP 8.3
 
 Previous Versions:
 
@@ -214,6 +215,9 @@ foreach ($attachments as $attachment) {
     
     echo 'MIME part string : '.$attachment->getMimePartStr().'<br>';
     // return the whole MIME part of the attachment
+    
+    $stream = $attachment->getStream();
+    // get the stream of the attachment file
 
     $attachment->save('/path/to/save/myattachment/', Parser::ATTACHMENT_DUPLICATE_SUFFIX);
     // return the path and the filename saved (same strategy available than saveAttachments)
