@@ -166,7 +166,7 @@ $text = $parser->getMessageBody('text');
 $html = $parser->getMessageBody('html');
 // return the html version
 
-$htmlEmbedded = $parser->getMessageBody('htmlEmbedded');
+$htmlEmbedded = $parser->getMessageBody('html',TRUE);
 // return the html version with the embedded contents like images
 
 ```
