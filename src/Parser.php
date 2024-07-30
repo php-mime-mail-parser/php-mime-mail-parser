@@ -466,7 +466,7 @@ class Parser
     /**
      * Returns the attachments contents in order of appearance
      *
-     * @return Attachment[]
+     * @return list<string>
      */
     public function getInlineParts($type = 'text')
     {
