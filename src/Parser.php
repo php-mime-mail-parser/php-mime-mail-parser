@@ -74,7 +74,7 @@ class Parser
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(CharsetManager $charset = null)
+    public function __construct(?CharsetManager $charset = null)
     {
         if ($charset == null) {
             $charset = new Charset();
