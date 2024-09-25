@@ -450,7 +450,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return array
+     * @return array<int, array{'display': string, 'address': string, 'is_group': bool}>
      */
     public function getAddresses($name)
     {
