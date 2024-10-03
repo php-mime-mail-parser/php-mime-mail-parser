@@ -229,7 +229,8 @@ class Attachment
      */
     public function save(
         $attach_dir,
-        $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
+        $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX,
+        $attach_filename = null
     ) {
         $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         if (!is_dir($attach_dir)) {
@@ -238,6 +239,11 @@ class Attachment
 
         // Determine filename
         switch ($filenameStrategy) {
+            case Parser::ATTACHMENT_CUSTOM_FILENAME:
+                if (!empty($attach_filename)) {
+                    $attachment_path = $attach_dir.$attach_filename;
+                    break;
+                }
             case Parser::ATTACHMENT_RANDOM_FILENAME:
                 $fileInfo = pathinfo($this->getFilename());
                 $extension  = empty($fileInfo['extension']) ? '' : '.'.$fileInfo['extension'];
