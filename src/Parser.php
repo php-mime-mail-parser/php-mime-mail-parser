@@ -75,7 +75,7 @@ class Parser
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(CharsetManager $charset = null)
+    public function __construct(?CharsetManager $charset = null)
     {
         if ($charset == null) {
             $charset = new Charset();
@@ -140,7 +140,7 @@ class Parser
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true) || $meta['eof']) {
+        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
@@ -225,7 +225,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string|array|bool
+     * @return string|bool
      * @throws Exception
      */
     public function getRawHeader($name)
@@ -447,11 +447,11 @@ class Parser
     }
 
     /**
-     * Return an array of associative arrays with the following keys `display`, `address`, `is_group`
+     * Return an array with the following keys display, address, is_group
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return array<int, array{'display':string, 'address':string, 'is_group':bool}>
+     * @return array<int, array{'display': string, 'address': string, 'is_group': bool}>
      */
     public function getAddresses($name)
     {

@@ -68,6 +68,12 @@ Make sure you have the mailparse extension (http://php.net/manual/en/book.mailpa
 sudo apt install php-cli php-mailparse
 ```
 
+#### MacOS
+```
+brew install php
+pecl install mailparse
+```
+
 #### Other platforms
 ```
 sudo apt install php-cli php-pear php-dev php-mbstring
