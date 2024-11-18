@@ -406,7 +406,7 @@ class Parser
      * @param string $encodedString    The string in its original encoded state
      * @param $encodingType     The encoding type from the Content-Transfer-Encoding header of the part.
      */
-    private function decodeContentTransfer($encodedString, $encodingType)
+    protected function decodeContentTransfer($encodedString, $encodingType)
     {
         $encodingType = strtolower($encodingType);
         if ($encodingType == 'base64') {

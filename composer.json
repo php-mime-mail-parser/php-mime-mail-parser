@@ -1,5 +1,5 @@
 {
-    "name": "php-mime-mail-parser/php-mime-mail-parser",
+    "name": "protonmail/php-mime-mail-parser",
     "type": "library",
     "description": "Fully Tested Mailparse Extension Wrapper for PHP 5.4+",
     "keywords": ["mime", "mail", "mailparse", "MimeMailParser"],
@@ -42,7 +42,7 @@
         "url":"https://github.com/php-mime-mail-parser/php-mime-mail-parser.git"
     },
     "require": {
-        "php":           "^5.4.0 || ^7.0",
+        "php-64bit": ">=8.2",
         "ext-mailparse": "*"
     },
     "require-dev": {
@@ -50,10 +50,6 @@
         "phpunit/php-token-stream":     "^1.3.0",
         "satooshi/php-coveralls":       "0.*",
         "squizlabs/PHP_CodeSniffer":    "2.*"
-    },
-    "replace": {
-        "exorus/php-mime-mail-parser":   "*",
-        "messaged/php-mime-mail-parser": "*"
     },
     "autoload": {
         "psr-4": { "PhpMimeMailParser\\": "src/" }
