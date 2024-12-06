@@ -18,7 +18,7 @@ define('MAILPARSE_EXTRACT_RETURN', 2);
  * Parses a file. This is the optimal way of parsing a mail file that you have on
  * disk.
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-parse-file.php
+ * @link http://php.net/manual/en/function.mailparse-msg-parse-file.php
  *
  * @param string $filename Path to the file holding the message. The file is opened
  *                         and streamed through the parser
@@ -32,7 +32,7 @@ function mailparse_msg_parse_file($filename)
 /**
  * .
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-get-part.php
+ * @link http://php.net/manual/en/function.mailparse-msg-get-part.php
  *
  * @param resource $mimemail A valid MIME resource
  * @param string   $mimesection
@@ -46,7 +46,7 @@ function mailparse_msg_get_part($mimemail, $mimesection)
 /**
  * .
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-get-structure.php
+ * @link http://php.net/manual/en/function.mailparse-msg-get-structure.php
  *
  * @param resource $mimemail A valid MIME resource
  *
@@ -59,7 +59,7 @@ function mailparse_msg_get_structure($mimemail)
 /**
  * .
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-get-part-data.php
+ * @link http://php.net/manual/en/function.mailparse-msg-get-part-data.php
  *
  * @param resource $mimemail A valid MIME resource
  *
@@ -72,7 +72,7 @@ function mailparse_msg_get_part_data($mimemail)
 /**
  * .
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-extract-part.php
+ * @link http://php.net/manual/en/function.mailparse-msg-extract-part.php
  *
  * @param resource $mimemail A valid MIME resource
  * @param string   $msgbody
@@ -87,7 +87,7 @@ function mailparse_msg_extract_part($mimemail, $msgbody, $callbackfunc)
 /**
  * Extracts/decodes a message section from the supplied filename.
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-extract-part-file.php
+ * @link http://php.net/manual/en/function.mailparse-msg-extract-part-file.php
  *
  * @param resource $mimemail     A valid MIME resource, created with
  *                               mailparse_msg_create
@@ -105,7 +105,7 @@ function mailparse_msg_extract_part_file($mimemail, $filename, $callbackfunc = f
 /**
  * .
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-extract-whole-part-file.php
+ * @link http://php.net/manual/en/function.mailparse-msg-extract-whole-part-file.php
  *
  * @param resource $mimemail A valid MIME resource
  * @param string   $filename
@@ -120,7 +120,7 @@ function mailparse_msg_extract_whole_part_file($mimemail, $filename, $callbackfu
 /**
  * Create a MIME mail resource.
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-create.php
+ * @link http://php.net/manual/en/function.mailparse-msg-create.php
  * @return resource Returns a handle that can be used to parse a message
  */
 function mailparse_msg_create()
@@ -130,7 +130,7 @@ function mailparse_msg_create()
 /**
  * Frees a MIME resource.
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-free.php
+ * @link http://php.net/manual/en/function.mailparse-msg-free.php
  *
  * @param resource $mimemail A valid MIME resource allocated by
  *                           mailparse_msg_create or mailparse_msg_parse_file
@@ -144,7 +144,7 @@ function mailparse_msg_free($mimemail)
 /**
  * Incrementally parse data into the supplied mime mail resource.
  *
- * @link http://php.net/manual/en/functions.mailparse-msg-parse.php
+ * @link http://php.net/manual/en/function.mailparse-msg-parse.php
  *
  * @param resource $mimemail A valid MIME resource
  * @param string   $data
@@ -158,7 +158,7 @@ function mailparse_msg_parse($mimemail, $data)
 /**
  * Parses a RFC 822 compliant recipient list, such as that found in the To: header.
  *
- * @link http://php.net/manual/en/functions.mailparse-rfc822-parse-addresses.php
+ * @link http://php.net/manual/en/function.mailparse-rfc822-parse-addresses.php
  *
  * @param string $addresses A string containing addresses, like in: Wez Furlong
  *                          wez@example.com, doe@example.com
@@ -176,7 +176,7 @@ function mailparse_rfc822_parse_addresses($addresses)
  * Figures out the best way of encoding the content read from the given file
  * pointer.
  *
- * @link http://php.net/manual/en/functions.mailparse-determine-best-xfer-encoding.php
+ * @link http://php.net/manual/en/function.mailparse-determine-best-xfer-encoding.php
  *
  * @param resource $fp A valid file pointer, which must be seek-able
  *
@@ -190,7 +190,7 @@ function mailparse_determine_best_xfer_encoding($fp)
  * Streams data from the source file pointer, apply $encoding and write to the
  * destination file pointer.
  *
- * @link http://php.net/manual/en/functions.mailparse-stream-encode.php
+ * @link http://php.net/manual/en/function.mailparse-stream-encode.php
  *
  * @param resource $sourcefp A valid file handle. The file is streamed through the
  *                           parser
@@ -209,7 +209,7 @@ function mailparse_stream_encode($sourcefp, $destfp, $encoding)
  * Scans the data from the given file pointer and extract each embedded uuencoded
  * file into a temporary file.
  *
- * @link http://php.net/manual/en/functions.mailparse-uudecode-all.php
+ * @link http://php.net/manual/en/function.mailparse-uudecode-all.php
  *
  * @param resource $fp A valid file pointer
  *

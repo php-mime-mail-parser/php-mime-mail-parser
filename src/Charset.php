@@ -355,7 +355,7 @@ class Charset implements CharsetManager
             'strtolower',
             array_unique(
                 array_merge(
-                    $enc = mb_list_encodings(),
+                    $enc = array_diff(mb_list_encodings(), ['BASE64', 'UUENCODE', 'HTML-ENTITIES', 'Quoted-Printable']),
                     call_user_func_array(
                         'array_merge',
                         array_map(
