@@ -43,6 +43,7 @@ The following versions of PHP are supported:
 * PHP 8.1
 * PHP 8.2
 * PHP 8.3
+* PHP 8.4
 
 Previous Versions:
 
@@ -91,7 +92,7 @@ phpize
 sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
 make
 sudo mv modules/mailparse.so /usr/lib/php/AAAAMMDD/
-echo "extension=mailparse.so" | sudo tee /etc/php/7.1/mods-available/mailparse.ini
+echo "extension=mailparse.so" | sudo tee /etc/php/8.4/mods-available/mailparse.ini
 sudo phpenmod mailparse
 ```
 
