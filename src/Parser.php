@@ -464,9 +464,9 @@ class Parser
     }
 
     /**
-     * Returns the attachments contents in order of appearance
+     * Returns the inline parts contents (text or HTML)
      *
-     * @return Attachment[]
+     * @return string[] The decoded inline parts.
      */
     public function getInlineParts($type = 'text')
     {
