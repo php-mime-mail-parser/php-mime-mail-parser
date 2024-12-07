@@ -208,6 +208,11 @@ class Parser
      */
     protected function parse()
     {
+        if (!$this->resource) {
+            throw new Exception(
+                'MIME message cannot be parsed'
+            );
+        }
         $structure = mailparse_msg_get_structure($this->resource);
         $this->parts = [];
         foreach ($structure as $part_id) {
