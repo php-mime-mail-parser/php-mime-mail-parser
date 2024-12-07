@@ -74,7 +74,7 @@ class Parser
      *
      * @param CharsetManager|null $charset
      */
-    public function __construct(CharsetManager $charset = null)
+    public function __construct(?CharsetManager $charset = null)
     {
         if ($charset == null) {
             $charset = new Charset();
@@ -139,7 +139,7 @@ class Parser
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true) || $meta['eof']) {
+        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
@@ -208,6 +208,11 @@ class Parser
      */
     protected function parse()
     {
+        if (!$this->resource) {
+            throw new Exception(
+                'MIME message cannot be parsed'
+            );
+        }
         $structure = mailparse_msg_get_structure($this->resource);
         $this->parts = [];
         foreach ($structure as $part_id) {
@@ -246,7 +251,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return string|bool
+     * @return string|false
      */
     public function getHeader($name)
     {
@@ -450,7 +455,7 @@ class Parser
      *
      * @param string $name Header name (case-insensitive)
      *
-     * @return array
+     * @return array<int, array{'display': string, 'address': string, 'is_group': bool}>
      */
     public function getAddresses($name)
     {
@@ -464,9 +469,9 @@ class Parser
     }
 
     /**
-     * Returns the attachments contents in order of appearance
+     * Returns the inline parts contents (text or HTML)
      *
-     * @return Attachment[]
+     * @return string[] The decoded inline parts.
      */
     public function getInlineParts($type = 'text')
     {

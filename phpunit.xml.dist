@@ -3,4 +3,7 @@
     <testsuite name="eXorus PhpMimeMailParser Test Suite">
         <directory suffix="Test.php">tests</directory>
     </testsuite>
+    <php>
+        <ini name="error_reporting" value="-1" />
+    </php>
 </phpunit>
