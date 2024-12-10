@@ -215,7 +215,7 @@ class Parser
      * @param string $name Header name (case-insensitive)
      * @throws Exception
      */
-    public function getRawHeader($name): string|false
+    public function getRawHeader($name): string|array|false
     {
         $name = strtolower($name);
         if (isset($this->parts[1])) {
