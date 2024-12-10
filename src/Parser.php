@@ -6,9 +6,6 @@ use PhpMimeMailParser\Contracts\CharsetManager;
 
 /**
  * Parser of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
  */
 class Parser
 {
@@ -452,12 +449,10 @@ class Parser
 
     /**
      * Return an array with the following keys display, address, is_group
-     *
      * @param string $name Header name (case-insensitive)
-     *
-     * @return array<int, array{'display': string, 'address': string, 'is_group': bool}>
+     * @return list<array{'display': string, 'address': string, 'is_group': bool}>
      */
-    public function getAddresses($name)
+    public function getAddresses($name): array
     {
         $value = $this->getRawHeader($name);
         $value = (is_array($value)) ? $value[0] : $value;
@@ -470,10 +465,9 @@ class Parser
 
     /**
      * Returns the inline parts contents (text or HTML)
-     *
-     * @return string[] The decoded inline parts.
+     * @return list<string> The decoded inline parts.
      */
-    public function getInlineParts($type = 'text')
+    public function getInlineParts($type = 'text'): array
     {
         $inline_parts = [];
         $mime_types = [
@@ -503,10 +497,9 @@ class Parser
 
     /**
      * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
+     * @return list<Attachment>
      */
-    public function getAttachments($include_inline = true)
+    public function getAttachments($include_inline = true): array
     {
         $attachments = [];
         $dispositions = $include_inline ? ['attachment', 'inline'] : ['attachment'];
