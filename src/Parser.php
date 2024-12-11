@@ -533,8 +533,8 @@ class Parser
     public function saveAttachments(
         $attach_dir,
         $include_inline = true,
-        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX): array
-    {
+        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
+    ): array {
         $attachments = $this->getAttachments($include_inline);
 
         $attachments_paths = [];
