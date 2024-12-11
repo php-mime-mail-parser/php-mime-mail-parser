@@ -532,7 +532,11 @@ class Parser
      * @return list<string> Saved attachments paths
      * @throws Exception
      */
-    public function saveAttachments($attach_dir, $include_inline = true, $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX): array
+    public function saveAttachments(
+        $attach_dir,
+        $include_inline = true,
+        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
+    ): array
     {
         $attachments = $this->getAttachments($include_inline);
 
