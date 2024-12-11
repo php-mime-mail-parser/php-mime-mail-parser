@@ -83,8 +83,6 @@ class Parser
 
     /**
      * Free the held resources
-     *
-     * @return void
      */
     public function __destruct()
     {
@@ -535,8 +533,7 @@ class Parser
     public function saveAttachments(
         $attach_dir,
         $include_inline = true,
-        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
-    ): array
+        $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX): array
     {
         $attachments = $this->getAttachments($include_inline);
 
@@ -554,7 +551,7 @@ class Parser
      * @return resource Mime Body Part
      * @throws Exception
      */
-    protected function getAttachmentStream(&$part)
+    protected function getAttachmentStream(&$part): resource
     {
         /** @var resource $temp_fp */
         $temp_fp = tmpfile();
