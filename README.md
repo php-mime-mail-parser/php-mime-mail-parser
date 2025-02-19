@@ -1,4 +1,4 @@
-<p align="center"><img width="272" height="61" src="/art/php-mime-mail-parser.png" alt="Logo php-mime-mail-parser"></p>
+<p align="center"><img width="544" height="122" src="/art/php-mime-mail-parser.png" alt="Logo php-mime-mail-parser"></p>
 
 <p align="center">
 <a href="https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions"><img src="https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml/badge.svg?style=flat-square" alt="Build Status"></a>
