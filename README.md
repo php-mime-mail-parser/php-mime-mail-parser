@@ -31,7 +31,7 @@ We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see 
 
 [![CI](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml/badge.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml)
 [![Coverage](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser/branch/main/graph/badge.svg?token=wTSIbXJDL0)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
-[![Code Quality](https://app.codacy.com/project/badge/Grade/8cbfe0fcd84c4b2b9282b9a0b4467607)](https://www.codacy.com/gh/php-mime-mail-parser/php-mime-mail-parser/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=php-mime-mail-parser/php-mime-mail-parser&amp;utm_campaign=Badge_Grade)
+[![Code Quality](https://app.codacy.com/project/badge/Grade/8cbfe0fcd84c4b2b9282b9a0b4467607)](https://app.codacy.com/gh/php-mime-mail-parser/php-mime-mail-parser/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## How do I install it?
 
