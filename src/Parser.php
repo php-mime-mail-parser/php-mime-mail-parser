@@ -616,12 +616,30 @@ class Parser
                 fseek($this->stream, $start, SEEK_SET);
                 $len = $end - $start;
                 $written = 0;
-                while ($written < $len) {
-                    $write = $len;
-                    $data = fread($this->stream, $write);
-                    fwrite($temp_fp, $this->decodeContentTransfer($data, $encodingType));
-                    $written += $write;
-                }
+                
+			    $chunkSize = 8192; // Chunk size (e.g., 8 KB);
+				while ($written < $len) {
+				
+				    // Determine the read size, to avoid exceeding the end
+				
+				    $remaining = $len - $written;
+				
+				    $readSize = ($remaining < $chunkSize) ? $remaining : $chunkSize;
+				
+				    // Read a chunk from the input stream
+				
+				    $data = fread($this->stream, $readSize);
+				
+				    // Decode the chunk and write it to the temporary file
+				
+				    $decodedData = $this->decodeContentTransfer($data, $encodingType);
+				
+				    fwrite($temp_fp, $decodedData);
+				
+				    // Increment the amount written
+				
+				    $written += $readSize;
+				}        
             } elseif ($this->data) {
                 $attachment = $this->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
                 fwrite($temp_fp, $attachment, strlen($attachment));
