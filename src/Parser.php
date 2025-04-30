@@ -669,7 +669,7 @@ class Parser
 
             fclose($dst);
 
-            return $encodedString;  
+            return $encodedString;
         } elseif ($encodingType == 'quoted-printable') {
             return quoted_printable_decode($encodedString);
         } else {
