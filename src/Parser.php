@@ -652,7 +652,24 @@ class Parser
 
         $encodingType = strtolower($encodingType);
         if ($encodingType == 'base64') {
-            return base64_decode($encodedString);
+            $chunkSize = 1024;
+            $src = tmpfile();
+            $metaDatas = stream_get_meta_data($src);
+            $srcFilename = $metaDatas['uri'];
+
+            file_put_contents($srcFilename, $encodedString);
+
+            $dst = tmpfile();
+            while (!feof($src)) {
+                fwrite($dst, base64_decode(fread($src, $chunkSize)));
+            }
+            fclose($src);
+
+            $encodedString = stream_get_contents($dst);
+
+            fclose($dst);
+
+            return $encodedString;  
         } elseif ($encodingType == 'quoted-printable') {
             return quoted_printable_decode($encodedString);
         } else {
