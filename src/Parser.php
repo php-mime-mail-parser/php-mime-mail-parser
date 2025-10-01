@@ -256,6 +256,7 @@ class Parser
     public function getHeader($name)
     {
         $rawHeader = $this->getRawHeader($name);
+
         if ($rawHeader === false) {
             return false;
         }
@@ -616,7 +617,14 @@ class Parser
                 fseek($this->stream, $start, SEEK_SET);
                 $len = $end - $start;
                 $written = 0;
-                
+
+                while ($written < $len) {
+                    $write = $len;
+                    $data = fread($this->stream, $write);
+                    fwrite($temp_fp, $this->decodeContentTransfer($data, $encodingType));
+                    $written += $write;
+                }
+                /*
 			    $chunkSize = 8192; // Chunk size (e.g., 8 KB);
 				while ($written < $len) {
 				
@@ -639,7 +647,9 @@ class Parser
 				    // Increment the amount written
 				
 				    $written += $readSize;
-				}        
+				}  
+                    */  
+
             } elseif ($this->data) {
                 $attachment = $this->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
                 fwrite($temp_fp, $attachment, strlen($attachment));
@@ -670,6 +680,7 @@ class Parser
 
         $encodingType = strtolower($encodingType);
         if ($encodingType == 'base64') {
+            
             $chunkSize = 1024;
             $src = tmpfile();
             $metaDatas = stream_get_meta_data($src);
@@ -688,6 +699,9 @@ class Parser
             fclose($dst);
 
             return $encodedString;
+            
+
+            //return base64_decode($encodedString);
         } elseif ($encodingType == 'quoted-printable') {
             return quoted_printable_decode($encodedString);
         } else {
@@ -723,15 +737,17 @@ class Parser
     {
         // For each encoded-word...
         while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)((\s+)=\?)?/i', $input, $matches)) {
+            
             $encoded = $matches[1];
             $charset = $matches[2];
             $encoding = $matches[3];
             $text = $matches[4];
+
             $space = isset($matches[6]) ? $matches[6] : '';
 
             switch (strtolower($encoding)) {
                 case 'b':
-                    $text = $this->decodeContentTransfer($text, 'base64');
+                    $text = base64_decode($text);
                     break;
 
                 case 'q':
