@@ -256,6 +256,7 @@ class Parser
     public function getHeader($name)
     {
         $rawHeader = $this->getRawHeader($name);
+
         if ($rawHeader === false) {
             return false;
         }
@@ -616,12 +617,39 @@ class Parser
                 fseek($this->stream, $start, SEEK_SET);
                 $len = $end - $start;
                 $written = 0;
+
                 while ($written < $len) {
                     $write = $len;
                     $data = fread($this->stream, $write);
                     fwrite($temp_fp, $this->decodeContentTransfer($data, $encodingType));
                     $written += $write;
                 }
+                /*
+			    $chunkSize = 8192; // Chunk size (e.g., 8 KB);
+				while ($written < $len) {
+				
+				    // Determine the read size, to avoid exceeding the end
+				
+				    $remaining = $len - $written;
+				
+				    $readSize = ($remaining < $chunkSize) ? $remaining : $chunkSize;
+				
+				    // Read a chunk from the input stream
+				
+				    $data = fread($this->stream, $readSize);
+				
+				    // Decode the chunk and write it to the temporary file
+				
+				    $decodedData = $this->decodeContentTransfer($data, $encodingType);
+				
+				    fwrite($temp_fp, $decodedData);
+				
+				    // Increment the amount written
+				
+				    $written += $readSize;
+				}  
+                    */  
+
             } elseif ($this->data) {
                 $attachment = $this->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
                 fwrite($temp_fp, $attachment, strlen($attachment));
@@ -652,7 +680,28 @@ class Parser
 
         $encodingType = strtolower($encodingType);
         if ($encodingType == 'base64') {
-            return base64_decode($encodedString);
+            
+            $chunkSize = 1024;
+            $src = tmpfile();
+            $metaDatas = stream_get_meta_data($src);
+            $srcFilename = $metaDatas['uri'];
+
+            file_put_contents($srcFilename, $encodedString);
+
+            $dst = tmpfile();
+            while (!feof($src)) {
+                fwrite($dst, base64_decode(fread($src, $chunkSize)));
+            }
+            fclose($src);
+
+            $encodedString = stream_get_contents($dst);
+
+            fclose($dst);
+
+            return $encodedString;
+            
+
+            //return base64_decode($encodedString);
         } elseif ($encodingType == 'quoted-printable') {
             return quoted_printable_decode($encodedString);
         } else {
@@ -688,15 +737,17 @@ class Parser
     {
         // For each encoded-word...
         while (preg_match('/(=\?([^?]+)\?(q|b)\?([^?]*)\?=)((\s+)=\?)?/i', $input, $matches)) {
+            
             $encoded = $matches[1];
             $charset = $matches[2];
             $encoding = $matches[3];
             $text = $matches[4];
+
             $space = isset($matches[6]) ? $matches[6] : '';
 
             switch (strtolower($encoding)) {
                 case 'b':
-                    $text = $this->decodeContentTransfer($text, 'base64');
+                    $text = base64_decode($text);
                     break;
 
                 case 'q':
