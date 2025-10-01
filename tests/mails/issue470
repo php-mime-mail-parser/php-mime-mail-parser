@@ -1,0 +1,16 @@
+MIME-Version: 1.0
+From: sender@example.com
+To: recipient@example.com
+Subject: Multiple text attachments
+Content-Type: multipart/mixed; boundary="Part"
+
+--Part
+Content-Type: text/plain; name="data.txt"
+Content-Transfer-Encoding: 7bit
+Content-Disposition: attachment; filename="data.txt"
+
+abc
+
+--Part--More
+
+--Part--
