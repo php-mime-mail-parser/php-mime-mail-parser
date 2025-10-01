@@ -158,7 +158,7 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         // The email contains "--Part--More" which is NOT a valid boundary according to RFC 2046
         // Per RFC 2046 Section 5.1.1: boundary lines can only have linear-white-space after "--boundary--"
         // Since "More" is not white-space, "--Part--More" should be treated as content, not a boundary
-        // 
+
         // Current behavior: PHP's mailparse extension incorrectly treats "--Part--More" as a boundary
         // Expected behavior: Content should include everything until the next valid boundary "--Part--"
         
@@ -179,7 +179,6 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
             
             // Expected behavior per RFC 2046 (currently fails):
             // $this->assertEquals("abc\n\n--Part--More\n\n", $attachment->getContent());
-
         }
     }
 }
