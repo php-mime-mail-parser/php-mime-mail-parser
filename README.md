@@ -50,6 +50,7 @@ The following versions of PHP are supported:
 * PHP 8.2
 * PHP 8.3
 * PHP 8.4
+* PHP 8.5
 
 Previous Versions:
 
