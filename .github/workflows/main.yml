@@ -9,23 +9,10 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
-    continue-on-error: ${{ matrix.allow-failure || false }}
     strategy:
-      fail-fast: false
       matrix:
-        include:
-          - php: 8.2
-            dependency-version: prefer-stable
-          - php: 8.2
-            dependency-version: prefer-lowest
-          - php: 8.3
-            dependency-version: prefer-stable
-            allow-failure: true
-          - php: 8.4
-            dependency-version: prefer-stable
-            allow-failure: true
-          - php: 8.5
-            dependency-version: prefer-stable
+        php: [8.2, 8.3, 8.4, 8.5]
+        dependency-version: [prefer-lowest, prefer-stable]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,15 +28,7 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: |
-          set +e
-          output=$(php -d opcache.enable_cli=0 -d opcache.jit=0 vendor/bin/phpunit 2>&1)
-          status=$?
-          echo "$output"
-          if echo "$output" | grep -qE '^OK \('; then
-            exit 0
-          fi
-          exit $status
+        run: vendor/bin/phpunit
 
   php-cs:
     runs-on: ubuntu-latest
@@ -86,11 +65,5 @@ jobs:
 
       - name: Execute code coverage
         run: |
-          set +e
-          output=$(php -d opcache.enable_cli=0 -d opcache.jit=0 vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-filter src 2>&1)
-          status=$?
-          echo "$output"
-          if ! echo "$output" | grep -qE '^OK \('; then
-            exit $status
-          fi
+          vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-filter src
           bash <(curl -s https://codecov.io/bash) -t ${{ secrets.COVERALLS_REPO_TOKEN }}
