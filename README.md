@@ -10,7 +10,7 @@
 
 ## Introduction
 
-A fully tested email parser for PHP 8.0+ (mailparse extension wrapper).
+A fully tested email parser for PHP 8.2+ (mailparse extension wrapper).
 
 It's the most effective PHP email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
 Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](https://tools.ietf.org/html/rfc2822), [5322](https://tools.ietf.org/html/rfc5322).
@@ -45,11 +45,10 @@ To install the latest version of PHP MIME Mail Parser, run the command below:
 
 The following versions of PHP are supported:
 
-* PHP 8.0
-* PHP 8.1
 * PHP 8.2
 * PHP 8.3
 * PHP 8.4
+* PHP 8.5
 
 Previous Versions:
 

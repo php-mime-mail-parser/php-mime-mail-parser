@@ -4,6 +4,7 @@ namespace PhpMimeMailParser;
 use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\Attachment;
 use PhpMimeMailParser\Exception;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 /**
  * Test Parser of php-mime-mail-parser
@@ -14,9 +15,7 @@ use PhpMimeMailParser\Exception;
 class ParserTest extends \PHPUnit\Framework\TestCase
 {
 
-    /**
-     * @dataProvider provideData
-     */
+    #[DataProvider('provideData')]
     public function testInlineAttachmentsFalse(
         $mid,
         $subjectExpected,
@@ -257,7 +256,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, count($Parser->getAttachments(true)));
     }
 
-    public function provideData()
+    public static function provideData()
     {
 
         $data = array(
@@ -1134,9 +1133,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         return $data;
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[DataProvider('provideData')]
     public function testFromPath(
         $mid,
         $subjectExpected,
@@ -1268,9 +1265,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    /**
-     * @dataProvider provideData
-     */
+    #[DataProvider('provideData')]
     public function testFromText(
         $mid,
         $subjectExpected,
@@ -1403,9 +1398,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @dataProvider provideData
-     */
+    #[DataProvider('provideData')]
     public function testFromStream(
         $mid,
         $subjectExpected,
@@ -1552,7 +1545,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    public function provideAttachmentsData()
+    public static function provideAttachmentsData()
     {
         return array(
             array(
@@ -1619,9 +1612,7 @@ aXBpdC4K'
         );
     }
 
-    /**
-     * @dataProvider provideAttachmentsData
-     */
+    #[DataProvider('provideAttachmentsData')]
     public function testAttachmentGetMimePartStrFromPath($mid, $attachmentMimeParts)
     {
         // Init
@@ -1638,9 +1629,7 @@ aXBpdC4K'
         }
     }
 
-    /**
-     * @dataProvider provideAttachmentsData
-     */
+    #[DataProvider('provideAttachmentsData')]
     public function testAttachmentGetMimePartStrFromStream($mid, $attachmentMimeParts)
     {
         // Init
@@ -1657,9 +1646,7 @@ aXBpdC4K'
         }
     }
 
-    /**
-     * @dataProvider provideAttachmentsData
-     */
+    #[DataProvider('provideAttachmentsData')]
     public function testAttachmentGetMimePartStrFromText($mid, $attachmentMimeParts)
     {
         // Init
@@ -1676,9 +1663,8 @@ aXBpdC4K'
         }
     }
 
+    #[DataProvider('providerRFC822AttachmentsWithDifferentTextTypes')]
     /**
-     * @dataProvider providerRFC822AttachmentsWithDifferentTextTypes
-     *
      * @param string $file Mail file path to parse
      * @param string $getType The type to give to getMessageBody
      * @param string $expected
@@ -1690,7 +1676,7 @@ aXBpdC4K'
         $this->assertEquals($expected, $Parser->getMessageBody($getType));
     }
 
-    public function providerRFC822AttachmentsWithDifferentTextTypes()
+    public static function providerRFC822AttachmentsWithDifferentTextTypes()
     {
         return [
             'HTML-only message, with text-only RFC822 attachment, message should have empty text body' => [

@@ -232,7 +232,6 @@ namespace PhpMimeMailParser {
 
         public function testMIMEMessageCannotBeParsed()
         {
-
             set_error_handler(function ($severity, $message, $file, $line) {
                 throw new \ErrorException($message, 0, $severity, $file, $line);
             });
@@ -242,7 +241,11 @@ namespace PhpMimeMailParser {
             $file = __DIR__ . '/mails/issue408.eml';
 
             $Parser = new Parser();
-            $Parser->setPath($file);
+            try {
+                $Parser->setPath($file);
+            } finally {
+                restore_error_handler();
+            }
         }
     }
 }

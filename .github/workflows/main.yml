@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.0, 8.1, 8.2, 8.3, 8.4]
+        php: [8.2, 8.3, 8.4, 8.5]
         dependency-version: [prefer-lowest, prefer-stable]
     steps:
       - name: Checkout code
@@ -25,7 +25,7 @@ jobs:
           coverage: none
 
       - name: Install dependencies
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest --no-progress
+        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
         run: vendor/bin/phpunit
@@ -35,6 +35,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.5
+          coverage: none
 
       - name: Install dependencies
         run: composer update --no-progress --ignore-platform-reqs
@@ -51,13 +57,13 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.5
           extensions: mailparse
 
       - name: Install dependencies
-        run: composer update --prefer-dist --no-interaction --no-suggest --no-progress
+        run: composer update --prefer-dist --no-interaction --no-progress
 
       - name: Execute code coverage
         run: |
-          vendor/bin/phpunit --coverage-clover=coverage.xml --whitelist src
+          vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-filter src
           bash <(curl -s https://codecov.io/bash) -t ${{ secrets.COVERALLS_REPO_TOKEN }}
