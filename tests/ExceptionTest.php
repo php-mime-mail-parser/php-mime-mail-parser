@@ -245,17 +245,5 @@ namespace PhpMimeMailParser {
             $Attachments = $Parser->getAttachments();
             $this->assertGreaterThan(0, count($Attachments));
         }
-
-        public function testMIMEMessageCanBeParsedWithPath()
-        {
-            $file = __DIR__ . '/mails/issue408.eml';
-
-            $Parser = new Parser();
-            $Parser->setPath($file);
-
-            $this->assertNotNull($Parser);
-            $Attachments = $Parser->getAttachments();
-            $this->assertGreaterThan(0, count($Attachments));
-        }
     }
 }

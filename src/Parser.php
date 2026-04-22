@@ -119,29 +119,15 @@ class Parser
             fclose($file);
         }
 
-        // Open file for streaming
+        // should parse message incrementally from file
+        $this->resource = mailparse_msg_parse_file($path);
+        
+        // Handle failure case
+        if ($this->resource === false) {
+            throw new Exception('MIME message cannot be parsed');
+        }
+        
         $this->stream = fopen($path, 'r');
-        if (!$this->stream) {
-            throw new Exception('Cannot open file: ' . $path);
-        }
-
-        // Try optimized mailparse_msg_parse_file first
-        // Note: This fails on very complex MIME structures (e.g., too many attachments)
-        // In such cases, we fallback to incremental parsing with mailparse_msg_parse
-        $resource = mailparse_msg_parse_file($path);
-        if ($resource !== false) {
-            // Successfully parsed with optimized function
-            $this->resource = $resource;
-        } else {
-            // Fallback to incremental parsing for complex messages
-            // This follows the same pattern as setText() and setStream()
-            rewind($this->stream);
-            $this->resource = mailparse_msg_create();
-            while (!feof($this->stream)) {
-                mailparse_msg_parse($this->resource, fread($this->stream, 2082));
-            }
-        }
-
         $this->parse();
 
         return $this;
