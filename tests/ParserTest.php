@@ -256,6 +256,11 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1, count($Parser->getAttachments(true)));
     }
 
+    /**
+     * Large fixture-style provider kept as-is for readability of test cases.
+     *
+     * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+     */
     public static function provideData()
     {
 
