@@ -247,7 +247,7 @@ namespace PhpMimeMailParser {
 
             $Parser = new Parser();
             try {
-                $Parser->setText(file_get_contents($file));
+                $Parser->setPath($file);
             } finally {
                 restore_error_handler();
             }
