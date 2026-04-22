@@ -50,6 +50,8 @@ jobs:
 
       - name: Check mailparse version
         run: php -i | grep -A 5 "mailparse"
+
+      - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
