@@ -119,9 +119,18 @@ class Parser
             fclose($file);
         }
 
-        // should parse message incrementally from file
-        $this->resource = mailparse_msg_parse_file($path);
+        // Open file and parse incrementally, following same pattern as setStream()
+        // This ensures resource is always created and valid, even if parsing fails
         $this->stream = fopen($path, 'r');
+        if (!$this->stream) {
+            throw new Exception('Cannot open file: ' . $path);
+        }
+
+        $this->resource = mailparse_msg_create();
+        // parses the message incrementally (low memory usage but slower)
+        while (!feof($this->stream)) {
+            mailparse_msg_parse($this->resource, fread($this->stream, 2082));
+        }
         $this->parse();
 
         return $this;
