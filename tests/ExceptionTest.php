@@ -239,6 +239,39 @@ namespace PhpMimeMailParser {
             $this->markTestSkipped('Known segfault on PHP 8.x when Parser::setPath parses issue408.eml');
         }
 
+        public function testMIMEMessageCannotBeParsedDebug()
+        {
+            echo "\n=== Starting testMIMEMessageCannotBeParsedDebug ===\n";
+            echo "Step 1: Setting error handler\n";
+            set_error_handler(function ($severity, $message, $file, $line) {
+                echo "Error caught: $message\n";
+                throw new \ErrorException($message, 0, $severity, $file, $line);
+            });
+
+            $this->expectException(\ErrorException::class);
+
+            echo "Step 2: File path setup\n";
+            $file = __DIR__ . '/mails/issue408.eml';
+            echo "File: $file\n";
+            echo "File exists: " . (file_exists($file) ? 'yes' : 'no') . "\n";
+
+            echo "Step 3: Parser instantiation\n";
+            $Parser = new Parser();
+            echo "Parser created\n";
+
+            echo "Step 4: About to call setPath\n";
+            try {
+                $Parser->setPath($file);
+                echo "setPath completed successfully\n";
+            } finally {
+                echo "Step 5: Restoring error handler\n";
+                restore_error_handler();
+                echo "Error handler restored\n";
+                unset($Parser);
+                echo "Parser unset\n";
+            }
+        }
+
         public function testMIMEMessageCannotBeParsedFixtureIsPresent()
         {
             $file = __DIR__ . '/mails/issue408.eml';
