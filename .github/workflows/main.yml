@@ -10,12 +10,19 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         include:
           - php: 8.2
             dependency-version: prefer-lowest
             mailparse-version: 3.1.9
           - php: 8.2
+            dependency-version: prefer-stable
+            mailparse-version: 3.1.9
+          - php: 8.3
+            dependency-version: prefer-lowest
+            mailparse-version: 3.1.9
+          - php: 8.3
             dependency-version: prefer-stable
             mailparse-version: 3.1.9
           - php: 8.4
