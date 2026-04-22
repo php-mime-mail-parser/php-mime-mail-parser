@@ -91,14 +91,7 @@ class Parser
      */
     public function __destruct()
     {
-        // clear the email file resource
-        if (is_resource($this->stream)) {
-            fclose($this->stream);
-        }
-        // clear the MailParse resource
-        if (is_resource($this->resource)) {
-            mailparse_msg_free($this->resource);
-        }
+        $this->closeResources();
     }
 
     /**
@@ -120,29 +113,48 @@ class Parser
         }
 
         // should parse message incrementally from file
-        $resource = mailparse_msg_parse_file($path);
-        $stream = fopen($path, 'r');
+        $tmpResource = mailparse_msg_parse_file($path);
+        $tmpStream = fopen($path, 'r');
+        
+        // Store only after verifying resources are valid
+        $this->resource = $tmpResource;
+        $this->stream = $tmpStream;
         
         try {
-            // Store resource temporarily to allow parse() to work
-            $this->resource = $resource;
-            $this->stream = $stream;
             $this->parse();
         } catch (\Throwable $e) {
-            // On exception, clear the partially-initialized resources
-            // to prevent mailparse_msg_free() crash in __destruct()
-            if (is_resource($this->resource)) {
-                mailparse_msg_free($this->resource);
-            }
-            $this->resource = null;
-            if (is_resource($this->stream)) {
-                fclose($this->stream);
-            }
-            $this->stream = null;
+            // Critical: free resources BEFORE nullifying them
+            // and do it in a way that can't be skipped
+            $this->closeResources();
             throw $e;
         }
 
         return $this;
+    }
+
+    /**
+     * Safely close and free resources
+     * @return void
+     */
+    private function closeResources()
+    {
+        if (is_resource($this->resource)) {
+            try {
+                mailparse_msg_free($this->resource);
+            } catch (\Throwable $e) {
+                // Ignore errors from mailparse_msg_free
+            }
+        }
+        $this->resource = null;
+
+        if (is_resource($this->stream)) {
+            try {
+                fclose($this->stream);
+            } catch (\Throwable $e) {
+                // Ignore errors from fclose
+            }
+        }
+        $this->stream = null;
     }
 
     /**
