@@ -48,8 +48,14 @@ jobs:
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
-      - name: Execute tests
-        run: vendor/bin/phpunit
+      - name: Execute ExceptionTest
+        run: vendor/bin/phpunit tests/ExceptionTest.php
+
+      - name: Execute AttachmentTest
+        run: vendor/bin/phpunit tests/AttachmentTest.php
+
+      - name: Execute ParserTest
+        run: vendor/bin/phpunit tests/ParserTest.php
 
   php-cs:
     runs-on: ubuntu-latest
