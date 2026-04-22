@@ -119,23 +119,10 @@ class Parser
             fclose($file);
         }
 
-        try {
-            // should parse message incrementally from file
-            $this->resource = mailparse_msg_parse_file($path);
-            $this->stream = fopen($path, 'r');
-            $this->parse();
-        } catch (\Throwable $e) {
-            // Nullify resource before exception propagates to prevent segfault
-            // on PHP 8.x: the exception stack trace holds a reference to $this,
-            // keeping the Parser alive until PHPUnit shutdown where mailparse_msg_free()
-            // on a partially-initialized resource causes a segfault.
-            $this->resource = null;
-            if (is_resource($this->stream)) {
-                fclose($this->stream);
-                $this->stream = null;
-            }
-            throw $e;
-        }
+        // should parse message incrementally from file
+        $this->resource = mailparse_msg_parse_file($path);
+        $this->stream = fopen($path, 'r');
+        $this->parse();
 
         return $this;
     }
