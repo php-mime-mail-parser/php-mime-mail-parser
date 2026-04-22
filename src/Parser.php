@@ -91,7 +91,14 @@ class Parser
      */
     public function __destruct()
     {
-        $this->closeResources();
+        // clear the email file resource
+        if (is_resource($this->stream)) {
+            fclose($this->stream);
+        }
+        // clear the MailParse resource
+        if (is_resource($this->resource)) {
+            mailparse_msg_free($this->resource);
+        }
     }
 
     /**
@@ -113,48 +120,11 @@ class Parser
         }
 
         // should parse message incrementally from file
-        $tmpResource = mailparse_msg_parse_file($path);
-        $tmpStream = fopen($path, 'r');
-        
-        // Store only after verifying resources are valid
-        $this->resource = $tmpResource;
-        $this->stream = $tmpStream;
-        
-        try {
-            $this->parse();
-        } catch (\Throwable $e) {
-            // Critical: free resources BEFORE nullifying them
-            // and do it in a way that can't be skipped
-            $this->closeResources();
-            throw $e;
-        }
+        $this->resource = mailparse_msg_parse_file($path);
+        $this->stream = fopen($path, 'r');
+        $this->parse();
 
         return $this;
-    }
-
-    /**
-     * Safely close and free resources
-     * @return void
-     */
-    private function closeResources()
-    {
-        if (is_resource($this->resource)) {
-            try {
-                mailparse_msg_free($this->resource);
-            } catch (\Throwable $e) {
-                // Ignore errors from mailparse_msg_free
-            }
-        }
-        $this->resource = null;
-
-        if (is_resource($this->stream)) {
-            try {
-                fclose($this->stream);
-            } catch (\Throwable $e) {
-                // Ignore errors from fclose
-            }
-        }
-        $this->stream = null;
     }
 
     /**
