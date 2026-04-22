@@ -63,6 +63,8 @@ Previous Versions:
 | PHP 7.2           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
 | PHP 7.3           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
 | PHP 7.4           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
+| PHP 8.0           | [php-mime-mail-parser 9.0.1](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/9.0.1)  |
+| PHP 8.1           | [php-mime-mail-parser 9.0.1](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/9.0.1)  |
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` needs to return "mailparse".
 
@@ -82,7 +84,7 @@ pecl install mailparse
 
 #### Other platforms
 ```
-sudo apt install php-cli php-pear php-dev php-mbstring
+sudo apt install php-cli php-pear php-dev
 pecl install mailparse
 ```
 
@@ -94,10 +96,9 @@ git clone https://github.com/php/pecl-mail-mailparse.git
 cd pecl-mail-mailparse
 phpize
 ./configure
-sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
 make
 sudo mv modules/mailparse.so /usr/lib/php/AAAAMMDD/
-echo "extension=mailparse.so" | sudo tee /etc/php/8.4/mods-available/mailparse.ini
+echo "extension=mailparse.so" | sudo tee /etc/php/<your-php-version>/mods-available/mailparse.ini
 sudo phpenmod mailparse
 ```
 
