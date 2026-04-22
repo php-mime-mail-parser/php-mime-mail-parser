@@ -246,7 +246,7 @@ namespace PhpMimeMailParser {
             $this->assertGreaterThan(0, count($Attachments));
         }
 
-        public function testMIMEMessageCanBeParsedWithPath()
+        public function testMIMEMessageCannotBeParsedWithPath()
         {
             // Upstream mailparse bug: mailparse_msg_parse_file() fails on this complex MIME,
             // while mailparse_msg_parse() succeeds with the same email content.
