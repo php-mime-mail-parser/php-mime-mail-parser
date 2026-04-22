@@ -11,11 +11,31 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: [8.2, 8.3, 8.4, 8.5]
-        dependency-version: [prefer-lowest, prefer-stable]
-        exclude:
+        include:
+          - php: 8.2
+            dependency-version: prefer-lowest
+            mailparse-version: 3.1.8
+          - php: 8.2
+            dependency-version: prefer-stable
+            mailparse-version: 3.1.8
           - php: 8.3
             dependency-version: prefer-lowest
+            mailparse-version: 3.1.8
+          - php: 8.3
+            dependency-version: prefer-stable
+            mailparse-version: 3.1.8
+          - php: 8.4
+            dependency-version: prefer-lowest
+            mailparse-version: 3.1.8
+          - php: 8.4
+            dependency-version: prefer-stable
+            mailparse-version: 3.1.8
+          - php: 8.5
+            dependency-version: prefer-lowest
+            mailparse-version: 3.2.0
+          - php: 8.5
+            dependency-version: prefer-stable
+            mailparse-version: 3.2.0
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,7 +44,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mailparse-3.2.0
+          extensions: mailparse-${{ matrix.mailparse-version }}
           coverage: none
 
       - name: Install dependencies
