@@ -45,8 +45,53 @@ jobs:
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
-      - name: Execute tests
-        run: vendor/bin/phpunit
+      - name: Execute AttachmentTest
+        run: vendor/bin/phpunit tests/AttachmentTest.php
+
+      - name: Execute ParserTest
+        run: vendor/bin/phpunit tests/ParserTest.php
+
+      - name: Execute ExceptionTest testGetHeader
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testGetHeader
+
+      - name: Execute ExceptionTest testGetHeaders
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testGetHeaders$
+
+      - name: Execute ExceptionTest testGetHeadersRaw
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testGetHeadersRaw
+
+      - name: Execute ExceptionTest testgetMessageBody
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testgetMessageBody
+
+      - name: Execute ExceptionTest testgetInlineParts
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testgetInlineParts
+
+      - name: Execute ExceptionTest testSetText
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testSetText
+
+      - name: Execute ExceptionTest testSetStream
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testSetStream$
+
+      - name: Execute ExceptionTest testSetStreamWithoutTmpPermissions
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testSetStreamWithoutTmpPermissions
+
+      - name: Execute ExceptionTest testGetAttachmentStreamWithoutTmpPermissions
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testGetAttachmentStreamWithoutTmpPermissions
+
+      - name: Execute ExceptionTest testSetStreamResource
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testSetStreamResource
+
+      - name: Execute ExceptionTest testSaveAttachmentsWithoutPermissions
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testSaveAttachmentsWithoutPermissions
+
+      - name: Execute ExceptionTest testSaveAttachmentsWithDuplicateNames
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testSaveAttachmentsWithDuplicateNames
+
+      - name: Execute ExceptionTest testSaveAttachmentsInvalidStrategy
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testSaveAttachmentsInvalidStrategy
+
+      - name: Execute ExceptionTest testMIMEMessageCannotBeParsed
+        run: vendor/bin/phpunit tests/ExceptionTest.php --filter testMIMEMessageCannotBeParsed
 
   php-cs:
     runs-on: ubuntu-latest
