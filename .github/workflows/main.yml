@@ -10,25 +10,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
-        include:
-          - php: 8.2
-            dependency-version: prefer-lowest
-          - php: 8.2
-            dependency-version: prefer-stable
-          - php: 8.3
-            dependency-version: prefer-lowest
-          - php: 8.3
-            dependency-version: prefer-stable
-          - php: 8.4
-            dependency-version: prefer-lowest
-          - php: 8.4
-            dependency-version: prefer-stable
-          - php: 8.5
-            dependency-version: prefer-lowest
-          - php: 8.5
-            dependency-version: prefer-stable
+        php: [8.2, 8.3, 8.4, 8.5]
+        dependency-version: [prefer-lowest, prefer-stable]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,14 +27,8 @@ jobs:
       - name: Install dependencies
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
-      - name: Execute AttachmentTest
-        run: vendor/bin/phpunit tests/AttachmentTest.php
-
-      - name: Execute ParserTest
-        run: vendor/bin/phpunit tests/ParserTest.php
-
-      - name: Execute ExceptionTest
-        run: vendor/bin/phpunit tests/ExceptionTest.php
+      - name: Execute tests
+        run: vendor/bin/phpunit
 
   php-cs:
     runs-on: ubuntu-latest
