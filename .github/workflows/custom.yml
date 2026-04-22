@@ -1,16 +1,19 @@
-name: Custom mailparse repro (PHP 8.3)
+name: PMMP with custom mailparse (PHP 8.3)
 
 on:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  repro:
+  repro-custom-mailparse:
     runs-on: ubuntu-latest
 
     env:
       MAILPARSE_REPO: https://github.com/php-mime-mail-parser/pecl-mail-mailparse.git
-      MAILPARSE_REF: master # change ici vers ta branche patchée ensuite
+      MAILPARSE_REF: master
+      COMPOSER_PROCESS_TIMEOUT: 0
+      COMPOSER_NO_INTERACTION: 1
+      COMPOSER_NO_AUDIT: 1
 
     steps:
       - name: Checkout PMMP
@@ -31,6 +34,7 @@ jobs:
       - name: Show PHP environment
         run: |
           php -v
+          php --ini
           php -i | grep -E "PHP API|Zend Extension Build|extension_dir"
 
       - name: Build mailparse from fork
@@ -43,24 +47,15 @@ jobs:
           test -f modules/mailparse.so
           ls -l modules/mailparse.so
 
-      - name: Enable custom mailparse for CLI tools
+      - name: Verify custom mailparse loads
         run: |
-          echo "extension=/tmp/mailparse/modules/mailparse.so" > /tmp/99-mailparse.ini
-          echo "PHP_INI_SCAN_DIR=/tmp:/etc/php/8.3/cli/conf.d" >> "$GITHUB_ENV"
-          php --ini
-          php -m | grep -i mailparse
+          php -d extension=/tmp/mailparse/modules/mailparse.so -m | grep -i mailparse
+          php -d extension=/tmp/mailparse/modules/mailparse.so --ri mailparse || true
 
-      - name: Install PMMP dependencies
-        run: composer install --no-interaction --prefer-dist
-
-      - name: Verify custom extension loads
+      - name: Install PMMP dependencies with custom extension
         run: |
-          php -n \
-            -d extension=/tmp/mailparse/modules/mailparse.so \
-            -m | grep -i mailparse
+          php -d extension=/tmp/mailparse/modules/mailparse.so "$(which composer)" install --prefer-dist
 
       - name: Run targeted reproducer test
         run: |
-          php -n \
-            -d extension=/tmp/mailparse/modules/mailparse.so \
-            vendor/bin/phpunit tests/ExceptionTest.php --filter testMIMEMessageCannotBeParsedWithPath
+          php -d extension=/tmp/mailparse/modules/mailparse.so vendor/bin/phpunit tests/ExceptionTest.php --filter testMIMEMessageCannotBeParsedWithPath
