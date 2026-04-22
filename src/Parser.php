@@ -121,6 +121,10 @@ class Parser
 
         // should parse message incrementally from file
         $this->resource = mailparse_msg_parse_file($path);
+        if ($this->resource === false) {
+            throw new Exception('MIME message cannot be parsed');
+        }
+
         $this->stream = fopen($path, 'r');
         $this->parse();
 
