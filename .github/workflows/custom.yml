@@ -43,6 +43,13 @@ jobs:
           test -f modules/mailparse.so
           ls -l modules/mailparse.so
 
+      - name: Enable custom mailparse for CLI tools
+        run: |
+          echo "extension=/tmp/mailparse/modules/mailparse.so" > /tmp/99-mailparse.ini
+          echo "PHP_INI_SCAN_DIR=/tmp:/etc/php/8.3/cli/conf.d" >> "$GITHUB_ENV"
+          php --ini
+          php -m | grep -i mailparse
+
       - name: Install PMMP dependencies
         run: composer install --no-interaction --prefer-dist
 
