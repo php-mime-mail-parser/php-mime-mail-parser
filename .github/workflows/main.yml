@@ -48,7 +48,8 @@ jobs:
           extensions: mailparse-${{ matrix.mailparse-version }}
           coverage: none
 
-      - name: Install dependencies
+      - name: Check mailparse version
+        run: php -i | grep -A 5 "mailparse"
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
