@@ -249,6 +249,7 @@ namespace PhpMimeMailParser {
                 $Parser->setPath($file);
             } finally {
                 restore_error_handler();
+                unset($Parser);
             }
         }
     }
