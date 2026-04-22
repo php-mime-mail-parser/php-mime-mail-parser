@@ -3,7 +3,6 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Contracts\CharsetManager;
-use Throwable;
 
 /**
  * Parser of php-mime-mail-parser
@@ -98,12 +97,7 @@ class Parser
         }
         // clear the MailParse resource
         if (is_resource($this->resource)) {
-            try {
-                mailparse_msg_free($this->resource);
-            } catch (Throwable $e) {
-                // Suppress errors during shutdown on certain PHP/mailparse versions
-                // (e.g., PHP 8.2/8.3 with mailparse 3.1.x can crash during garbage collection)
-            }
+            mailparse_msg_free($this->resource);
         }
     }
 

@@ -172,8 +172,12 @@ namespace PhpMimeMailParser {
             }
 
             $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
-            $Parser = new Parser();
-            $Parser->setStream($c);
+            try {
+                $Parser = new Parser();
+                $Parser->setStream($c);
+            } finally {
+                socket_close($c);
+            }
         }
 
         public function testSaveAttachmentsWithoutPermissions()
