@@ -120,9 +120,27 @@ class Parser
         }
 
         // should parse message incrementally from file
-        $this->resource = mailparse_msg_parse_file($path);
-        $this->stream = fopen($path, 'r');
-        $this->parse();
+        $resource = mailparse_msg_parse_file($path);
+        $stream = fopen($path, 'r');
+        
+        try {
+            // Store resource temporarily to allow parse() to work
+            $this->resource = $resource;
+            $this->stream = $stream;
+            $this->parse();
+        } catch (\Throwable $e) {
+            // On exception, clear the partially-initialized resources
+            // to prevent mailparse_msg_free() crash in __destruct()
+            if (is_resource($this->resource)) {
+                mailparse_msg_free($this->resource);
+            }
+            $this->resource = null;
+            if (is_resource($this->stream)) {
+                fclose($this->stream);
+            }
+            $this->stream = null;
+            throw $e;
+        }
 
         return $this;
     }
