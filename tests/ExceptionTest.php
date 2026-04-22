@@ -236,22 +236,13 @@ namespace PhpMimeMailParser {
 
         public function testMIMEMessageCannotBeParsed()
         {
-            set_error_handler(function () {
-                // Consume mailparse warning and let Parser throw its own exception.
-                return true;
-            });
-
             $this->expectException(Exception::class);
             $this->expectExceptionMessage('MIME message cannot be parsed');
 
             $file = __DIR__ . '/mails/issue408.eml';
 
             $Parser = new Parser();
-            try {
-                $Parser->setPath($file);
-            } finally {
-                restore_error_handler();
-            }
+            $Parser->setPath($file);
         }
     }
 }
