@@ -15,16 +15,16 @@ jobs:
         include:
           - php: 8.2
             dependency-version: prefer-lowest
-            mailparse-version: 3.1.8
+            mailparse-version: 3.1.6
           - php: 8.2
             dependency-version: prefer-stable
-            mailparse-version: 3.1.8
+            mailparse-version: 3.1.6
           - php: 8.3
             dependency-version: prefer-lowest
-            mailparse-version: 3.1.5
+            mailparse-version: 3.1.6
           - php: 8.3
             dependency-version: prefer-stable
-            mailparse-version: 3.1.5
+            mailparse-version: 3.1.6
           - php: 8.4
             dependency-version: prefer-lowest
             mailparse-version: 3.1.8
