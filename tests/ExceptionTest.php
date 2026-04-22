@@ -236,6 +236,8 @@ namespace PhpMimeMailParser {
 
         public function testMIMEMessageCannotBeParsed()
         {
+            $this->markTestSkipped('Disabled to confirm this test causes the segfault');
+            
             set_error_handler(function ($severity, $message, $file, $line) {
                 throw new \ErrorException($message, 0, $severity, $file, $line);
             });
