@@ -267,8 +267,14 @@ namespace PhpMimeMailParser {
                 echo "Step 5: Restoring error handler\n";
                 restore_error_handler();
                 echo "Error handler restored\n";
+                echo "Step 6: Force garbage collection\n";
+                gc_collect_cycles();
+                echo "GC done\n";
                 unset($Parser);
                 echo "Parser unset\n";
+                echo "Step 7: Final gc_collect_cycles\n";
+                gc_collect_cycles();
+                echo "Final GC done\n";
             }
         }
 
