@@ -26,6 +26,20 @@ jobs:
           extensions: mailparse
           coverage: none
 
+      - name: Detect official mailparse identity
+        id: official_mailparse_info
+        run: |
+          php -r '
+            $ext = new ReflectionExtension("mailparse");
+            $version = $ext->getVersion();
+            $file = method_exists($ext, "getFileName") ? $ext->getFileName() : "";
+            $hash = ($file && is_file($file)) ? hash_file("sha256", $file) : "";
+
+            echo "version=$version" >> getenv("GITHUB_OUTPUT");
+            echo "file=$file" >> getenv("GITHUB_OUTPUT");
+            echo "sha256=$hash" >> getenv("GITHUB_OUTPUT");
+          '
+
       - name: Show PHP and official mailparse environment
         run: |
           php -v
@@ -33,17 +47,9 @@ jobs:
           php -i | grep -E "PHP API|Zend Extension Build|extension_dir"
           php -m | grep -i mailparse
           php --ri mailparse || true
-          php -r '
-            $ext = new ReflectionExtension("mailparse");
-            echo "mailparse.version=", $ext->getVersion(), PHP_EOL;
-            if (method_exists($ext, "getFileName")) {
-              $file = $ext->getFileName();
-              echo "mailparse.file=", ($file ?: "<unknown>"), PHP_EOL;
-              if ($file && is_file($file)) {
-                echo "mailparse.sha256=", hash_file("sha256", $file), PHP_EOL;
-              }
-            }
-          '
+          echo "mailparse.version=${{ steps.official_mailparse_info.outputs.version }}"
+          echo "mailparse.file=${{ steps.official_mailparse_info.outputs.file }}"
+          echo "mailparse.sha256=${{ steps.official_mailparse_info.outputs.sha256 }}"
 
       - name: Install PMMP dependencies with custom extension
         run: |
@@ -79,9 +85,25 @@ jobs:
       - name: Summarize official mailparse results
         if: always()
         run: |
+          echo "mailparse.version: ${{ steps.official_mailparse_info.outputs.version }}"
+          echo "mailparse.file:    ${{ steps.official_mailparse_info.outputs.file }}"
+          echo "mailparse.sha256:  ${{ steps.official_mailparse_info.outputs.sha256 }}"
+
           echo "testIssue478file exit code:   ${{ steps.official_issue478_file.outputs.exit_code }}"
           echo "testIssue478 exit code:       ${{ steps.official_issue478.outputs.exit_code }}"
           echo "testIssue478parser exit code: ${{ steps.official_issue478_parser.outputs.exit_code }}"
+
+          segfault=0
+          for c in "${{ steps.official_issue478_file.outputs.exit_code }}" "${{ steps.official_issue478.outputs.exit_code }}" "${{ steps.official_issue478_parser.outputs.exit_code }}"; do
+            if [ "$c" = "139" ]; then
+              segfault=1
+            fi
+          done
+
+          if [ "$segfault" -eq 1 ]; then
+            echo "Segfault reproduced with official mailparse (exit 139)."
+            exit 1
+          fi
 
           failed=0
           for c in "${{ steps.official_issue478_file.outputs.exit_code }}" "${{ steps.official_issue478.outputs.exit_code }}" "${{ steps.official_issue478_parser.outputs.exit_code }}"; do
@@ -91,7 +113,7 @@ jobs:
           done
 
           if [ "$failed" -ne 0 ]; then
-            echo "At least one official-mailparse reproduction test failed (or segfaulted)."
+            echo "No segfault, but at least one official-mailparse test failed functionally."
             exit 1
           fi
 
@@ -144,21 +166,27 @@ jobs:
           test -f modules/mailparse.so
           ls -l modules/mailparse.so
 
+      - name: Detect custom mailparse identity
+        id: custom_mailparse_info
+        run: |
+          php -d extension=/tmp/mailparse/modules/mailparse.so -r '
+            $ext = new ReflectionExtension("mailparse");
+            $version = $ext->getVersion();
+            $file = method_exists($ext, "getFileName") ? $ext->getFileName() : "";
+            $hash = ($file && is_file($file)) ? hash_file("sha256", $file) : "";
+
+            echo "version=$version" >> getenv("GITHUB_OUTPUT");
+            echo "file=$file" >> getenv("GITHUB_OUTPUT");
+            echo "sha256=$hash" >> getenv("GITHUB_OUTPUT");
+          '
+
       - name: Verify custom mailparse loads
         run: |
           php -d extension=/tmp/mailparse/modules/mailparse.so -m | grep -i mailparse
           php -d extension=/tmp/mailparse/modules/mailparse.so --ri mailparse || true
-          php -d extension=/tmp/mailparse/modules/mailparse.so -r '
-            $ext = new ReflectionExtension("mailparse");
-            echo "mailparse.version=", $ext->getVersion(), PHP_EOL;
-            if (method_exists($ext, "getFileName")) {
-              $file = $ext->getFileName();
-              echo "mailparse.file=", ($file ?: "<unknown>"), PHP_EOL;
-              if ($file && is_file($file)) {
-                echo "mailparse.sha256=", hash_file("sha256", $file), PHP_EOL;
-              }
-            }
-          '
+          echo "mailparse.version=${{ steps.custom_mailparse_info.outputs.version }}"
+          echo "mailparse.file=${{ steps.custom_mailparse_info.outputs.file }}"
+          echo "mailparse.sha256=${{ steps.custom_mailparse_info.outputs.sha256 }}"
 
       - name: Install PMMP dependencies with custom extension
         run: |
@@ -194,9 +222,25 @@ jobs:
       - name: Summarize custom mailparse results
         if: always()
         run: |
+          echo "mailparse.version: ${{ steps.custom_mailparse_info.outputs.version }}"
+          echo "mailparse.file:    ${{ steps.custom_mailparse_info.outputs.file }}"
+          echo "mailparse.sha256:  ${{ steps.custom_mailparse_info.outputs.sha256 }}"
+
           echo "testIssue478file exit code:   ${{ steps.custom_issue478_file.outputs.exit_code }}"
           echo "testIssue478 exit code:       ${{ steps.custom_issue478.outputs.exit_code }}"
           echo "testIssue478parser exit code: ${{ steps.custom_issue478_parser.outputs.exit_code }}"
+
+          segfault=0
+          for c in "${{ steps.custom_issue478_file.outputs.exit_code }}" "${{ steps.custom_issue478.outputs.exit_code }}" "${{ steps.custom_issue478_parser.outputs.exit_code }}"; do
+            if [ "$c" = "139" ]; then
+              segfault=1
+            fi
+          done
+
+          if [ "$segfault" -eq 1 ]; then
+            echo "Segfault reproduced with custom mailparse (exit 139)."
+            exit 1
+          fi
 
           failed=0
           for c in "${{ steps.custom_issue478_file.outputs.exit_code }}" "${{ steps.custom_issue478.outputs.exit_code }}" "${{ steps.custom_issue478_parser.outputs.exit_code }}"; do
@@ -206,6 +250,6 @@ jobs:
           done
 
           if [ "$failed" -ne 0 ]; then
-            echo "At least one custom-mailparse reproduction test failed (or segfaulted)."
+            echo "No segfault, but at least one custom-mailparse test failed functionally."
             exit 1
           fi
