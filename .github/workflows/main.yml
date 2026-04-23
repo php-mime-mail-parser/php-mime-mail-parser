@@ -26,12 +26,74 @@ jobs:
           extensions: mailparse
           coverage: none
 
+      - name: Show PHP and official mailparse environment
+        run: |
+          php -v
+          php --ini
+          php -i | grep -E "PHP API|Zend Extension Build|extension_dir"
+          php -m | grep -i mailparse
+          php --ri mailparse || true
+          php -r '
+            $ext = new ReflectionExtension("mailparse");
+            echo "mailparse.version=", $ext->getVersion(), PHP_EOL;
+            if (method_exists($ext, "getFileName")) {
+              $file = $ext->getFileName();
+              echo "mailparse.file=", ($file ?: "<unknown>"), PHP_EOL;
+              if ($file && is_file($file)) {
+                echo "mailparse.sha256=", hash_file("sha256", $file), PHP_EOL;
+              }
+            }
+          '
+
       - name: Install PMMP dependencies with custom extension
         run: |
           composer install --prefer-dist
 
-      - name: Execute tests
-        run: vendor/bin/phpunit --filter=testIssue478
+      - name: Execute testIssue478file (official mailparse)
+        id: official_issue478_file
+        run: |
+          set +e
+          vendor/bin/phpunit --filter=testIssue478file
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Execute testIssue478 (official mailparse)
+        id: official_issue478
+        run: |
+          set +e
+          vendor/bin/phpunit --filter=testIssue478
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Execute testIssue478parser (official mailparse)
+        id: official_issue478_parser
+        run: |
+          set +e
+          vendor/bin/phpunit --filter=testIssue478parser
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Summarize official mailparse results
+        if: always()
+        run: |
+          echo "testIssue478file exit code:   ${{ steps.official_issue478_file.outputs.exit_code }}"
+          echo "testIssue478 exit code:       ${{ steps.official_issue478.outputs.exit_code }}"
+          echo "testIssue478parser exit code: ${{ steps.official_issue478_parser.outputs.exit_code }}"
+
+          failed=0
+          for c in "${{ steps.official_issue478_file.outputs.exit_code }}" "${{ steps.official_issue478.outputs.exit_code }}" "${{ steps.official_issue478_parser.outputs.exit_code }}"; do
+            if [ "$c" != "0" ]; then
+              failed=1
+            fi
+          done
+
+          if [ "$failed" -ne 0 ]; then
+            echo "At least one official-mailparse reproduction test failed (or segfaulted)."
+            exit 1
+          fi
 
 
   tests:
@@ -86,10 +148,64 @@ jobs:
         run: |
           php -d extension=/tmp/mailparse/modules/mailparse.so -m | grep -i mailparse
           php -d extension=/tmp/mailparse/modules/mailparse.so --ri mailparse || true
+          php -d extension=/tmp/mailparse/modules/mailparse.so -r '
+            $ext = new ReflectionExtension("mailparse");
+            echo "mailparse.version=", $ext->getVersion(), PHP_EOL;
+            if (method_exists($ext, "getFileName")) {
+              $file = $ext->getFileName();
+              echo "mailparse.file=", ($file ?: "<unknown>"), PHP_EOL;
+              if ($file && is_file($file)) {
+                echo "mailparse.sha256=", hash_file("sha256", $file), PHP_EOL;
+              }
+            }
+          '
 
       - name: Install PMMP dependencies with custom extension
         run: |
           php -d extension=/tmp/mailparse/modules/mailparse.so "$(which composer)" install --prefer-dist
 
-      - name: Execute tests
-        run: php -d extension=/tmp/mailparse/modules/mailparse.so vendor/bin/phpunit --filter=testIssue478
+      - name: Execute testIssue478file (custom mailparse)
+        id: custom_issue478_file
+        run: |
+          set +e
+          php -d extension=/tmp/mailparse/modules/mailparse.so vendor/bin/phpunit --filter=testIssue478file
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Execute testIssue478 (custom mailparse)
+        id: custom_issue478
+        run: |
+          set +e
+          php -d extension=/tmp/mailparse/modules/mailparse.so vendor/bin/phpunit --filter=testIssue478
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Execute testIssue478parser (custom mailparse)
+        id: custom_issue478_parser
+        run: |
+          set +e
+          php -d extension=/tmp/mailparse/modules/mailparse.so vendor/bin/phpunit --filter=testIssue478parser
+          code=$?
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: Summarize custom mailparse results
+        if: always()
+        run: |
+          echo "testIssue478file exit code:   ${{ steps.custom_issue478_file.outputs.exit_code }}"
+          echo "testIssue478 exit code:       ${{ steps.custom_issue478.outputs.exit_code }}"
+          echo "testIssue478parser exit code: ${{ steps.custom_issue478_parser.outputs.exit_code }}"
+
+          failed=0
+          for c in "${{ steps.custom_issue478_file.outputs.exit_code }}" "${{ steps.custom_issue478.outputs.exit_code }}" "${{ steps.custom_issue478_parser.outputs.exit_code }}"; do
+            if [ "$c" != "0" ]; then
+              failed=1
+            fi
+          done
+
+          if [ "$failed" -ne 0 ]; then
+            echo "At least one custom-mailparse reproduction test failed (or segfaulted)."
+            exit 1
+          fi
