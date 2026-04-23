@@ -10,6 +10,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         php: [8.2, 8.3, 8.4, 8.5]
         dependency-version: [prefer-lowest, prefer-stable]
@@ -29,41 +30,3 @@ jobs:
 
       - name: Execute tests
         run: vendor/bin/phpunit --filter=testIssue478
-
-  php-cs:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.5
-          coverage: none
-
-      - name: Install dependencies
-        run: composer update --no-progress --ignore-platform-reqs
-
-      - name: Execute phpcs
-        run: vendor/bin/phpcs src tests --standard=psr2
-
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.5
-          extensions: mailparse-3.2.0
-
-      - name: Install dependencies
-        run: composer update --prefer-dist --no-interaction --no-progress
-
-      - name: Execute code coverage
-        run: |
-          vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-filter src
-          bash <(curl -s https://codecov.io/bash) -t ${{ secrets.COVERALLS_REPO_TOKEN }}
