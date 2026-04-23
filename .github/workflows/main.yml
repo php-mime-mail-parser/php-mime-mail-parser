@@ -65,4 +65,4 @@ jobs:
           php -d extension=/tmp/mailparse/modules/mailparse.so "$(which composer)" install --prefer-dist
 
       - name: Execute tests
-        run: vendor/bin/phpunit --filter=testIssue478
+        run: php -d extension=/tmp/mailparse/modules/mailparse.so vendor/bin/phpunit --filter=testIssue478
