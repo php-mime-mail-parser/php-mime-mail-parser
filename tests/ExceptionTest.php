@@ -246,6 +246,22 @@ namespace PhpMimeMailParser {
             $this->assertGreaterThan(0, count($Attachments));
         }
 
+        public function testIssue478()
+        {
+            $file = __DIR__ . '/mails/issue408.eml';
+
+            mailparse_msg_parse_file($file);
+            $mp = mailparse_msg_create();
+            mailparse_msg_parse($mp, file_get_contents($file));
+        }
+
+        public function testIssue478file()
+        {
+            $file = __DIR__ . '/mails/issue408.eml';
+
+            mailparse_msg_parse_file($file);
+        }
+
         public function testMIMEMessageCannotBeParsedWithPath()
         {
             // Upstream mailparse bug: mailparse_msg_parse_file() fails on this complex MIME,

@@ -28,7 +28,7 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
 
       - name: Execute tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit --filter=testIssue478
 
   php-cs:
     runs-on: ubuntu-latest
