@@ -30,13 +30,20 @@ jobs:
         id: official_mailparse_info
         run: |
           version="$(php -r '$ext = new ReflectionExtension("mailparse"); echo $ext->getVersion();')"
-          file="$(php -r '$ext = new ReflectionExtension("mailparse"); echo method_exists($ext, "getFileName") ? (string) $ext->getFileName() : "";')"
+          ext_dir="$(php-config --extension-dir)"
+          file=""
+          if [ -f "$ext_dir/mailparse.so" ]; then
+            file="$ext_dir/mailparse.so"
+          else
+            file="$(find "$ext_dir" -maxdepth 1 -type f -name 'mailparse*.so' | head -n 1)"
+          fi
           sha256=""
           if [ -n "$file" ] && [ -f "$file" ]; then
             sha256="$(sha256sum "$file" | awk '{print $1}')"
           fi
 
           echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "extension_dir=$ext_dir" >> "$GITHUB_OUTPUT"
           echo "file=$file" >> "$GITHUB_OUTPUT"
           echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
 
@@ -48,6 +55,7 @@ jobs:
           php -m | grep -i mailparse
           php --ri mailparse || true
           echo "mailparse.version=${{ steps.official_mailparse_info.outputs.version }}"
+          echo "mailparse.extension_dir=${{ steps.official_mailparse_info.outputs.extension_dir }}"
           echo "mailparse.file=${{ steps.official_mailparse_info.outputs.file }}"
           echo "mailparse.sha256=${{ steps.official_mailparse_info.outputs.sha256 }}"
 
@@ -86,6 +94,7 @@ jobs:
         if: always()
         run: |
           echo "mailparse.version: ${{ steps.official_mailparse_info.outputs.version }}"
+          echo "mailparse.extension_dir: ${{ steps.official_mailparse_info.outputs.extension_dir }}"
           echo "mailparse.file:    ${{ steps.official_mailparse_info.outputs.file }}"
           echo "mailparse.sha256:  ${{ steps.official_mailparse_info.outputs.sha256 }}"
 
@@ -170,15 +179,17 @@ jobs:
         id: custom_mailparse_info
         run: |
           version="$(php -d extension=/tmp/mailparse/modules/mailparse.so -r '$ext = new ReflectionExtension("mailparse"); echo $ext->getVersion();')"
-          file="$(php -d extension=/tmp/mailparse/modules/mailparse.so -r '$ext = new ReflectionExtension("mailparse"); echo method_exists($ext, "getFileName") ? (string) $ext->getFileName() : "";')"
+          file="/tmp/mailparse/modules/mailparse.so"
           sha256=""
           if [ -n "$file" ] && [ -f "$file" ]; then
             sha256="$(sha256sum "$file" | awk '{print $1}')"
           fi
+          commit="$(git -C /tmp/mailparse rev-parse HEAD)"
 
           echo "version=$version" >> "$GITHUB_OUTPUT"
           echo "file=$file" >> "$GITHUB_OUTPUT"
           echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
 
       - name: Verify custom mailparse loads
         run: |
@@ -187,6 +198,7 @@ jobs:
           echo "mailparse.version=${{ steps.custom_mailparse_info.outputs.version }}"
           echo "mailparse.file=${{ steps.custom_mailparse_info.outputs.file }}"
           echo "mailparse.sha256=${{ steps.custom_mailparse_info.outputs.sha256 }}"
+          echo "mailparse.commit=${{ steps.custom_mailparse_info.outputs.commit }}"
 
       - name: Install PMMP dependencies with custom extension
         run: |
@@ -225,6 +237,7 @@ jobs:
           echo "mailparse.version: ${{ steps.custom_mailparse_info.outputs.version }}"
           echo "mailparse.file:    ${{ steps.custom_mailparse_info.outputs.file }}"
           echo "mailparse.sha256:  ${{ steps.custom_mailparse_info.outputs.sha256 }}"
+          echo "mailparse.commit:  ${{ steps.custom_mailparse_info.outputs.commit }}"
 
           echo "testIssue478file exit code:   ${{ steps.custom_issue478_file.outputs.exit_code }}"
           echo "testIssue478 exit code:       ${{ steps.custom_issue478.outputs.exit_code }}"
