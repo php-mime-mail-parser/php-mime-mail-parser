@@ -250,9 +250,9 @@ namespace PhpMimeMailParser {
         {
             $file = __DIR__ . '/mails/issue408.eml';
 
-            mailparse_msg_parse_file($file);
+            \mailparse_msg_parse_file($file);
             $mp = mailparse_msg_create();
-            mailparse_msg_parse($mp, file_get_contents($file));
+            \mailparse_msg_parse($mp, file_get_contents($file));
 
             $this->assertTrue(true);
         }
@@ -261,7 +261,7 @@ namespace PhpMimeMailParser {
         {
             $file = __DIR__ . '/mails/issue408.eml';
 
-            mailparse_msg_parse_file($file);
+            \mailparse_msg_parse_file($file);
 
             $this->assertTrue(true);
         }
