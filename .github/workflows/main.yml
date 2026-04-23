@@ -23,7 +23,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extension: mailparse
+          extensions: mailparse
           coverage: none
 
       - name: Install PMMP dependencies with custom extension
