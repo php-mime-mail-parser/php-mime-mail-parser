@@ -9,6 +9,14 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+
+    env:
+      MAILPARSE_REPO: https://github.com/php-mime-mail-parser/pecl-mail-mailparse.git
+      MAILPARSE_REF: master
+      COMPOSER_PROCESS_TIMEOUT: 0
+      COMPOSER_NO_INTERACTION: 1
+      COMPOSER_NO_AUDIT: 1
+
     strategy:
       fail-fast: false
       matrix:
@@ -22,11 +30,39 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mailparse
+          tools: phpize, php-config
           coverage: none
 
-      - name: Install dependencies
-        run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-progress
+      - name: Install build dependency (re2c)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y re2c
+
+      - name: Show PHP environment
+        run: |
+          php -v
+          php --ini
+          php -i | grep -E "PHP API|Zend Extension Build|extension_dir"
+
+
+      - name: Build mailparse from fork
+        run: |
+          git clone --depth=1 --branch "${MAILPARSE_REF}" "${MAILPARSE_REPO}" /tmp/mailparse
+          cd /tmp/mailparse
+          phpize
+          ./configure --enable-mailparse
+          make -j"$(nproc)"
+          test -f modules/mailparse.so
+          ls -l modules/mailparse.so
+
+      - name: Verify custom mailparse loads
+        run: |
+          php -d extension=/tmp/mailparse/modules/mailparse.so -m | grep -i mailparse
+          php -d extension=/tmp/mailparse/modules/mailparse.so --ri mailparse || true
+
+      - name: Install PMMP dependencies with custom extension
+        run: |
+          php -d extension=/tmp/mailparse/modules/mailparse.so "$(which composer)" install --prefer-dist
 
       - name: Execute tests
         run: vendor/bin/phpunit --filter=testIssue478
