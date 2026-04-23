@@ -29,16 +29,16 @@ jobs:
       - name: Detect official mailparse identity
         id: official_mailparse_info
         run: |
-          php -r '
-            $ext = new ReflectionExtension("mailparse");
-            $version = $ext->getVersion();
-            $file = method_exists($ext, "getFileName") ? $ext->getFileName() : "";
-            $hash = ($file && is_file($file)) ? hash_file("sha256", $file) : "";
+          version="$(php -r '$ext = new ReflectionExtension("mailparse"); echo $ext->getVersion();')"
+          file="$(php -r '$ext = new ReflectionExtension("mailparse"); echo method_exists($ext, "getFileName") ? (string) $ext->getFileName() : "";')"
+          sha256=""
+          if [ -n "$file" ] && [ -f "$file" ]; then
+            sha256="$(sha256sum "$file" | awk '{print $1}')"
+          fi
 
-            echo "version=$version" >> getenv("GITHUB_OUTPUT");
-            echo "file=$file" >> getenv("GITHUB_OUTPUT");
-            echo "sha256=$hash" >> getenv("GITHUB_OUTPUT");
-          '
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+          echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
 
       - name: Show PHP and official mailparse environment
         run: |
@@ -169,16 +169,16 @@ jobs:
       - name: Detect custom mailparse identity
         id: custom_mailparse_info
         run: |
-          php -d extension=/tmp/mailparse/modules/mailparse.so -r '
-            $ext = new ReflectionExtension("mailparse");
-            $version = $ext->getVersion();
-            $file = method_exists($ext, "getFileName") ? $ext->getFileName() : "";
-            $hash = ($file && is_file($file)) ? hash_file("sha256", $file) : "";
+          version="$(php -d extension=/tmp/mailparse/modules/mailparse.so -r '$ext = new ReflectionExtension("mailparse"); echo $ext->getVersion();')"
+          file="$(php -d extension=/tmp/mailparse/modules/mailparse.so -r '$ext = new ReflectionExtension("mailparse"); echo method_exists($ext, "getFileName") ? (string) $ext->getFileName() : "";')"
+          sha256=""
+          if [ -n "$file" ] && [ -f "$file" ]; then
+            sha256="$(sha256sum "$file" | awk '{print $1}')"
+          fi
 
-            echo "version=$version" >> getenv("GITHUB_OUTPUT");
-            echo "file=$file" >> getenv("GITHUB_OUTPUT");
-            echo "sha256=$hash" >> getenv("GITHUB_OUTPUT");
-          '
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+          echo "sha256=$sha256" >> "$GITHUB_OUTPUT"
 
       - name: Verify custom mailparse loads
         run: |
