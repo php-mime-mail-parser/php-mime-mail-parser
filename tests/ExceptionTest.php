@@ -248,18 +248,13 @@ namespace PhpMimeMailParser {
 
         public function testMIMEMessageCannotBeParsedWithPath()
         {
-            // Upstream mailparse bug: mailparse_msg_parse_file() fails on this complex MIME,
-            // while mailparse_msg_parse() succeeds with the same email content.
-            $this->markTestSkipped('Known upstream mailparse issue with mailparse_msg_parse_file() on issue408.eml');
-
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('MIME message cannot be parsed');
+            
             $file = __DIR__ . '/mails/issue408.eml';
 
             $Parser = new Parser();
             $Parser->setPath($file);
-
-            $this->assertNotNull($Parser);
-            $Attachments = $Parser->getAttachments();
-            $this->assertGreaterThan(0, count($Attachments));
         }
     }
 }

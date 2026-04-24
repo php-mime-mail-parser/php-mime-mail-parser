@@ -21,7 +21,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: mailparse
+          extensions: mailparse-3.2.0
           coverage: none
 
       - name: Install dependencies
