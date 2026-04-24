@@ -7,7 +7,7 @@ class Charset implements CharsetManager
     /**
      * Charset Aliases
      */
-    private $charsetAlias = [
+    private array $charsetAlias = [
         'ascii'                    => 'us-ascii',
         'us-ascii'                 => 'us-ascii',
         'ansi_x3.4-1968'           => 'us-ascii',
@@ -313,7 +313,7 @@ class Charset implements CharsetManager
     /**
      * {@inheritdoc}
      */
-    public function decodeCharset($encodedString, $charset)
+    public function decodeCharset(string $encodedString, string $charset): string
     {
         $charset = $this->getCharsetAlias($charset);
 
@@ -337,7 +337,7 @@ class Charset implements CharsetManager
     /**
      * {@inheritdoc}
      */
-    public function getCharsetAlias($charset)
+    public function getCharsetAlias(string $charset): string
     {
         $charset = strtolower($charset);
 
@@ -356,12 +356,9 @@ class Charset implements CharsetManager
             array_unique(
                 array_merge(
                     $enc = array_diff(mb_list_encodings(), ['BASE64', 'UUENCODE', 'HTML-ENTITIES', 'Quoted-Printable']),
-                    call_user_func_array(
-                        'array_merge',
-                        array_map(
-                            "mb_encoding_aliases",
-                            $enc
-                        )
+                    ...array_map(
+                        "mb_encoding_aliases",
+                        $enc
                     )
                 )
             )

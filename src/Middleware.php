@@ -7,7 +7,10 @@ namespace PhpMimeMailParser;
  */
 class Middleware implements Contracts\Middleware
 {
-    protected $parser;
+    /**
+     * Callable middleware function
+     */
+    private readonly \Closure $parser;
 
     /**
      * Create a middleware using a callable $fn
@@ -22,8 +25,8 @@ class Middleware implements Contracts\Middleware
     /**
      * Process a mime part, optionally delegating parsing to the $next MiddlewareStack
      */
-    public function parse(MimePart $part, MiddlewareStack $next)
+    public function parse(MimePart $part, MiddlewareStack $next): MimePart
     {
-        return call_user_func($this->parser, $part, $next);
+        return ($this->parser)($part, $next);
     }
 }

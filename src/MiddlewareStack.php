@@ -11,23 +11,17 @@ class MiddlewareStack
 {
     /**
      * Next MiddlewareStack in chain
-     *
-     * @var MiddlewareStack
      */
-    protected $next;
+    protected ?MiddlewareStack $next = null;
 
     /**
      * Middleware in this MiddlewareStack
-     *
-     * @var Middleware
      */
-    protected $middleware;
+    protected ?MiddleWareContracts $middleware = null;
 
     /**
      * Construct the first middleware in this MiddlewareStack
      * The next middleware is chained through $MiddlewareStack->add($Middleware)
-     *
-     * @param Middleware $middleware
      */
     public function __construct(?MiddleWareContracts $middleware = null)
     {
@@ -37,10 +31,9 @@ class MiddlewareStack
     /**
      * Creates a chained middleware in MiddlewareStack
      *
-     * @param Middleware $middleware
      * @return MiddlewareStack Immutable MiddlewareStack
      */
-    public function add(MiddleWareContracts $middleware)
+    public function add(MiddleWareContracts $middleware): self
     {
         $stack = new static($middleware);
         $stack->next = $this;
@@ -49,15 +42,13 @@ class MiddlewareStack
 
     /**
      * Parses the MimePart by passing it through the Middleware
-     * @param MimePart $part
-     * @return MimePart
      */
-    public function parse(MimePart $part)
+    public function parse(MimePart $part): MimePart
     {
         if (!$this->middleware) {
             return $part;
         }
-        $part = call_user_func(array($this->middleware, 'parse'), $part, $this->next);
+        $part = $this->middleware->parse($part, $this->next);
         return $part;
     }
 
@@ -65,9 +56,8 @@ class MiddlewareStack
      * Creates a MiddlewareStack based on an array of middleware
      *
      * @param Middleware[] $middlewares
-     * @return MiddlewareStack
      */
-    public static function factory(array $middlewares = array())
+    public static function factory(array $middlewares = []): self
     {
         $stack = new static;
         foreach ($middlewares as $middleware) {
