@@ -9,13 +9,13 @@ class Attachment
     public int $maxDuplicateNumber = 100;
 
     public function __construct(
-        private readonly string $filename,
-        private readonly string $contentType,
-        private readonly mixed $stream,
-        private readonly string $contentDisposition = 'attachment',
-        private readonly string $contentId = '',
-        private readonly array $headers = [],
-        private readonly string $mimePartStr = ''
+        protected readonly string $filename,
+        protected readonly string $contentType,
+        protected readonly mixed $stream,
+        protected readonly string $contentDisposition = 'attachment',
+        protected readonly string $contentId = '',
+        protected readonly array $headers = [],
+        protected readonly string $mimePartStr = ''
     ) {
     }
 
