@@ -180,7 +180,7 @@ class Attachment
     private function writeAttachmentToFile(string $attachment_path): string|false
     {
         if ($fp = fopen($attachment_path, 'w')) {
-            while ($bytes = $this->read()) {
+            while (($bytes = $this->read()) !== false) {
                 fwrite($fp, $bytes);
             }
             fclose($fp);
