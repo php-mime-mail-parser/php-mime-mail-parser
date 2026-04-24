@@ -4,12 +4,6 @@ namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Contracts\CharsetManager;
 
-/**
- * Parser of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
- */
 class Parser
 {
     /**

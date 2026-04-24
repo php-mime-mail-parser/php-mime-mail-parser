@@ -2,12 +2,6 @@
 
 namespace PhpMimeMailParser;
 
-/**
- * Attachment of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 8.2+
- *
- */
 #[\Attribute]
 class Attachment
 {

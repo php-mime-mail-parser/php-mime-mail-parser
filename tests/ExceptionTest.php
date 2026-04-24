@@ -33,13 +33,6 @@ namespace PhpMimeMailParser {
         }
     }
 
-    /**
-     * ExceptionTest of php-mime-mail-parser
-     *
-     * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
-     *
-     */
-
     class ExceptionTest extends \PHPUnit\Framework\TestCase
     {
         public function setUp(): void

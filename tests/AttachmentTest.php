@@ -5,12 +5,6 @@ use PhpMimeMailParser\Parser;
 use PhpMimeMailParser\Attachment;
 use PhpMimeMailParser\Exception;
 
-/**
- * Test Attachment of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
- */
 class AttachmentTest extends \PHPUnit\Framework\TestCase
 {
     public function testSaveAttachmentsFromParser()

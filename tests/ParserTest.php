@@ -6,12 +6,6 @@ use PhpMimeMailParser\Attachment;
 use PhpMimeMailParser\Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Test Parser of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
- */
 class ParserTest extends \PHPUnit\Framework\TestCase
 {
 
