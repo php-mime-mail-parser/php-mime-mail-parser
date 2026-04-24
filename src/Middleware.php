@@ -11,7 +11,6 @@ namespace PhpMimeMailParser;
  * @since 8.0 - Supports first-class callables
  * @since 8.1 - Recommended pattern: new Middleware(ParserClass::parseMethod(...))
  */
-#[\Attribute]
 class Middleware implements Contracts\Middleware
 {
     /**
