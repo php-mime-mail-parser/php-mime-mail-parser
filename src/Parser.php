@@ -118,7 +118,6 @@ class Parser
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        // Use null-safe operator to simplify validation (PHP 8.0+)
         $mode = $meta['mode'] ?? null;
 
         if (!$mode || !in_array($mode, self::$readableModes, true)) {
@@ -170,7 +169,6 @@ class Parser
             throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
         }
 
-        // Use str_ends_with() instead of substr() (PHP 8.0+)
         if (!str_ends_with($data, "\n")) {
             $data .= PHP_EOL;
         }

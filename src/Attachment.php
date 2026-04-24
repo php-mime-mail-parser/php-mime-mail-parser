@@ -4,9 +4,6 @@ namespace PhpMimeMailParser;
 
 class Attachment
 {
-    /**
-     * File Content (cached)
-     */
     private ?string $content = null;
 
     /**
@@ -14,18 +11,6 @@ class Attachment
      */
     public int $maxDuplicateNumber = 100;
 
-    /**
-     * Attachment constructor using PHP 8.0 Constructor Property Promotion.
-     * All immutable properties are marked readonly (PHP 8.1+).
-     *
-     * @param string $filename The attachment filename
-     * @param string $contentType The MIME content type
-     * @param mixed $stream The stream resource
-     * @param string $contentDisposition Content-Disposition header (attachment or inline)
-     * @param string $contentId Content-ID header value
-     * @param array $headers Array of attachment headers
-     * @param string $mimePartStr MIME part string representation
-     */
     public function __construct(
         private readonly string $filename,
         private readonly string $contentType,
@@ -154,10 +139,6 @@ class Attachment
     /**
      * Save the attachment individually
      *
-     * @param string $attach_dir Directory where to save the attachment
-     * @param string $filenameStrategy Strategy for handling duplicate filenames (see Parser::ATTACHMENT_* constants)
-     *
-     * @return string|false Returns the path to the saved file, or false on failure
      * @throws Exception
      */
     public function save(
@@ -169,7 +150,6 @@ class Attachment
             mkdir($attach_dir);
         }
 
-        // Determine filename using match expression (PHP 8.0+)
         $attachment_path = match ($filenameStrategy) {
             Parser::ATTACHMENT_RANDOM_FILENAME => $this->generateRandomFilePath($attach_dir),
             Parser::ATTACHMENT_DUPLICATE_THROW,
@@ -177,7 +157,6 @@ class Attachment
             default => throw new Exception('Invalid filename strategy argument provided.')
         };
 
-        // Handle duplicate filename
         if (file_exists($attachment_path)) {
             $attachment_path = match ($filenameStrategy) {
                 Parser::ATTACHMENT_DUPLICATE_THROW =>
@@ -190,12 +169,6 @@ class Attachment
         return $this->writeAttachmentToFile($attachment_path);
     }
 
-    /**
-     * Generate a random file path to avoid duplicates
-     *
-     * @param string $attach_dir
-     * @return string
-     */
     private function generateRandomFilePath(string $attach_dir): string
     {
         $fileInfo = pathinfo($this->getFilename());
@@ -203,13 +176,6 @@ class Attachment
         return $attach_dir . bin2hex(random_bytes(16)) . $extension;
     }
 
-    /**
-     * Write attachment content to file
-     *
-     * @param string $attachment_path
-     * @return string|false
-     * @throws Exception
-     */
     private function writeAttachmentToFile(string $attachment_path): string|false
     {
         if ($fp = fopen($attachment_path, 'w')) {
