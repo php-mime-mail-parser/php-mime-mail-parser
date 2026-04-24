@@ -60,15 +60,11 @@ class Parser
     /**
      * Parser constructor.
      *
-     * @param CharsetManager|null $charset
+     * @param CharsetManager|null $charset Optional charset manager instance
      */
     public function __construct(?CharsetManager $charset = null)
     {
-        if ($charset === null) {
-            $charset = new Charset();
-        }
-
-        $this->charset = $charset;
+        $this->charset = $charset ?? new Charset();
         $this->middlewareStack = new MiddlewareStack();
     }
 
@@ -91,13 +87,15 @@ class Parser
      * Set the file path we use to get the email text
      *
      * @param string $path File path to the MIME mail
+     * @return self
+     * @throws Exception
      */
     public function setPath(string $path): self
     {
         if (is_writable($path)) {
             $file = fopen($path, 'a+');
             fseek($file, -1, SEEK_END);
-            if (fread($file, 1) != "\n") {
+            if (fread($file, 1) !== "\n") {
                 fwrite($file, PHP_EOL);
             }
             fclose($file);
@@ -118,13 +116,18 @@ class Parser
     /**
      * Set the Stream resource we use to get the email text
      *
+     * @param mixed $stream A readable stream resource
+     * @return self
      * @throws Exception
      */
     public function setStream(mixed $stream): self
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
+        // Use null-safe operator to simplify validation (PHP 8.0+)
+        $mode = $meta['mode'] ?? null;
+
+        if (!$mode || !in_array($mode, self::$readableModes, true)) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
@@ -137,7 +140,7 @@ class Parser
                 fwrite($tmp_fp, fread($stream, 2028));
             }
 
-            if (fread($tmp_fp, 1) != "\n") {
+            if (fread($tmp_fp, 1) !== "\n") {
                 fwrite($tmp_fp, PHP_EOL);
             }
 
@@ -163,7 +166,9 @@ class Parser
     /**
      * Set the email text
      *
-     * @param string $data
+     * @param string $data The email data
+     * @return self
+     * @throws Exception
      */
     public function setText(string $data): self
     {
@@ -171,8 +176,9 @@ class Parser
             throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
         }
 
-        if (substr($data, -1) != "\n") {
-            $data = $data.PHP_EOL;
+        // Use str_ends_with() instead of substr() (PHP 8.0+)
+        if (!str_ends_with($data, "\n")) {
+            $data .= PHP_EOL;
         }
 
         $this->resource = mailparse_msg_create();

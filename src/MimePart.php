@@ -26,9 +26,9 @@ class MimePart implements \ArrayAccess
     protected array $part = [];
 
     /**
-     * Immutable Part Id
+     * Immutable Part Id (readonly since PHP 8.1)
      */
-    private string $id;
+    private readonly string $id;
 
     /**
      * Create a mime part
