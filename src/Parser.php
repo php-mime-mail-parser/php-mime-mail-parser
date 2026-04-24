@@ -488,13 +488,6 @@ class Parser
             } elseif (in_array($part['content-type'], $non_attachment_types, true)
                 && $disposition !== 'attachment') {
                 // it is a message body, no attachment
-                continue;
-            } elseif (substr($part['content-type'], 0, 10) !== 'multipart/'
-                && $part['content-type'] !== 'text/plain; (error)' && $disposition != 'inline') {
-                // if we cannot get it by getMessageBody(), we assume it is an attachment
-                $disposition = 'attachment';
-            }
-            if (in_array($disposition, ['attachment', 'inline']) === false && !empty($disposition)) {
                 $disposition = 'attachment';
             }
 
@@ -542,7 +535,7 @@ class Parser
     public function saveAttachments(
         string $attach_dir,
         bool $include_inline = true,
-        string $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
+        string|AttachmentFilenameStrategy $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
     ): array {
         $attachments = $this->getAttachments($include_inline);
 
@@ -599,12 +592,6 @@ class Parser
         return $temp_fp;
     }
 
-    /**
-     * Decode the string from Content-Transfer-Encoding
-     *
-     * @param string $encodedString The string in its original encoded state
-     * @param string $encodingType  The encoding type from the Content-Transfer-Encoding header of the part.
-     */
     protected function decodeContentTransfer(string $encodedString, string|array $encodingType): string
     {
         if (is_array($encodingType)) {
@@ -686,14 +673,6 @@ class Parser
         }
     }
 
-    /**
-     * Retrieve a specified MIME part
-     *
-     * @param string $type
-     * @param array  $parts
-     *
-     * @return string|array
-     */
     protected function getPart($type, $parts)
     {
         return (isset($parts[$type])) ? $parts[$type] : false;

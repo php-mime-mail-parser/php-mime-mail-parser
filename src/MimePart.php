@@ -20,19 +20,10 @@ namespace PhpMimeMailParser;
  */
 class MimePart implements \ArrayAccess
 {
-    /**
-     * Internal mime part
-     */
     protected array $part = [];
 
-    /**
-     * Immutable Part Id (readonly since PHP 8.1)
-     */
     private readonly string $id;
 
-    /**
-     * Create a mime part
-     */
     public function __construct(string $id, array $part)
     {
         $this->part = $part;

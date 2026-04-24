@@ -6,9 +6,6 @@ class Attachment
 {
     private ?string $content = null;
 
-    /**
-     * Max duplicate number
-     */
     public int $maxDuplicateNumber = 100;
 
     public function __construct(
@@ -143,8 +140,12 @@ class Attachment
      */
     public function save(
         string $attach_dir,
-        string $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
+        string|AttachmentFilenameStrategy $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ): string|false {
+        if ($filenameStrategy instanceof AttachmentFilenameStrategy) {
+            $filenameStrategy = $filenameStrategy->value;
+        }
+
         $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
         if (!is_dir($attach_dir)) {
             mkdir($attach_dir);
