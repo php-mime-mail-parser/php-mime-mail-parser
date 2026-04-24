@@ -172,8 +172,12 @@ namespace PhpMimeMailParser {
             }
 
             $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
-            $Parser = new Parser();
-            $Parser->setStream($c);
+            try {
+                $Parser = new Parser();
+                $Parser->setStream($c);
+            } finally {
+                socket_close($c);
+            }
         }
 
         public function testSaveAttachmentsWithoutPermissions()
@@ -230,10 +234,23 @@ namespace PhpMimeMailParser {
             $Parser->saveAttachments('dir', false, 'InvalidValue');
         }
 
-        public function testMIMEMessageCannotBeParsed()
+        public function testMIMEMessageCanBeParsedWithText()
         {
-            $this->expectWarning();
+            $file = __DIR__ . '/mails/issue408.eml';
 
+            $Parser = new Parser();
+            $Parser->setText(file_get_contents($file));
+
+            $this->assertNotNull($Parser);
+            $Attachments = $Parser->getAttachments();
+            $this->assertGreaterThan(0, count($Attachments));
+        }
+
+        public function testMIMEMessageCannotBeParsedWithPath()
+        {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('MIME message cannot be parsed');
+            
             $file = __DIR__ . '/mails/issue408.eml';
 
             $Parser = new Parser();

@@ -1,13 +1,19 @@
-# php-mime-mail-parser
+<p align="center"><img width="544" height="122" src="/art/php-mime-mail-parser.png" alt="Logo php-mime-mail-parser"></p>
 
-A fully tested email parser for PHP 8.0+ (mailparse extension wrapper).
+<p align="center">
+<a href="https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions"><img src="https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml/badge.svg?style=flat-square" alt="Build Status"></a>
+<a href="https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser"><img src="https://img.shields.io/packagist/dt/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square" alt="Total Downloads"></a>
+<a href="https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases"><img src="https://img.shields.io/packagist/v/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square" alt="Latest Stable Version"></a>
+<a href="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square"><img src="https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square" alt="License"></a>
+</p>
+
+
+## Introduction
+
+A fully tested email parser for PHP 8.2+ (mailparse extension wrapper).
 
 It's the most effective PHP email parser around in terms of performance, foreign character encoding, attachment handling, and ease of use.
 Internet Message Format RFC [822](https://tools.ietf.org/html/rfc822), [2822](https://tools.ietf.org/html/rfc2822), [5322](https://tools.ietf.org/html/rfc5322).
-
-[![Latest Version](https://img.shields.io/packagist/v/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases)
-[![Total Downloads](https://img.shields.io/packagist/dt/php-mime-mail-parser/php-mime-mail-parser.svg?style=flat-square)](https://packagist.org/packages/php-mime-mail-parser/php-mime-mail-parser)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 ## Why?
 
@@ -25,7 +31,7 @@ We use GitHub Actions, Codecov, Codacy to help ensure code quality. You can see 
 
 [![CI](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml/badge.svg?style=flat-square)](https://github.com/php-mime-mail-parser/php-mime-mail-parser/actions/workflows/main.yml)
 [![Coverage](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser/branch/main/graph/badge.svg?token=wTSIbXJDL0)](https://codecov.io/gh/php-mime-mail-parser/php-mime-mail-parser)
-[![Code Quality](https://app.codacy.com/project/badge/Grade/8cbfe0fcd84c4b2b9282b9a0b4467607)](https://www.codacy.com/gh/php-mime-mail-parser/php-mime-mail-parser/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=php-mime-mail-parser/php-mime-mail-parser&amp;utm_campaign=Badge_Grade)
+[![Code Quality](https://app.codacy.com/project/badge/Grade/8cbfe0fcd84c4b2b9282b9a0b4467607)](https://app.codacy.com/gh/php-mime-mail-parser/php-mime-mail-parser/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 ## How do I install it?
 
@@ -39,11 +45,10 @@ To install the latest version of PHP MIME Mail Parser, run the command below:
 
 The following versions of PHP are supported:
 
-* PHP 8.0
-* PHP 8.1
 * PHP 8.2
 * PHP 8.3
 * PHP 8.4
+* PHP 8.5
 
 Previous Versions:
 
@@ -58,6 +63,8 @@ Previous Versions:
 | PHP 7.2           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
 | PHP 7.3           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
 | PHP 7.4           | [php-mime-mail-parser 7.1.2](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/7.1.2)  |
+| PHP 8.0           | [php-mime-mail-parser 9.0.1](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/9.0.1)  |
+| PHP 8.1           | [php-mime-mail-parser 9.0.1](https://github.com/php-mime-mail-parser/php-mime-mail-parser/releases/tag/9.0.1)  |
 
 Make sure you have the mailparse extension (http://php.net/manual/en/book.mailparse.php) properly installed. The command line `php -m | grep mailparse` needs to return "mailparse".
 
@@ -77,7 +84,7 @@ pecl install mailparse
 
 #### Other platforms
 ```
-sudo apt install php-cli php-pear php-dev php-mbstring
+sudo apt install php-cli php-pear php-dev
 pecl install mailparse
 ```
 
@@ -89,10 +96,9 @@ git clone https://github.com/php/pecl-mail-mailparse.git
 cd pecl-mail-mailparse
 phpize
 ./configure
-sed -i 's/#if\s!HAVE_MBSTRING/#ifndef MBFL_MBFILTER_H/' ./mailparse.c
 make
 sudo mv modules/mailparse.so /usr/lib/php/AAAAMMDD/
-echo "extension=mailparse.so" | sudo tee /etc/php/8.4/mods-available/mailparse.ini
+echo "extension=mailparse.so" | sudo tee /etc/php/<your-php-version>/mods-available/mailparse.ini
 sudo phpenmod mailparse
 ```
 
@@ -184,15 +190,15 @@ $parser->saveAttachments('/path/to/save/attachments/', false);
 // return all attachments saved in the directory (exclude inline attachments)
 
 // Save all attachments with the strategy ATTACHMENT_DUPLICATE_SUFFIX (default)
-$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_DUPLICATE_SUFFIX);
+$parser->saveAttachments('/path/to/save/attachments/', false, PhpMimeMailParser\Parser::ATTACHMENT_DUPLICATE_SUFFIX);
 // return all attachments saved in the directory: logo.jpg, logo_1.jpg, ..., logo_100.jpg, YY34UFHBJ.jpg
 
 // Save all attachments with the strategy ATTACHMENT_RANDOM_FILENAME
-$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_RANDOM_FILENAME);
+$parser->saveAttachments('/path/to/save/attachments/', false, PhpMimeMailParser\Parser::ATTACHMENT_RANDOM_FILENAME);
 // return all attachments saved in the directory: YY34UFHBJ.jpg and F98DBZ9FZF.jpg
 
 // Save all attachments with the strategy ATTACHMENT_DUPLICATE_THROW
-$parser->saveAttachments('/path/to/save/attachments/', false, Parser::ATTACHMENT_DUPLICATE_THROW);
+$parser->saveAttachments('/path/to/save/attachments/', false, PhpMimeMailParser\Parser::ATTACHMENT_DUPLICATE_THROW);
 // return an exception when there is attachments duplicate.
 
 ```
@@ -226,10 +232,19 @@ foreach ($attachments as $attachment) {
     $stream = $attachment->getStream();
     // get the stream of the attachment file
 
-    $attachment->save('/path/to/save/myattachment/', Parser::ATTACHMENT_DUPLICATE_SUFFIX);
+    $attachment->save('/path/to/save/myattachment/', PhpMimeMailParser\Parser::ATTACHMENT_DUPLICATE_SUFFIX);
     // return the path and the filename saved (same strategy available than saveAttachments)
 }
 ```
+
+## Alternatives
+
+If you're looking for alternatives to this library, here are a few options you might consider:
+
+- [zbateson/mail-mime-parser](https://github.com/zbateson/mail-mime-parser): If you prefer not to use the mailparse extension, this library is a good alternative. However, parsing will likely be slower.
+- [DirectoryTree/ImapEngine](https://github.com/DirectoryTree/ImapEngine): If you need to parse emails available on an IMAP server, this library can meet your needs.
+- [Mailcare](https://mailcare.io): A service that acts as both an email receiving server and a parser, and can be connected with any code. It's a SaaS solution that can simplify incoming email management.
+
 
 ## Postfix configuration to manage email from a mail server
 
@@ -237,20 +252,15 @@ To forward mails from [Postfix](http://www.postfix.org/) to the PHP script above
 (to specify myhook to send all emails to the script `test.php`):
 
 ```
-myhook unix - n n - - pipe
-  				flags=F user=www-data argv=php -c /etc/php5/apache2/php.ini -f /var/www/test.php ${sender} ${size} ${recipient}
+myhook unix - n n - - pipe flags=F user=www-data argv=php -c /etc/php8/apache2/php.ini -f /var/www/test.php ${sender} ${size} ${recipient}
 ```
 
 Edit this line (register myhook)
 ```
-smtp      inet  n       -       -       -       -       smtpd
-        			-o content_filter=myhook:dummy
+smtp      inet  n       -       -       -       -       smtpd -o content_filter=myhook:dummy
 ```
 
 The PHP script must use the fourth method (see above) to work with this configuration.
-
-And finally the easiest way is to use my SaaS https://mailcare.io
-
 
 ## Can I contribute?
 
