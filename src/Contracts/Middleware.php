@@ -16,8 +16,6 @@ interface Middleware
      *
      * @param MimePart $part
      * @param MiddlewareStack $next
-     *
-     * @return MimePart
      */
-    public function parse(MimePart $part, MiddlewareStack $next);
+    public function parse(MimePart $part, MiddlewareStack $next): MimePart;
 }

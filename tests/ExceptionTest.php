@@ -111,17 +111,10 @@ namespace PhpMimeMailParser {
 
         public function testSetStream()
         {
-            if (version_compare(PHP_VERSION, '8.0') >= 0) {
-                $this->expectException(\TypeError::class);
-                $this->expectExceptionMessage(
-                    'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given'
-                );
-            } else {
-                $this->expectException(Exception::class);
-                $this->expectExceptionMessage(
-                    'setStream() expects parameter stream to be readable stream resource.'
-                );
-            }
+            $this->expectException(\TypeError::class);
+            $this->expectExceptionMessage(
+                'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, string given'
+            );
 
             $Parser = new Parser();
             $Parser->setStream('azerty');
@@ -159,17 +152,10 @@ namespace PhpMimeMailParser {
 
         public function testSetStreamResource()
         {
-            if (version_compare(PHP_VERSION, '8.0') >= 0) {
-                $this->expectException(\TypeError::class);
-                $this->expectExceptionMessage(
-                    'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given'
-                );
-            } else {
-                $this->expectException(Exception::class);
-                $this->expectExceptionMessage(
-                    'setStream() expects parameter stream to be readable stream resource.'
-                );
-            }
+            $this->expectException(\TypeError::class);
+            $this->expectExceptionMessage(
+                'stream_get_meta_data(): Argument #1 ($stream) must be of type resource, Socket given'
+            );
 
             $c = socket_create(AF_UNIX, SOCK_STREAM, 0);
             try {

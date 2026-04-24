@@ -22,25 +22,18 @@ class MimePart implements \ArrayAccess
 {
     /**
      * Internal mime part
-     *
-     * @var array
      */
-    protected $part = array();
+    protected array $part = [];
 
     /**
      * Immutable Part Id
-     *
-     * @var string
      */
-    private $id;
+    private string $id;
 
     /**
      * Create a mime part
-     *
-     * @param array $part
-     * @param string $id
      */
-    public function __construct($id, array $part)
+    public function __construct(string $id, array $part)
     {
         $this->part = $part;
         $this->id = $id;
@@ -48,31 +41,24 @@ class MimePart implements \ArrayAccess
 
     /**
      * Retrieve the part Id
-     *
-     * @return string
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
 
     /**
      * Retrieve the part data
-     *
-     * @return array
      */
-    public function getPart()
+    public function getPart(): array
     {
         return $this->part;
     }
 
     /**
      * Set the mime part data
-     *
-     * @param array $part
-     * @return void
      */
-    public function setPart(array $part)
+    public function setPart(array $part): void
     {
         $this->part = $part;
     }

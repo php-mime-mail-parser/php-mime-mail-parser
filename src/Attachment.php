@@ -13,69 +13,61 @@ use function var_dump;
 class Attachment
 {
     /**
-     * @var string $filename Filename
+     * Filename
      */
-    protected $filename;
+    protected string $filename;
 
     /**
-     * @var string $contentType Mime Type
+     * Mime Type
      */
-    protected $contentType;
+    protected string $contentType;
 
     /**
-     * @var string $content File Content
+     * File Content
      */
-    protected $content;
+    protected ?string $content = null;
 
     /**
-     * @var string $contentDisposition Content-Disposition (attachment or inline)
+     * Content-Disposition (attachment or inline)
      */
-    protected $contentDisposition;
+    protected string $contentDisposition;
 
     /**
-     * @var string $contentId Content-ID
+     * Content-ID
      */
-    protected $contentId;
+    protected string $contentId;
 
     /**
-     * @var array $headers An Array of the attachment headers
+     * An Array of the attachment headers
      */
-    protected $headers;
+    protected array $headers;
 
     /**
-     * @var resource $stream
+     * Stream resource
      */
-    protected $stream;
+    protected mixed $stream;
 
     /**
-     * @var string $mimePartStr
+     * Mime part string
      */
-    protected $mimePartStr;
+    protected string $mimePartStr;
 
     /**
-     * @var integer $maxDuplicateNumber
+     * Max duplicate number
      */
-    public $maxDuplicateNumber = 100;
+    public int $maxDuplicateNumber = 100;
 
     /**
      * Attachment constructor.
-     *
-     * @param string   $filename
-     * @param string   $contentType
-     * @param resource $stream
-     * @param string   $contentDisposition
-     * @param string   $contentId
-     * @param array    $headers
-     * @param string   $mimePartStr
      */
     public function __construct(
-        $filename,
-        $contentType,
-        $stream,
-        $contentDisposition = 'attachment',
-        $contentId = '',
-        $headers = [],
-        $mimePartStr = ''
+        string $filename,
+        string $contentType,
+        mixed $stream,
+        string $contentDisposition = 'attachment',
+        string $contentId = '',
+        array $headers = [],
+        string $mimePartStr = ''
     ) {
         $this->filename = $filename;
         $this->contentType = $contentType;
@@ -89,60 +81,48 @@ class Attachment
 
     /**
      * retrieve the attachment filename
-     *
-     * @return string
      */
-    public function getFilename()
+    public function getFilename(): string
     {
         return $this->filename;
     }
 
     /**
      * Retrieve the Attachment Content-Type
-     *
-     * @return string
      */
-    public function getContentType()
+    public function getContentType(): string
     {
         return $this->contentType;
     }
 
     /**
      * Retrieve the Attachment Content-Disposition
-     *
-     * @return string
      */
-    public function getContentDisposition()
+    public function getContentDisposition(): string
     {
         return $this->contentDisposition;
     }
 
     /**
      * Retrieve the Attachment Content-ID
-     *
-     * @return string
      */
-    public function getContentID()
+    public function getContentID(): string
     {
         return $this->contentId;
     }
 
     /**
      * Retrieve the Attachment Headers
-     *
-     * @return array
      */
-    public function getHeaders()
+    public function getHeaders(): array
     {
         return $this->headers;
     }
 
     /**
      * Get a handle to the stream
-     *
-     * @return resource
      */
-    public function getStream()
+    public function getStream(): mixed
     {
         return $this->stream;
     }
@@ -183,10 +163,8 @@ class Attachment
      * Once read to completion, it always returns false
      *
      * @param int $bytes (default: 2082)
-     *
-     * @return string|bool
      */
-    public function read($bytes = 2082)
+    public function read(int $bytes = 2082): string|false
     {
         return feof($this->stream) ? false : fread($this->stream, $bytes);
     }
@@ -194,10 +172,8 @@ class Attachment
     /**
      * Retrieve the file content in one go
      * Once you retrieve the content you cannot use MimeMailParser_attachment::read()
-     *
-     * @return string
      */
-    public function getContent()
+    public function getContent(): ?string
     {
         if ($this->content === null) {
             fseek($this->stream, 0);
@@ -211,10 +187,8 @@ class Attachment
 
     /**
      * Get mime part string for this attachment
-     *
-     * @return string
      */
-    public function getMimePartStr()
+    public function getMimePartStr(): string
     {
         return $this->mimePartStr;
     }
@@ -225,12 +199,12 @@ class Attachment
      * @param string $attach_dir
      * @param string $filenameStrategy
      *
-     * @return string
+     * @throws Exception
      */
     public function save(
-        $attach_dir,
-        $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
-    ) {
+        string $attach_dir,
+        string $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
+    ): string|false {
         $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
         if (!is_dir($attach_dir)) {
             mkdir($attach_dir);
