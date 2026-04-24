@@ -248,14 +248,13 @@ namespace PhpMimeMailParser {
 
         public function testMIMEMessageCannotBeParsedWithPath()
         {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('MIME message cannot be parsed');
+            
             $file = __DIR__ . '/mails/issue408.eml';
 
             $Parser = new Parser();
             $Parser->setPath($file);
-
-            $this->assertNotNull($Parser);
-            $Attachments = $Parser->getAttachments();
-            $this->assertGreaterThan(0, count($Attachments));
         }
     }
 }
