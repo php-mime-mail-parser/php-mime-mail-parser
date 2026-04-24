@@ -104,6 +104,17 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(is_string($body), true);
     }
 
+    public function testGetMessageBodyWithEnum()
+    {
+        $file = __DIR__ . '/mails/m0028';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $body = $Parser->getMessageBody(MessageBodyType::Text);
+
+        $this->assertEquals($body, 'This is the plain text content of the email');
+    }
+
     /**
      * Test for being able to extract a text/plain part from an email with 10 attachments.
      * Related to pr #172.
