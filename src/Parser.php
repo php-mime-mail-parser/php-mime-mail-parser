@@ -488,6 +488,13 @@ class Parser
             } elseif (in_array($part['content-type'], $non_attachment_types, true)
                 && $disposition !== 'attachment') {
                 // it is a message body, no attachment
+                continue;
+            } elseif (substr($part['content-type'], 0, 10) !== 'multipart/'
+                && $part['content-type'] !== 'text/plain; (error)' && $disposition != 'inline') {
+                // if we cannot get it by getMessageBody(), we assume it is an attachment
+                $disposition = 'attachment';
+            }
+            if (in_array($disposition, ['attachment', 'inline']) === false && !empty($disposition)) {
                 $disposition = 'attachment';
             }
 
