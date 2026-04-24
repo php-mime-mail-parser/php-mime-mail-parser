@@ -35,7 +35,8 @@ class Attachment
         private readonly string $contentId = '',
         private readonly array $headers = [],
         private readonly string $mimePartStr = ''
-    ) {}
+    ) {
+    }
 
     /**
      * retrieve the attachment filename
