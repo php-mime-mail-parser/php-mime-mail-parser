@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="8"
+    resolveFromConfigFile="true"
+    findUnusedCode="false"
+>
+    <projectFiles>
+        <directory name="src" />
+        <directory name="tests" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <stubs>
+        <file name="vendor/jetbrains/phpstorm-stubs/mailparse/mailparse.php" />
+    </stubs>
+</psalm>

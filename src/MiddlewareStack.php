@@ -2,7 +2,7 @@
 
 namespace PhpMimeMailParser;
 
-use PhpMimeMailParser\Contracts\MiddleWare as MiddleWareContracts;
+use PhpMimeMailParser\Contracts\Middleware as MiddlewareContract;
 
 /**
  * A stack of middleware chained together by (MiddlewareStack $next)
@@ -11,13 +11,13 @@ class MiddlewareStack
 {
     protected ?MiddlewareStack $next = null;
 
-    protected ?MiddleWareContracts $middleware = null;
+    protected ?MiddlewareContract $middleware = null;
 
     /**
      * Construct the first middleware in this MiddlewareStack
      * The next middleware is chained through $MiddlewareStack->add($Middleware)
      */
-    public function __construct(?MiddleWareContracts $middleware = null)
+    public function __construct(?MiddlewareContract $middleware = null)
     {
         $this->middleware = $middleware;
     }
@@ -25,9 +25,9 @@ class MiddlewareStack
     /**
      * Creates a chained middleware in MiddlewareStack
      */
-    public function add(MiddleWareContracts $middleware): self
+    public function add(MiddlewareContract $middleware): self
     {
-        $stack = new static($middleware);
+        $stack = new self($middleware);
         $stack->next = $this;
         return $stack;
     }
@@ -47,11 +47,11 @@ class MiddlewareStack
     /**
      * Creates a MiddlewareStack based on an array of middleware
      *
-     * @param list<MiddleWareContracts> $middlewares
+     * @param list<MiddlewareContract> $middlewares
      */
     public static function factory(array $middlewares = []): self
     {
-        $stack = new static;
+        $stack = new self;
         foreach ($middlewares as $middleware) {
             $stack = $stack->add($middleware);
         }

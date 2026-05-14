@@ -61,9 +61,6 @@ class Parser
 
         // should parse message incrementally from file
         $this->resource = mailparse_msg_parse_file($path);
-        if ($this->resource === false) {
-            throw new Exception('MIME message cannot be parsed');
-        }
 
         $this->stream = fopen($path, 'r');
         $this->parse();
@@ -76,34 +73,40 @@ class Parser
      */
     public function setStream(mixed $stream): self
     {
-        // streams have to be cached to file first
-        $meta = @stream_get_meta_data($stream);
-        $mode = $meta['mode'] ?? null;
-
-        if (!$mode || !in_array($mode, self::$readableModes, true)) {
+        if (!is_resource($stream)) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
         }
 
-        /** @var resource $tmp_fp */
+        // streams have to be cached to file first
+        $meta = stream_get_meta_data($stream);
+        $mode = $meta['mode'];
+
+        if (!in_array($mode, self::$readableModes, true)) {
+            throw new Exception(
+                'setStream() expects parameter stream to be readable stream resource.'
+            );
+        }
+
         $tmp_fp = tmpfile();
-        if ($tmp_fp) {
-            while (!feof($stream)) {
-                fwrite($tmp_fp, fread($stream, 2028));
-            }
-
-            if (fread($tmp_fp, 1) !== "\n") {
-                fwrite($tmp_fp, PHP_EOL);
-            }
-
-            fseek($tmp_fp, 0);
-            $this->stream = &$tmp_fp;
-        } else {
+        if ($tmp_fp === false) {
             throw new Exception(
                 'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
             );
         }
+
+        while (!feof($stream)) {
+            fwrite($tmp_fp, fread($stream, 2028));
+        }
+
+        if (fread($tmp_fp, 1) !== "\n") {
+            fwrite($tmp_fp, PHP_EOL);
+        }
+
+        fseek($tmp_fp, 0);
+        $this->stream = $tmp_fp;
+
         fclose($stream);
 
         $this->resource = mailparse_msg_create();
@@ -444,36 +447,35 @@ class Parser
 
     protected function getAttachmentStream(array &$part): mixed
     {
-        /** @var resource $temp_fp */
         $temp_fp = tmpfile();
+        if ($temp_fp === false) {
+            throw new Exception(
+                'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
+            );
+        }
 
         $headers = $this->getPart('headers', $part);
         $encodingType = array_key_exists('content-transfer-encoding', $headers) ?
             $headers['content-transfer-encoding'] : '';
 
-        if ($temp_fp) {
-            if ($this->stream) {
-                $start = $part['starting-pos-body'];
-                $end = $part['ending-pos-body'];
-                fseek($this->stream, $start, SEEK_SET);
-                $len = $end - $start;
-                $written = 0;
-                while ($written < $len) {
-                    $write = $len;
-                    $data = fread($this->stream, $write);
-                    fwrite($temp_fp, $this->decodeContentTransfer($data, $encodingType));
-                    $written += $write;
-                }
-            } elseif ($this->data) {
-                $attachment = $this->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
-                fwrite($temp_fp, $attachment, strlen($attachment));
+        if ($this->stream) {
+            $start = $part['starting-pos-body'];
+            $end = $part['ending-pos-body'];
+            fseek($this->stream, $start, SEEK_SET);
+            $len = $end - $start;
+            $written = 0;
+            while ($written < $len) {
+                $write = $len;
+                $data = fread($this->stream, $write);
+                fwrite($temp_fp, $this->decodeContentTransfer($data, $encodingType));
+                $written += $write;
             }
-            fseek($temp_fp, 0, SEEK_SET);
-        } else {
-            throw new Exception(
-                'Could not create temporary files for attachments. Your tmp directory may be unwritable by PHP.'
-            );
+        } elseif ($this->data) {
+            $attachment = $this->decodeContentTransfer($this->getPartBodyFromText($part), $encodingType);
+            fwrite($temp_fp, $attachment, strlen($attachment));
         }
+
+        fseek($temp_fp, 0, SEEK_SET);
 
         return $temp_fp;
     }

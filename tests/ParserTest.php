@@ -66,10 +66,8 @@ class ParserTest extends \PHPUnit\Framework\TestCase
     /**
      * test for being able to extract multiple inline text/plain & text/html parts
      * related to issue #163
-     *
-     * @return return type
      */
-    public function testMultiPartInline()
+    public function testMultiPartInline(): void
     {
         $file = __DIR__ .'/mails/issue163';
         $Parser = new Parser();
@@ -1769,7 +1767,7 @@ variances available &nbsp;</div></body></html>'
         // run middlware in factory
         $middlewareCallCount = 0;
         $mimePart = new MimePart('1', array());
-        $middleWare = new MiddleWare(function ($mimePart, $next) use (&$middlewareCallCount) {
+        $middleWare = new Middleware(function ($mimePart, $next) use (&$middlewareCallCount) {
             $middlewareCallCount++;
             return $next($mimePart);
         });

@@ -1,0 +1,7 @@
+parameters:
+    level: 4
+    paths:
+        - src
+        - tests
+    stubFiles:
+        - vendor/jetbrains/phpstorm-stubs/mailparse/mailparse.php
