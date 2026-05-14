@@ -30,7 +30,7 @@ jobs:
       - name: Execute tests
         run: vendor/bin/phpunit
 
-  php-cs:
+  static-analysis:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -44,6 +44,9 @@ jobs:
 
       - name: Install dependencies
         run: composer update --no-progress --ignore-platform-reqs
+
+      - name: Execute phpstan
+        run: composer phpstan -- --no-progress
 
       - name: Execute phpcs
         run: vendor/bin/phpcs src tests --standard=psr2
