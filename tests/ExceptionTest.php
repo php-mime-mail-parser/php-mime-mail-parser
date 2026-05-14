@@ -1,11 +1,6 @@
 <?php
 
 namespace {
-
-    use PhpMimeMailParser\Parser;
-    use PhpMimeMailParser\Attachment;
-    use PhpMimeMailParser\Exception;
-
     // This allow us to configure the behavior of the "global mock"
     $mockTmpFile = false;
     $mockFopen = false;

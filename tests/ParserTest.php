@@ -2,8 +2,6 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
-use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 
 class ParserTest extends \PHPUnit\Framework\TestCase
@@ -112,7 +110,7 @@ class ParserTest extends \PHPUnit\Framework\TestCase
 
         $body = $Parser->getMessageBody(MessageBodyType::Text);
 
-        $this->assertEquals($body, 'This is the plain text content of the email');
+        $this->assertSame($body, 'This is the plain text content of the email');
     }
 
     /**

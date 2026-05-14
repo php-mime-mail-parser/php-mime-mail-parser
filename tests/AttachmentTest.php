@@ -2,8 +2,6 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
-use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\Exception;
 
 class AttachmentTest extends \PHPUnit\Framework\TestCase
 {
