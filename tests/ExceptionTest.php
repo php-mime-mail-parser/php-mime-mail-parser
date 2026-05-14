@@ -8,6 +8,8 @@ namespace {
 
 namespace PhpMimeMailParser {
 
+    use PhpMimeMailParser\Parser;
+
     function tmpfile()
     {
         global $mockTmpFile;
@@ -170,6 +172,27 @@ namespace PhpMimeMailParser {
             $mockFopen = true;
 
             $Parser->saveAttachments($attach_dir);
+        }
+
+        public function testSaveAttachmentsDirectoryCreationFailure()
+        {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Could not create attachments directory.');
+
+            $mid = 'm0001';
+            $file = __DIR__ . '/mails/' . $mid;
+            $pathAsFile = tempnam(sys_get_temp_dir(), 'pmmp_');
+            $attach_dir = $pathAsFile . '/child';
+
+            try {
+                $Parser = new Parser();
+                $Parser->setStream(fopen($file, 'r'));
+                $Parser->saveAttachments($attach_dir);
+            } finally {
+                if (is_file($pathAsFile)) {
+                    unlink($pathAsFile);
+                }
+            }
         }
 
         public function testSaveAttachmentsWithDuplicateNames()

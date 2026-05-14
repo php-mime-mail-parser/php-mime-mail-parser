@@ -148,8 +148,8 @@ class Attachment
         }
 
         $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
-        if (!is_dir($attach_dir)) {
-            mkdir($attach_dir);
+        if (!is_dir($attach_dir) && !@mkdir($attach_dir, 0777, true) && !is_dir($attach_dir)) {
+            throw new Exception('Could not create attachments directory.');
         }
 
         $attachment_path = match ($filenameStrategy) {
