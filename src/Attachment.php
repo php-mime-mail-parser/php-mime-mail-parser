@@ -2,81 +2,25 @@
 
 namespace PhpMimeMailParser;
 
-use function var_dump;
-
-/**
- * Attachment of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
- */
 class Attachment
 {
-    /**
-     * Filename
-     */
-    protected string $filename;
+    private ?string $content = null;
 
-    /**
-     * Mime Type
-     */
-    protected string $contentType;
-
-    /**
-     * File Content
-     */
-    protected ?string $content = null;
-
-    /**
-     * Content-Disposition (attachment or inline)
-     */
-    protected string $contentDisposition;
-
-    /**
-     * Content-ID
-     */
-    protected string $contentId;
-
-    /**
-     * An Array of the attachment headers
-     */
-    protected array $headers;
-
-    /**
-     * Stream resource
-     */
-    protected mixed $stream;
-
-    /**
-     * Mime part string
-     */
-    protected string $mimePartStr;
-
-    /**
-     * Max duplicate number
-     */
     public int $maxDuplicateNumber = 100;
 
     /**
-     * Attachment constructor.
+     * @param resource $stream
+     * @param array<string, mixed> $headers
      */
     public function __construct(
-        string $filename,
-        string $contentType,
-        mixed $stream,
-        string $contentDisposition = 'attachment',
-        string $contentId = '',
-        array $headers = [],
-        string $mimePartStr = ''
+        protected readonly string $filename,
+        protected readonly string $contentType,
+        protected readonly mixed $stream,
+        protected readonly string $contentDisposition = 'attachment',
+        protected readonly string $contentId = '',
+        protected readonly array $headers = [],
+        protected readonly string $mimePartStr = ''
     ) {
-        $this->filename = $filename;
-        $this->contentType = $contentType;
-        $this->stream = $stream;
-        $this->content = null;
-        $this->contentDisposition = $contentDisposition;
-        $this->contentId = $contentId;
-        $this->headers = $headers;
-        $this->mimePartStr = $mimePartStr;
     }
 
     /**
@@ -111,9 +55,7 @@ class Attachment
         return $this->contentId;
     }
 
-    /**
-     * Retrieve the Attachment Headers
-     */
+    /** @return array<string, mixed> */
     public function getHeaders(): array
     {
         return $this->headers;
@@ -196,55 +138,57 @@ class Attachment
     /**
      * Save the attachment individually
      *
-     * @param string $attach_dir
-     * @param string $filenameStrategy
-     *
      * @throws Exception
      */
     public function save(
         string $attach_dir,
-        string $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
+        string|AttachmentFilenameStrategy $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
     ): string|false {
-        $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
-        if (!is_dir($attach_dir)) {
-            mkdir($attach_dir);
+        if ($filenameStrategy instanceof AttachmentFilenameStrategy) {
+            $filenameStrategy = $filenameStrategy->value;
         }
 
-        // Determine filename
-        switch ($filenameStrategy) {
-            case Parser::ATTACHMENT_RANDOM_FILENAME:
-                $fileInfo = pathinfo($this->getFilename());
-                $extension  = empty($fileInfo['extension']) ? '' : '.'.$fileInfo['extension'];
-                $attachment_path = $attach_dir.bin2hex(random_bytes(16)).$extension;
-                break;
-            case Parser::ATTACHMENT_DUPLICATE_THROW:
-            case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                $attachment_path = $attach_dir.$this->getFilename();
-                break;
-            default:
-                throw new Exception('Invalid filename strategy argument provided.');
+        $attach_dir = rtrim($attach_dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        if (!is_dir($attach_dir) && !@mkdir($attach_dir, 0777, true) && !is_dir($attach_dir)) {
+            throw new Exception('Could not create attachments directory.');
         }
 
-        // Handle duplicate filename
+        $attachment_path = match ($filenameStrategy) {
+            Parser::ATTACHMENT_RANDOM_FILENAME => $this->generateRandomFilePath($attach_dir),
+            Parser::ATTACHMENT_DUPLICATE_THROW,
+            Parser::ATTACHMENT_DUPLICATE_SUFFIX => $attach_dir . $this->getFilename(),
+            default => throw new Exception('Invalid filename strategy argument provided.')
+        };
+
         if (file_exists($attachment_path)) {
-            switch ($filenameStrategy) {
-                case Parser::ATTACHMENT_DUPLICATE_THROW:
-                    throw new Exception('Could not create file for attachment: duplicate filename.');
-                case Parser::ATTACHMENT_DUPLICATE_SUFFIX:
-                    $attachment_path = $this->suffixFileName($attachment_path);
-                    break;
-            }
+            $attachment_path = match ($filenameStrategy) {
+                Parser::ATTACHMENT_DUPLICATE_THROW =>
+                    throw new Exception('Could not create file for attachment: duplicate filename.'),
+                Parser::ATTACHMENT_DUPLICATE_SUFFIX => $this->suffixFileName($attachment_path),
+                default => $attachment_path
+            };
         }
 
-        /** @var resource $fp */
+        return $this->writeAttachmentToFile($attachment_path);
+    }
+
+    private function generateRandomFilePath(string $attach_dir): string
+    {
+        $fileInfo = pathinfo($this->getFilename());
+        $extension = !empty($fileInfo['extension']) ? '.' . $fileInfo['extension'] : '';
+        return $attach_dir . bin2hex(random_bytes(16)) . $extension;
+    }
+
+    private function writeAttachmentToFile(string $attachment_path): string|false
+    {
         if ($fp = fopen($attachment_path, 'w')) {
-            while ($bytes = $this->read()) {
+            while (($bytes = $this->read()) !== false) {
                 fwrite($fp, $bytes);
             }
             fclose($fp);
             return realpath($attachment_path);
-        } else {
-            throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
         }
+
+        throw new Exception('Could not write attachments. Your directory may be unwritable by PHP.');
     }
 }

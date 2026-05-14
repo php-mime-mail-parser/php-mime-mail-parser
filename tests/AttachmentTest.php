@@ -2,15 +2,7 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
-use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\Exception;
 
-/**
- * Test Attachment of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
- */
 class AttachmentTest extends \PHPUnit\Framework\TestCase
 {
     public function testSaveAttachmentsFromParser()
@@ -127,6 +119,27 @@ class AttachmentTest extends \PHPUnit\Framework\TestCase
         $attachmentTxtFiles = glob($attachDir . '*.txt');
 
         // Clean up attachments dir
+        array_map('unlink', $attachmentFiles);
+        rmdir($attachDir);
+
+        $this->assertCount(3, $attachmentFiles);
+        $this->assertCount(2, $attachmentJpgFiles);
+        $this->assertCount(1, $attachmentTxtFiles);
+    }
+
+    public function testSavingWithEnumFilenameStrategyKeepExtension()
+    {
+        $file = __DIR__ . '/mails/m0025';
+        $Parser = new Parser();
+        $Parser->setPath($file);
+
+        $attachDir = __DIR__ . '/mails/m0025_enum_attachments/';
+        $Parser->saveAttachments($attachDir, true, AttachmentFilenameStrategy::RandomFilename);
+
+        $attachmentFiles = glob($attachDir . '*');
+        $attachmentJpgFiles = glob($attachDir . '*.jpg');
+        $attachmentTxtFiles = glob($attachDir . '*.txt');
+
         array_map('unlink', $attachmentFiles);
         rmdir($attachDir);
 

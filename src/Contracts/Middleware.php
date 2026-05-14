@@ -13,9 +13,6 @@ interface Middleware
 {
     /**
      *  Process a mime part, optionally delegating parsing to the $next MiddlewareStack
-     *
-     * @param MimePart $part
-     * @param MiddlewareStack $next
      */
     public function parse(MimePart $part, MiddlewareStack $next): MimePart;
 }

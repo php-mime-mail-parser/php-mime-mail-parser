@@ -4,77 +4,35 @@ namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Contracts\CharsetManager;
 
-/**
- * Parser of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
- */
 class Parser
 {
-    /**
-     * Attachment filename argument option for ->saveAttachments().
-     */
-    const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
-    const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
-    const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
+    const ATTACHMENT_DUPLICATE_THROW  = AttachmentFilenameStrategy::DuplicateThrow->value;
+    const ATTACHMENT_DUPLICATE_SUFFIX = AttachmentFilenameStrategy::DuplicateSuffix->value;
+    const ATTACHMENT_RANDOM_FILENAME  = AttachmentFilenameStrategy::RandomFilename->value;
 
-    /**
-     * PHP MimeParser Resource ID
-     */
     protected mixed $resource = null;
 
-    /**
-     * A file pointer to email
-     */
     protected mixed $stream = null;
 
-    /**
-     * A text of an email
-     */
     protected string $data = '';
 
-    /**
-     * Parts of an email
-     */
     protected array $parts = [];
 
-    /**
-     * Charset manager instance
-     */
     protected CharsetManager $charset;
 
-    /**
-     * Valid stream modes for reading
-     */
     protected static array $readableModes = [
         'r', 'r+', 'w+', 'a+', 'x+', 'c+', 'rb', 'r+b', 'w+b', 'a+b',
         'x+b', 'c+b', 'rt', 'r+t', 'w+t', 'a+t', 'x+t', 'c+t'
     ];
 
-    /**
-     * Stack of middleware registered to process data
-     */
     protected MiddlewareStack $middlewareStack;
 
-    /**
-     * Parser constructor.
-     *
-     * @param CharsetManager|null $charset
-     */
     public function __construct(?CharsetManager $charset = null)
     {
-        if ($charset === null) {
-            $charset = new Charset();
-        }
-
-        $this->charset = $charset;
+        $this->charset = $charset ?? new Charset();
         $this->middlewareStack = new MiddlewareStack();
     }
 
-    /**
-     * Free the held resources
-     */
     public function __destruct()
     {
         // clear the email file resource
@@ -88,16 +46,14 @@ class Parser
     }
 
     /**
-     * Set the file path we use to get the email text
-     *
-     * @param string $path File path to the MIME mail
+     * Set the file path used to parse the email.
      */
     public function setPath(string $path): self
     {
         if (is_writable($path)) {
             $file = fopen($path, 'a+');
             fseek($file, -1, SEEK_END);
-            if (fread($file, 1) != "\n") {
+            if (fread($file, 1) !== "\n") {
                 fwrite($file, PHP_EOL);
             }
             fclose($file);
@@ -116,15 +72,15 @@ class Parser
     }
 
     /**
-     * Set the Stream resource we use to get the email text
-     *
-     * @throws Exception
+     * Set the stream used to parse the email.
      */
     public function setStream(mixed $stream): self
     {
         // streams have to be cached to file first
         $meta = @stream_get_meta_data($stream);
-        if (!$meta || !$meta['mode'] || !in_array($meta['mode'], self::$readableModes, true)) {
+        $mode = $meta['mode'] ?? null;
+
+        if (!$mode || !in_array($mode, self::$readableModes, true)) {
             throw new Exception(
                 'setStream() expects parameter stream to be readable stream resource.'
             );
@@ -137,7 +93,7 @@ class Parser
                 fwrite($tmp_fp, fread($stream, 2028));
             }
 
-            if (fread($tmp_fp, 1) != "\n") {
+            if (fread($tmp_fp, 1) !== "\n") {
                 fwrite($tmp_fp, PHP_EOL);
             }
 
@@ -161,9 +117,7 @@ class Parser
     }
 
     /**
-     * Set the email text
-     *
-     * @param string $data
+     * Set the email text.
      */
     public function setText(string $data): self
     {
@@ -171,8 +125,8 @@ class Parser
             throw new Exception('You must not call MimeMailParser::setText with an empty string parameter');
         }
 
-        if (substr($data, -1) != "\n") {
-            $data = $data.PHP_EOL;
+        if (!str_ends_with($data, "\n")) {
+            $data .= PHP_EOL;
         }
 
         $this->resource = mailparse_msg_create();
@@ -184,9 +138,6 @@ class Parser
         return $this;
     }
 
-    /**
-     * Parse the Message into parts
-     */
     protected function parse(): void
     {
         if (!$this->resource) {
@@ -205,13 +156,7 @@ class Parser
         }
     }
 
-    /**
-     * Retrieve a specific Email Header, without charset conversion.
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @throws Exception
-     */
+    /** @return string|list<string>|false */
     public function getRawHeader(string $name): string|array|false
     {
         $name = strtolower($name);
@@ -226,11 +171,6 @@ class Parser
         }
     }
 
-    /**
-     * Retrieve a specific Email Header
-     *
-     * @param string $name Header name (case-insensitive)
-     */
     public function getHeader(string $name): string|false
     {
         $rawHeader = $this->getRawHeader($name);
@@ -241,11 +181,7 @@ class Parser
         return $this->decodeHeader($rawHeader);
     }
 
-    /**
-     * Retrieve all mail headers
-     *
-     * @throws Exception
-     */
+    /** @return array<string, string|list<string>> */
     public function getHeaders(): array
     {
         if (isset($this->parts[1])) {
@@ -268,11 +204,6 @@ class Parser
         }
     }
 
-    /**
-     * Retrieve the raw mail headers as a string
-     *
-     * @throws Exception
-     */
     public function getHeadersRaw(): string
     {
         if (isset($this->parts[1])) {
@@ -284,11 +215,6 @@ class Parser
         }
     }
 
-    /**
-     * Retrieve the raw Header of a MIME part
-     *
-     * @throws Exception
-     */
     protected function getPartHeader(array &$part): string
     {
         $header = '';
@@ -300,9 +226,6 @@ class Parser
         return $header;
     }
 
-    /**
-     * Retrieve the Header from a MIME part from file
-     */
     protected function getPartHeaderFromFile(array &$part): string
     {
         $start = $part['starting-pos'];
@@ -312,9 +235,6 @@ class Parser
         return $header;
     }
 
-    /**
-     * Retrieve the Header from a MIME part from text
-     */
     protected function getPartHeaderFromText(array &$part): string
     {
         $start = $part['starting-pos'];
@@ -326,9 +246,6 @@ class Parser
     /**
      * Checks whether a given part ID is a child of another part
      * eg. an RFC822 attachment may have one or more text parts
-     *
-     * @param string $partId
-     * @param string $parentPartId
      */
     protected function partIdIsChildOfPart(string $partId, string $parentPartId): bool
     {
@@ -338,8 +255,6 @@ class Parser
 
     /**
      * Whether the given part ID is a child of any attachment part in the message.
-     *
-     * @param string $checkPartId
      */
     protected function partIdIsChildOfAnAttachment(string $checkPartId): bool
     {
@@ -353,15 +268,12 @@ class Parser
         return false;
     }
 
-    /**
-     * Returns the email message body in the specified format
-     *
-     * @param string $type text, html or htmlEmbedded
-     *
-     * @throws Exception
-     */
-    public function getMessageBody(string $type = 'text'): string
+    public function getMessageBody(string|MessageBodyType $type = MessageBodyType::Text): string
     {
+        if ($type instanceof MessageBodyType) {
+            $type = $type->value;
+        }
+
         $mime_types = [
             'text'         => 'text/plain',
             'html'         => 'text/html',
@@ -394,11 +306,6 @@ class Parser
         return $body;
     }
 
-    /**
-     * Returns the embedded data structure
-     *
-     * @param string $contentId Content-Id
-     */
     protected function getEmbeddedData(string $contentId): string
     {
         foreach ($this->parts as $part) {
@@ -413,13 +320,7 @@ class Parser
         return '';
     }
 
-    /**
-     * Return an array with the following keys display, address, is_group
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return array<int, array{'display': string, 'address': string, 'is_group': bool}>
-     */
+    /** @return array<int, array{'display': string, 'address': string, 'is_group': bool}> */
     public function getAddresses($name)
     {
         $value = $this->getRawHeader($name);
@@ -432,9 +333,8 @@ class Parser
     }
 
     /**
-     * Returns the inline parts contents (text or HTML)
-     *
-     * @return string[] The decoded inline parts.
+     * @param 'text'|'html' $type
+     * @return list<string>
      */
     public function getInlineParts(string $type = 'text'): array
     {
@@ -464,11 +364,7 @@ class Parser
         return $inline_parts;
     }
 
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
+    /** @return list<Attachment> */
     public function getAttachments(bool $include_inline = true): array
     {
         $attachments = [];
@@ -530,21 +426,11 @@ class Parser
         return $attachments;
     }
 
-    /**
-     * Save attachments in a folder
-     *
-     * @param string $attach_dir directory
-     * @param bool $include_inline
-     * @param string $filenameStrategy How to generate attachment filenames
-     *
-     * @throws Exception
-     *
-     * @return array Saved attachments paths
-     */
+    /** @return list<string|false> */
     public function saveAttachments(
         string $attach_dir,
         bool $include_inline = true,
-        string $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
+        string|AttachmentFilenameStrategy $filenameStrategy = self::ATTACHMENT_DUPLICATE_SUFFIX
     ): array {
         $attachments = $this->getAttachments($include_inline);
 
@@ -556,15 +442,6 @@ class Parser
         return $attachments_paths;
     }
 
-    /**
-     * Read the attachment Body and save temporary file resource
-     *
-     * @param array $part
-     *
-     * @throws Exception
-     *
-     * @return mixed Mime Body Part
-     */
     protected function getAttachmentStream(array &$part): mixed
     {
         /** @var resource $temp_fp */
@@ -601,12 +478,6 @@ class Parser
         return $temp_fp;
     }
 
-    /**
-     * Decode the string from Content-Transfer-Encoding
-     *
-     * @param string $encodedString The string in its original encoded state
-     * @param string $encodingType  The encoding type from the Content-Transfer-Encoding header of the part.
-     */
     protected function decodeContentTransfer(string $encodedString, string|array $encodingType): string
     {
         if (is_array($encodingType)) {
@@ -623,11 +494,6 @@ class Parser
         }
     }
 
-    /**
-     * $input can be a string or array
-     *
-     * @param string|array $input
-     */
     protected function decodeHeader(string|array $input): string
     {
         //Sometimes we have 2 label From so we take only the first
@@ -638,11 +504,6 @@ class Parser
         return $this->decodeSingleHeader($input);
     }
 
-    /**
-     * Decodes a single header (= string)
-     *
-     * @param string $input
-     */
     protected function decodeSingleHeader(string $input): string
     {
         // For each encoded-word...
@@ -674,11 +535,6 @@ class Parser
         return $input;
     }
 
-    /**
-     * Return the charset of the MIME part
-     *
-     * @param array $part
-     */
     protected function getPartCharset(array $part): string
     {
         if (isset($part['charset'])) {
@@ -688,24 +544,11 @@ class Parser
         }
     }
 
-    /**
-     * Retrieve a specified MIME part
-     *
-     * @param string $type
-     * @param array  $parts
-     *
-     * @return string|array
-     */
     protected function getPart($type, $parts)
     {
         return (isset($parts[$type])) ? $parts[$type] : false;
     }
 
-    /**
-     * Retrieve the Body of a MIME part
-     *
-     * @param array $part
-     */
     protected function getPartBody(array &$part): string
     {
         $body = '';
@@ -718,11 +561,6 @@ class Parser
         return $body;
     }
 
-    /**
-     * Retrieve the Body from a MIME part from file
-     *
-     * @param array $part
-     */
     protected function getPartBodyFromFile(array &$part): string
     {
         $start = $part['starting-pos-body'];
@@ -736,11 +574,6 @@ class Parser
         return $body;
     }
 
-    /**
-     * Retrieve the Body from a MIME part from text
-     *
-     * @param array $part
-     */
     protected function getPartBodyFromText(array &$part): string
     {
         $start = $part['starting-pos-body'];
@@ -749,11 +582,6 @@ class Parser
         return substr($this->data, $start, $end - $start);
     }
 
-    /**
-     * Retrieve the content of a MIME part
-     *
-     * @param array $part
-     */
     protected function getPartComplete(array &$part): string
     {
         $body = '';
@@ -766,11 +594,6 @@ class Parser
         return $body;
     }
 
-    /**
-     * Retrieve the content from a MIME part from file
-     *
-     * @param array $part
-     */
     protected function getPartFromFile(array &$part): string
     {
         $start = $part['starting-pos'];
@@ -784,11 +607,6 @@ class Parser
         return $body;
     }
 
-    /**
-     * Retrieve the content from a MIME part from text
-     *
-     * @param array $part
-     */
     protected function getPartFromText(array &$part): string
     {
         $start = $part['starting-pos'];
@@ -797,41 +615,26 @@ class Parser
         return substr($this->data, $start, $end - $start);
     }
 
-    /**
-     * Retrieve the resource
-     */
     public function getResource(): mixed
     {
         return $this->resource;
     }
 
-    /**
-     * Retrieve the file pointer to email
-     */
     public function getStream(): mixed
     {
         return $this->stream;
     }
 
-    /**
-     * Retrieve the text of an email
-     */
     public function getData(): string
     {
         return $this->data;
     }
 
-    /**
-     * Retrieve the parts of an email
-     */
     public function getParts(): array
     {
         return $this->parts;
     }
 
-    /**
-     * Retrieve the charset manager object
-     */
     public function getCharset(): CharsetManager
     {
         return $this->charset;

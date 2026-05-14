@@ -4,9 +4,6 @@ use PhpMimeMailParser\Contracts\CharsetManager;
 
 class Charset implements CharsetManager
 {
-    /**
-     * Charset Aliases
-     */
     private array $charsetAlias = [
         'ascii'                    => 'us-ascii',
         'us-ascii'                 => 'us-ascii',

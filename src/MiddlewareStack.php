@@ -9,14 +9,8 @@ use PhpMimeMailParser\Contracts\MiddleWare as MiddleWareContracts;
  */
 class MiddlewareStack
 {
-    /**
-     * Next MiddlewareStack in chain
-     */
     protected ?MiddlewareStack $next = null;
 
-    /**
-     * Middleware in this MiddlewareStack
-     */
     protected ?MiddleWareContracts $middleware = null;
 
     /**
@@ -30,8 +24,6 @@ class MiddlewareStack
 
     /**
      * Creates a chained middleware in MiddlewareStack
-     *
-     * @return MiddlewareStack Immutable MiddlewareStack
      */
     public function add(MiddleWareContracts $middleware): self
     {
@@ -55,7 +47,7 @@ class MiddlewareStack
     /**
      * Creates a MiddlewareStack based on an array of middleware
      *
-     * @param Middleware[] $middlewares
+     * @param list<MiddleWareContracts> $middlewares
      */
     public static function factory(array $middlewares = []): self
     {
@@ -68,9 +60,6 @@ class MiddlewareStack
 
     /**
      * Allow calling MiddlewareStack instance directly to invoke parse()
-     *
-     * @param MimePart $part
-     * @return MimePart
      */
     public function __invoke(MimePart $part)
     {

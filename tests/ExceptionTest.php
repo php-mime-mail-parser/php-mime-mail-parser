@@ -1,17 +1,14 @@
 <?php
 
 namespace {
-
-    use PhpMimeMailParser\Parser;
-    use PhpMimeMailParser\Attachment;
-    use PhpMimeMailParser\Exception;
-
     // This allow us to configure the behavior of the "global mock"
     $mockTmpFile = false;
     $mockFopen = false;
 }
 
 namespace PhpMimeMailParser {
+
+    use PhpMimeMailParser\Parser;
 
     function tmpfile()
     {
@@ -32,13 +29,6 @@ namespace PhpMimeMailParser {
             return call_user_func_array('\fopen', func_get_args());
         }
     }
-
-    /**
-     * ExceptionTest of php-mime-mail-parser
-     *
-     * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
-     *
-     */
 
     class ExceptionTest extends \PHPUnit\Framework\TestCase
     {
@@ -182,6 +172,27 @@ namespace PhpMimeMailParser {
             $mockFopen = true;
 
             $Parser->saveAttachments($attach_dir);
+        }
+
+        public function testSaveAttachmentsDirectoryCreationFailure()
+        {
+            $this->expectException(Exception::class);
+            $this->expectExceptionMessage('Could not create attachments directory.');
+
+            $mid = 'm0001';
+            $file = __DIR__ . '/mails/' . $mid;
+            $pathAsFile = tempnam(sys_get_temp_dir(), 'pmmp_');
+            $attach_dir = $pathAsFile . '/child';
+
+            try {
+                $Parser = new Parser();
+                $Parser->setStream(fopen($file, 'r'));
+                $Parser->saveAttachments($attach_dir);
+            } finally {
+                if (is_file($pathAsFile)) {
+                    unlink($pathAsFile);
+                }
+            }
         }
 
         public function testSaveAttachmentsWithDuplicateNames()

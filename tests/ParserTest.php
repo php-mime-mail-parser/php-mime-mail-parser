@@ -2,16 +2,8 @@
 namespace PhpMimeMailParser;
 
 use PhpMimeMailParser\Parser;
-use PhpMimeMailParser\Attachment;
-use PhpMimeMailParser\Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 
-/**
- * Test Parser of php-mime-mail-parser
- *
- * Fully Tested Mailparse Extension Wrapper for PHP 5.4+
- *
- */
 class ParserTest extends \PHPUnit\Framework\TestCase
 {
 
@@ -108,6 +100,17 @@ class ParserTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('Scientific conferences, Bulgaria 2019', $Parser->getHeader('subject'));
         $body = $Parser->getMessageBody('text');
         $this->assertEquals(is_string($body), true);
+    }
+
+    public function testGetMessageBodyWithEnum()
+    {
+        $file = __DIR__ . '/mails/m0028';
+        $Parser = new Parser();
+        $Parser->setText(file_get_contents($file));
+
+        $body = $Parser->getMessageBody(MessageBodyType::Text);
+
+        $this->assertSame($body, 'This is the plain text content of the email');
     }
 
     /**
