@@ -24,6 +24,7 @@ class MimePart implements \ArrayAccess
 
     private readonly string $id;
 
+    /** @param array<string, mixed> $part */
     public function __construct(string $id, array $part)
     {
         $this->part = $part;
@@ -38,17 +39,13 @@ class MimePart implements \ArrayAccess
         return $this->id;
     }
 
-    /**
-     * Retrieve the part data
-     */
+    /** @return array<string, mixed> */
     public function getPart(): array
     {
         return $this->part;
     }
 
-    /**
-     * Set the mime part data
-     */
+    /** @param array<string, mixed> $part */
     public function setPart(array $part): void
     {
         $this->part = $part;

@@ -156,6 +156,7 @@ class Parser
         }
     }
 
+    /** @return string|list<string>|false */
     public function getRawHeader(string $name): string|array|false
     {
         $name = strtolower($name);
@@ -180,6 +181,7 @@ class Parser
         return $this->decodeHeader($rawHeader);
     }
 
+    /** @return array<string, string|list<string>> */
     public function getHeaders(): array
     {
         if (isset($this->parts[1])) {
@@ -266,9 +268,6 @@ class Parser
         return false;
     }
 
-    /**
-     * Returns the email message body in the specified format
-     */
     public function getMessageBody(string|MessageBodyType $type = MessageBodyType::Text): string
     {
         if ($type instanceof MessageBodyType) {
@@ -321,13 +320,7 @@ class Parser
         return '';
     }
 
-    /**
-     * Return an array with the following keys display, address, is_group
-     *
-     * @param string $name Header name (case-insensitive)
-     *
-     * @return array<int, array{'display': string, 'address': string, 'is_group': bool}>
-     */
+    /** @return array<int, array{'display': string, 'address': string, 'is_group': bool}> */
     public function getAddresses($name)
     {
         $value = $this->getRawHeader($name);
@@ -340,9 +333,8 @@ class Parser
     }
 
     /**
-     * Returns the inline parts contents (text or HTML)
-     *
-     * @return string[] The decoded inline parts.
+     * @param 'text'|'html' $type
+     * @return list<string>
      */
     public function getInlineParts(string $type = 'text'): array
     {
@@ -372,11 +364,7 @@ class Parser
         return $inline_parts;
     }
 
-    /**
-     * Returns the attachments contents in order of appearance
-     *
-     * @return Attachment[]
-     */
+    /** @return list<Attachment> */
     public function getAttachments(bool $include_inline = true): array
     {
         $attachments = [];
@@ -438,6 +426,7 @@ class Parser
         return $attachments;
     }
 
+    /** @return list<string|false> */
     public function saveAttachments(
         string $attach_dir,
         bool $include_inline = true,
@@ -505,11 +494,6 @@ class Parser
         }
     }
 
-    /**
-     * $input can be a string or array
-     *
-     * @param string|array $input
-     */
     protected function decodeHeader(string|array $input): string
     {
         //Sometimes we have 2 label From so we take only the first
@@ -520,11 +504,6 @@ class Parser
         return $this->decodeSingleHeader($input);
     }
 
-    /**
-     * Decodes a single header (= string)
-     *
-     * @param string $input
-     */
     protected function decodeSingleHeader(string $input): string
     {
         // For each encoded-word...

@@ -8,6 +8,10 @@ class Attachment
 
     public int $maxDuplicateNumber = 100;
 
+    /**
+     * @param resource $stream
+     * @param array<string, mixed> $headers
+     */
     public function __construct(
         protected readonly string $filename,
         protected readonly string $contentType,
@@ -51,9 +55,7 @@ class Attachment
         return $this->contentId;
     }
 
-    /**
-     * Retrieve the Attachment Headers
-     */
+    /** @return array<string, mixed> */
     public function getHeaders(): array
     {
         return $this->headers;
