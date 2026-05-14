@@ -141,8 +141,7 @@ class Attachment
     public function save(
         string $attach_dir,
         string|AttachmentFilenameStrategy $filenameStrategy = Parser::ATTACHMENT_DUPLICATE_SUFFIX
-    ): string|false
-    {
+    ): string|false {
         if ($filenameStrategy instanceof AttachmentFilenameStrategy) {
             $filenameStrategy = $filenameStrategy->value;
         }
