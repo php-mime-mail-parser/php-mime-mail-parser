@@ -6,9 +6,9 @@ use PhpMimeMailParser\Contracts\CharsetManager;
 
 class Parser
 {
-    const ATTACHMENT_DUPLICATE_THROW  = 'DuplicateThrow';
-    const ATTACHMENT_DUPLICATE_SUFFIX = 'DuplicateSuffix';
-    const ATTACHMENT_RANDOM_FILENAME  = 'RandomFilename';
+    const ATTACHMENT_DUPLICATE_THROW  = AttachmentFilenameStrategy::DuplicateThrow->value;
+    const ATTACHMENT_DUPLICATE_SUFFIX = AttachmentFilenameStrategy::DuplicateSuffix->value;
+    const ATTACHMENT_RANDOM_FILENAME  = AttachmentFilenameStrategy::RandomFilename->value;
 
     protected mixed $resource = null;
 
